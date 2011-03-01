@@ -33,6 +33,7 @@ import org.syphr.mythtv.proto.data.GenPixMapResponse;
 import org.syphr.mythtv.proto.data.Load;
 import org.syphr.mythtv.proto.data.MemStats;
 import org.syphr.mythtv.proto.data.ProgramInfo;
+import org.syphr.mythtv.proto.data.RecorderInfo;
 import org.syphr.mythtv.proto.data.TimeInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
 import org.syphr.mythtv.proto.events.BackendEventGrabber;
@@ -131,7 +132,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public int checkRecording(ProgramInfo program) throws IOException
+    public RecorderInfo checkRecording(ProgramInfo program) throws IOException
     {
         return new Command63CheckRecording(program).send(getSocketManager());
     }
@@ -197,7 +198,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public List<Integer> getFreeRecorderList() throws IOException
+    public List<RecorderInfo> getFreeRecorderList() throws IOException
     {
         return new Command63GetFreeRecorderList().send(getSocketManager());
     }
@@ -353,9 +354,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public QueryRecorder queryRecorder(int recorderId)
+    public QueryRecorder queryRecorder(RecorderInfo recorder)
     {
-        return new QueryRecorder63(recorderId, getSocketManager());
+        return new QueryRecorder63(recorder.getId(), getSocketManager());
     }
 
     @Override

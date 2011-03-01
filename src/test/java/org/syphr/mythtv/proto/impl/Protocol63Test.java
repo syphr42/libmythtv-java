@@ -30,6 +30,7 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
+import org.syphr.mythtv.proto.data.RecorderInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
@@ -73,13 +74,13 @@ public class Protocol63Test
         List<ProgramInfo> expiringPrograms = proto.queryGetExpiring();
         if (!expiringPrograms.isEmpty())
         {
-            Assert.assertEquals(0, proto.checkRecording(expiringPrograms.get(0)));
+            Assert.assertFalse(proto.checkRecording(expiringPrograms.get(0)).isRecorderValid());
         }
 
         List<ProgramInfo> recPrograms = proto.queryRecordings(RecordingCategory.RECORDING);
         if (!recPrograms.isEmpty())
         {
-            Assert.assertNotSame(0, proto.checkRecording(recPrograms.get(0)));
+            Assert.assertTrue(proto.checkRecording(recPrograms.get(0)).isRecorderValid());
         }
     }
 
@@ -92,7 +93,7 @@ public class Protocol63Test
             Assert.fail();
         }
 
-        List<Integer> freeRecorders = proto.getFreeRecorderList();
+        List<RecorderInfo> freeRecorders = proto.getFreeRecorderList();
 
         Assert.assertEquals(count, freeRecorders.size());
 

@@ -27,6 +27,7 @@ import org.syphr.mythtv.proto.data.GenPixMapResponse;
 import org.syphr.mythtv.proto.data.Load;
 import org.syphr.mythtv.proto.data.MemStats;
 import org.syphr.mythtv.proto.data.ProgramInfo;
+import org.syphr.mythtv.proto.data.RecorderInfo;
 import org.syphr.mythtv.proto.data.TimeInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
 import org.syphr.mythtv.proto.events.BackendEventListener;
@@ -144,13 +145,14 @@ public interface Protocol
      *
      * @param program
      *            the program to check
-     * @return the appropriate recorder ID or 0 if the program is not currently
-     *         being recorded
+     * @return the recorder that is actively recording the program, which may be
+     *         invalid if the program is not currently recording (see
+     *         {@link RecorderInfo#isRecorderValid()})
      * @throws IOException
      *
      * @since 63
      */
-    public int checkRecording(ProgramInfo program) throws IOException;
+    public RecorderInfo checkRecording(ProgramInfo program) throws IOException;
 
     // TODO
     public void deleteFile() throws IOException;
@@ -192,13 +194,15 @@ public interface Protocol
 
     /**
      * Retrieve a list of recorders that are online, but not busy or locked.
+     * This list is guaranteed to contain only
+     * {@link RecorderInfo#isRecorderValid() valid} recorders.
      *
      * @return the list of free recorders
      * @throws IOException
      *
      * @since 63
      */
-    public List<Integer> getFreeRecorderList() throws IOException;
+    public List<RecorderInfo> getFreeRecorderList() throws IOException;
 
     // TODO
     public void getNextFreeRecorder() throws IOException;
@@ -366,11 +370,11 @@ public interface Protocol
     /**
      * Get a sub-protocol object that provides an API to interrogate a specific recorder.
      *
-     * @param recorderId
-     *            the ID of the recorder to interrogate
+     * @param recorder
+     *            the recorder to interrogate
      * @return an object that provides capabilities to interrogate the specified recorder
      */
-    public QueryRecorder queryRecorder(int recorderId);
+    public QueryRecorder queryRecorder(RecorderInfo recorder);
 
     // TODO
     public void queryRecordingBasename() throws IOException;

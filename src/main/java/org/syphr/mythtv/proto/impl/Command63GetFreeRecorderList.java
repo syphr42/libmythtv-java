@@ -21,15 +21,16 @@ import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.data.RecorderInfo;
 
-/* default */class Command63GetFreeRecorderList implements Command<List<Integer>>
+/* default */class Command63GetFreeRecorderList implements Command<List<RecorderInfo>>
 {
     @Override
-    public List<Integer> send(SocketManager socketManager) throws IOException
+    public List<RecorderInfo> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait("GET_FREE_RECORDER_LIST");
 
-        List<Integer> freeRecorders = new ArrayList<Integer>();
+        List<RecorderInfo> freeRecorders = new ArrayList<RecorderInfo>();
 
         if ("0".equals(response))
         {
@@ -41,7 +42,7 @@ import org.syphr.mythtv.proto.SocketManager;
         {
             for (String arg : args)
             {
-                freeRecorders.add(Integer.valueOf(arg));
+                freeRecorders.add(new RecorderInfo(Integer.valueOf(arg), null, -1));
             }
 
             return freeRecorders;
