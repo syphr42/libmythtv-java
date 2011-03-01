@@ -275,6 +275,22 @@ public class Protocol63Test
     }
 
     @Test
+    public void testQuerySetting() throws IOException
+    {
+        String invalidHost = "!!!!!!!";
+        String validHost = settings.getProperty(Settings.FRONTEND_HOST);
+
+        String invalidKey = "@@@@@@@";
+        String validKey = "Theme";
+
+        Assert.assertNull(proto.querySetting(invalidHost, validKey));
+        Assert.assertNull(proto.querySetting(validHost, invalidKey));
+        Assert.assertNull(proto.querySetting(invalidHost, invalidKey));
+
+        Assert.assertNotNull(proto.querySetting(validHost, validKey));
+    }
+
+    @Test
     public void testQueryTimeZone() throws IOException
     {
         System.out.println(proto.queryTimeZone());

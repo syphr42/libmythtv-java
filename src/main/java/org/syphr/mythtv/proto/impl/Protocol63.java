@@ -386,9 +386,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void querySetting() throws IOException
+    public String querySetting(String host, String key) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QuerySetting(host, key).send(getSocketManager());
     }
 
     @Override

@@ -29,6 +29,8 @@ public enum Settings implements Defaultable
     BACKEND_PORT("6543"),
     BACKEND_TIMEOUT("10000"),
 
+    FRONTEND_HOST("localhost"),
+
     PROTOCOL_VERSION(ProtocolVersion.SIXTY_THREE.name()),
 
     BUFFER_SIZE("8192"),

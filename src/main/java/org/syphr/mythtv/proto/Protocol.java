@@ -470,8 +470,20 @@ public interface Protocol
     // TODO
     public void queryRemoteEncoder() throws IOException;
 
-    // TODO
-    public void querySetting() throws IOException;
+    /**
+     * Retrieve the current value of a setting.
+     *
+     * @param host
+     *            the host to which the setting pertains
+     * @param key
+     *            the name of the setting
+     * @return the value of the setting or <code>null</code> if there is no
+     *         value
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public String querySetting(String host, String key) throws IOException;
 
     // TODO
     public void querySgFileQuery() throws IOException;
