@@ -19,14 +19,41 @@ public class Channel
 {
     private final int id;
 
+    private String number;
+    private String callsign;
+    private String name;
+
     public Channel(int id)
     {
         this.id = id;
     }
 
+    public Channel(int id, String number, String callsign, String name)
+    {
+        this.id = id;
+        this.number = number;
+        this.callsign = callsign;
+        this.name = name;
+    }
+
     public int getId()
     {
         return id;
+    }
+
+    public String getNumber()
+    {
+        return number;
+    }
+
+    public String getCallsign()
+    {
+        return callsign;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     @Override
@@ -35,6 +62,12 @@ public class Channel
         StringBuilder builder = new StringBuilder();
         builder.append("Channel [id=");
         builder.append(id);
+        builder.append(", number=");
+        builder.append(number);
+        builder.append(", callsign=");
+        builder.append(callsign);
+        builder.append(", name=");
+        builder.append(name);
         builder.append("]");
         return builder.toString();
     }

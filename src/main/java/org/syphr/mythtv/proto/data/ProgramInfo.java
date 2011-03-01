@@ -27,10 +27,7 @@ public class ProgramInfo
     private final String subtitle;
     private final String description;
     private final String category;
-    private final int chanId;
-    private final String chanNum;
-    private final String callsign;
-    private final String chanName;
+    private final Channel channel;
     private final URI filename;
     private final long fileSize;
     private final Date startTime;
@@ -69,10 +66,7 @@ public class ProgramInfo
                        String subtitle,
                        String description,
                        String category,
-                       int chanId,
-                       String chanNum,
-                       String callsign,
-                       String chanName,
+                       Channel channel,
                        URI filename,
                        long fileSize,
                        Date startTime,
@@ -111,10 +105,7 @@ public class ProgramInfo
         this.subtitle = subtitle;
         this.description = description;
         this.category = category;
-        this.chanId = chanId;
-        this.chanNum = chanNum;
-        this.callsign = callsign;
-        this.chanName = chanName;
+        this.channel = channel;
         this.filename = filename;
         this.fileSize = fileSize;
         this.startTime = new Date(startTime.getTime());
@@ -170,24 +161,9 @@ public class ProgramInfo
         return category;
     }
 
-    public int getChanId()
+    public Channel getChannel()
     {
-        return chanId;
-    }
-
-    public String getChanNum()
-    {
-        return chanNum;
-    }
-
-    public String getCallsign()
-    {
-        return callsign;
-    }
-
-    public String getChanName()
-    {
-        return chanName;
+        return channel;
     }
 
     public URI getFilename()
@@ -367,14 +343,8 @@ public class ProgramInfo
         builder.append(description);
         builder.append(", category=");
         builder.append(category);
-        builder.append(", chanId=");
-        builder.append(chanId);
-        builder.append(", chanNum=");
-        builder.append(chanNum);
-        builder.append(", callsign=");
-        builder.append(callsign);
-        builder.append(", chanName=");
-        builder.append(chanName);
+        builder.append(", channel=");
+        builder.append(channel);
         builder.append(", filename=");
         builder.append(filename);
         builder.append(", fileSize=");
@@ -450,8 +420,10 @@ public class ProgramInfo
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + chanId;
-        result = prime * result + ((recStartTs == null) ? 0 : recStartTs.hashCode());
+        result = prime * result + ((channel == null) ? 0 : channel.hashCode());
+        result = prime
+                 * result
+                 + ((recStartTs == null) ? 0 : recStartTs.hashCode());
         return result;
     }
 
@@ -470,8 +442,15 @@ public class ProgramInfo
         {
             return false;
         }
-        ProgramInfo other = (ProgramInfo)obj;
-        if (chanId != other.chanId)
+        ProgramInfo other = (ProgramInfo) obj;
+        if (channel == null)
+        {
+            if (other.channel != null)
+            {
+                return false;
+            }
+        }
+        else if (!channel.equals(other.channel))
         {
             return false;
         }

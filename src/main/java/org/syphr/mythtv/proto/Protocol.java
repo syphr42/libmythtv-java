@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.syphr.mythtv.proto.data.Channel;
+import org.syphr.mythtv.proto.data.CommBreakInfo;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.FileTransferType;
 import org.syphr.mythtv.proto.data.GenPixMapResponse;
@@ -274,8 +275,20 @@ public interface Protocol
      */
     public URI queryCheckFile(boolean checkSlaves, ProgramInfo program) throws IOException;
 
-    // TODO
-    public void queryCommBreak() throws IOException;
+    /**
+     * Retrieve the list of commercial breaks found for the the recording at the
+     * given channel and start time.
+     *
+     * @param channel
+     *            the channel on which the program aired
+     * @param startTime
+     *            the time the program started
+     * @return the list of commercial breaks
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public List<CommBreakInfo> queryCommBreak(Channel channel, Date startTime) throws IOException;
 
     // TODO
     public void queryCutList() throws IOException;

@@ -28,6 +28,7 @@ import org.syphr.mythtv.proto.QueryFileTransfer;
 import org.syphr.mythtv.proto.QueryRecorder;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
+import org.syphr.mythtv.proto.data.CommBreakInfo;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.FileTransferType;
 import org.syphr.mythtv.proto.data.GenPixMapResponse;
@@ -247,9 +248,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryCommBreak() throws IOException
+    public List<CommBreakInfo> queryCommBreak(Channel channel, Date startTime) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryCommBreak(channel, startTime).send(getSocketManager());
     }
 
     @Override

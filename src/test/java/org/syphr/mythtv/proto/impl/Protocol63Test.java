@@ -27,7 +27,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.syphr.mythtv.proto.Protocol;
 import org.syphr.mythtv.proto.SocketManager;
-import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.RecorderInfo;
@@ -137,11 +136,30 @@ public class Protocol63Test
 
         ProgramInfo program = recordings.get(0);
         System.out.println("URI for "
-                           + program.getChanId()
+                           + program.getChannel()
                            + "/"
                            + program.getRecStartTs()
                            + ": "
                            + proto.queryCheckFile(true, program));
+    }
+
+    @Test
+    public void testQueryCommBreak() throws IOException
+    {
+        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
+        if (recordings.isEmpty())
+        {
+            return;
+        }
+
+        ProgramInfo program = recordings.get(0);
+        System.out.println("Commercial breaks for "
+                           + program.getChannel()
+                           + "/"
+                           + program.getStartTime()
+                           + ": "
+                           + proto.queryCommBreak(program.getChannel(),
+                                                  program.getStartTime()));
     }
 
     @Test
@@ -252,7 +270,7 @@ public class Protocol63Test
 
         ProgramInfo program = allRecordings.get(0);
         Assert.assertEquals(program,
-                            proto.queryRecordingTimeslot(new Channel(program.getChanId()),
+                            proto.queryRecordingTimeslot(program.getChannel(),
                                                          program.getStartTime()));
     }
 
