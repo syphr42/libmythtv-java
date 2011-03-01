@@ -1,0 +1,14 @@
+MythTV Java API
+ 
+  libmythtv-java is an API to access the MythTV ecosystem. It provides a
+  low-level backend protocol implementation that is easily extensible as 
+  MythTV development continues. In the future, this library will also 
+  provide higher-level APIs for interacting with all elements of MythTV. 
+  
+  {{{http://mythtv.org}MythTV}} is an open source DVR system that provides
+  a distributed client/server model for recording and watching TV as well 
+  as a full media environment for movies, music, and games.
+  
+  <<Please note that this project and its author are not in any way affiliated
+  with the MythTV project and are in no way endorsed by that project or its
+  authors.>>

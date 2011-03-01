@@ -1,0 +1,70 @@
+Direct Myth Protocol Access
+
+  Create a connection to a MythTV backend using a specific protocol implementation.
+
++------------------------------------------------------
+  SocketManager socketManager = new SocketManager();
+  socketManager.connect("localhost", 6543, 10000);
+
+  Protocol proto = ProtocolFactory.createInstance(ProtocolVersion.SIXTY_THREE, 
+                                                  socketManager);
+                                                  
+  proto.mythProtoVersion();
+  proto.ann(ConnectionType.MONITOR,
+            InetAddress.getLocalHost().getHostName(),
+            EventLevel.NONE);
+            
+  TimeInfo timeInfo = proto.queryTimeZone();
+  System.out.println("Backend time: " + timeInfo.getDateTime());
+  
+  proto.done();
+  socketManager.disconnect();
++------------------------------------------------------
+
+Backend Events
+
+  Listen for broadcast messages from a backend server.
+  
++------------------------------------------------------
+  SocketManager socketManager = new SocketManager();
+  socketManager.connect("localhost", 6543, 10000);
+
+  Protocol proto = ProtocolFactory.createInstance(ProtocolVersion.SIXTY_THREE),
+                                                  socketManager);
+                                                  
+  proto.addBackendEventListener(new BackendEventListener63()
+  {
+        @Override
+        public void systemEvent(SystemEvent event,
+                                Map<SystemEventData, String> data)
+        {
+            System.out.println("System event: " + event + ", " + data);
+        }
+        
+        ...
+  });
+  
+  System.out.println("Listening for backend events at level " + level);
+  System.out.println("Hit [ENTER] to quit.");
+  System.out.println();
+
+  try
+  {
+        proto.mythProtoVersion();
+        proto.ann(ConnectionType.MONITOR, InetAddress.getLocalHost().getHostName(), level);
+    
+        try
+        {
+            BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+            input.readLine();
+        }
+        finally
+        {
+            proto.done();
+        }
+  }
+  finally
+  {
+        socketManager.disconnect();
+  }
++------------------------------------------------------
