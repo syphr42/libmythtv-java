@@ -67,7 +67,7 @@ public class QueryRecorderTest
     }
 
     @Test
-    public void isRecordingTest() throws IOException
+    public void testIsRecording() throws IOException
     {
         System.out.println("Is recording? " + queryRecorder.isRecording());
     }

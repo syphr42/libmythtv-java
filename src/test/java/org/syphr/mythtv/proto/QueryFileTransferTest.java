@@ -72,7 +72,7 @@ public class QueryFileTransferTest
     }
 
     @Test
-    public void readFileTest() throws IOException
+    public void testReadFile() throws IOException
     {
         List<ProgramInfo> programs = commandProto.queryRecordings(RecordingCategory.PLAY);
         if (programs.isEmpty())
