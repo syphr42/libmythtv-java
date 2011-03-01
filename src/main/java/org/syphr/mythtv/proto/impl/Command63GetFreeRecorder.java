@@ -16,35 +16,30 @@
 package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.data.RecorderInfo;
 
-/* default */class Command63GetFreeRecorderList implements Command<List<Integer>>
+/* default */class Command63GetFreeRecorder implements Command<RecorderInfo>
 {
     @Override
-    public List<Integer> send(SocketManager socketManager) throws IOException
+    public RecorderInfo send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("GET_FREE_RECORDER_LIST");
-
-        List<Integer> freeRecorders = new ArrayList<Integer>();
-
-        if ("0".equals(response))
-        {
-            return freeRecorders;
-        }
+        String response = socketManager.sendAndWait("GET_FREE_RECORDER");
 
         List<String> args = Protocol63Utils.getArguments(response);
+        if (args.size() != 3)
+        {
+            throw new ProtocolException(response);
+        }
+
         try
         {
-            for (String arg : args)
-            {
-                freeRecorders.add(Integer.valueOf(arg));
-            }
-
-            return freeRecorders;
+            return new RecorderInfo(Integer.parseInt(args.get(0)),
+                                    args.get(1),
+                                    Integer.parseInt(args.get(2)));
         }
         catch (NumberFormatException e)
         {

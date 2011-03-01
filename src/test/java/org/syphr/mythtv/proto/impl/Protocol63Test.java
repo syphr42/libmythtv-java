@@ -74,13 +74,13 @@ public class Protocol63Test
         List<ProgramInfo> expiringPrograms = proto.queryGetExpiring();
         if (!expiringPrograms.isEmpty())
         {
-            Assert.assertFalse(proto.checkRecording(expiringPrograms.get(0)).isRecorderValid());
+            Assert.assertEquals(0, proto.checkRecording(expiringPrograms.get(0)));
         }
 
         List<ProgramInfo> recPrograms = proto.queryRecordings(RecordingCategory.RECORDING);
         if (!recPrograms.isEmpty())
         {
-            Assert.assertTrue(proto.checkRecording(recPrograms.get(0)).isRecorderValid());
+            Assert.assertNotSame(0, proto.checkRecording(recPrograms.get(0)));
         }
     }
 
@@ -93,12 +93,37 @@ public class Protocol63Test
             Assert.fail();
         }
 
-        List<RecorderInfo> freeRecorders = proto.getFreeRecorderList();
+        List<Integer> freeRecorders = proto.getFreeRecorderList();
 
         Assert.assertEquals(count, freeRecorders.size());
 
         System.out.println("Free recorder count: " + count);
         System.out.println("Free recorders: " + freeRecorders);
+
+        RecorderInfo freeRecorder = proto.getFreeRecorder();
+        if (count > 0)
+        {
+            Assert.assertTrue(freeRecorder.isValid());
+        }
+        else
+        {
+            Assert.assertFalse(freeRecorder.isValid());
+        }
+
+        System.out.println("Next free recorder after "
+                           + freeRecorder.getId()
+                           + ": "
+                           + proto.getNextFreeRecorder(freeRecorder));
+    }
+
+    @Test
+    public void testGetRecorderFromNum() throws IOException
+    {
+        RecorderInfo good = proto.getRecorderFromNum(settings.getIntegerProperty(Settings.RECORDER));
+        Assert.assertTrue(good.isValid());
+
+        RecorderInfo bad = proto.getRecorderFromNum(-1);
+        Assert.assertFalse(bad.isValid());
     }
 
     @Test

@@ -145,14 +145,13 @@ public interface Protocol
      *
      * @param program
      *            the program to check
-     * @return the recorder that is actively recording the program, which may be
-     *         invalid if the program is not currently recording (see
-     *         {@link RecorderInfo#isRecorderValid()})
+     * @return the ID of the recorder that is actively recording the program or
+     *         <code>0</code> if the program is not currently being recorded
      * @throws IOException
      *
      * @since 63
      */
-    public RecorderInfo checkRecording(ProgramInfo program) throws IOException;
+    public int checkRecording(ProgramInfo program) throws IOException;
 
     // TODO
     public void deleteFile() throws IOException;
@@ -178,8 +177,17 @@ public interface Protocol
     // TODO
     public void freeTuner() throws IOException;
 
-    // TODO
-    public void getFreeRecorder() throws IOException;
+    /**
+     * Ask the backend for a free recorder. The backend will attempt to find a
+     * local recorder before remotes ones (see {@link #getNextFreeRecorder()}
+     * for an alternative).
+     *
+     * @return a free recorder; this object may not be
+     *         {@link RecorderInfo#isRecorderValid() valid} if there are no free
+     *         recorders
+     * @throws IOException
+     */
+    public RecorderInfo getFreeRecorder() throws IOException;
 
     /**
      * Retrieve the number of recorders that are online, but not busy or
@@ -197,18 +205,38 @@ public interface Protocol
      * This list is guaranteed to contain only
      * {@link RecorderInfo#isRecorderValid() valid} recorders.
      *
-     * @return the list of free recorders
+     * @return the list of free recorder IDs
      * @throws IOException
      *
      * @since 63
      */
-    public List<RecorderInfo> getFreeRecorderList() throws IOException;
+    public List<Integer> getFreeRecorderList() throws IOException;
 
-    // TODO
-    public void getNextFreeRecorder() throws IOException;
+    /**
+     * Starting with the given recorder, find the next free recorder in order.
+     * This request will wrap from the end of the list back around to the
+     * beginning.
+     *
+     * @param from
+     *            the backend will start looking at the next recorder in line
+     *            after this one
+     * @return the next available recorder; this may not be
+     *         {@link RecorderInfo#isRecorderValid() valid} if there are no free
+     *         recorders
+     * @throws IOException
+     */
+    public RecorderInfo getNextFreeRecorder(RecorderInfo from) throws IOException;
 
-    // TODO
-    public void getRecorderFromNum() throws IOException;
+    /**
+     * Retrieve a recorder's host and port information.
+     *
+     * @param recorderId
+     *            the ID of the recorder to lookup
+     * @return a complete set of recorder information with ID, host, and port
+     *         (or an invalid recorder if the specified ID does not exist)
+     * @throws IOException
+     */
+    public RecorderInfo getRecorderFromNum(int recorderId) throws IOException;
 
     // TODO
     public void getRecorderNum() throws IOException;

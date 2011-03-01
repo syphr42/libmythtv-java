@@ -21,9 +21,8 @@ import java.util.List;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
-import org.syphr.mythtv.proto.data.RecorderInfo;
 
-/* default */class Command63CheckRecording implements Command<RecorderInfo>
+/* default */class Command63CheckRecording implements Command<Integer>
 {
     private final String message;
 
@@ -36,13 +35,13 @@ import org.syphr.mythtv.proto.data.RecorderInfo;
     }
 
     @Override
-    public RecorderInfo send(SocketManager socketManager) throws IOException
+    public Integer send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(message);
 
         try
         {
-            return new RecorderInfo(Integer.valueOf(response), null, -1);
+            return Integer.valueOf(response);
         }
         catch (NumberFormatException e)
         {

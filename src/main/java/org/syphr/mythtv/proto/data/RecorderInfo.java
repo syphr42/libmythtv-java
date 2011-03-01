@@ -44,14 +44,10 @@ public class RecorderInfo
         return port;
     }
 
-    public boolean isRecorderValid()
+    public boolean isValid()
     {
-        return id > 0;
-    }
-
-    public boolean isLocationValid()
-    {
-        return host != null
+        return id > 0
+               && host != null
                && !host.isEmpty()
                && port > 0
                && port < Math.pow(2, 16);

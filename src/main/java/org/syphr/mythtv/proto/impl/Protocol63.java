@@ -132,7 +132,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public RecorderInfo checkRecording(ProgramInfo program) throws IOException
+    public int checkRecording(ProgramInfo program) throws IOException
     {
         return new Command63CheckRecording(program).send(getSocketManager());
     }
@@ -186,9 +186,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void getFreeRecorder() throws IOException
+    public RecorderInfo getFreeRecorder() throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63GetFreeRecorder().send(getSocketManager());
     }
 
     @Override
@@ -198,21 +198,21 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public List<RecorderInfo> getFreeRecorderList() throws IOException
+    public List<Integer> getFreeRecorderList() throws IOException
     {
         return new Command63GetFreeRecorderList().send(getSocketManager());
     }
 
     @Override
-    public void getNextFreeRecorder() throws IOException
+    public RecorderInfo getNextFreeRecorder(RecorderInfo from) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63GetNextFreeRecorder(from).send(getSocketManager());
     }
 
     @Override
-    public void getRecorderFromNum() throws IOException
+    public RecorderInfo getRecorderFromNum(int recorderId) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63GetRecorderFromNum(recorderId).send(getSocketManager());
     }
 
     @Override
