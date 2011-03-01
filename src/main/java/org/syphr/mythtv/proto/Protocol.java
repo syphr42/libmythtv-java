@@ -59,7 +59,7 @@ public interface Protocol
      * command sent to the backend after {@link #mythProtoVersion()}.<br>
      * <br>
      * Note: if a file is to be transferred,
-     * {@link #annFileTransfer(String, FileTransferType, boolean, long, File, String)}
+     * {@link #annFileTransfer(String, FileTransferType, boolean, long, File, String, SocketManager)}
      * should be sent first.
      *
      * @param connectionType
