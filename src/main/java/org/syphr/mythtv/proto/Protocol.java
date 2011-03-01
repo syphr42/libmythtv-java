@@ -185,11 +185,20 @@ public interface Protocol
      *
      * @return the number of free recorders
      * @throws IOException
+     *
+     * @since 63
      */
     public int getFreeRecorderCount() throws IOException;
 
-    // TODO
-    public void getFreeRecorderList() throws IOException;
+    /**
+     * Retrieve a list of recorders that are online, but not busy or locked.
+     *
+     * @return the list of free recorders
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public List<Integer> getFreeRecorderList() throws IOException;
 
     // TODO
     public void getNextFreeRecorder() throws IOException;

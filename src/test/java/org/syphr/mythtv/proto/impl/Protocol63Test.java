@@ -84,13 +84,20 @@ public class Protocol63Test
     }
 
     @Test
-    public void testGetFreeRecorderCount() throws IOException
+    public void testGetFreeRecorderInfo() throws IOException
     {
         int count = proto.getFreeRecorderCount();
         if (count < 0)
         {
             Assert.fail();
         }
+
+        List<Integer> freeRecorders = proto.getFreeRecorderList();
+
+        Assert.assertEquals(count, freeRecorders.size());
+
+        System.out.println("Free recorder count: " + count);
+        System.out.println("Free recorders: " + freeRecorders);
     }
 
     @Test
