@@ -1,0 +1,29 @@
+Running Tests
+================
+
+There is a fairly comprehensive set of unit tests available in this
+repository. However, a lot of the functionality provided here can cause
+side affects (such as interfering with backend functionality, creating/
+deleting files, and changing settings). Any unit test for functionality
+which has side-effects that are not easily mitigated (such as deleting
+a file after transferring it to local disk) is commented out by default.
+
+
+
+Test Settings
+================
+
+The test cases provided here use a common properties file located at
+src/test/resources/settings.properties. If this file is missing or does
+not have all possible settings defined, default values will come from
+src/test/java/org/syphr/mythtv/test/Settings.java.
+
+
+
+Logging
+================
+
+libmythtv-java uses SLFJ to handle logging. For testing, JDK logging
+is defined. To override settings, use the JVM argument 
+-Djava.util.logging.config.file=/path/to/properties. A default config
+is provided at src/test/resources/logging.properties.
