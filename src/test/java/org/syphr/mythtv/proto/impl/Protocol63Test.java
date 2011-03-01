@@ -127,6 +127,24 @@ public class Protocol63Test
     }
 
     @Test
+    public void testQueryCheckFile() throws IOException
+    {
+        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
+        if (recordings.isEmpty())
+        {
+            return;
+        }
+
+        ProgramInfo program = recordings.get(0);
+        System.out.println("URI for "
+                           + program.getChanId()
+                           + "/"
+                           + program.getRecStartTs()
+                           + ": "
+                           + proto.queryCheckFile(true, program));
+    }
+
+    @Test
     public void testQueryFreeSpace() throws IOException
     {
         for (DriveInfo drive : proto.queryFreeSpace())

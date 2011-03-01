@@ -17,6 +17,7 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
@@ -240,9 +241,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryCheckFile() throws IOException
+    public URI queryCheckFile(boolean checkSlaves, ProgramInfo program) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryCheckFile(checkSlaves, program).send(getSocketManager());
     }
 
     @Override

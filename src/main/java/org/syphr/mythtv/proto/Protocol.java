@@ -17,6 +17,7 @@ package org.syphr.mythtv.proto;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
@@ -186,6 +187,8 @@ public interface Protocol
      *         {@link RecorderInfo#isRecorderValid() valid} if there are no free
      *         recorders
      * @throws IOException
+     *
+     * @since 63
      */
     public RecorderInfo getFreeRecorder() throws IOException;
 
@@ -224,6 +227,8 @@ public interface Protocol
      *         {@link RecorderInfo#isRecorderValid() valid} if there are no free
      *         recorders
      * @throws IOException
+     *
+     * @since 63
      */
     public RecorderInfo getNextFreeRecorder(RecorderInfo from) throws IOException;
 
@@ -235,6 +240,8 @@ public interface Protocol
      * @return a complete set of recorder information with ID, host, and port
      *         (or an invalid recorder if the specified ID does not exist)
      * @throws IOException
+     *
+     * @since 63
      */
     public RecorderInfo getRecorderFromNum(int recorderId) throws IOException;
 
@@ -250,8 +257,22 @@ public interface Protocol
     // TODO
     public void queryBookmark() throws IOException;
 
-    // TODO
-    public void queryCheckFile() throws IOException;
+    /**
+     * Retrieve a URI to the given program.
+     *
+     * @param checkSlaves
+     *            if <code>true</code>, the backend will contact other backends
+     *            to look for the given program; otherwise only the connected
+     *            backend will be checked
+     * @param program
+     *            the program whose URI is requested
+     * @return the URI of the given program or <code>null</code> if the
+     *         program's file cannot be found
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public URI queryCheckFile(boolean checkSlaves, ProgramInfo program) throws IOException;
 
     // TODO
     public void queryCommBreak() throws IOException;
