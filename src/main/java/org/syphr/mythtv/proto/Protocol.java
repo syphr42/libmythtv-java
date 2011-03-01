@@ -181,11 +181,11 @@ public interface Protocol
 
     /**
      * Ask the backend for a free recorder. The backend will attempt to find a
-     * local recorder before remotes ones (see {@link #getNextFreeRecorder()}
-     * for an alternative).
+     * local recorder before remotes ones (see
+     * {@link #getNextFreeRecorder(RecorderInfo)} for an alternative).
      *
      * @return a free recorder; this object may not be
-     *         {@link RecorderInfo#isRecorderValid() valid} if there are no free
+     *         {@link RecorderInfo#isValid() valid} if there are no free
      *         recorders
      * @throws IOException
      *
@@ -206,8 +206,8 @@ public interface Protocol
 
     /**
      * Retrieve a list of recorders that are online, but not busy or locked.
-     * This list is guaranteed to contain only
-     * {@link RecorderInfo#isRecorderValid() valid} recorders.
+     * This list is guaranteed to contain only {@link RecorderInfo#isValid()
+     * valid} recorders.
      *
      * @return the list of free recorder IDs
      * @throws IOException
@@ -225,7 +225,7 @@ public interface Protocol
      *            the backend will start looking at the next recorder in line
      *            after this one
      * @return the next available recorder; this may not be
-     *         {@link RecorderInfo#isRecorderValid() valid} if there are no free
+     *         {@link RecorderInfo#isValid() valid} if there are no free
      *         recorders
      * @throws IOException
      *
