@@ -191,9 +191,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void getFreeRecorderCount() throws IOException
+    public int getFreeRecorderCount() throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63GetFreeRecorderCount().send(getSocketManager());
     }
 
     @Override

@@ -31,7 +31,6 @@ import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
-import org.syphr.mythtv.proto.impl.Protocol63;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.RecordingCategory;
@@ -81,6 +80,16 @@ public class Protocol63Test
         if (!recPrograms.isEmpty())
         {
             Assert.assertNotSame(0, proto.checkRecording(recPrograms.get(0)));
+        }
+    }
+
+    @Test
+    public void testGetFreeRecorderCount() throws IOException
+    {
+        int count = proto.getFreeRecorderCount();
+        if (count < 0)
+        {
+            Assert.fail();
         }
     }
 

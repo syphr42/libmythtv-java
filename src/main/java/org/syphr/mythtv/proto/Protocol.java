@@ -179,8 +179,14 @@ public interface Protocol
     // TODO
     public void getFreeRecorder() throws IOException;
 
-    // TODO
-    public void getFreeRecorderCount() throws IOException;
+    /**
+     * Retrieve the number of recorders that are online, but not busy or
+     * {@link #lockTuner() locked}.
+     *
+     * @return the number of free recorders
+     * @throws IOException
+     */
+    public int getFreeRecorderCount() throws IOException;
 
     // TODO
     public void getFreeRecorderList() throws IOException;
