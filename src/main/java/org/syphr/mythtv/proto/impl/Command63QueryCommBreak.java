@@ -30,7 +30,7 @@ import org.syphr.mythtv.proto.data.CommBreakInfo;
 {
     private final String message;
 
-    public Command63QueryCommBreak(Channel channel, Date startTime) throws ProtocolException
+    public Command63QueryCommBreak(Channel channel, Date startTime)
     {
         StringBuilder builder = new StringBuilder();
         builder.append("QUERY_COMMBREAK");

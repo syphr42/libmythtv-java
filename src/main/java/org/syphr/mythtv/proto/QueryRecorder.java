@@ -114,6 +114,7 @@ public interface QueryRecorder
      * @return <code>true</code> if this recorder is actively recording,
      *         <code>false</code> otherwise
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */

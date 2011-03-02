@@ -54,6 +54,7 @@ public interface Protocol
      * established.
      *
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -74,6 +75,7 @@ public interface Protocol
      * @param level
      *            the level of events desired by the client
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -108,6 +110,7 @@ public interface Protocol
      *            commands
      * @return a sub-protocol API that can be used to manipulate the data stream
      * @throws IOException
+     *             if there is a communication or protocol error
      */
     public QueryFileTransfer annFileTransfer(String host,
                                              FileTransferType type,
@@ -122,6 +125,7 @@ public interface Protocol
      * sent as the last message before the connection is closed.
      *
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -132,6 +136,7 @@ public interface Protocol
      * {@link #blockShutdown()}.
      *
      * @throws IOException
+     *             if there is a communication or protocol error
      */
     public void allowShutdown() throws IOException;
 
@@ -140,6 +145,7 @@ public interface Protocol
      * {@link #allowShutdown()}.
      *
      * @throws IOException
+     *             if there is a communication or protocol error
      */
     public void blockShutdown() throws IOException;
 
@@ -152,6 +158,7 @@ public interface Protocol
      * @return the ID of the recorder that is actively recording the program or
      *         <code>0</code> if the program is not currently being recorded
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -167,6 +174,7 @@ public interface Protocol
      * @return <code>true</code> if the delete was successful;
      *         <code>false</code> otherwise
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -189,6 +197,7 @@ public interface Protocol
      * @return <code>true</code> if delete was successful; <code>false</code>
      *         otherwise
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -211,6 +220,7 @@ public interface Protocol
      *            the destination file
      * @return the URI of the new file or <code>null</code> if an error occurred
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -230,6 +240,7 @@ public interface Protocol
      *            the destination file
      * @return the URI of the new file or <code>null</code> if an error occurred
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -246,6 +257,7 @@ public interface Protocol
      * @return the given program with path and file size filled in for the given
      *         host
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -259,6 +271,7 @@ public interface Protocol
      * @param program
      *            the program to be forgotten
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -271,6 +284,7 @@ public interface Protocol
      *            the ID of the recorder to free
      * @return <code>true</code> if successful; <code>false</code> otherwise
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -285,6 +299,7 @@ public interface Protocol
      *         {@link RecorderInfo#isValid() valid} if there are no free
      *         recorders
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -296,6 +311,7 @@ public interface Protocol
      *
      * @return the number of free recorders
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -308,6 +324,7 @@ public interface Protocol
      *
      * @return the list of free recorder IDs
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -325,6 +342,7 @@ public interface Protocol
      *         {@link RecorderInfo#isValid() valid} if there are no free
      *         recorders
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -338,6 +356,7 @@ public interface Protocol
      * @return a complete set of recorder information with ID, host, and port
      *         (or an invalid recorder if the specified ID does not exist)
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -367,6 +386,7 @@ public interface Protocol
      * @return the URI of the given program or <code>null</code> if the
      *         program's file cannot be found
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -382,6 +402,7 @@ public interface Protocol
      *            the time the program started
      * @return the list of commercial breaks
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -401,6 +422,7 @@ public interface Protocol
      * @return if it exists, a file representing the absolute path;
      *         <code>null</code> otherwise
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -414,6 +436,7 @@ public interface Protocol
      *
      * @return a list of drives with detailed space information
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -426,6 +449,7 @@ public interface Protocol
      * @return drive data representing a summary across the environment, only the space
      *         information will be valid
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -440,6 +464,7 @@ public interface Protocol
      *            the program for which the pix map is to be generated
      * @return the response from the backend
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -450,6 +475,7 @@ public interface Protocol
      *
      * @return the list of pending recordings
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -460,6 +486,7 @@ public interface Protocol
      *
      * @return the list of scheduled recordings
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -473,6 +500,7 @@ public interface Protocol
      *
      * @return the list of expiring recordings
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -485,6 +513,7 @@ public interface Protocol
      *
      * @return latest date for which guide data is present
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -495,6 +524,7 @@ public interface Protocol
      *
      * @return backend's hostname
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -508,6 +538,7 @@ public interface Protocol
      * @return <code>true</code> if an active backend is found at the given host;
      *         <code>false</code> otherwise
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -521,6 +552,7 @@ public interface Protocol
      *
      * @return data representing the load factor over time of the backend machine
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -531,6 +563,7 @@ public interface Protocol
      *
      * @return data representing the current memory usage of the backend machine
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -560,6 +593,7 @@ public interface Protocol
      *            the start time of the program to lookup
      * @return the relevant program data
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -572,6 +606,7 @@ public interface Protocol
      *            the category of recordings to get
      * @return a list of programs representing recordings of the given category
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -590,6 +625,7 @@ public interface Protocol
      * @return the value of the setting or <code>null</code> if there is no
      *         value
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -609,6 +645,7 @@ public interface Protocol
      *         found (which may be temporary, such as when a slave backend is
      *         unavailable)
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -623,6 +660,7 @@ public interface Protocol
      *
      * @return the time data
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -634,6 +672,7 @@ public interface Protocol
      * @return the number of seconds the backend has been up or <code>-1</code> if the up
      *         time could not be determined
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -650,6 +689,7 @@ public interface Protocol
      * scan completes.
      *
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 64
      */

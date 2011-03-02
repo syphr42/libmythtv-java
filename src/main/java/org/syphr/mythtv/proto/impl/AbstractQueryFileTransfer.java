@@ -36,6 +36,7 @@ public abstract class AbstractQueryFileTransfer implements QueryFileTransfer
         return socketNumber;
     }
 
+    @Override
     public long getSize()
     {
         return size;

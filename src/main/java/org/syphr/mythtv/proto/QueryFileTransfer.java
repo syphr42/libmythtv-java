@@ -33,6 +33,7 @@ public interface QueryFileTransfer
      * @return <code>true</code> if the socket is open; <code>false</code>
      *         otherwise
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -42,6 +43,7 @@ public interface QueryFileTransfer
      * Inform the backend that the client has finished with this file transfer.
      *
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -55,6 +57,7 @@ public interface QueryFileTransfer
      * @return the number of bytes actually being transferred by the server
      *         (this does not have to match the request)
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */
@@ -74,6 +77,7 @@ public interface QueryFileTransfer
      *            if <code>true</code>, the timeout will be set to fast;
      *            otherwise the timeout will be set to slow
      * @throws IOException
+     *             if there is a communication or protocol error
      *
      * @since 63
      */

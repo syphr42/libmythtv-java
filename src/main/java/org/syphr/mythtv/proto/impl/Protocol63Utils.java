@@ -543,7 +543,7 @@ public class Protocol63Utils
         return extracted;
     }
 
-    public static List<String> extractChannel(Channel channel) throws ProtocolException
+    public static List<String> extractChannel(Channel channel)
     {
         List<String> extracted = new ArrayList<String>();
 
