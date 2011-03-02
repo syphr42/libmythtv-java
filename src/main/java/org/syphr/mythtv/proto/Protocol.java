@@ -65,7 +65,7 @@ public interface Protocol
      * command sent to the backend after {@link #mythProtoVersion()}.<br>
      * <br>
      * Note: if a file is to be transferred,
-     * {@link #annFileTransfer(String, FileTransferType, boolean, long, File, String, SocketManager)}
+     * {@link #annFileTransfer(String, FileTransferType, boolean, long, URI, String, SocketManager)}
      * should be sent first.
      *
      * @param connectionType
@@ -100,8 +100,8 @@ public interface Protocol
      *            thread
      * @param timeout
      *            milliseconds to timeout the transfer
-     * @param file
-     *            the file to transfer, relative to the storage group
+     * @param uri
+     *            the URI of the file to transfer, relative to the storage group
      * @param storageGroup
      *            the storage group that contains (will contain) the file to be
      *            transferred
@@ -116,7 +116,7 @@ public interface Protocol
                                              FileTransferType type,
                                              boolean readAhead,
                                              long timeout,
-                                             File file,
+                                             URI uri,
                                              String storageGroup,
                                              SocketManager commandSocketManager) throws IOException;
 

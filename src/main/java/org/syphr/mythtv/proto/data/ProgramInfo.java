@@ -16,8 +16,10 @@
 package org.syphr.mythtv.proto.data;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 
+import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.proto.types.RecordingStatus;
 import org.syphr.mythtv.proto.types.RecordingType;
 
@@ -169,6 +171,22 @@ public class ProgramInfo
     public URI getFilename()
     {
         return filename;
+    }
+
+    public URI getBasename()
+    {
+        try
+        {
+            return new URI(filename.getPath());
+        }
+        catch (URISyntaxException e)
+        {
+            /*
+             * This shouldn't happen.
+             */
+            LoggerFactory.getLogger(ProgramInfo.class).warn(filename.getPath(), e);
+            return null;
+        }
     }
 
     public long getFileSize()

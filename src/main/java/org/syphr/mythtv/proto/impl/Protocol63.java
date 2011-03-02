@@ -104,7 +104,7 @@ public class Protocol63 extends AbstractProtocol
                                              FileTransferType type,
                                              boolean readAhead,
                                              long timeout,
-                                             File file,
+                                             URI uri,
                                              String storageGroup,
                                              SocketManager commandSocketManager) throws IOException
     {
@@ -112,7 +112,7 @@ public class Protocol63 extends AbstractProtocol
                                             type,
                                             readAhead,
                                             timeout,
-                                            file,
+                                            uri,
                                             storageGroup,
                                             commandSocketManager).send(getSocketManager());
     }

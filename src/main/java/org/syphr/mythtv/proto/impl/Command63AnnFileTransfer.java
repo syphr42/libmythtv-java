@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
@@ -33,7 +33,7 @@ import org.syphr.mythtv.proto.data.FileTransferType;
                                     FileTransferType type,
                                     boolean readAhead,
                                     long timeout,
-                                    File file,
+                                    URI uri,
                                     String storageGroup,
                                     SocketManager commandSocketManager) throws ProtocolException
     {
@@ -52,7 +52,7 @@ import org.syphr.mythtv.proto.data.FileTransferType;
         }
 
         this.message = Protocol63Utils.getProtocolValue(builder.toString(),
-                                                        file.getPath(),
+                                                        uri.toString(),
                                                         storageGroup);
 
         this.commandSocketManager = commandSocketManager;

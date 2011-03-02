@@ -91,15 +91,13 @@ public class QueryFileTransferTest
         fileProto.mythProtoVersion();
 
         ProgramInfo program = programs.get(0);
-        File path = new File(program.getFilename().getPath());
-        String storageGroup = program.getStorageGroup();
         QueryFileTransfer fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
                                                                               .getHostName(),
                                                                    FileTransferType.READ,
                                                                    false,
                                                                    0L,
-                                                                   path,
-                                                                   storageGroup,
+                                                                   program.getBasename(),
+                                                                   program.getStorageGroup(),
                                                                    commandSocketManager);
 
         Assert.assertTrue(fileTransfer.isOpen());
@@ -109,7 +107,7 @@ public class QueryFileTransferTest
 
         ByteBuffer buffer = ByteBuffer.allocate(settings.getIntegerProperty(Settings.BUFFER_SIZE));
 
-        File tempFile = new File("target/testing/" + path.getName());
+        File tempFile = new File("target/testing/" + program.getBasename().toString());
         File parentDir = tempFile.getParentFile();
         if (!parentDir.exists() && !parentDir.mkdirs())
         {
