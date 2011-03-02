@@ -41,12 +41,12 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	
+
 	<issueManagement>
 		<system>Launchpad</system>
 		<url>https://bugs.launchpad.net/libmythtv-java</url>
 	</issueManagement>
-	
+
 	<scm>
 		<url>https://github.com/syphr42/libmythtv-java</url>
 		<connection>scm:git:git://github.com/syphr42/libmythtv-java.git</connection>
@@ -65,29 +65,29 @@
 	</developers>
 
 	<dependencies>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>r08</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.0-SNAPSHOT</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-api</artifactId>
-		    <version>1.6.1</version>
-            <type>jar</type>
-            <scope>compile</scope>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>r08</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.0-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
 
-        
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -103,11 +103,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-jdk14</artifactId>
-		    <version>1.6.1</version>
-            <type>jar</type>
-            <scope>test</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>1.6.1</version>
+			<type>jar</type>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
