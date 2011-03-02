@@ -18,6 +18,7 @@ package org.syphr.mythtv.proto.impl;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
@@ -140,50 +141,54 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void deleteFile() throws IOException
+    public boolean deleteFile(File file, String storageGroup) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void deleteRecording() throws IOException
+    public boolean deleteRecording(Channel channel,
+                                   Date startTime,
+                                   boolean force,
+                                   boolean forget) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void downloadFile() throws IOException
+    public URI downloadFile(URL url, String storageGroup, File file) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void downloadFileNow() throws IOException
+    public URI downloadFileNow(URL url, String storageGroup, File file) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void fillProgramInfo() throws IOException
+    public ProgramInfo fillProgramInfo(String host, ProgramInfo program) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void forceDeleteRecording() throws IOException
+    public void forgetRecording(ProgramInfo program) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void forgetRecording() throws IOException
+    public boolean freeTuner(int recorderId) throws IOException
     {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void freeTuner() throws IOException
-    {
+        // TODO
         throw new UnsupportedOperationException();
     }
 

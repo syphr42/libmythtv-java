@@ -18,6 +18,7 @@ package org.syphr.mythtv.proto;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
@@ -155,29 +156,124 @@ public interface Protocol
      */
     public int checkRecording(ProgramInfo program) throws IOException;
 
-    // TODO
-    public void deleteFile() throws IOException;
+    /**
+     * Request that a file be deleted.
+     *
+     * @param file
+     *            the file to delete
+     * @param storageGroup
+     *            the storage group where the file exists
+     * @return <code>true</code> if the delete was successful;
+     *         <code>false</code> otherwise
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public boolean deleteFile(File file, String storageGroup) throws IOException;
 
-    // TODO
-    public void deleteRecording() throws IOException;
+    /**
+     * Request that a recording be deleted. To only remove a recording from the
+     * history, see {@link #forgetRecording(ProgramInfo)}.
+     *
+     * @param channel
+     *            the channel on which the program was recorded
+     * @param startTime
+     *            the start time of the recording
+     * @param force
+     *            if <code>true</code>, metadata will be removed even if the
+     *            file cannot be located
+     * @param forget
+     *            if <code>true</code>, the history of this recording will be
+     *            removed
+     * @return <code>true</code> if delete was successful; <code>false</code>
+     *         otherwise
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public boolean deleteRecording(Channel channel,
+                                   Date startTime,
+                                   boolean force,
+                                   boolean forget) throws IOException;
 
-    // TODO
-    public void downloadFile() throws IOException;
+    /**
+     * Request that the backend manage a file download. This command will return
+     * immediately. To watch the progress, listen for backend events.
+     *
+     * @see #downloadFileNow(URL, String, File)
+     *
+     * @param url
+     *            the URL of the item to download
+     * @param storageGroup
+     *            the destination storage group
+     * @param file
+     *            the destination file
+     * @return the URI of the new file or <code>null</code> if an error occurred
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public URI downloadFile(URL url, String storageGroup, File file) throws IOException;
 
-    // TODO
-    public void downloadFileNow() throws IOException;
+    /**
+     * Request that the backend manage a file download. This command will not
+     * return until the download completes.
+     *
+     * @see #downloadFile(URL, String, File)
+     *
+     * @param url
+     *            the URL of the item to download
+     * @param storageGroup
+     *            the destination storage group
+     * @param file
+     *            the destination file
+     * @return the URI of the new file or <code>null</code> if an error occurred
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public URI downloadFileNow(URL url, String storageGroup, File file) throws IOException;
 
-    // TODO
-    public void fillProgramInfo() throws IOException;
+    /**
+     * Fill in the path and file size fields for the given program.
+     *
+     * @param host
+     *            used to determine if the returned path should be local or
+     *            remote
+     * @param program
+     *            the basic program information
+     * @return the given program with path and file size filled in for the given
+     *         host
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public ProgramInfo fillProgramInfo(String host, ProgramInfo program) throws IOException;
 
-    // TODO
-    public void forceDeleteRecording() throws IOException;
+    /**
+     * Mark a recording so that it will never be considered when checking for
+     * duplicates. To forget and delete a recording, see
+     * {@link #deleteRecording(Channel, Date, boolean, boolean)}.
+     *
+     * @param program
+     *            the program to be forgotten
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public void forgetRecording(ProgramInfo program) throws IOException;
 
-    // TODO
-    public void forgetRecording() throws IOException;
-
-    // TODO
-    public void freeTuner() throws IOException;
+    /**
+     * Free a recorder that was previously locked with {@link #lockTuner()}.
+     *
+     * @param recorderId
+     *            the ID of the recorder to free
+     * @return <code>true</code> if successful; <code>false</code> otherwise
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public boolean freeTuner(int recorderId) throws IOException;
 
     /**
      * Ask the backend for a free recorder. The backend will attempt to find a
