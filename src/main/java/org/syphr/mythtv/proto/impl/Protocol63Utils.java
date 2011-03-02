@@ -575,6 +575,11 @@ public class Protocol63Utils
         return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     }
 
+    public static DateFormat getConcatDateFormat()
+    {
+        return new SimpleDateFormat("yyyyMMddHHmmss");
+    }
+
     public static long combineInts(int high, int low)
     {
         return ((long)high << 32) + low;

@@ -16,8 +16,6 @@
 package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -28,13 +26,17 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
 
 /* default */class Command63QueryRecordingTimeslot implements Command<ProgramInfo>
 {
-    private final DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-
     private final String message;
 
     public Command63QueryRecordingTimeslot(Channel channel, Date startTime)
     {
-        message = "QUERY_RECORDING TIMESLOT " + channel.getId() + " " + dateFormat.format(startTime);
+        StringBuilder builder = new StringBuilder();
+        builder.append("QUERY_RECORDING TIMESLOT ");
+        builder.append(channel.getId());
+        builder.append(' ');
+        builder.append(Protocol63Utils.getConcatDateFormat().format(startTime));
+
+        message = builder.toString();
     }
 
     @Override
