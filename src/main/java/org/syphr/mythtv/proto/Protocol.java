@@ -25,6 +25,7 @@ import java.util.List;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.CommBreakInfo;
 import org.syphr.mythtv.proto.data.DriveInfo;
+import org.syphr.mythtv.proto.data.FileInfo;
 import org.syphr.mythtv.proto.data.FileTransferType;
 import org.syphr.mythtv.proto.data.GenPixMapResponse;
 import org.syphr.mythtv.proto.data.Load;
@@ -389,8 +390,21 @@ public interface Protocol
     // TODO
     public void queryCutList() throws IOException;
 
-    // TODO
-    public void queryFileExists() throws IOException;
+    /**
+     * Determine whether or not a file exists and, if it does exists, its full
+     * path.
+     *
+     * @param basename
+     *            the basename of the file to check
+     * @param storageGroup
+     *            the name of the storage group to check
+     * @return if it exists, a file representing the absolute path;
+     *         <code>null</code> otherwise
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public File queryFileExists(String basename, String storageGroup) throws IOException;
 
     // TODO
     public void queryFileHash() throws IOException;
@@ -581,8 +595,24 @@ public interface Protocol
      */
     public String querySetting(String host, String key) throws IOException;
 
-    // TODO
-    public void querySgFileQuery() throws IOException;
+    /**
+     * Retrieve file information (i.e. last modified date, file size) for a file
+     * within a storage group.
+     *
+     * @param host
+     *            the host machine containing the file
+     * @param storageGroup
+     *            the storage group containing the file
+     * @param file
+     *            the full path to the file
+     * @return the file information or <code>null</code> if the file cannot be
+     *         found (which may be temporary, such as when a slave backend is
+     *         unavailable)
+     * @throws IOException
+     *
+     * @since 63
+     */
+    public FileInfo querySgFileQuery(String host, String storageGroup, File file) throws IOException;
 
     // TODO
     public void querySgGetFileList() throws IOException;

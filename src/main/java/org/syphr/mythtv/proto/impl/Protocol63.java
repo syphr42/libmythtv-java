@@ -31,6 +31,7 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.CommBreakInfo;
 import org.syphr.mythtv.proto.data.DriveInfo;
+import org.syphr.mythtv.proto.data.FileInfo;
 import org.syphr.mythtv.proto.data.FileTransferType;
 import org.syphr.mythtv.proto.data.GenPixMapResponse;
 import org.syphr.mythtv.proto.data.Load;
@@ -265,8 +266,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryFileExists() throws IOException
+    public File queryFileExists(String basename, String storageGroup) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
@@ -397,8 +399,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void querySgFileQuery() throws IOException
+    public FileInfo querySgFileQuery(String host, String storageGroup, File file) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
