@@ -21,9 +21,9 @@ import java.net.InetAddress;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.syphr.mythtv.proto.impl.Protocol63;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
+import org.syphr.mythtv.proto.types.ProtocolVersion;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.prom.PropertiesManager;
 
@@ -39,7 +39,9 @@ public class SocketManagerTest
                               settings.getIntegerProperty(Settings.BACKEND_PORT),
                               settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
 
-        Protocol proto = new Protocol63(socketManager);
+        Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
+                                                                                 ProtocolVersion.class),
+                                                        socketManager);
         proto.mythProtoVersion();
         proto.ann(ConnectionType.MONITOR,
                   InetAddress.getLocalHost().getHostName(),
