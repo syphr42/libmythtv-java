@@ -17,27 +17,28 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QuerySetting implements Command<String>
+/* default */class Command63SetSetting implements Command<Void>
 {
     private final String message;
 
-    public Command63QuerySetting(String host, String name)
+    public Command63SetSetting(String host, String name, String value)
     {
-        message = "QUERY_SETTING " + host + " " + name;
+        message = "SET_SETTING " + host + " " + name + " " + value;
     }
 
     @Override
-    public String send(SocketManager socketManager) throws IOException
+    public Void send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(message);
 
-        if ("-1".equals(response))
+        if (!"OK".equals(response))
         {
-            return null;
+            throw new ProtocolException(response);
         }
 
-        return response;
+        return null;
     }
 }

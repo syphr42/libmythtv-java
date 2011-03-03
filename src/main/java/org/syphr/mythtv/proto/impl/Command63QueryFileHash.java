@@ -16,16 +16,19 @@
 package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
+import java.net.URI;
 
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QuerySetting implements Command<String>
+/* default */class Command63QueryFileHash implements Command<String>
 {
     private final String message;
 
-    public Command63QuerySetting(String host, String name)
+    public Command63QueryFileHash(URI filename, String storageGroup)
     {
-        message = "QUERY_SETTING " + host + " " + name;
+        message = Protocol63Utils.getProtocolValue("QUERY_FILE_HASH",
+                                                   filename.toString(),
+                                                   storageGroup);
     }
 
     @Override
@@ -33,7 +36,7 @@ import org.syphr.mythtv.proto.SocketManager;
     {
         String response = socketManager.sendAndWait(message);
 
-        if ("-1".equals(response))
+        if ("NULL".equals(response))
         {
             return null;
         }

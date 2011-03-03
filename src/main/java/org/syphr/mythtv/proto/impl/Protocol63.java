@@ -273,8 +273,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryFileHash() throws IOException
+    public String queryFileHash(URI filename, String storageGroup) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
@@ -393,9 +394,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public String querySetting(String host, String key) throws IOException
+    public String querySetting(String host, String name) throws IOException
     {
-        return new Command63QuerySetting(host, key).send(getSocketManager());
+        return new Command63QuerySetting(host, name).send(getSocketManager());
     }
 
     @Override
@@ -454,8 +455,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void setSetting() throws IOException
+    public void setSetting(String host, String name, String value) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 

@@ -428,8 +428,20 @@ public interface Protocol
      */
     public File queryFileExists(String basename, String storageGroup) throws IOException;
 
-    // TODO
-    public void queryFileHash() throws IOException;
+    /**
+     * Retrieve a 64-bit hash of the file represented by the given name and storage group.
+     *
+     * @param filename
+     *            the location of the file to hash relative to a storage group
+     * @param storageGroup
+     *            the storage group containing the file to has
+     * @return the hash value or <code>null</code> if the hash could not be computed
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public String queryFileHash(URI filename, String storageGroup) throws IOException;
 
     /**
      * Determine how much space is available on all drives connected to this backend.
@@ -620,7 +632,7 @@ public interface Protocol
      *
      * @param host
      *            the host to which the setting pertains
-     * @param key
+     * @param name
      *            the name of the setting
      * @return the value of the setting or <code>null</code> if there is no
      *         value
@@ -629,7 +641,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public String querySetting(String host, String key) throws IOException;
+    public String querySetting(String host, String name) throws IOException;
 
     /**
      * Retrieve file information (i.e. last modified date, file size) for a file
@@ -704,8 +716,21 @@ public interface Protocol
     // TODO
     public void setNextLiveTvDir() throws IOException;
 
-    // TODO
-    public void setSetting() throws IOException;
+    /**
+     * Update the value of a setting.
+     *
+     * @param host
+     *            the host to which the setting pertains
+     * @param name
+     *            the name of the setting
+     * @param value
+     *            the value to set
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public void setSetting(String host, String name, String value) throws IOException;
 
     // TODO
     public void shutdownNow() throws IOException;
