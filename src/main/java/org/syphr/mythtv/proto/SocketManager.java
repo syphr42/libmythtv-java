@@ -404,24 +404,27 @@ public class SocketManager
      */
     public String sendAndWait(String message) throws IOException
     {
-        return sendAndWait(message, 0);
+        return sendAndWait(message, 0, null);
     }
 
     /**
-     * Send a message to the backend and wait for a response up to the given timeout
-     * value.
+     * Send a message to the backend and wait for a response up to the given
+     * timeout value.
      *
      * @param message
      *            the message to send
      * @param timeout
-     *            the number of milliseconds to wait for a response
-     * @return the response from the backend or <code>null</code> if the thread is
-     *         interrupted or the timeout is reached
+     *            the length of time in units of <code>unit</code> to wait for a
+     *            response
+     * @param unit
+     *            units used to interpret the <code>timeout</code> parameter
+     * @return the response from the backend or <code>null</code> if the thread
+     *         is interrupted or the timeout is reached
      * @throws IOException
      *             if this manager is not connected to a backend or some other
      *             communication error occurs
      */
-    public String sendAndWait(String message, long timeout) throws IOException
+    public String sendAndWait(String message, long timeout, TimeUnit unit) throws IOException
     {
         synchronized (Lock.SEND_AND_WAIT)
         {
@@ -436,7 +439,7 @@ public class SocketManager
                     return queue.take();
                 }
 
-                String response = queue.poll(timeout, TimeUnit.MILLISECONDS);
+                String response = queue.poll(timeout, unit);
                 if (response == null)
                 {
                     /*

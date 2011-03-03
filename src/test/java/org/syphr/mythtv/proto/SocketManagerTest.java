@@ -17,9 +17,12 @@ package org.syphr.mythtv.proto;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.concurrent.TimeUnit;
 
 import junit.framework.Assert;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
@@ -29,35 +32,48 @@ import org.syphr.prom.PropertiesManager;
 
 public class SocketManagerTest
 {
-    @Test
-    public void testSendAndWaitTimeout() throws IOException
-    {
-        PropertiesManager<Settings> settings = Settings.createSettings();
+    private static PropertiesManager<Settings> settings;
 
-        SocketManager socketManager = new SocketManager();
+    private static SocketManager socketManager;
+    private static Protocol proto;
+
+    @BeforeClass
+    public static void setUpBeforeClass() throws IOException
+    {
+        settings = Settings.createSettings();
+
+        socketManager = new SocketManager();
         socketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
                               settings.getIntegerProperty(Settings.BACKEND_PORT),
                               settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
 
-        Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
-                                                                                 ProtocolVersion.class),
-                                                        socketManager);
+        proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
+                                                                        ProtocolVersion.class),
+                                               socketManager);
         proto.mythProtoVersion();
         proto.ann(ConnectionType.MONITOR,
                   InetAddress.getLocalHost().getHostName(),
                   EventLevel.NONE);
+    }
 
+    @AfterClass
+    public static void tearDownAfterClass() throws IOException
+    {
+        proto.done();
+        socketManager.disconnect();
+    }
+
+    @Test
+    public void testSendAndWaitTimeout() throws IOException
+    {
         /*
          * The response to this message does not parse as a long. It should be discarded
          * and not returned to the second command.
          */
-        Assert.assertNull(socketManager.sendAndWait("QUERY_LOAD", 1));
+        Assert.assertNull(socketManager.sendAndWait("QUERY_LOAD", 1, TimeUnit.NANOSECONDS));
 
         String uptime = socketManager.sendAndWait("QUERY_UPTIME");
         Assert.assertNotNull(uptime);
         Long.parseLong(uptime);
-
-        proto.done();
-        socketManager.disconnect();
     }
 }
