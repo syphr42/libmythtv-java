@@ -476,8 +476,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public int stopRecording(ProgramInfo program) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63StopRecording(program).send(getSocketManager());
     }
 
     @Override

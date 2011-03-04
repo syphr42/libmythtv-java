@@ -319,6 +319,20 @@ public class Protocol63Test
 //    }
 //
 //    @Test
+//    public void testStopRecording() throws IOException
+//    {
+//        List<ProgramInfo> recording = proto.queryRecordings(RecordingCategory.RECORDING);
+//        if (recording.isEmpty())
+//        {
+//            return;
+//        }
+//
+//        ProgramInfo stop = recording.get(0);
+//        System.out.println("Stopping \"" + stop.getTitle() + ": " + stop.getSubtitle() + "\"");
+//        Assert.assertNotSame(-1, proto.stopRecording(stop));
+//    }
+//
+//    @Test
 //    public void testUndeleteRecording() throws IOException
 //    {
 //        List<ProgramInfo> expiring = proto.queryGetExpiring();
@@ -328,7 +342,7 @@ public class Protocol63Test
 //        }
 //
 //        ProgramInfo undelete = expiring.get(0);
-//        System.out.println("Undeleting " + undelete.getTitle() + ": " + undelete.getSubtitle());
+//        System.out.println("Undeleting \"" + undelete.getTitle() + ": " + undelete.getSubtitle() + "\"");
 //        Assert.assertTrue(proto.undeleteRecording(undelete));
 //    }
 //
