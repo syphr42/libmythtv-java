@@ -225,13 +225,13 @@ public class QueryRecorder63 extends AbstractQueryRecorder
     }
 
     @Override
-    public void spawnLivetv()
+    public void spawnLiveTv()
     {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void stopLivetv()
+    public void stopLiveTv()
     {
         throw new UnsupportedOperationException();
     }

@@ -136,10 +136,10 @@ public interface QueryRecorder
     public void shouldSwitchCard() throws IOException;
 
     // TODO
-    public void spawnLivetv() throws IOException;
+    public void spawnLiveTv() throws IOException;
 
     // TODO
-    public void stopLivetv() throws IOException;
+    public void stopLiveTv() throws IOException;
 
     // TODO
     public void toggleChannelFavorite() throws IOException;
