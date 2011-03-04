@@ -168,6 +168,17 @@ public interface QueryRecorder
      */
     public boolean stopLiveTv() throws IOException;
 
-    // TODO
-    public void toggleChannelFavorite() throws IOException;
+    /**
+     * Toggle the current channel as a member of the given channel group. The request only
+     * works for recorders that are local to the connected backend. If the recorder is
+     * remote, the request will be silently ignored.
+     *
+     * @param channelGroup
+     *            the group in which to toggle the current channel
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public void toggleChannelFavorite(String channelGroup) throws IOException;
 }

@@ -240,8 +240,9 @@ public class QueryRecorder63 extends AbstractQueryRecorder
     }
 
     @Override
-    public void toggleChannelFavorite()
+    public void toggleChannelFavorite(String channelGroup) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 }
