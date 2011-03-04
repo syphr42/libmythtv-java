@@ -25,6 +25,7 @@ import java.util.List;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.CommBreakInfo;
 import org.syphr.mythtv.proto.data.DriveInfo;
+import org.syphr.mythtv.proto.data.FileEntry;
 import org.syphr.mythtv.proto.data.FileInfo;
 import org.syphr.mythtv.proto.data.FileTransferType;
 import org.syphr.mythtv.proto.data.GenPixMapResponse;
@@ -651,7 +652,7 @@ public interface Protocol
      *            the host machine containing the file
      * @param storageGroup
      *            the storage group containing the file
-     * @param file
+     * @param path
      *            the full path to the file
      * @return the file information or <code>null</code> if the file cannot be
      *         found (which may be temporary, such as when a slave backend is
@@ -661,10 +662,26 @@ public interface Protocol
      *
      * @since 63
      */
-    public FileInfo querySgFileQuery(String host, String storageGroup, File file) throws IOException;
+    public FileInfo querySgFileQuery(String host, String storageGroup, String path) throws IOException;
 
-    // TODO
-    public void querySgGetFileList() throws IOException;
+    /**
+     * Retrieve a complete directory listing within a storage group.
+     *
+     * @param host
+     *            the host machine containing the directory
+     * @param storageGroup
+     *            the storage group containing the directory
+     * @param path
+     *            the full path to the directory
+     * @return a list of directories and files contained within the given path or
+     *         <code>null</code> if the directory cannot be found (which may be temporary,
+     *         such as when a slave backend is unavailable)
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public List<FileEntry> querySgGetFileList(String host, String storageGroup, String path) throws IOException;
 
     /**
      * Retrieve time information from the backend, including current date, time, and time
@@ -710,11 +727,36 @@ public interface Protocol
     // TODO
     public void setBookmark() throws IOException;
 
-    // TODO
-    public void setChannelInfo() throws IOException;
+    /**
+     * Replace a channel with new information.
+     *
+     * @param oldChannel
+     *            the channel being replaced/modified
+     * @param newChannel
+     *            the new channel information
+     * @return <code>true</code> if the update was successful; <code>false</code>
+     *         otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public boolean setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException;
 
-    // TODO
-    public void setNextLiveTvDir() throws IOException;
+    /**
+     * Request that the given recorder put the next LiveTV recording in the directory
+     * specified by the given path.
+     *
+     * @param recorderId
+     *            the ID of the recorder to change
+     * @param path
+     *            the path of the directory to set
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public boolean setNextLiveTvDir(int recorderId, String path) throws IOException;
 
     /**
      * Update the value of a setting.
@@ -732,14 +774,46 @@ public interface Protocol
      */
     public void setSetting(String host, String name, String value) throws IOException;
 
-    // TODO
-    public void shutdownNow() throws IOException;
+    /**
+     * Request a slave backend to shut down with the given command. This request will have
+     * no affect on the master backend.
+     *
+     * @param command
+     *            the shutdown command
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public void shutdownNow(String command) throws IOException;
 
-    // TODO
-    public void stopRecording() throws IOException;
+    /**
+     * Request that the given program stop recording.
+     *
+     * @param program
+     *            the program to stop recording
+     * @return 0 if the recording is on a slave backend, -1 if an error occurs, or the
+     *         recorder ID that was recording the program
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public int stopRecording(ProgramInfo program) throws IOException;
 
-    // TODO
-    public void undeleteRecording() throws IOException;
+    /**
+     * Request that the a program marked for future deletion be unmarked.
+     *
+     * @param program
+     *            the program to undelete
+     * @return <code>true</code> if the request was successful; <code>false</code>
+     *         otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public boolean undeleteRecording(ProgramInfo program) throws IOException;
 
     /**
      * Add a listener to receive unsolicited backend event messages.

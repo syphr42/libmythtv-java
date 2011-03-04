@@ -31,6 +31,7 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.CommBreakInfo;
 import org.syphr.mythtv.proto.data.DriveInfo;
+import org.syphr.mythtv.proto.data.FileEntry;
 import org.syphr.mythtv.proto.data.FileInfo;
 import org.syphr.mythtv.proto.data.FileTransferType;
 import org.syphr.mythtv.proto.data.GenPixMapResponse;
@@ -176,6 +177,7 @@ public class Protocol63 extends AbstractProtocol
     public ProgramInfo fillProgramInfo(String host, ProgramInfo program) throws IOException
     {
         // TODO
+//        return new Command63FillProgramInfo(host, program).send(getSocketManager());
         throw new UnsupportedOperationException();
     }
 
@@ -400,15 +402,16 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public FileInfo querySgFileQuery(String host, String storageGroup, File file) throws IOException
+    public FileInfo querySgFileQuery(String host, String storageGroup, String path) throws IOException
     {
         // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void querySgGetFileList() throws IOException
+    public List<FileEntry> querySgGetFileList(String host, String storageGroup, String path) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
@@ -443,14 +446,16 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void setChannelInfo() throws IOException
+    public boolean setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void setNextLiveTvDir() throws IOException
+    public boolean setNextLiveTvDir(int recorderId, String path) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
@@ -462,20 +467,23 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void shutdownNow() throws IOException
+    public void shutdownNow(String command) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void stopRecording() throws IOException
+    public int stopRecording(ProgramInfo program) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void undeleteRecording() throws IOException
+    public boolean undeleteRecording(ProgramInfo program) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 

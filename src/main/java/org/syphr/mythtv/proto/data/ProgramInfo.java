@@ -36,7 +36,6 @@ public class ProgramInfo
     private final Date endTime;
     private final int findId;
     private final String hostname;
-    private final int sourceId;
     private final int cardId;
     private final int inputId;
     private final int recPriority;
@@ -75,7 +74,6 @@ public class ProgramInfo
                        Date endTime,
                        int findId,
                        String hostname,
-                       int sourceId,
                        int cardId,
                        int inputId,
                        int recPriority,
@@ -114,7 +112,6 @@ public class ProgramInfo
         this.endTime = new Date(endTime.getTime());
         this.findId = findId;
         this.hostname = hostname;
-        this.sourceId = sourceId;
         this.cardId = cardId;
         this.inputId = inputId;
         this.recPriority = recPriority;
@@ -212,11 +209,6 @@ public class ProgramInfo
     public String getHostname()
     {
         return hostname;
-    }
-
-    public int getSourceId()
-    {
-        return sourceId;
     }
 
     public int getCardId()
@@ -375,8 +367,6 @@ public class ProgramInfo
         builder.append(findId);
         builder.append(", hostname=");
         builder.append(hostname);
-        builder.append(", sourceId=");
-        builder.append(sourceId);
         builder.append(", cardId=");
         builder.append(cardId);
         builder.append(", inputId=");

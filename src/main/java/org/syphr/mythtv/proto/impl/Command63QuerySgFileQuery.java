@@ -15,45 +15,29 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.proto.ProtocolException;
-import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.FileInfo;
 
-/* default */class Command63QuerySgFileQuery implements Command<FileInfo>
+/* default */class Command63QuerySgFileQuery extends AbstractCommand63QuerySg<FileInfo>
 {
-    private final String message;
-
-    public Command63QuerySgFileQuery(String host, String storageGroup, File file)
+    public Command63QuerySgFileQuery(String host, String storageGroup, String path)
     {
-        message = Protocol63Utils.getProtocolValue("QUERY_SG_FILEQUERY",
-                                                   host,
-                                                   storageGroup,
-                                                   file.getPath());
+        super(host, storageGroup, path);
     }
 
     @Override
-    public FileInfo send(SocketManager socketManager) throws IOException
+    protected String getCommand()
     {
-        String response = socketManager.sendAndWait(message);
-        List<String> args = Protocol63Utils.getArguments(response);
+        return "QUERY_SG_FILEQUERY";
+    }
 
-        if (args.isEmpty())
-        {
-            throw new ProtocolException(response);
-        }
-
-        String first = args.get(0);
-        if ("SLAVE UNREACHABLE: ".equals(first) || "EMPTY_LIST".equals(first))
-        {
-            return null;
-        }
-
+    @Override
+    protected FileInfo parseResponse(String response, List<String> args) throws ProtocolException
+    {
         if (args.size() != 3)
         {
             throw new ProtocolException(response);

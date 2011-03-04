@@ -19,26 +19,42 @@ public class Channel
 {
     private final int id;
 
+    private int sourceId;
+
     private String number;
     private String callsign;
     private String name;
 
+    private String xmltvId;
+
     public Channel(int id)
     {
-        this.id = id;
+        this(id, -1, null, null, null);
     }
 
-    public Channel(int id, String number, String callsign, String name)
+    public Channel(int id, int sourceId, String number, String callsign, String name)
+    {
+        this(id, sourceId, number, callsign, name, null);
+    }
+
+    public Channel(int id, int sourceId, String number, String callsign, String name, String xmltvId)
     {
         this.id = id;
+        this.sourceId = sourceId;
         this.number = number;
         this.callsign = callsign;
         this.name = name;
+        this.xmltvId = xmltvId;
     }
 
     public int getId()
     {
         return id;
+    }
+
+    public int getSourceId()
+    {
+        return sourceId;
     }
 
     public String getNumber()
@@ -56,18 +72,27 @@ public class Channel
         return name;
     }
 
+    public String getXmltvId()
+    {
+        return xmltvId;
+    }
+
     @Override
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
         builder.append("Channel [id=");
         builder.append(id);
+        builder.append(", sourceId=");
+        builder.append(sourceId);
         builder.append(", number=");
         builder.append(number);
         builder.append(", callsign=");
         builder.append(callsign);
         builder.append(", name=");
         builder.append(name);
+        builder.append(", xmltvId=");
+        builder.append(xmltvId);
         builder.append("]");
         return builder.toString();
     }
@@ -78,6 +103,7 @@ public class Channel
         final int prime = 31;
         int result = 1;
         result = prime * result + id;
+        result = prime * result + sourceId;
         return result;
     }
 
@@ -98,6 +124,10 @@ public class Channel
         }
         Channel other = (Channel)obj;
         if (id != other.id)
+        {
+            return false;
+        }
+        if (sourceId != other.sourceId)
         {
             return false;
         }

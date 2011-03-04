@@ -403,10 +403,10 @@ public class Protocol63Utils
             String subtitle = args.get(i++);
             String description = args.get(i++);
             String category = args.get(i++);
-            Channel channel = new Channel(Integer.parseInt(args.get(i++)),
-                                          args.get(i++),
-                                          args.get(i++),
-                                          args.get(i++));
+            int chanId = Integer.parseInt(args.get(i++));
+            String chanNum = args.get(i++);
+            String callsign = args.get(i++);
+            String chanName = args.get(i++);
             URI filename = URI.create(args.get(i++));
             long fileSize = Long.parseLong(args.get(i++));
             Date startTime = getDateTime(args.get(i++));
@@ -454,14 +454,13 @@ public class Protocol63Utils
                                    subtitle,
                                    description,
                                    category,
-                                   channel,
+                                   new Channel(chanId, sourceId, chanNum, callsign, chanName),
                                    filename,
                                    fileSize,
                                    startTime,
                                    endTime,
                                    findId,
                                    hostname,
-                                   sourceId,
                                    cardId,
                                    inputId,
                                    recPriority,
@@ -499,18 +498,23 @@ public class Protocol63Utils
     {
         List<String> extracted = new ArrayList<String>();
 
+        Channel channel = program.getChannel();
+
         extracted.add(program.getTitle());
         extracted.add(program.getSubtitle());
         extracted.add(program.getDescription());
         extracted.add(program.getCategory());
-        extracted.addAll(extractChannel(program.getChannel()));
+        extracted.add(String.valueOf(channel.getId()));
+        extracted.add(String.valueOf(channel.getNumber()));
+        extracted.add(String.valueOf(channel.getCallsign()));
+        extracted.add(String.valueOf(channel.getName()));
         extracted.add(String.valueOf(program.getFilename()));
         extracted.add(String.valueOf(program.getFileSize()));
         extracted.add(getDateTime(program.getStartTime()));
         extracted.add(getDateTime(program.getEndTime()));
         extracted.add(String.valueOf(program.getFindId()));
         extracted.add(program.getHostname());
-        extracted.add(String.valueOf(program.getSourceId()));
+        extracted.add(String.valueOf(channel.getSourceId()));
         extracted.add(String.valueOf(program.getCardId()));
         extracted.add(String.valueOf(program.getInputId()));
         extracted.add(String.valueOf(program.getRecPriority()));
@@ -548,6 +552,7 @@ public class Protocol63Utils
         List<String> extracted = new ArrayList<String>();
 
         extracted.add(String.valueOf(channel.getId()));
+        extracted.add(String.valueOf(channel.getSourceId()));
         extracted.add(channel.getNumber());
         extracted.add(channel.getCallsign());
         extracted.add(channel.getName());
