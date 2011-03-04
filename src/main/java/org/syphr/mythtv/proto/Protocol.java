@@ -187,8 +187,8 @@ public interface Protocol
      *
      * @param channel
      *            the channel on which the program was recorded
-     * @param startTime
-     *            the start time of the recording
+     * @param recStartTs
+     *            the actual (not scheduled) start time of the recording
      * @param force
      *            if <code>true</code>, metadata will be removed even if the
      *            file cannot be located
@@ -203,7 +203,7 @@ public interface Protocol
      * @since 63
      */
     public boolean deleteRecording(Channel channel,
-                                   Date startTime,
+                                   Date recStartTs,
                                    boolean force,
                                    boolean forget) throws IOException;
 

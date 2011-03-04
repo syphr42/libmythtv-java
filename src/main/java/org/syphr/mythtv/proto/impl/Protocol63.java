@@ -151,11 +151,11 @@ public class Protocol63 extends AbstractProtocol
 
     @Override
     public boolean deleteRecording(Channel channel,
-                                   Date startTime,
+                                   Date recStartTs,
                                    boolean force,
                                    boolean forget) throws IOException
     {
-        return new Command63DeleteRecording(channel, startTime, force, forget).send(getSocketManager());
+        return new Command63DeleteRecording(channel, recStartTs, force, forget).send(getSocketManager());
     }
 
     @Override

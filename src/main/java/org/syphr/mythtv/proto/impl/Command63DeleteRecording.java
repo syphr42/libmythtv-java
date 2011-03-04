@@ -27,7 +27,7 @@ import org.syphr.mythtv.proto.data.Channel;
     private final String message;
 
     public Command63DeleteRecording(Channel channel,
-                                    Date startTime,
+                                    Date recStartTs,
                                     boolean force,
                                     boolean forget)
     {
@@ -35,7 +35,7 @@ import org.syphr.mythtv.proto.data.Channel;
         builder.append("DELETE_RECORDING ");
         builder.append(channel.getId());
         builder.append(' ');
-        builder.append(Protocol63Utils.getConcatDateFormat().format(startTime));
+        builder.append(Protocol63Utils.getConcatDateFormat().format(recStartTs));
         builder.append(' ');
         builder.append(force ? "FORCE" : "NO_FORCE");
         builder.append(' ');
