@@ -159,7 +159,7 @@ public class Protocol63Test
                            + program.getStartTime()
                            + ": "
                            + proto.queryCommBreak(program.getChannel(),
-                                                  program.getStartTime()));
+                                                  program.getRecStartTs()));
     }
 
     @Test
@@ -271,7 +271,7 @@ public class Protocol63Test
         ProgramInfo program = allRecordings.get(0);
         Assert.assertEquals(program,
                             proto.queryRecordingTimeslot(program.getChannel(),
-                                                         program.getStartTime()));
+                                                         program.getRecStartTs()));
     }
 
     @Test

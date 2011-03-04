@@ -399,15 +399,15 @@ public interface Protocol
      *
      * @param channel
      *            the channel on which the program aired
-     * @param startTime
-     *            the time the program started
+     * @param recStartTs
+     *            the actual (not scheduled) start time of the program
      * @return the list of commercial breaks
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public List<CommBreakInfo> queryCommBreak(Channel channel, Date startTime) throws IOException;
+    public List<CommBreakInfo> queryCommBreak(Channel channel, Date recStartTs) throws IOException;
 
     // TODO
     public void queryCutList() throws IOException;
@@ -602,15 +602,15 @@ public interface Protocol
      *
      * @param channel
      *            the channel of the program to lookup
-     * @param startTime
-     *            the start time of the program to lookup
+     * @param recStartTs
+     *            the actual (not scheduled) start time of the program to lookup
      * @return the relevant program data
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public ProgramInfo queryRecordingTimeslot(Channel channel, Date startTime) throws IOException;
+    public ProgramInfo queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException;
 
     /**
      * Retrieve a list of recordings matching the given category.

@@ -254,9 +254,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public List<CommBreakInfo> queryCommBreak(Channel channel, Date startTime) throws IOException
+    public List<CommBreakInfo> queryCommBreak(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command63QueryCommBreak(channel, startTime).send(getSocketManager());
+        return new Command63QueryCommBreak(channel, recStartTs).send(getSocketManager());
     }
 
     @Override
@@ -376,9 +376,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public ProgramInfo queryRecordingTimeslot(Channel channel, Date startTime) throws IOException
+    public ProgramInfo queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command63QueryRecordingTimeslot(channel, startTime).send(getSocketManager());
+        return new Command63QueryRecordingTimeslot(channel, recStartTs).send(getSocketManager());
     }
 
     @Override

@@ -30,14 +30,14 @@ import org.syphr.mythtv.proto.data.CommBreakInfo;
 {
     private final String message;
 
-    public Command63QueryCommBreak(Channel channel, Date startTime)
+    public Command63QueryCommBreak(Channel channel, Date recStartTs)
     {
         StringBuilder builder = new StringBuilder();
         builder.append("QUERY_COMMBREAK");
         builder.append(' ');
         builder.append(channel.getId());
         builder.append(' ');
-        builder.append(TimeUnit.MILLISECONDS.toSeconds(startTime.getTime()));
+        builder.append(TimeUnit.MILLISECONDS.toSeconds(recStartTs.getTime()));
 
         message = builder.toString();
     }

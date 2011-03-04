@@ -28,13 +28,13 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
 {
     private final String message;
 
-    public Command63QueryRecordingTimeslot(Channel channel, Date startTime)
+    public Command63QueryRecordingTimeslot(Channel channel, Date recStartTs)
     {
         StringBuilder builder = new StringBuilder();
         builder.append("QUERY_RECORDING TIMESLOT ");
         builder.append(channel.getId());
         builder.append(' ');
-        builder.append(Protocol63Utils.getConcatDateFormat().format(startTime));
+        builder.append(Protocol63Utils.getConcatDateFormat().format(recStartTs));
 
         message = builder.toString();
     }
