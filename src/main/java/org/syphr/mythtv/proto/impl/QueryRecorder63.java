@@ -18,6 +18,7 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 
 import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.data.Channel;
 
 public class QueryRecorder63 extends AbstractQueryRecorder
 {
@@ -225,8 +226,9 @@ public class QueryRecorder63 extends AbstractQueryRecorder
     }
 
     @Override
-    public void spawnLiveTv()
+    public boolean spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 

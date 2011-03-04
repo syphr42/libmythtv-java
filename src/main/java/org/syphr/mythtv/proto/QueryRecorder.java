@@ -17,6 +17,8 @@ package org.syphr.mythtv.proto;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.data.Channel;
+
 /**
  * This interface is a sub-protocol to {@link Protocol} and represents the
  * combined recorder information API of all MythTV protocols that are supported.
@@ -135,8 +137,24 @@ public interface QueryRecorder
     // TODO
     public void shouldSwitchCard() throws IOException;
 
-    // TODO
-    public void spawnLiveTv() throws IOException;
+    /**
+     * Request a new LiveTV chain to start recording.
+     *
+     * @param chainId
+     *            the ID of the new chain (suggest live-[host]-[start date])
+     * @param pip
+     *            tell the backen whether or not this chain will be used for
+     *            Picture-In-Picture
+     * @param startChannel
+     *            the channel to start recording
+     * @return <code>true</code> if the request was successful; <code>false</code>
+     *         otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public boolean spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException;
 
     // TODO
     public void stopLiveTv() throws IOException;
