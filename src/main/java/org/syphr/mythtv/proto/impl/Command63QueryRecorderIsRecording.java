@@ -35,7 +35,7 @@ import org.syphr.mythtv.proto.SocketManager;
     {
         String response = socketManager.sendAndWait(message);
 
-        if ("0".equals(response))
+        if ("0".equals(response) || "bad".equals(response))
         {
             return false;
         }
