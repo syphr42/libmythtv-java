@@ -21,7 +21,6 @@ import java.net.InetAddress;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.syphr.mythtv.proto.data.RecorderLocation;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.ProtocolVersion;
@@ -55,11 +54,9 @@ public class QueryRecorderTest
                   InetAddress.getLocalHost().getHostName(),
                   EventLevel.NONE);
 
-        RecorderLocation recorder = new RecorderLocation(settings.getIntegerProperty(Settings.RECORDER),
-                                                 null,
-                                                 -1);
-        System.out.println("Interrogating recorder " + recorder);
-        queryRecorder = proto.queryRecorder(recorder);
+        int recorderId = settings.getIntegerProperty(Settings.RECORDER);
+        System.out.println("Interrogating recorder " + recorderId);
+        queryRecorder = proto.queryRecorder(recorderId);
     }
 
     @AfterClass

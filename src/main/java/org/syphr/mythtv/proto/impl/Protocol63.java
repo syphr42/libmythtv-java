@@ -367,9 +367,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public QueryRecorder queryRecorder(RecorderLocation recorder)
+    public QueryRecorder queryRecorder(int recorderId)
     {
-        return new QueryRecorder63(recorder.getId(), getSocketManager());
+        return new QueryRecorder63(recorderId, getSocketManager());
     }
 
     @Override

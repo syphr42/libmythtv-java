@@ -617,11 +617,11 @@ public interface Protocol
     /**
      * Get a sub-protocol object that provides an API to interrogate a specific recorder.
      *
-     * @param recorder
-     *            the recorder to interrogate
+     * @param recorderId
+     *            the ID of the recorder to interrogate
      * @return an object that provides capabilities to interrogate the specified recorder
      */
-    public QueryRecorder queryRecorder(RecorderLocation recorder);
+    public QueryRecorder queryRecorder(int recorderId);
 
     // TODO
     public void queryRecordingBasename() throws IOException;
