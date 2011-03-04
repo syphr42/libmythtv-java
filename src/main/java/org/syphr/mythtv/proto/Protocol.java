@@ -739,8 +739,18 @@ public interface Protocol
     // TODO
     public void refreshBackend() throws IOException;
 
-    // TODO
-    public void rescheduleRecordings() throws IOException;
+    /**
+     * Request the scheduler to run.
+     *
+     * @param recorderId
+     *            the ID of the recorder for which the scheduler should run or
+     *            <code>-1</code> to request a full run
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public void rescheduleRecordings(int recorderId) throws IOException;
 
     /**
      * Request a scan of videos. Listen for a backend event to provide notice when the

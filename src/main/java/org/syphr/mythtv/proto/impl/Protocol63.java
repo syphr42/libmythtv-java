@@ -435,8 +435,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void rescheduleRecordings() throws IOException
+    public void rescheduleRecordings(int recorderId) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
