@@ -336,6 +336,20 @@ public class Protocol63Test
 //    }
 //
 //    @Test
+//    public void testForgetRecording() throws IOException
+//    {
+//        List<ProgramInfo> expiring = proto.queryGetExpiring();
+//        if (expiring.isEmpty())
+//        {
+//            return;
+//        }
+//
+//        ProgramInfo forget = expiring.get(0);
+//        System.out.println("Forgetting \"" + forget.getTitle() + ": " + forget.getSubtitle() + "\"");
+//        proto.forgetRecording(forget);
+//    }
+//
+//    @Test
 //    public void testShutdownNow() throws IOException
 //    {
 //        String backendHost = settings.getProperty(Settings.BACKEND_HOST);
