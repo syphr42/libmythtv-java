@@ -233,8 +233,9 @@ public class QueryRecorder63 extends AbstractQueryRecorder
     }
 
     @Override
-    public void stopLiveTv()
+    public boolean stopLiveTv()
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 

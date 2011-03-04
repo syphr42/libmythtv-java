@@ -143,7 +143,7 @@ public interface QueryRecorder
      * @param chainId
      *            the ID of the new chain (suggest live-[host]-[start date])
      * @param pip
-     *            tell the backen whether or not this chain will be used for
+     *            tell the backend whether or not this chain will be used for
      *            Picture-In-Picture
      * @param startChannel
      *            the channel to start recording
@@ -156,8 +156,17 @@ public interface QueryRecorder
      */
     public boolean spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException;
 
-    // TODO
-    public void stopLiveTv() throws IOException;
+    /**
+     * Request that the recorder stop recording and cancel it's LiveTV chain.
+     *
+     * @return <code>true</code> if the request was successful; <code>false</code>
+     *         otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public boolean stopLiveTv() throws IOException;
 
     // TODO
     public void toggleChannelFavorite() throws IOException;
