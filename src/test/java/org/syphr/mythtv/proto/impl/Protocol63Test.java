@@ -319,6 +319,20 @@ public class Protocol63Test
 //    }
 //
 //    @Test
+//    public void testUndeleteRecording() throws IOException
+//    {
+//        List<ProgramInfo> expiring = proto.queryGetExpiring();
+//        if (expiring.isEmpty())
+//        {
+//            return;
+//        }
+//
+//        ProgramInfo undelete = expiring.get(0);
+//        System.out.println("Undeleting " + undelete.getTitle() + ": " + undelete.getSubtitle());
+//        Assert.assertTrue(proto.undeleteRecording(undelete));
+//    }
+//
+//    @Test
 //    public void testQueryGenPixMap2() throws IOException
 //    {
 //        List<ProgramInfo> programs = proto.queryGetExpiring();

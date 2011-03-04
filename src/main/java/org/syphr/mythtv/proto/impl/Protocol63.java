@@ -483,8 +483,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public boolean undeleteRecording(ProgramInfo program) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63UndeleteRecording(program).send(getSocketManager());
     }
 
     @Override
