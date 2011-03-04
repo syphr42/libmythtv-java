@@ -249,15 +249,15 @@ public interface Protocol
     public URI downloadFileNow(URL url, String storageGroup, File file) throws IOException;
 
     /**
-     * Fill in the path and file size fields for the given program.
+     * Change the path to a URI if necessary and fill in the file size for the given
+     * program. If there is no path set in the given program, this request will do
+     * nothing.
      *
      * @param host
-     *            used to determine if the returned path should be local or
-     *            remote
+     *            used to determine if the returned path should be local or remote
      * @param program
      *            the basic program information
-     * @return the given program with path and file size filled in for the given
-     *         host
+     * @return the given program with path and file size filled in for the given host
      * @throws IOException
      *             if there is a communication or protocol error
      *

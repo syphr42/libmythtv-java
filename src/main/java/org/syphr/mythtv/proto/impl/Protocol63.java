@@ -176,9 +176,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public ProgramInfo fillProgramInfo(String host, ProgramInfo program) throws IOException
     {
-        // TODO
-//        return new Command63FillProgramInfo(host, program).send(getSocketManager());
-        throw new UnsupportedOperationException();
+        return new Command63FillProgramInfo(host, program).send(getSocketManager());
     }
 
     @Override

@@ -17,6 +17,7 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -81,6 +82,62 @@ public class Protocol63Test
         {
             Assert.assertNotSame(0, proto.checkRecording(recPrograms.get(0)));
         }
+    }
+
+    @Test
+    public void testFillProgramInfo() throws IOException, URISyntaxException
+    {
+        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
+        if (recordings.isEmpty())
+        {
+            return;
+        }
+
+        ProgramInfo fullProgram = recordings.get(0);
+        ProgramInfo partialProgram = new ProgramInfo(fullProgram.getTitle(),
+                                                     fullProgram.getSubtitle(),
+                                                     fullProgram.getDescription(),
+                                                     fullProgram.getCategory(),
+                                                     fullProgram.getChannel(),
+                                                     fullProgram.getFilename(),
+                                                     0,
+                                                     fullProgram.getStartTime(),
+                                                     fullProgram.getEndTime(),
+                                                     fullProgram.getFindId(),
+                                                     fullProgram.getHostname(),
+                                                     fullProgram.getCardId(),
+                                                     fullProgram.getInputId(),
+                                                     fullProgram.getRecPriority(),
+                                                     fullProgram.getRecStatus(),
+                                                     fullProgram.getRecordId(),
+                                                     fullProgram.getRecType(),
+                                                     fullProgram.getDupIn(),
+                                                     fullProgram.getDupMethod(),
+                                                     fullProgram.getRecStartTs(),
+                                                     fullProgram.getRecEndTs(),
+                                                     fullProgram.getProgramFlags(),
+                                                     fullProgram.getRecGroup(),
+                                                     fullProgram.getOutputFilters(),
+                                                     fullProgram.getSeriesId(),
+                                                     fullProgram.getProgramId(),
+                                                     fullProgram.getLastModified(),
+                                                     fullProgram.getStars(),
+                                                     fullProgram.getAirDate(),
+                                                     fullProgram.getPlayGroup(),
+                                                     fullProgram.getRecPriority2(),
+                                                     fullProgram.getParentId(),
+                                                     fullProgram.getStorageGroup(),
+                                                     fullProgram.getAudioProps(),
+                                                     fullProgram.getVideoProps(),
+                                                     fullProgram.getSubtitleType(),
+                                                     fullProgram.getYear());
+
+        ProgramInfo fillInProgram = proto.fillProgramInfo(settings.getProperty(Settings.FRONTEND_HOST),
+                                                          partialProgram);
+
+        System.out.println("File info for " + fillInProgram.getChannel() + "/"
+                           + fillInProgram.getRecStartTs() + ": " + fillInProgram.getFilename()
+                           + " / " + fillInProgram.getFileSize());
     }
 
     @Test
