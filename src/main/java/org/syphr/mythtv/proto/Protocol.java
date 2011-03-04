@@ -33,7 +33,7 @@ import org.syphr.mythtv.proto.data.Load;
 import org.syphr.mythtv.proto.data.MemStats;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.RecorderDevice;
-import org.syphr.mythtv.proto.data.RecorderInfo;
+import org.syphr.mythtv.proto.data.RecorderLocation;
 import org.syphr.mythtv.proto.data.TimeInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
 import org.syphr.mythtv.proto.events.BackendEventListener;
@@ -293,19 +293,17 @@ public interface Protocol
     public boolean freeTuner(int recorderId) throws IOException;
 
     /**
-     * Ask the backend for a free recorder. The backend will attempt to find a
-     * local recorder before remotes ones (see
-     * {@link #getNextFreeRecorder(RecorderInfo)} for an alternative).
+     * Ask the backend for a free recorder. The backend will attempt to find a local
+     * recorder before remotes ones (see {@link #getNextFreeRecorder(RecorderLocation)} for an
+     * alternative).
      *
-     * @return a free recorder; this object may not be
-     *         {@link RecorderInfo#isValid() valid} if there are no free
-     *         recorders
+     * @return a free recorder or <code>null</code> if there are no free recorders
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public RecorderInfo getFreeRecorder() throws IOException;
+    public RecorderLocation getFreeRecorder() throws IOException;
 
     /**
      * Retrieve the number of recorders that are online, but not busy or
@@ -321,8 +319,6 @@ public interface Protocol
 
     /**
      * Retrieve a list of recorders that are online, but not busy or locked.
-     * This list is guaranteed to contain only {@link RecorderInfo#isValid()
-     * valid} recorders.
      *
      * @return the list of free recorder IDs
      * @throws IOException
@@ -333,50 +329,48 @@ public interface Protocol
     public List<Integer> getFreeRecorderList() throws IOException;
 
     /**
-     * Starting with the given recorder, find the next free recorder in order.
-     * This request will wrap from the end of the list back around to the
-     * beginning.
+     * Starting with the given recorder, find the next free recorder in order. This
+     * request will wrap from the end of the list back around to the beginning.
      *
      * @param from
-     *            the backend will start looking at the next recorder in line
-     *            after this one
-     * @return the next available recorder; this may not be
-     *         {@link RecorderInfo#isValid() valid} if there are no free
+     *            the backend will start looking at the next recorder in line after this
+     *            one
+     * @return the next available recorder or <code>null</code> if there are no free
      *         recorders
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public RecorderInfo getNextFreeRecorder(RecorderInfo from) throws IOException;
+    public RecorderLocation getNextFreeRecorder(RecorderLocation from) throws IOException;
 
     /**
      * Retrieve a recorder's host and port information.
      *
      * @param recorderId
      *            the ID of the recorder to lookup
-     * @return a complete set of recorder information with ID, host, and port
-     *         (or an invalid recorder if the specified ID does not exist)
+     * @return the requested recorder information or <code>null</code> if the specified ID
+     *         does not exist
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public RecorderInfo getRecorderFromNum(int recorderId) throws IOException;
+    public RecorderLocation getRecorderFromNum(int recorderId) throws IOException;
 
     /**
      * Request the recorder that is actively recording the given program.
      *
      * @param program
      *            the program for which a recorder is requested
-     * @return the appropriate recorder or an {@link RecorderInfo#isValid() invalid}
-     *         recorder if the program is not currently recording
+     * @return the appropriate recorder or <code>null</code> if the program is not
+     *         currently recording
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public RecorderInfo getRecorderNum(ProgramInfo program) throws IOException;
+    public RecorderLocation getRecorderNum(ProgramInfo program) throws IOException;
 
     /**
      * Request that a slave backend go to sleep. This request will have no affect on the
@@ -627,7 +621,7 @@ public interface Protocol
      *            the recorder to interrogate
      * @return an object that provides capabilities to interrogate the specified recorder
      */
-    public QueryRecorder queryRecorder(RecorderInfo recorder);
+    public QueryRecorder queryRecorder(RecorderLocation recorder);
 
     // TODO
     public void queryRecordingBasename() throws IOException;

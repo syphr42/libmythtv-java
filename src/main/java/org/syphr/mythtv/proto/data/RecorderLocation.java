@@ -15,14 +15,14 @@
  */
 package org.syphr.mythtv.proto.data;
 
-public class RecorderInfo
+public class RecorderLocation
 {
     private final int id;
 
     private final String host;
     private final int port;
 
-    public RecorderInfo(int id, String host, int port)
+    public RecorderLocation(int id, String host, int port)
     {
         this.id = id;
         this.host = host;
@@ -42,15 +42,6 @@ public class RecorderInfo
     public int getPort()
     {
         return port;
-    }
-
-    public boolean isValid()
-    {
-        return id > 0
-               && host != null
-               && !host.isEmpty()
-               && port > 0
-               && port < Math.pow(2, 16);
     }
 
     @Override
@@ -87,11 +78,11 @@ public class RecorderInfo
         {
             return false;
         }
-        if (!(obj instanceof RecorderInfo))
+        if (!(obj instanceof RecorderLocation))
         {
             return false;
         }
-        RecorderInfo other = (RecorderInfo) obj;
+        RecorderLocation other = (RecorderLocation) obj;
         if (id != other.id)
         {
             return false;

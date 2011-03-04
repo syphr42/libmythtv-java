@@ -29,7 +29,7 @@ import org.syphr.mythtv.proto.Protocol;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
-import org.syphr.mythtv.proto.data.RecorderInfo;
+import org.syphr.mythtv.proto.data.RecorderLocation;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
@@ -99,14 +99,14 @@ public class Protocol63Test
         System.out.println("Free recorder count: " + count);
         System.out.println("Free recorders: " + freeRecorders);
 
-        RecorderInfo freeRecorder = proto.getFreeRecorder();
+        RecorderLocation freeRecorder = proto.getFreeRecorder();
         if (count > 0)
         {
-            Assert.assertTrue(freeRecorder.isValid());
+            Assert.assertNotNull(freeRecorder);
         }
         else
         {
-            Assert.assertFalse(freeRecorder.isValid());
+            Assert.assertNull(freeRecorder);
         }
 
         System.out.println("Next free recorder after "
@@ -118,11 +118,11 @@ public class Protocol63Test
     @Test
     public void testGetRecorderFromNum() throws IOException
     {
-        RecorderInfo good = proto.getRecorderFromNum(settings.getIntegerProperty(Settings.RECORDER));
-        Assert.assertTrue(good.isValid());
+        RecorderLocation good = proto.getRecorderFromNum(settings.getIntegerProperty(Settings.RECORDER));
+        Assert.assertNotNull(good);
 
-        RecorderInfo bad = proto.getRecorderFromNum(-1);
-        Assert.assertFalse(bad.isValid());
+        RecorderLocation bad = proto.getRecorderFromNum(-1);
+        Assert.assertNull(bad);
     }
 
     @Test
@@ -131,13 +131,13 @@ public class Protocol63Test
         List<ProgramInfo> recording = proto.queryRecordings(RecordingCategory.RECORDING);
         if (!recording.isEmpty())
         {
-            Assert.assertTrue(proto.getRecorderNum(recording.get(0)).isValid());
+            Assert.assertNotNull(proto.getRecorderNum(recording.get(0)));
         }
 
         List<ProgramInfo> expipring = proto.queryGetExpiring();
         if (!expipring.isEmpty())
         {
-            Assert.assertFalse(proto.getRecorderNum(expipring.get(0)).isValid());
+            Assert.assertNull(proto.getRecorderNum(expipring.get(0)));
         }
     }
 

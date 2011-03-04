@@ -20,12 +20,12 @@ import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
-import org.syphr.mythtv.proto.data.RecorderInfo;
+import org.syphr.mythtv.proto.data.RecorderLocation;
 
-/* default */class Command63GetFreeRecorder implements Command<RecorderInfo>
+/* default */class Command63GetFreeRecorder implements Command<RecorderLocation>
 {
     @Override
-    public RecorderInfo send(SocketManager socketManager) throws IOException
+    public RecorderLocation send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait("GET_FREE_RECORDER");
 
@@ -37,9 +37,13 @@ import org.syphr.mythtv.proto.data.RecorderInfo;
 
         try
         {
-            return new RecorderInfo(Integer.parseInt(args.get(0)),
-                                    args.get(1),
-                                    Integer.parseInt(args.get(2)));
+            int recorderId = Integer.parseInt(args.get(0));
+            if (recorderId == -1)
+            {
+                return null;
+            }
+
+            return new RecorderLocation(recorderId, args.get(1), Integer.parseInt(args.get(2)));
         }
         catch (NumberFormatException e)
         {

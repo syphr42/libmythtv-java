@@ -21,9 +21,9 @@ import java.util.List;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
-import org.syphr.mythtv.proto.data.RecorderInfo;
+import org.syphr.mythtv.proto.data.RecorderLocation;
 
-/* default */class Command63GetRecorderNum implements Command<RecorderInfo>
+/* default */class Command63GetRecorderNum implements Command<RecorderLocation>
 {
     private final String message;
 
@@ -35,7 +35,7 @@ import org.syphr.mythtv.proto.data.RecorderInfo;
     }
 
     @Override
-    public RecorderInfo send(SocketManager socketManager) throws IOException
+    public RecorderLocation send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(message);
 
@@ -47,9 +47,13 @@ import org.syphr.mythtv.proto.data.RecorderInfo;
 
         try
         {
-            return new RecorderInfo(Integer.parseInt(args.get(0)),
-                                    args.get(1),
-                                    Integer.parseInt(args.get(2)));
+            int recorderId = Integer.parseInt(args.get(0));
+            if (recorderId == -1)
+            {
+                return null;
+            }
+
+            return new RecorderLocation(recorderId, args.get(1), Integer.parseInt(args.get(2)));
         }
         catch (NumberFormatException e)
         {
