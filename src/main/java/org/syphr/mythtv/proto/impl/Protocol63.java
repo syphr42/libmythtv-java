@@ -155,8 +155,7 @@ public class Protocol63 extends AbstractProtocol
                                    boolean force,
                                    boolean forget) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63DeleteRecording(channel, startTime, force, forget).send(getSocketManager());
     }
 
     @Override

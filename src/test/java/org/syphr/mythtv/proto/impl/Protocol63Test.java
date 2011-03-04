@@ -319,6 +319,23 @@ public class Protocol63Test
 //    }
 //
 //    @Test
+//    public void testDeleteRecording() throws IOException
+//    {
+//        List<ProgramInfo> recorded = proto.queryRecordings(RecordingCategory.PLAY);
+//        if (recorded.isEmpty())
+//        {
+//            return;
+//        }
+//
+//        ProgramInfo delete = recorded.get(0);
+//        System.out.println("Deleting \"" + delete.getTitle() + ": " + delete.getSubtitle() + "\"");
+//        Assert.assertTrue(proto.deleteRecording(delete.getChannel(),
+//                                                delete.getRecStartTs(),
+//                                                false,
+//                                                false));
+//    }
+//
+//    @Test
 //    public void testShutdownNow() throws IOException
 //    {
 //        String backendHost = settings.getProperty(Settings.BACKEND_HOST);
