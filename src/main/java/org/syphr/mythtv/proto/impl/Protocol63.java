@@ -38,6 +38,7 @@ import org.syphr.mythtv.proto.data.GenPixMapResponse;
 import org.syphr.mythtv.proto.data.Load;
 import org.syphr.mythtv.proto.data.MemStats;
 import org.syphr.mythtv.proto.data.ProgramInfo;
+import org.syphr.mythtv.proto.data.RecorderDevice;
 import org.syphr.mythtv.proto.data.RecorderInfo;
 import org.syphr.mythtv.proto.data.TimeInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
@@ -230,14 +231,16 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void goToSleep() throws IOException
+    public String goToSleep() throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void lockTuner() throws IOException
+    public RecorderDevice lockTuner(int recorderId) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 

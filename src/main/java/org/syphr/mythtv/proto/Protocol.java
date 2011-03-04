@@ -32,6 +32,7 @@ import org.syphr.mythtv.proto.data.GenPixMapResponse;
 import org.syphr.mythtv.proto.data.Load;
 import org.syphr.mythtv.proto.data.MemStats;
 import org.syphr.mythtv.proto.data.ProgramInfo;
+import org.syphr.mythtv.proto.data.RecorderDevice;
 import org.syphr.mythtv.proto.data.RecorderInfo;
 import org.syphr.mythtv.proto.data.TimeInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
@@ -279,7 +280,7 @@ public interface Protocol
     public void forgetRecording(ProgramInfo program) throws IOException;
 
     /**
-     * Free a recorder that was previously locked with {@link #lockTuner()}.
+     * Free a recorder that was previously locked with {@link #lockTuner(int)}.
      *
      * @param recorderId
      *            the ID of the recorder to free
@@ -308,7 +309,7 @@ public interface Protocol
 
     /**
      * Retrieve the number of recorders that are online, but not busy or
-     * {@link #lockTuner() locked}.
+     * {@link #lockTuner(int) locked}.
      *
      * @return the number of free recorders
      * @throws IOException
@@ -377,11 +378,34 @@ public interface Protocol
      */
     public RecorderInfo getRecorderNum(ProgramInfo program) throws IOException;
 
-    // TODO
-    public void goToSleep() throws IOException;
+    /**
+     * Request that a slave backend go to sleep. This request will have no affect on the
+     * master backend.
+     *
+     * @return <code>null</code> if the request was accepted; otherwise a message about
+     *         why the request was rejected
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public String goToSleep() throws IOException;
 
-    // TODO
-    public void lockTuner() throws IOException;
+    /**
+     * Request that the given recorder be locked for exclusive use. When the recorder is
+     * no longer needed, {@link #freeTuner(int)} should be called to release it.
+     *
+     * @param recorderId
+     *            the ID of desired recorder, a value less than zero indicates no
+     *            preference
+     * @return device information for the recorder that was locked or <code>null</code> if
+     *         the request could not be fulfilled
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public RecorderDevice lockTuner(int recorderId) throws IOException;
 
     // TODO
     public void queryBookmark() throws IOException;
