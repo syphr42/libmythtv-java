@@ -319,6 +319,14 @@ public class Protocol63Test
 //    }
 //
 //    @Test
+//    public void testShutdownNow() throws IOException
+//    {
+//        String backendHost = settings.getProperty(Settings.BACKEND_HOST);
+//        System.out.println("Attempting to shut down " + backendHost);
+//        proto.shutdownNow("halt");
+//    }
+//
+//    @Test
 //    public void testStopRecording() throws IOException
 //    {
 //        List<ProgramInfo> recording = proto.queryRecordings(RecordingCategory.RECORDING);

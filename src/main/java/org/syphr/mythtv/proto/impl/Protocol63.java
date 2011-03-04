@@ -469,8 +469,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public void shutdownNow(String command) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        new Command63ShutdownNow(command).send(getSocketManager());
     }
 
     @Override
