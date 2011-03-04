@@ -363,8 +363,19 @@ public interface Protocol
      */
     public RecorderInfo getRecorderFromNum(int recorderId) throws IOException;
 
-    // TODO
-    public void getRecorderNum() throws IOException;
+    /**
+     * Request the recorder that is actively recording the given program.
+     *
+     * @param program
+     *            the program for which a recorder is requested
+     * @return the appropriate recorder or an {@link RecorderInfo#isValid() invalid}
+     *         recorder if the program is not currently recording
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public RecorderInfo getRecorderNum(ProgramInfo program) throws IOException;
 
     // TODO
     public void goToSleep() throws IOException;

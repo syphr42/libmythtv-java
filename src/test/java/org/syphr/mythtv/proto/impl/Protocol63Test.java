@@ -126,6 +126,22 @@ public class Protocol63Test
     }
 
     @Test
+    public void testGetRecorderNum() throws IOException
+    {
+        List<ProgramInfo> recording = proto.queryRecordings(RecordingCategory.RECORDING);
+        if (!recording.isEmpty())
+        {
+            Assert.assertTrue(proto.getRecorderNum(recording.get(0)).isValid());
+        }
+
+        List<ProgramInfo> expipring = proto.queryGetExpiring();
+        if (!expipring.isEmpty())
+        {
+            Assert.assertFalse(proto.getRecorderNum(expipring.get(0)).isValid());
+        }
+    }
+
+    @Test
     public void testQueryCheckFile() throws IOException
     {
         List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);

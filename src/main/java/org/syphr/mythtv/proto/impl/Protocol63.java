@@ -224,9 +224,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void getRecorderNum() throws IOException
+    public RecorderInfo getRecorderNum(ProgramInfo program) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63GetRecorderNum(program).send(getSocketManager());
     }
 
     @Override
