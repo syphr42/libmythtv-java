@@ -560,8 +560,18 @@ public interface Protocol
      */
     public List<ProgramInfo> queryGetAllScheduled() throws IOException;
 
-    // TODO
-    public void queryGetConflicting() throws IOException;
+    /**
+     * Get a list of programs that conflict with the given program.
+     *
+     * @param program
+     *            the program to check for conflicts
+     * @return a list of conflicting programs
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public List<ProgramInfo> queryGetConflicting(ProgramInfo program) throws IOException;
 
     /**
      * Retrieve a list of all recordings set to auto-expire soon.

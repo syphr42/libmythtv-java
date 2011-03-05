@@ -311,8 +311,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryGetConflicting() throws IOException
+    public List<ProgramInfo> queryGetConflicting(ProgramInfo program) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
