@@ -44,7 +44,7 @@ import org.syphr.mythtv.proto.data.Channel;
             return false;
         }
 
-        if ("OK".equals(response))
+        if ("ok".equals(response))
         {
             return true;
         }

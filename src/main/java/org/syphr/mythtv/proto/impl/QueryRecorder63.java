@@ -228,15 +228,13 @@ public class QueryRecorder63 extends AbstractQueryRecorder
     @Override
     public boolean spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderSpawnLiveTv(getRecorderId(), chainId, pip, startChannel).send(getSocketManager());
     }
 
     @Override
-    public boolean stopLiveTv()
+    public boolean stopLiveTv() throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderStopLiveTv(getRecorderId()).send(getSocketManager());
     }
 
     @Override
