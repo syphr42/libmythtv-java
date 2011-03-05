@@ -37,6 +37,7 @@ import org.syphr.mythtv.proto.data.MemStats;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.RecorderDevice;
 import org.syphr.mythtv.proto.data.RecorderLocation;
+import org.syphr.mythtv.proto.data.RecordingsInProgress;
 import org.syphr.mythtv.proto.data.TimeInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
 import org.syphr.mythtv.proto.data.VideoEditInfo;
@@ -342,9 +343,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryIsRecording() throws IOException
+    public RecordingsInProgress queryIsRecording() throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryIsRecording().send(getSocketManager());
     }
 
     @Override

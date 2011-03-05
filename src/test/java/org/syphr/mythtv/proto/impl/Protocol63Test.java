@@ -31,6 +31,7 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.RecorderLocation;
+import org.syphr.mythtv.proto.data.RecordingsInProgress;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
@@ -331,6 +332,17 @@ public class Protocol63Test
     {
         Assert.assertTrue(proto.queryIsActiveBackend(proto.queryHostname()));
         Assert.assertFalse(proto.queryIsActiveBackend("thishostnamedoesnotexist"));
+    }
+
+    @Test
+    public void testQueryIsRecording() throws IOException
+    {
+        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDING);
+        RecordingsInProgress inProgress = proto.queryIsRecording();
+
+        System.out.println(inProgress);
+
+        Assert.assertSame(recordings.size(), inProgress.getTotal());
     }
 
     @Test

@@ -31,6 +31,7 @@ import org.syphr.mythtv.proto.data.MemStats;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.RecorderDevice;
 import org.syphr.mythtv.proto.data.RecorderLocation;
+import org.syphr.mythtv.proto.data.RecordingsInProgress;
 import org.syphr.mythtv.proto.data.TimeInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
 import org.syphr.mythtv.proto.data.VideoEditInfo;
@@ -622,8 +623,16 @@ public interface Protocol
      */
     public boolean queryIsActiveBackend(String hostname) throws IOException;
 
-    // TODO
-    public void queryIsRecording() throws IOException;
+    /**
+     * Retrieve a count of the recordings in progress.
+     *
+     * @return stats on recordings in progress
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public RecordingsInProgress queryIsRecording() throws IOException;
 
     /**
      * Retrieve the load factor of the backend machine.
