@@ -32,7 +32,7 @@ import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
-import org.syphr.mythtv.proto.types.CommBreakType;
+import org.syphr.mythtv.proto.types.VideoEditMark;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
@@ -147,34 +147,34 @@ public class Protocol63Utils
         FILE_TRANSFER_TYPE_MAP.put(FileTransferType.WRITE, 1);
     }
 
-    private static final BiMap<CommBreakType, Integer> COMM_BREAK_TYPE_MAP = EnumHashBiMap.create(CommBreakType.class);
+    private static final BiMap<VideoEditMark, Integer> VIDEO_EDIT_MARK_MAP = EnumHashBiMap.create(VideoEditMark.class);
     static
     {
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_ALL, -100);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_UNSET, -10);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_TMP_CUT_END, -5);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_TMP_CUT_START, -4);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_UPDATED_CUT, -3);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_PLACEHOLDER, -2);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_CUT_END, 0);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_CUT_START, 1);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_BOOKMARK, 2);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_BLANK_FRAME, 3);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_COMM_START, 4);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_COMM_END, 5);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_GOP_START, 6);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_KEYFRAME, 7);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_SCENE_CHANGE, 8);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_GOP_BYFRAME, 9);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_ASPECT_1_1, 10);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_ASPECT_4_3, 11);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_ASPECT_16_9, 12);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_ASPECT_2_21_1, 13);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_ASPECT_CUSTOM, 14);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_VIDEO_WIDTH, 30);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_VIDEO_HEIGHT, 31);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_VIDEO_RATE, 32);
-        COMM_BREAK_TYPE_MAP.put(CommBreakType.MARK_DURATION_MS, 33);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.ALL, -100);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.UNSET, -10);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.TMP_CUT_END, -5);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.TMP_CUT_START, -4);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.UPDATED_CUT, -3);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.PLACEHOLDER, -2);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.CUT_END, 0);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.CUT_START, 1);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.BOOKMARK, 2);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.BLANK_FRAME, 3);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.COMM_START, 4);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.COMM_END, 5);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.GOP_START, 6);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.KEYFRAME, 7);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.SCENE_CHANGE, 8);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.GOP_BYFRAME, 9);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.ASPECT_1_1, 10);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.ASPECT_4_3, 11);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.ASPECT_16_9, 12);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.ASPECT_2_21_1, 13);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.ASPECT_CUSTOM, 14);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.VIDEO_WIDTH, 30);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.VIDEO_HEIGHT, 31);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.VIDEO_RATE, 32);
+        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.DURATION_MS, 33);
     }
 
     public static RecordingStatus getRecordingStatus(int recStatus) throws ProtocolException
@@ -257,14 +257,14 @@ public class Protocol63Utils
         return translate(fileTransferType, FILE_TRANSFER_TYPE_MAP);
     }
 
-    public static CommBreakType getCommBreakType(int commBreakType) throws ProtocolException
+    public static VideoEditMark getVideoEditMark(int videoEditMark) throws ProtocolException
     {
-        return translate(commBreakType, COMM_BREAK_TYPE_MAP.inverse());
+        return translate(videoEditMark, VIDEO_EDIT_MARK_MAP.inverse());
     }
 
-    public static int getCommBreakType(CommBreakType commBreakType) throws ProtocolException
+    public static int getVideoEditMark(VideoEditMark videoEditMark) throws ProtocolException
     {
-        return translate(commBreakType, COMM_BREAK_TYPE_MAP);
+        return translate(videoEditMark, VIDEO_EDIT_MARK_MAP);
     }
 
     private static <K, V> V translate(K key, Map<K, V> map) throws ProtocolException

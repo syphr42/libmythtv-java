@@ -218,6 +218,25 @@ public class Protocol63Test
     }
 
     @Test
+    public void testQueryCutList() throws IOException
+    {
+        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
+        if (recordings.isEmpty())
+        {
+            return;
+        }
+
+        ProgramInfo program = recordings.get(0);
+        System.out.println("Cut list marks for "
+                           + program.getChannel()
+                           + "/"
+                           + program.getStartTime()
+                           + ": "
+                           + proto.queryCutList(program.getChannel(),
+                                                program.getRecStartTs()));
+    }
+
+    @Test
     public void testQueryCheckFile() throws IOException
     {
         List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);

@@ -19,9 +19,9 @@ import java.util.Date;
 
 import org.syphr.mythtv.proto.data.Channel;
 
-/* default */class Command63QueryCommBreak extends AbstractCommand63QueryVideoEditMarks
+/* default */class Command63QueryCutList extends AbstractCommand63QueryVideoEditMarks
 {
-    public Command63QueryCommBreak(Channel channel, Date recStartTs)
+    public Command63QueryCutList(Channel channel, Date recStartTs)
     {
         super(channel, recStartTs);
     }
@@ -29,6 +29,6 @@ import org.syphr.mythtv.proto.data.Channel;
     @Override
     protected String getCommand()
     {
-        return "QUERY_COMMBREAK";
+        return "QUERY_CUTLIST";
     }
 }

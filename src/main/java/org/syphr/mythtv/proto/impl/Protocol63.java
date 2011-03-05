@@ -29,7 +29,6 @@ import org.syphr.mythtv.proto.QueryFileTransfer;
 import org.syphr.mythtv.proto.QueryRecorder;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
-import org.syphr.mythtv.proto.data.CommBreakInfo;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.FileEntry;
 import org.syphr.mythtv.proto.data.FileInfo;
@@ -40,6 +39,7 @@ import org.syphr.mythtv.proto.data.RecorderDevice;
 import org.syphr.mythtv.proto.data.RecorderLocation;
 import org.syphr.mythtv.proto.data.TimeInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
+import org.syphr.mythtv.proto.data.VideoEditInfo;
 import org.syphr.mythtv.proto.events.BackendEventGrabber;
 import org.syphr.mythtv.proto.events.impl.EventProtocol63;
 import org.syphr.mythtv.proto.types.ConnectionType;
@@ -255,15 +255,15 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public List<CommBreakInfo> queryCommBreak(Channel channel, Date recStartTs) throws IOException
+    public List<VideoEditInfo> queryCommBreak(Channel channel, Date recStartTs) throws IOException
     {
         return new Command63QueryCommBreak(channel, recStartTs).send(getSocketManager());
     }
 
     @Override
-    public void queryCutList() throws IOException
+    public List<VideoEditInfo> queryCutList(Channel channel, Date recStartTs) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryCutList(channel, recStartTs).send(getSocketManager());
     }
 
     @Override

@@ -15,20 +15,20 @@
  */
 package org.syphr.mythtv.proto.data;
 
-import org.syphr.mythtv.proto.types.CommBreakType;
+import org.syphr.mythtv.proto.types.VideoEditMark;
 
-public class CommBreakInfo
+public class VideoEditInfo
 {
-    private final CommBreakType type;
+    private final VideoEditMark type;
     private final long frameCount;
 
-    public CommBreakInfo(CommBreakType type, long frameCount)
+    public VideoEditInfo(VideoEditMark type, long frameCount)
     {
         this.type = type;
         this.frameCount = frameCount;
     }
 
-    public CommBreakType getType()
+    public VideoEditMark getType()
     {
         return type;
     }
@@ -42,7 +42,7 @@ public class CommBreakInfo
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("CommBreakInfo [type=");
+        builder.append("VideoEditInfo [type=");
         builder.append(type);
         builder.append(", frameCount=");
         builder.append(frameCount);

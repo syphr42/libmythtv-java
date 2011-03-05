@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.syphr.mythtv.proto.data.Channel;
-import org.syphr.mythtv.proto.data.CommBreakInfo;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.FileEntry;
 import org.syphr.mythtv.proto.data.FileInfo;
@@ -34,6 +33,7 @@ import org.syphr.mythtv.proto.data.RecorderDevice;
 import org.syphr.mythtv.proto.data.RecorderLocation;
 import org.syphr.mythtv.proto.data.TimeInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
+import org.syphr.mythtv.proto.data.VideoEditInfo;
 import org.syphr.mythtv.proto.events.BackendEventListener;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
@@ -449,10 +449,23 @@ public interface Protocol
      *
      * @since 63
      */
-    public List<CommBreakInfo> queryCommBreak(Channel channel, Date recStartTs) throws IOException;
+    public List<VideoEditInfo> queryCommBreak(Channel channel, Date recStartTs) throws IOException;
 
-    // TODO
-    public void queryCutList() throws IOException;
+    /**
+     * Retrieve the list of cut list marks found for the the recording at the given
+     * channel and start time.
+     *
+     * @param channel
+     *            the channel on which the program aired
+     * @param recStartTs
+     *            the actual (not scheduled) start time of the program
+     * @return the list of cut marks
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public List<VideoEditInfo> queryCutList(Channel channel, Date recStartTs) throws IOException;
 
     /**
      * Determine whether or not a file exists and, if it does exists, its full
