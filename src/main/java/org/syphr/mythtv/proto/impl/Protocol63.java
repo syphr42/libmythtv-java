@@ -33,7 +33,6 @@ import org.syphr.mythtv.proto.data.CommBreakInfo;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.FileEntry;
 import org.syphr.mythtv.proto.data.FileInfo;
-import org.syphr.mythtv.proto.data.FileTransferType;
 import org.syphr.mythtv.proto.data.GenPixMapResponse;
 import org.syphr.mythtv.proto.data.Load;
 import org.syphr.mythtv.proto.data.MemStats;
@@ -46,6 +45,7 @@ import org.syphr.mythtv.proto.events.BackendEventGrabber;
 import org.syphr.mythtv.proto.events.impl.EventProtocol63;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
+import org.syphr.mythtv.proto.types.FileTransferType;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 
 public class Protocol63 extends AbstractProtocol

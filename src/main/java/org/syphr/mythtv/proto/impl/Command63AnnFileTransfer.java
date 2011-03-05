@@ -22,7 +22,7 @@ import java.util.List;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.QueryFileTransfer;
 import org.syphr.mythtv.proto.SocketManager;
-import org.syphr.mythtv.proto.data.FileTransferType;
+import org.syphr.mythtv.proto.types.FileTransferType;
 
 /* default */class Command63AnnFileTransfer implements Command<QueryFileTransfer>
 {
