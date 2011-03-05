@@ -19,6 +19,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.Pair;
+import org.syphr.mythtv.proto.types.MemStatCategory;
 
 public class MemStats
 {
@@ -53,10 +54,5 @@ public class MemStats
         builder.append(map);
         builder.append("]");
         return builder.toString();
-    }
-
-    public static enum MemStatCategory
-    {
-        TOTAL_PHYSICAL, FREE_PHYSICAL, TOTAL_VIRTUAL, FREE_VIRTUAL
     }
 }

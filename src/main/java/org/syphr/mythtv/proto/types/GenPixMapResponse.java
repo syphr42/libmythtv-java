@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.proto.data;
+package org.syphr.mythtv.proto.types;
 
 public enum GenPixMapResponse
 {
-    OK, ERROR_INVALID_REQUEST, ERROR_NOFILE, ERROR_UNKNOWN, NO_PATHNAME
+    OK,
+    ERROR_INVALID_REQUEST,
+    ERROR_NOFILE,
+    ERROR_UNKNOWN,
+    NO_PATHNAME
 }

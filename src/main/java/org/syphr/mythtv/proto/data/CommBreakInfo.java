@@ -15,6 +15,8 @@
  */
 package org.syphr.mythtv.proto.data;
 
+import org.syphr.mythtv.proto.types.CommBreakType;
+
 public class CommBreakInfo
 {
     private final CommBreakType type;

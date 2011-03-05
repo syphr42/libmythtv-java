@@ -13,33 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.proto.data;
+package org.syphr.mythtv.proto.types;
 
-public enum CommBreakType
+public enum TunerStatusCategory
 {
-    MARK_ALL,
-    MARK_UNSET,
-    MARK_TMP_CUT_END,
-    MARK_TMP_CUT_START,
-    MARK_UPDATED_CUT,
-    MARK_PLACEHOLDER,
-    MARK_CUT_END,
-    MARK_CUT_START,
-    MARK_BOOKMARK,
-    MARK_BLANK_FRAME,
-    MARK_COMM_START,
-    MARK_COMM_END,
-    MARK_GOP_START,
-    MARK_KEYFRAME,
-    MARK_SCENE_CHANGE,
-    MARK_GOP_BYFRAME,
-    MARK_ASPECT_1_1,
-    MARK_ASPECT_4_3,
-    MARK_ASPECT_16_9,
-    MARK_ASPECT_2_21_1,
-    MARK_ASPECT_CUSTOM,
-    MARK_VIDEO_WIDTH,
-    MARK_VIDEO_HEIGHT,
-    MARK_VIDEO_RATE,
-    MARK_DURATION_MS;
+    CHANNEL_TUNED,
+    SIGNAL_LOCK,
+    SIGNAL_POWER,
+    SEEN_PAT,
+    MATCHING_PAT,
+    SEEN_PMT,
+    MATCHING_PMT
 }

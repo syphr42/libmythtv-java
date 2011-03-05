@@ -27,7 +27,6 @@ import org.syphr.mythtv.proto.data.CommBreakInfo;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.FileEntry;
 import org.syphr.mythtv.proto.data.FileInfo;
-import org.syphr.mythtv.proto.data.GenPixMapResponse;
 import org.syphr.mythtv.proto.data.Load;
 import org.syphr.mythtv.proto.data.MemStats;
 import org.syphr.mythtv.proto.data.ProgramInfo;
@@ -39,6 +38,7 @@ import org.syphr.mythtv.proto.events.BackendEventListener;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
+import org.syphr.mythtv.proto.types.GenPixMapResponse;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 
 /**

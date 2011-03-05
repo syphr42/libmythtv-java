@@ -19,6 +19,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.Pair;
+import org.syphr.mythtv.proto.types.LoadCategory;
 
 public class Load
 {
@@ -53,10 +54,5 @@ public class Load
         builder.append(map);
         builder.append("]");
         return builder.toString();
-    }
-
-    public static enum LoadCategory
-    {
-        ONE_MINUTE, FIVE_MINUTES, FIFTEEN_MINUTES
     }
 }

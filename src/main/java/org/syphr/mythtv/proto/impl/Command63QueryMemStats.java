@@ -22,7 +22,7 @@ import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.MemStats;
-import org.syphr.mythtv.proto.data.MemStats.MemStatCategory;
+import org.syphr.mythtv.proto.types.MemStatCategory;
 
 /* default */class Command63QueryMemStats implements Command<MemStats>
 {

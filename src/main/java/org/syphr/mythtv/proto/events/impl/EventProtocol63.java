@@ -30,11 +30,11 @@ import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.TunerStatus;
 import org.syphr.mythtv.proto.data.TunerStatus.TunerData;
-import org.syphr.mythtv.proto.data.TunerStatus.TunerStatusCategory;
 import org.syphr.mythtv.proto.events.BackendEventListener63;
 import org.syphr.mythtv.proto.events.SystemEvent;
 import org.syphr.mythtv.proto.events.SystemEventData;
 import org.syphr.mythtv.proto.impl.Protocol63Utils;
+import org.syphr.mythtv.proto.types.TunerStatusCategory;
 
 public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener63>
 {

@@ -21,8 +21,8 @@ import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
-import org.syphr.mythtv.proto.data.GenPixMapResponse;
 import org.syphr.mythtv.proto.data.ProgramInfo;
+import org.syphr.mythtv.proto.types.GenPixMapResponse;
 
 /* default */class Command63GenPixMap2 implements Command<GenPixMapResponse>
 {

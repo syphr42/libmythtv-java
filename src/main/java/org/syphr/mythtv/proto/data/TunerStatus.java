@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.Pair;
+import org.syphr.mythtv.proto.types.TunerStatusCategory;
 
 public class TunerStatus
 {
@@ -56,11 +57,6 @@ public class TunerStatus
         builder.append(map);
         builder.append("]");
         return builder.toString();
-    }
-
-    public static enum TunerStatusCategory
-    {
-        CHANNEL_TUNED, SIGNAL_LOCK, SIGNAL_POWER, SEEN_PAT, MATCHING_PAT, SEEN_PMT, MATCHING_PMT
     }
 
     public static class TunerData

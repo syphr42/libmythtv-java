@@ -15,6 +15,8 @@
  */
 package org.syphr.mythtv.proto.data;
 
+import org.syphr.mythtv.proto.types.FileEntryType;
+
 
 public class FileEntry
 {
@@ -47,10 +49,5 @@ public class FileEntry
         builder.append(name);
         builder.append("]");
         return builder.toString();
-    }
-
-    public static enum FileEntryType
-    {
-        DIRECTORY, FILE
     }
 }

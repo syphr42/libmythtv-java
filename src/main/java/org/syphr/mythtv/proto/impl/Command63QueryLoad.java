@@ -22,7 +22,7 @@ import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Load;
-import org.syphr.mythtv.proto.data.Load.LoadCategory;
+import org.syphr.mythtv.proto.types.LoadCategory;
 
 /* default */class Command63QueryLoad implements Command<Load>
 {

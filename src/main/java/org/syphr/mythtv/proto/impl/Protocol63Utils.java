@@ -29,18 +29,18 @@ import java.util.regex.Pattern;
 
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.data.Channel;
-import org.syphr.mythtv.proto.data.CommBreakType;
 import org.syphr.mythtv.proto.data.DriveInfo;
-import org.syphr.mythtv.proto.data.GenPixMapResponse;
 import org.syphr.mythtv.proto.data.ProgramInfo;
-import org.syphr.mythtv.proto.data.TunerStatus.TunerStatusCategory;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
+import org.syphr.mythtv.proto.types.CommBreakType;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
+import org.syphr.mythtv.proto.types.GenPixMapResponse;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 import org.syphr.mythtv.proto.types.RecordingStatus;
 import org.syphr.mythtv.proto.types.RecordingType;
+import org.syphr.mythtv.proto.types.TunerStatusCategory;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;

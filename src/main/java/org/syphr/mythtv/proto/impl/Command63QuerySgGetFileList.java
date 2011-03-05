@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.data.FileEntry;
-import org.syphr.mythtv.proto.data.FileEntry.FileEntryType;
+import org.syphr.mythtv.proto.types.FileEntryType;
 
 /* default */class Command63QuerySgGetFileList extends AbstractCommand63QuerySg<List<FileEntry>>
 {
