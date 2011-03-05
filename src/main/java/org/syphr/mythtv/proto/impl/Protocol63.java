@@ -243,9 +243,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryBookmark() throws IOException
+    public long queryBookmark(Channel channel, Date recStartTs) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryBookmark(channel, recStartTs).send(getSocketManager());
     }
 
     @Override

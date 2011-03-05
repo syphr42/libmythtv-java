@@ -401,8 +401,21 @@ public interface Protocol
      */
     public RecorderDevice lockTuner(int recorderId) throws IOException;
 
-    // TODO
-    public void queryBookmark() throws IOException;
+    /**
+     * Retrieve the bookmark set on a recording.
+     *
+     * @param channel
+     *            the channel on which the program was recorded
+     * @param recStartTs
+     *            the actual (not scheduled) start time of the recording
+     * @return the bookmark location in number of frames or <code>0</code if there is no
+     *         bookmark
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public long queryBookmark(Channel channel, Date recStartTs) throws IOException;
 
     /**
      * Retrieve a URI to the given program.

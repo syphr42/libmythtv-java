@@ -199,6 +199,25 @@ public class Protocol63Test
     }
 
     @Test
+    public void testQueryCommBreak() throws IOException
+    {
+        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
+        if (recordings.isEmpty())
+        {
+            return;
+        }
+
+        ProgramInfo program = recordings.get(0);
+        System.out.println("Commercial breaks for "
+                           + program.getChannel()
+                           + "/"
+                           + program.getStartTime()
+                           + ": "
+                           + proto.queryCommBreak(program.getChannel(),
+                                                  program.getRecStartTs()));
+    }
+
+    @Test
     public void testQueryCheckFile() throws IOException
     {
         List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
@@ -217,7 +236,7 @@ public class Protocol63Test
     }
 
     @Test
-    public void testQueryCommBreak() throws IOException
+    public void testQueryBookmark() throws IOException
     {
         List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
         if (recordings.isEmpty())
@@ -226,13 +245,13 @@ public class Protocol63Test
         }
 
         ProgramInfo program = recordings.get(0);
-        System.out.println("Commercial breaks for "
+        System.out.println("Bookmark for "
                            + program.getChannel()
                            + "/"
                            + program.getStartTime()
                            + ": "
-                           + proto.queryCommBreak(program.getChannel(),
-                                                  program.getRecStartTs()));
+                           + proto.queryBookmark(program.getChannel(),
+                                                 program.getRecStartTs()));
     }
 
     @Test
