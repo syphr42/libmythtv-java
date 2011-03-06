@@ -824,7 +824,14 @@ public interface Protocol
      */
     public long queryUptime() throws IOException;
 
-    // TODO
+    /**
+     * Refresh the backend configuration.
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
     public void refreshBackend() throws IOException;
 
     /**

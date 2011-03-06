@@ -443,6 +443,13 @@ public class Protocol63Test
         System.out.println("Uptime: " + proto.queryUptime() + " secs");
     }
 
+    @Test
+    public void testRefreshBackend() throws IOException
+    {
+        System.out.println("Refreshing backend config");
+        proto.refreshBackend();
+    }
+
     /*
      * ----------------------------------------------------------------
      * The following unit tests can cause side effects. Use with care.

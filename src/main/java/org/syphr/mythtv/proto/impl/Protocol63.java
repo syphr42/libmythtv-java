@@ -433,7 +433,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public void refreshBackend() throws IOException
     {
-        throw new UnsupportedOperationException();
+        new Command63RefreshBackend().send(getSocketManager());
     }
 
     @Override
