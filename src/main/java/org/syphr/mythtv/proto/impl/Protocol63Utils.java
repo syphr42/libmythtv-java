@@ -32,7 +32,6 @@ import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.DriveInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
-import org.syphr.mythtv.proto.types.VideoEditMark;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
@@ -41,6 +40,8 @@ import org.syphr.mythtv.proto.types.RecordingCategory;
 import org.syphr.mythtv.proto.types.RecordingStatus;
 import org.syphr.mythtv.proto.types.RecordingType;
 import org.syphr.mythtv.proto.types.TunerStatusCategory;
+import org.syphr.mythtv.proto.types.TvState;
+import org.syphr.mythtv.proto.types.VideoEditMark;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
@@ -177,6 +178,21 @@ public class Protocol63Utils
         VIDEO_EDIT_MARK_MAP.put(VideoEditMark.DURATION_MS, 33);
     }
 
+    private static final BiMap<TvState, Integer> TV_STATE_MAP = EnumHashBiMap.create(TvState.class);
+    static
+    {
+        TV_STATE_MAP.put(TvState.ERROR, -1);
+        TV_STATE_MAP.put(TvState.NONE, 0);
+        TV_STATE_MAP.put(TvState.WATCHING_LIVETV, 1);
+        TV_STATE_MAP.put(TvState.WATCHING_PRERECORDED, 2);
+        TV_STATE_MAP.put(TvState.WATCHING_VIDEO, 3);
+        TV_STATE_MAP.put(TvState.WATCHING_DVD, 4);
+        TV_STATE_MAP.put(TvState.WATCHING_BD, 5);
+        TV_STATE_MAP.put(TvState.WATCHING_RECORDING, 6);
+        TV_STATE_MAP.put(TvState.RECORDING_ONLY, 7);
+        TV_STATE_MAP.put(TvState.CHANGING_STATE, 8);
+    }
+
     public static RecordingStatus getRecordingStatus(int recStatus) throws ProtocolException
     {
         return translate(recStatus, REC_STATUS_MAP.inverse());
@@ -267,15 +283,25 @@ public class Protocol63Utils
         return translate(videoEditMark, VIDEO_EDIT_MARK_MAP);
     }
 
+    public static TvState getTvState(int tvState) throws ProtocolException
+    {
+        return translate(tvState, TV_STATE_MAP.inverse());
+    }
+
+    public static int getTvState(TvState tvState) throws ProtocolException
+    {
+        return translate(tvState, TV_STATE_MAP);
+    }
+
     private static <K, V> V translate(K key, Map<K, V> map) throws ProtocolException
     {
-        V converted = map.get(key);
-        if (converted == null)
+        V translated = map.get(key);
+        if (translated == null)
         {
             throw new ProtocolException("Invalid argument: " + key);
         }
 
-        return converted;
+        return translated;
     }
 
     public static List<String> getArguments(String value)
