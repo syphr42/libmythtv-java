@@ -373,8 +373,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryRecordingBasename() throws IOException
+    public ProgramInfo queryRecordingBasename(String basename) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 

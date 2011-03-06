@@ -680,11 +680,26 @@ public interface Protocol
      */
     public QueryRecorder queryRecorder(int recorderId);
 
-    // TODO
-    public void queryRecordingBasename() throws IOException;
+    /**
+     * Retrieve the program data associated with the given recording by its base
+     * filename.
+     *
+     * @see #queryRecordingTimeslot(Channel, Date)
+     *
+     * @param basename
+     *            the base filename of the program to lookup
+     * @return the relevant program data
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public ProgramInfo queryRecordingBasename(String basename) throws IOException;
 
     /**
      * Retrieve the program data associated with the given channel and start time.
+     *
+     * @see #queryRecordingBasename(String)
      *
      * @param channel
      *            the channel of the program to lookup
