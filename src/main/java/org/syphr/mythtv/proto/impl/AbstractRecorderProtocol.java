@@ -15,15 +15,14 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import org.syphr.mythtv.proto.QueryRecorder;
 import org.syphr.mythtv.proto.SocketManager;
 
-public abstract class AbstractQueryRecorder implements QueryRecorder
+public abstract class AbstractRecorderProtocol
 {
     private final int recorderId;
     private final SocketManager socketManager;
 
-    public AbstractQueryRecorder(int recorderId, SocketManager socketManager)
+    public AbstractRecorderProtocol(int recorderId, SocketManager socketManager)
     {
         this.recorderId = recorderId;
         this.socketManager = socketManager;

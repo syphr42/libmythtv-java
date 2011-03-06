@@ -17,10 +17,11 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.QueryRecorder;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 
-public class QueryRecorder63 extends AbstractQueryRecorder
+public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRecorder
 {
     public QueryRecorder63(int recorderId, SocketManager socketManager)
     {

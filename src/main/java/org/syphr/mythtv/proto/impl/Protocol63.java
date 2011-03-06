@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.QueryFileTransfer;
 import org.syphr.mythtv.proto.QueryRecorder;
+import org.syphr.mythtv.proto.QueryRemoteEncoder;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.DriveInfo;
@@ -392,9 +393,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryRemoteEncoder() throws IOException
+    public QueryRemoteEncoder queryRemoteEncoder(int recorderId)
     {
-        throw new UnsupportedOperationException();
+        return new QueryRemoteEncoder63(recorderId, getSocketManager());
     }
 
     @Override

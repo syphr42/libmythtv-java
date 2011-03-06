@@ -672,11 +672,16 @@ public interface Protocol
     public Date queryPixMapLastModified(ProgramInfo program) throws IOException;
 
     /**
-     * Get a sub-protocol object that provides an API to interrogate a specific recorder.
+     * Get a sub-protocol object that provides an API to interrogate a specific
+     * recorder. This API focuses on the recorder itself (such as brightness and
+     * color options) as well as some recording information.
+     *
+     * @see #queryRemoteEncoder(int)
      *
      * @param recorderId
      *            the ID of the recorder to interrogate
-     * @return an object that provides capabilities to interrogate the specified recorder
+     * @return an object that provides capabilities to interrogate the specified
+     *         recorder
      */
     public QueryRecorder queryRecorder(int recorderId);
 
@@ -726,8 +731,19 @@ public interface Protocol
      */
     public List<ProgramInfo> queryRecordings(RecordingCategory recType) throws IOException;
 
-    // TODO
-    public void queryRemoteEncoder() throws IOException;
+    /**
+     * Get a sub-protocol object that provides an API to interrogate a specific
+     * recorder. This API is focused on recordings and the state of the
+     * recorder.
+     *
+     * @see #queryRecorder(int)
+     *
+     * @param recorderId
+     *            the ID of the recorder to interrogate
+     * @return an object that provides capabilities to interrogate the specified
+     *         recorder
+     */
+    public QueryRemoteEncoder queryRemoteEncoder(int recorderId);
 
     /**
      * Retrieve the current value of a setting.
