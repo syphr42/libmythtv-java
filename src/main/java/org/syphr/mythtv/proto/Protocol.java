@@ -871,13 +871,15 @@ public interface Protocol
     public boolean setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException;
 
     /**
-     * Request that the given recorder put the next LiveTV recording in the directory
-     * specified by the given path.
+     * Request that the given recorder put the next LiveTV recording in the
+     * directory specified by the given path.
      *
      * @param recorderId
      *            the ID of the recorder to change
      * @param path
      *            the path of the directory to set
+     * @return <code>true</code> if the request was successful;
+     *         <code>false</code> otherwise
      * @throws IOException
      *             if there is a communication or protocol error
      *
