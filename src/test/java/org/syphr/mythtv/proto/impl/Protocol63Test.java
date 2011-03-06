@@ -342,7 +342,7 @@ public class Protocol63Test
 
         System.out.println(inProgress);
 
-        Assert.assertSame(recordings.size(), inProgress.getTotal());
+        Assert.assertEquals(recordings.size(), inProgress.getTotal());
     }
 
     @Test
