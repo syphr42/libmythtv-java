@@ -361,9 +361,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryPixMapLastModified() throws IOException
+    public Date queryPixMapLastModified(ProgramInfo program) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryPixMapLastModified(program).send(getSocketManager());
     }
 
     @Override

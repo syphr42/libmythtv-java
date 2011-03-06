@@ -656,8 +656,20 @@ public interface Protocol
      */
     public MemStats queryMemStats() throws IOException;
 
-    // TODO
-    public void queryPixMapLastModified() throws IOException;
+    /**
+     * Retrieve the last modified date of the current pix map for the given
+     * program.
+     *
+     * @param program
+     *            the program to check
+     * @return the last modified date or <code>null</code> if the date could not
+     *         be determined
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public Date queryPixMapLastModified(ProgramInfo program) throws IOException;
 
     /**
      * Get a sub-protocol object that provides an API to interrogate a specific recorder.
