@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.DriveInfo;
@@ -614,5 +615,10 @@ public class Protocol63Utils
     public static long combineInts(int high, int low)
     {
         return ((long)high << 32) + low;
+    }
+
+    public static Pair<Integer, Integer> splitLong(long value)
+    {
+        return Pair.of((int)(value >> 32), (int)value);
     }
 }

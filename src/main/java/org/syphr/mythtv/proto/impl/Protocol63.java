@@ -444,8 +444,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void setBookmark() throws IOException
+    public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 

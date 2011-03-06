@@ -858,8 +858,23 @@ public interface Protocol
      */
     public void scanVideos() throws IOException;
 
-    // TODO
-    public void setBookmark() throws IOException;
+    /**
+     * Set the bookmark for the program matching the given channel and time.
+     *
+     * @param channel
+     *            the channel on which the program was recorded
+     * @param recStartTs
+     *            the actual (not scheduled) start time of the recording
+     * @param location
+     *            the location in number of frames to set the bookmark
+     * @return <code>true</code> if the bookmark was set successfully;
+     *         <code>false</code> otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException;
 
     /**
      * Replace a channel with new information.
