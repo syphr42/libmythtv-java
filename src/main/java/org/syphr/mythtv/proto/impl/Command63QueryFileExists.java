@@ -59,20 +59,28 @@ import org.syphr.mythtv.proto.data.FileInfo;
         if (args.size() == 15)
         {
             int i = 1;
-            return new FileInfo(args.get(i++),
-                                Long.parseLong(args.get(i++)),
-                                Long.parseLong(args.get(i++)),
-                                Long.parseLong(args.get(i++)),
-                                Long.parseLong(args.get(i++)),
-                                Long.parseLong(args.get(i++)),
-                                Long.parseLong(args.get(i++)),
-                                Long.parseLong(args.get(i++)),
-                                Long.parseLong(args.get(i++)),
-                                Long.parseLong(args.get(i++)),
-                                Long.parseLong(args.get(i++)),
-                                new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))),
-                                new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))),
-                                new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))));
+
+            try
+            {
+                return new FileInfo(args.get(i++),
+                                    Long.parseLong(args.get(i++)),
+                                    Long.parseLong(args.get(i++)),
+                                    Long.parseLong(args.get(i++)),
+                                    Long.parseLong(args.get(i++)),
+                                    Long.parseLong(args.get(i++)),
+                                    Long.parseLong(args.get(i++)),
+                                    Long.parseLong(args.get(i++)),
+                                    Long.parseLong(args.get(i++)),
+                                    Long.parseLong(args.get(i++)),
+                                    Long.parseLong(args.get(i++)),
+                                    new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))),
+                                    new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))),
+                                    new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))));
+            }
+            catch (NumberFormatException e)
+            {
+                throw new ProtocolException(response, e);
+            }
         }
 
         throw new ProtocolException(response);
