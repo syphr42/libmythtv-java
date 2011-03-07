@@ -15,26 +15,29 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.data.FileInfo;
 
-/* default */class Command63QueryFileExists implements Command<File>
+/* default */class Command63QueryFileExists implements Command<FileInfo>
 {
     private final String message;
 
-    public Command63QueryFileExists(String basename, String storageGroup)
+    public Command63QueryFileExists(URI filename, String storageGroup)
     {
         message = Protocol63Utils.getProtocolValue("QUERY_FILE_EXISTS",
-                                                   basename,
+                                                   filename.getPath(),
                                                    storageGroup);
     }
 
     @Override
-    public File send(SocketManager socketManager) throws IOException
+    public FileInfo send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(message);
         if ("0".equals(response))
@@ -43,11 +46,35 @@ import org.syphr.mythtv.proto.SocketManager;
         }
 
         List<String> args = Protocol63Utils.getArguments(response);
-        if (args.size() != 2 || !"1".equals(args.get(0)))
+        if (args.size() < 2 || !"1".equals(args.get(0)))
         {
             throw new ProtocolException(response);
         }
 
-        return new File(args.get(1));
+        if (args.size() == 2)
+        {
+            return new FileInfo(args.get(1));
+        }
+
+        if (args.size() == 15)
+        {
+            int i = 1;
+            return new FileInfo(args.get(i++),
+                                Long.parseLong(args.get(i++)),
+                                Long.parseLong(args.get(i++)),
+                                Long.parseLong(args.get(i++)),
+                                Long.parseLong(args.get(i++)),
+                                Long.parseLong(args.get(i++)),
+                                Long.parseLong(args.get(i++)),
+                                Long.parseLong(args.get(i++)),
+                                Long.parseLong(args.get(i++)),
+                                Long.parseLong(args.get(i++)),
+                                Long.parseLong(args.get(i++)),
+                                new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))),
+                                new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))),
+                                new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))));
+        }
+
+        throw new ProtocolException(response);
     }
 }

@@ -19,18 +19,100 @@ import java.util.Date;
 
 public class FileInfo
 {
-    private final Date lastModified;
+    private final String name;
+    private final long deviceId;
+    private final long inodeNum;
+    private final long mode;
+    private final long links;
+    private final long userId;
+    private final long groupId;
+    private final long specialDeviceId;
     private final long size;
+    private final long blockSize;
+    private final long blocks;
+    private final long accessedTime;
+    private final long modifiedTime;
+    private final long createdTime;
 
-    public FileInfo(Date lastModified, long size)
+    public FileInfo(String name)
     {
-        this.lastModified = new Date(lastModified.getTime());
-        this.size = size;
+        this(name, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, null, null);
     }
 
-    public Date getLastModified()
+    public FileInfo(String name, long size, Date modifiedTime)
     {
-        return new Date(lastModified.getTime());
+        this(name, 0, 0, 0, 0, 0, 0, 0, size, 0, 0, null, modifiedTime, null);
+    }
+
+    public FileInfo(String name,
+                    long deviceId,
+                    long inodeNum,
+                    long mode,
+                    long links,
+                    long userId,
+                    long groupId,
+                    long specialDeviceId,
+                    long size,
+                    long blockSize,
+                    long blocks,
+                    Date accessedTime,
+                    Date modifiedTime,
+                    Date createdTime)
+    {
+        this.name = name;
+        this.deviceId = deviceId;
+        this.inodeNum = inodeNum;
+        this.mode = mode;
+        this.links = links;
+        this.userId = userId;
+        this.groupId = groupId;
+        this.specialDeviceId = specialDeviceId;
+        this.size = size;
+        this.blockSize = blockSize;
+        this.blocks = blocks;
+        this.accessedTime = accessedTime == null ? 0 : accessedTime.getTime();
+        this.modifiedTime = modifiedTime == null ? 0 : modifiedTime.getTime();
+        this.createdTime = createdTime == null ? 0 : createdTime.getTime();
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public long getDeviceId()
+    {
+        return deviceId;
+    }
+
+    public long getInodeNum()
+    {
+        return inodeNum;
+    }
+
+    public long getMode()
+    {
+        return mode;
+    }
+
+    public long getLinks()
+    {
+        return links;
+    }
+
+    public long getUserId()
+    {
+        return userId;
+    }
+
+    public long getGroupId()
+    {
+        return groupId;
+    }
+
+    public long getSpecialDeviceId()
+    {
+        return specialDeviceId;
     }
 
     public long getSize()
@@ -38,14 +120,63 @@ public class FileInfo
         return size;
     }
 
+    public long getBlockSize()
+    {
+        return blockSize;
+    }
+
+    public long getBlocks()
+    {
+        return blocks;
+    }
+
+    public Date getAccessedTime()
+    {
+        return new Date(accessedTime);
+    }
+
+    public Date getModifiedTime()
+    {
+        return new Date(modifiedTime);
+    }
+
+    public Date getCreatedTime()
+    {
+        return new Date(createdTime);
+    }
+
     @Override
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("FileInfo [lastModified=");
-        builder.append(lastModified);
+        builder.append("FileInfo [name=");
+        builder.append(name);
+        builder.append(", deviceId=");
+        builder.append(deviceId);
+        builder.append(", inodeNum=");
+        builder.append(inodeNum);
+        builder.append(", mode=");
+        builder.append(mode);
+        builder.append(", links=");
+        builder.append(links);
+        builder.append(", userId=");
+        builder.append(userId);
+        builder.append(", groupId=");
+        builder.append(groupId);
+        builder.append(", specialDeviceId=");
+        builder.append(specialDeviceId);
         builder.append(", size=");
         builder.append(size);
+        builder.append(", blockSize=");
+        builder.append(blockSize);
+        builder.append(", blocks=");
+        builder.append(blocks);
+        builder.append(", accessedTime=");
+        builder.append(getAccessedTime());
+        builder.append(", modifiedTime=");
+        builder.append(getModifiedTime());
+        builder.append(", createdTime=");
+        builder.append(getCreatedTime());
         builder.append("]");
         return builder.toString();
     }

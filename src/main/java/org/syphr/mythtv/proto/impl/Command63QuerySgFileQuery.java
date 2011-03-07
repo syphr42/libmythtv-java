@@ -45,8 +45,9 @@ import org.syphr.mythtv.proto.data.FileInfo;
 
         try
         {
-            return new FileInfo(new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(1)))),
-                                Long.parseLong(args.get(2)));
+            return new FileInfo(args.get(0),
+                                Long.parseLong(args.get(2)),
+                                new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(1)))));
         }
         catch (NumberFormatException e)
         {

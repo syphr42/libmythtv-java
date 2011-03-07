@@ -15,7 +15,6 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -148,8 +147,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public boolean deleteFile(URI filename, String storageGroup) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63DeleteFile(filename, storageGroup).send(getSocketManager());
     }
 
     @Override
@@ -171,8 +169,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public URI downloadFileNow(URL url, String storageGroup, URI filename) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63DownloadFile(url, storageGroup, filename, true).send(getSocketManager());
     }
 
     @Override
@@ -269,10 +266,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public File queryFileExists(String basename, String storageGroup) throws IOException
+    public FileInfo queryFileExists(URI filename, String storageGroup) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QueryFileExists(filename, storageGroup).send(getSocketManager());
     }
 
     @Override

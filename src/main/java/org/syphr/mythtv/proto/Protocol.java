@@ -15,7 +15,6 @@
  */
 package org.syphr.mythtv.proto;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -472,18 +471,18 @@ public interface Protocol
      * Determine whether or not a file exists and, if it does exists, its full
      * path.
      *
-     * @param basename
-     *            the basename of the file to check
+     * @param filename
+     *            the location of the file to check relative to a storage group
      * @param storageGroup
      *            the name of the storage group to check
-     * @return if it exists, a file representing the absolute path;
-     *         <code>null</code> otherwise
+     * @return if it exists, information about the file; <code>null</code>
+     *         otherwise
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public File queryFileExists(String basename, String storageGroup) throws IOException;
+    public FileInfo queryFileExists(URI filename, String storageGroup) throws IOException;
 
     /**
      * Retrieve a 64-bit hash of the file represented by the given name and storage group.
