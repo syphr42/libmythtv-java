@@ -170,8 +170,8 @@ public interface Protocol
     /**
      * Request that a file be deleted.
      *
-     * @param file
-     *            the file to delete
+     * @param filename
+     *            the file to delete, relative to the storage group
      * @param storageGroup
      *            the storage group where the file exists
      * @return <code>true</code> if the delete was successful;
@@ -181,7 +181,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public boolean deleteFile(File file, String storageGroup) throws IOException;
+    public boolean deleteFile(URI filename, String storageGroup) throws IOException;
 
     /**
      * Request that a recording be deleted. To only remove a recording from the
@@ -213,41 +213,41 @@ public interface Protocol
      * Request that the backend manage a file download. This command will return
      * immediately. To watch the progress, listen for backend events.
      *
-     * @see #downloadFileNow(URL, String, File)
+     * @see #downloadFileNow(URL, String, URI)
      *
      * @param url
      *            the URL of the item to download
      * @param storageGroup
      *            the destination storage group
-     * @param file
-     *            the destination file
+     * @param filename
+     *            the location to save, relative to the storage group
      * @return the URI of the new file or <code>null</code> if an error occurred
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public URI downloadFile(URL url, String storageGroup, File file) throws IOException;
+    public URI downloadFile(URL url, String storageGroup, URI filename) throws IOException;
 
     /**
      * Request that the backend manage a file download. This command will not
      * return until the download completes.
      *
-     * @see #downloadFile(URL, String, File)
+     * @see #downloadFile(URL, String, URI)
      *
      * @param url
      *            the URL of the item to download
      * @param storageGroup
      *            the destination storage group
-     * @param file
-     *            the destination file
+     * @param filename
+     *            the location to save, relative to the storage group
      * @return the URI of the new file or <code>null</code> if an error occurred
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public URI downloadFileNow(URL url, String storageGroup, File file) throws IOException;
+    public URI downloadFileNow(URL url, String storageGroup, URI filename) throws IOException;
 
     /**
      * Change the path to a URI if necessary and fill in the file size for the given

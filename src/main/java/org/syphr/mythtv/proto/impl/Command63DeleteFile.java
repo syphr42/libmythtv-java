@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
@@ -25,10 +25,10 @@ import org.syphr.mythtv.proto.SocketManager;
 {
     private final String message;
 
-    public Command63DeleteFile(File file, String storageGroup)
+    public Command63DeleteFile(URI filename, String storageGroup)
     {
         message = Protocol63Utils.getProtocolValue("DELETE_FILE",
-                                                   file.getPath(),
+                                                   filename.getPath(),
                                                    storageGroup);
     }
 

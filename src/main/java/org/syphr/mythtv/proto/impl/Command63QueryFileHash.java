@@ -27,7 +27,7 @@ import org.syphr.mythtv.proto.SocketManager;
     public Command63QueryFileHash(URI filename, String storageGroup)
     {
         message = Protocol63Utils.getProtocolValue("QUERY_FILE_HASH",
-                                                   filename.toString(),
+                                                   filename.getPath(),
                                                    storageGroup);
     }
 

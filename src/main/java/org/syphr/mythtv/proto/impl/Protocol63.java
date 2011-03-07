@@ -146,7 +146,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public boolean deleteFile(File file, String storageGroup) throws IOException
+    public boolean deleteFile(URI filename, String storageGroup) throws IOException
     {
         // TODO
         throw new UnsupportedOperationException();
@@ -162,14 +162,14 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public URI downloadFile(URL url, String storageGroup, File file) throws IOException
+    public URI downloadFile(URL url, String storageGroup, URI filename) throws IOException
     {
         // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public URI downloadFileNow(URL url, String storageGroup, File file) throws IOException
+    public URI downloadFileNow(URL url, String storageGroup, URI filename) throws IOException
     {
         // TODO
         throw new UnsupportedOperationException();

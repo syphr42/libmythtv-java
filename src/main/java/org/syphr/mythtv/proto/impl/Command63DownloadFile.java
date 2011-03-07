@@ -15,7 +15,6 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -31,7 +30,7 @@ import org.syphr.mythtv.proto.SocketManager;
 
     public Command63DownloadFile(URL url,
                                  String storageGroup,
-                                 File file,
+                                 URI filename,
                                  boolean now)
     {
         String command = now ? "DOWNLOAD_FILE_NOW" : "DOWNLOAD_FILE";
@@ -39,7 +38,7 @@ import org.syphr.mythtv.proto.SocketManager;
         message = Protocol63Utils.getProtocolValue(command,
                                                    url.toString(),
                                                    storageGroup,
-                                                   file.getPath());
+                                                   filename.getPath());
     }
 
     @Override
