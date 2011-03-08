@@ -49,13 +49,14 @@ public class QueryFileTransfer63 extends AbstractQueryFileTransfer
     }
 
     @Override
-    public int writeBlock(int bytes)
+    public long writeBlock(long bytes) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryFileTransferWriteBlock(getSocketNumber(),
+                                                        bytes).send(getSocketManager());
     }
 
     @Override
-    public long seek(long position, int offset, long curPosition)
+    public long seek(long position, int offset, long curPosition) throws IOException
     {
         throw new UnsupportedOperationException();
     }

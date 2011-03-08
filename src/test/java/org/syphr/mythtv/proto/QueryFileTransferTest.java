@@ -18,6 +18,7 @@ package org.syphr.mythtv.proto;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +39,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.syphr.mythtv.proto.SocketManager.ReadWriteByteChannel;
+import org.syphr.mythtv.proto.data.FileInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
@@ -50,6 +52,12 @@ import org.syphr.prom.PropertiesManager;
 public class QueryFileTransferTest
 {
     private static final File LOCAL_TEMP = new File("target/testing");
+
+    private static final String TEST_URL = "http://www.syphr.org";
+    private static final String TEST_URI = "/download-test.html";
+    private static final String TEST_STORAGE_GROUP = "Default";
+
+    private static final File EXPECTED_FILE = new File(LOCAL_TEMP, "transfer-test.data");
 
     private static PropertiesManager<Settings> settings;
 
@@ -64,6 +72,15 @@ public class QueryFileTransferTest
             throw new IOException("Cannot create parent directory at: "
                                   + LOCAL_TEMP.getAbsolutePath());
         }
+
+        /*
+         * Download a file directly for comparison later.
+         */
+        OutputStream directDownloadOut = new BufferedOutputStream(new FileOutputStream(EXPECTED_FILE));
+        InputStream directDownloadIn = new BufferedInputStream(new URL(TEST_URL).openStream());
+        IOUtils.copy(directDownloadIn, directDownloadOut);
+        directDownloadOut.close();
+        directDownloadIn.close();
 
         settings = Settings.createSettings();
 
@@ -93,25 +110,13 @@ public class QueryFileTransferTest
     @Test
     public void testDownloadReadDeleteFile() throws IOException, URISyntaxException
     {
-        URL source = new URL("http://www.syphr.org");
-        URI dest = new URI("/download-test.html");
-        String storageGroup = "Default";
+        URI dest = new URI(TEST_URI);
 
-        /*
-         * Download the file directly for comparison.
-         */
-        File expectedFile = new File(LOCAL_TEMP, "expected.html");
-        OutputStream directDownloadOut = new BufferedOutputStream(new FileOutputStream(expectedFile));
-        InputStream directDownloadIn = new BufferedInputStream(source.openStream());
-        IOUtils.copy(directDownloadIn, directDownloadOut);
-        directDownloadOut.close();
-        directDownloadIn.close();
-
-        URI result = commandProto.downloadFileNow(source, storageGroup, dest);
+        URI result = commandProto.downloadFileNow(new URL(TEST_URL), TEST_STORAGE_GROUP, dest);
         Assert.assertNotNull(result);
-        // remove slashes so that repeated slashes in one and not the other will still work
-        Assert.assertEquals(dest.getPath().replace("/", ""), result.getPath().replace("/", ""));
-        Assert.assertEquals(storageGroup, result.getUserInfo());
+        Assert.assertEquals(dest.getPath().replace("/", ""),
+                            result.getPath().replace("/", ""));
+        Assert.assertEquals(TEST_STORAGE_GROUP, result.getUserInfo());
 
         SocketManager fileSocketManager = new SocketManager();
         fileSocketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
@@ -129,12 +134,12 @@ public class QueryFileTransferTest
                                                                    false,
                                                                    0L,
                                                                    dest,
-                                                                   storageGroup,
+                                                                   TEST_STORAGE_GROUP,
                                                                    commandSocketManager);
 
         ByteBuffer buffer = ByteBuffer.allocate(settings.getIntegerProperty(Settings.BUFFER_SIZE));
 
-        File actualFile = new File(LOCAL_TEMP, "actual.html");
+        File actualFile = new File(LOCAL_TEMP, "actual.data");
         FileOutputStream outStream = new FileOutputStream(actualFile);
         FileChannel out = outStream.getChannel();
 
@@ -171,12 +176,12 @@ public class QueryFileTransferTest
         fileProto.done();
         fileSocketManager.disconnect();
 
-        Assert.assertEquals(FileUtils.checksumCRC32(expectedFile),
+        Assert.assertEquals(FileUtils.checksumCRC32(EXPECTED_FILE),
                             FileUtils.checksumCRC32(actualFile));
 
-        Assert.assertNotNull(commandProto.queryFileExists(dest, storageGroup));
-        Assert.assertTrue(commandProto.deleteFile(dest, storageGroup));
-        Assert.assertNull(commandProto.queryFileExists(dest, storageGroup));
+        Assert.assertNotNull(commandProto.queryFileExists(dest, TEST_STORAGE_GROUP));
+        Assert.assertTrue(commandProto.deleteFile(dest, TEST_STORAGE_GROUP));
+        Assert.assertNull(commandProto.queryFileExists(dest, TEST_STORAGE_GROUP));
     }
 
     @Test
@@ -259,5 +264,66 @@ public class QueryFileTransferTest
 
         fileProto.done();
         fileSocketManager.disconnect();
+    }
+
+    @Test
+    public void testWriteDelete() throws IOException, URISyntaxException
+    {
+        URI dest = new URI(TEST_URI);
+
+        SocketManager fileSocketManager = new SocketManager();
+        fileSocketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
+                                  settings.getIntegerProperty(Settings.BACKEND_PORT),
+                                  settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
+
+        Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
+                                                                                     ProtocolVersion.class),
+                                                            fileSocketManager);
+        fileProto.mythProtoVersion();
+
+        QueryFileTransfer fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
+                                                                              .getHostName(),
+                                                                   FileTransferType.WRITE,
+                                                                   false,
+                                                                   0L,
+                                                                   dest,
+                                                                   TEST_STORAGE_GROUP,
+                                                                   commandSocketManager);
+
+        FileInputStream inStream = new FileInputStream(EXPECTED_FILE);
+        FileChannel in = inStream.getChannel();
+
+        ReadWriteByteChannel out = fileSocketManager.redirectChannel();
+
+        long size = EXPECTED_FILE.length();
+        int written = 0;
+        while (written < size)
+        {
+            long sendCount = in.transferTo(written, size - written, out);
+
+            long received = fileTransfer.writeBlock(sendCount);
+            if (received < 0)
+            {
+                throw new IOException();
+            }
+
+            written += received;
+        }
+
+        out.close();
+        in.close();
+        inStream.close();
+
+        fileTransfer.done();
+
+        fileProto.done();
+        fileSocketManager.disconnect();
+
+        FileInfo info = commandProto.queryFileExists(dest, TEST_STORAGE_GROUP);
+        Assert.assertNotNull(info);
+        Assert.assertEquals(size, info.getSize());
+        Assert.assertTrue(commandProto.deleteFile(dest, TEST_STORAGE_GROUP));
+        Assert.assertNull(commandProto.queryFileExists(dest, TEST_STORAGE_GROUP));
+
     }
 }

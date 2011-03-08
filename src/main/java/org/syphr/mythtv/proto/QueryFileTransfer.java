@@ -63,8 +63,20 @@ public interface QueryFileTransfer
      */
     public int requestBlock(int bytes) throws IOException;
 
-    // TODO
-    public int writeBlock(int bytes) throws IOException;
+    /**
+     * Notify the backend that data will be sent over this file transfer socket.
+     *
+     * @param bytes
+     *            the number of bytes to be transferred from the client
+     * @return the number of bytes actually being transferred by the server
+     *         (this does not have to match the request) or <code>-1</code> if
+     *         there was an error
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public long writeBlock(long bytes) throws IOException;
 
     // TODO
     public long seek(long position, int offset, long curPosition) throws IOException;
