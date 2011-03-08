@@ -18,7 +18,6 @@ package org.syphr.mythtv.proto;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +26,6 @@ import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.channels.FileChannel;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -37,15 +35,14 @@ import org.apache.commons.io.IOUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.syphr.mythtv.proto.SocketManager.ReadWriteByteChannel;
 import org.syphr.mythtv.proto.data.FileInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
-import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
 import org.syphr.mythtv.proto.types.ProtocolVersion;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.test.Utils;
 import org.syphr.prom.PropertiesManager;
 
 public class QueryFileTransferTest
@@ -83,18 +80,10 @@ public class QueryFileTransferTest
 
         settings = Settings.createSettings();
 
-        commandSocketManager = new SocketManager();
-        commandSocketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
-                              settings.getIntegerProperty(Settings.BACKEND_PORT),
-                              settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
-
-        commandProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
-                                                                               ProtocolVersion.class),
-                                                      commandSocketManager);
-        commandProto.mythProtoVersion();
-        commandProto.ann(ConnectionType.MONITOR,
-                         InetAddress.getLocalHost().getHostName(),
-                         EventLevel.NONE);
+        commandSocketManager = Utils.connect(settings);
+        commandProto = Utils.announceMonitor(settings,
+                                             commandSocketManager,
+                                             EventLevel.NONE);
     }
 
     @AfterClass
@@ -117,11 +106,7 @@ public class QueryFileTransferTest
                             result.getPath().replace("/", ""));
         Assert.assertEquals(TEST_STORAGE_GROUP, result.getUserInfo());
 
-        SocketManager fileSocketManager = new SocketManager();
-        fileSocketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
-                                  settings.getIntegerProperty(Settings.BACKEND_PORT),
-                                  settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
-
+        SocketManager fileSocketManager = Utils.connect(settings);
         Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
                                                                                      ProtocolVersion.class),
                                                             fileSocketManager);
@@ -137,32 +122,7 @@ public class QueryFileTransferTest
                                                                    commandSocketManager);
 
         File actualFile = new File(LOCAL_TEMP, "actual.data");
-        FileOutputStream outStream = new FileOutputStream(actualFile);
-        FileChannel out = outStream.getChannel();
-
-        ReadWriteByteChannel in = fileSocketManager.redirectChannel();
-
-        long buffer = settings.getLongProperty(Settings.BUFFER_SIZE);
-        long size = fileTransfer.getSize();
-        int read = 0;
-        while (read < size)
-        {
-            long sendCount = fileTransfer.requestBlock(Math.min(buffer, size - read));
-            if (sendCount < 0)
-            {
-                throw new IOException();
-            }
-
-            read += sendCount;
-            while (sendCount > 0)
-            {
-                sendCount -= out.transferFrom(in, 0, sendCount);
-            }
-        }
-
-        in.close();
-        out.close();
-        outStream.close();
+        Utils.readToFile(settings, fileSocketManager, actualFile, fileTransfer);
 
         fileTransfer.done();
 
@@ -186,11 +146,7 @@ public class QueryFileTransferTest
             return;
         }
 
-        SocketManager fileSocketManager = new SocketManager();
-        fileSocketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
-                                  settings.getIntegerProperty(Settings.BACKEND_PORT),
-                                  settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
-
+        SocketManager fileSocketManager = Utils.connect(settings);
         Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
                                                                                      ProtocolVersion.class),
                                                             fileSocketManager);
@@ -211,13 +167,6 @@ public class QueryFileTransferTest
         fileTransfer.setTimeout(false);
         fileTransfer.setTimeout(true);
 
-        File tempFile = new File(LOCAL_TEMP, program.getBasename().toString());
-        FileOutputStream outStream = new FileOutputStream(tempFile);
-        FileChannel out = outStream.getChannel();
-
-        ReadWriteByteChannel in = fileSocketManager.redirectChannel();
-
-        long buffer = settings.getLongProperty(Settings.BUFFER_SIZE);
         /*
          * If the test case transfered the entire file it would take too long,
          * so just grab an amount that does not fit nicely into a set of
@@ -225,27 +174,11 @@ public class QueryFileTransferTest
          *
          * To get the whole file, switch the size lines below.
          */
-//         long size = fileTransfer.getSize();
-        long size = (long)(buffer * 2.5);
-        int read = 0;
-        while (read < size)
-        {
-            long sendCount = fileTransfer.requestBlock(Math.min(buffer, size - read));
-            if (sendCount < 0)
-            {
-                throw new IOException();
-            }
+        // long size = fileTransfer.getSize();
+        long size = (long) (settings.getLongProperty(Settings.BUFFER_SIZE) * 2.5);
 
-            read += sendCount;
-            while (sendCount > 0)
-            {
-                sendCount -= out.transferFrom(in, 0, sendCount);
-            }
-        }
-
-        in.close();
-        out.close();
-        outStream.close();
+        File tempFile = new File(LOCAL_TEMP, program.getBasename().toString());
+        Utils.readToFile(settings, fileSocketManager, tempFile, fileTransfer, size);
 
         fileTransfer.done();
 
@@ -258,11 +191,7 @@ public class QueryFileTransferTest
     {
         URI dest = new URI(TEST_URI);
 
-        SocketManager fileSocketManager = new SocketManager();
-        fileSocketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
-                                  settings.getIntegerProperty(Settings.BACKEND_PORT),
-                                  settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
-
+        SocketManager fileSocketManager = Utils.connect(settings);
         Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
                                                                                      ProtocolVersion.class),
                                                             fileSocketManager);
@@ -277,30 +206,7 @@ public class QueryFileTransferTest
                                                                    TEST_STORAGE_GROUP,
                                                                    commandSocketManager);
 
-        FileInputStream inStream = new FileInputStream(EXPECTED_FILE);
-        FileChannel in = inStream.getChannel();
-
-        ReadWriteByteChannel out = fileSocketManager.redirectChannel();
-
-        long buffer = settings.getLongProperty(Settings.BUFFER_SIZE);
-        long size = EXPECTED_FILE.length();
-        int written = 0;
-        while (written < size)
-        {
-            long sendCount = in.transferTo(written, Math.min(buffer, size - written), out);
-
-            long received = fileTransfer.writeBlock(sendCount);
-            if (received < 0)
-            {
-                throw new IOException();
-            }
-
-            written += received;
-        }
-
-        out.close();
-        in.close();
-        inStream.close();
+        Utils.writeFromFile(settings, fileSocketManager, EXPECTED_FILE, fileTransfer);
 
         fileTransfer.done();
 
@@ -309,7 +215,7 @@ public class QueryFileTransferTest
 
         FileInfo info = commandProto.queryFileExists(dest, TEST_STORAGE_GROUP);
         Assert.assertNotNull(info);
-        Assert.assertEquals(size, info.getSize());
+        Assert.assertEquals(EXPECTED_FILE.length(), info.getSize());
         Assert.assertTrue(commandProto.deleteFile(dest, TEST_STORAGE_GROUP));
         Assert.assertNull(commandProto.queryFileExists(dest, TEST_STORAGE_GROUP));
 
