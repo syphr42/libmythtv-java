@@ -34,7 +34,7 @@ public class TunerStatus
 
         for (Pair<TunerStatusCategory, TunerData> data : dataArray)
         {
-            map.put(data.left, data.right);
+            map.put(data.getLeftElement(), data.getRightElement());
         }
     }
 

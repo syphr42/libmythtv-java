@@ -39,9 +39,9 @@ import org.syphr.mythtv.proto.data.Channel;
         builder.append(' ');
 
         Pair<Integer, Integer> ints = Protocol63Utils.splitLong(location);
-        builder.append(ints.left);
+        builder.append(ints.getLeftElement());
         builder.append(' ');
-        builder.append(ints.right);
+        builder.append(ints.getRightElement());
 
         message = builder.toString();
     }

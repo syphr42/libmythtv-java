@@ -28,6 +28,6 @@ public class Protocol63UtilsTest
         long value = 1234567890098765432L;
 
         Pair<Integer, Integer> split = Protocol63Utils.splitLong(value);
-        Assert.assertEquals(value, Protocol63Utils.combineInts(split.left, split.right));
+        Assert.assertEquals(value, Protocol63Utils.combineInts(split.getLeftElement(), split.getRightElement()));
     }
 }
