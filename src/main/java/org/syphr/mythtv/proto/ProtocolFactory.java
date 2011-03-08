@@ -17,6 +17,7 @@ package org.syphr.mythtv.proto;
 
 import org.syphr.mythtv.proto.impl.Protocol63;
 import org.syphr.mythtv.proto.impl.Protocol64;
+import org.syphr.mythtv.proto.impl.Protocol65;
 import org.syphr.mythtv.proto.types.ProtocolVersion;
 
 public class ProtocolFactory
@@ -30,6 +31,9 @@ public class ProtocolFactory
 
             case SIXTY_FOUR:
                 return new Protocol64(socketManager);
+
+            case SIXTY_FIVE:
+                return new Protocol65(socketManager);
 
             default:
                 throw new IllegalArgumentException("Unknown protocol version: "

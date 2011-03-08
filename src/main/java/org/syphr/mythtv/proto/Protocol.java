@@ -720,7 +720,7 @@ public interface Protocol
     /**
      * Retrieve a list of recordings matching the given category.
      *
-     * @param recType
+     * @param recCategory
      *            the category of recordings to get
      * @return a list of programs representing recordings of the given category
      * @throws IOException
@@ -728,7 +728,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public List<ProgramInfo> queryRecordings(RecordingCategory recType) throws IOException;
+    public List<ProgramInfo> queryRecordings(RecordingCategory recCategory) throws IOException;
 
     /**
      * Get a sub-protocol object that provides an API to interrogate a specific

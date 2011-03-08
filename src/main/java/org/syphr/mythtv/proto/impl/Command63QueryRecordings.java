@@ -27,9 +27,14 @@ import org.syphr.mythtv.proto.types.RecordingCategory;
 {
     private final String message;
 
-    public Command63QueryRecordings(RecordingCategory recType) throws ProtocolException
+    public Command63QueryRecordings(RecordingCategory recCategory) throws ProtocolException
     {
-        message = "QUERY_RECORDINGS " + Protocol63Utils.getRecordingCategory(recType);
+        message = buildMessage(recCategory);
+    }
+
+    protected String buildMessage(RecordingCategory recCategory) throws ProtocolException
+    {
+        return "QUERY_RECORDINGS " + Protocol63Utils.getRecordingCategory(recCategory);
     }
 
     @Override

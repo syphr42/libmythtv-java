@@ -18,5 +18,6 @@ package org.syphr.mythtv.proto.types;
 public enum ProtocolVersion
 {
     SIXTY_THREE,
-    SIXTY_FOUR
+    SIXTY_FOUR,
+    SIXTY_FIVE
 }

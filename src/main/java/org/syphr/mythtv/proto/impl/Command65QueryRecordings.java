@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.proto.types;
+package org.syphr.mythtv.proto.impl;
 
-public enum RecordingCategory
+import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.types.RecordingCategory;
+
+/* default */class Command65QueryRecordings extends Command63QueryRecordings
 {
-    RECORDING,
-    PLAY,
+    public Command65QueryRecordings(RecordingCategory recCategory) throws ProtocolException
+    {
+        super(recCategory);
+    }
 
-    ASCENDING,
-    DESCENDING,
-    UNSORTED,
-
-    /**
-     * @deprecated as of 57
-     */
-    DELETE
+    @Override
+    protected String buildMessage(RecordingCategory recCategory) throws ProtocolException
+    {
+        return "QUERY_RECORDINGS " + Protocol65Utils.getRecordingCategory(recCategory);
+    }
 }

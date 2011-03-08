@@ -383,9 +383,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public List<ProgramInfo> queryRecordings(RecordingCategory recType) throws IOException
+    public List<ProgramInfo> queryRecordings(RecordingCategory recCategory) throws IOException
     {
-        return new Command63QueryRecordings(recType).send(getSocketManager());
+        return new Command63QueryRecordings(recCategory).send(getSocketManager());
     }
 
     @Override
