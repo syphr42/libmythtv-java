@@ -99,7 +99,6 @@ public class Protocol63Utils
     static
     {
         REC_CATEGORY_MAP.put(RecordingCategory.RECORDING, "Recording");
-        REC_CATEGORY_MAP.put(RecordingCategory.DELETE, "Delete");
         REC_CATEGORY_MAP.put(RecordingCategory.PLAY, "Play");
     }
 
