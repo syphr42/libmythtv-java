@@ -20,7 +20,7 @@ import junit.framework.Assert;
 import org.apache.commons.lang3.Pair;
 import org.junit.Test;
 
-public class Protocol63UtilsTest
+public class ProtocolUtilsTest
 {
     @Test
     public void testCombineAndBreakNumbers()

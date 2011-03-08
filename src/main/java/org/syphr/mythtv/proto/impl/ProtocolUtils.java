@@ -24,7 +24,6 @@ import org.syphr.mythtv.proto.ProtocolException;
 
 public class ProtocolUtils
 {
-
     public static <K, V> V translate(K key, Map<K, V> map) throws ProtocolException
     {
         V translated = map.get(key);
@@ -32,7 +31,7 @@ public class ProtocolUtils
         {
             throw new ProtocolException("Invalid argument: " + key);
         }
-    
+
         return translated;
     }
 
@@ -56,4 +55,10 @@ public class ProtocolUtils
         return Pair.of((int)(value >> 32), (int)value);
     }
 
+    private ProtocolUtils()
+    {
+        /*
+         * Static utility class
+         */
+    }
 }
