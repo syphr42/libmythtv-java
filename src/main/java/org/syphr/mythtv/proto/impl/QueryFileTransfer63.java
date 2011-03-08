@@ -18,6 +18,7 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 
 import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.types.SeekOrigin;
 
 
 public class QueryFileTransfer63 extends AbstractQueryFileTransfer
@@ -56,9 +57,9 @@ public class QueryFileTransfer63 extends AbstractQueryFileTransfer
     }
 
     @Override
-    public long seek(long position, int offset, long curPosition) throws IOException
+    public long seek(long position, SeekOrigin origin, long curPosition) throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryFileTransferSeek(getSocketNumber(), position, origin, curPosition).send(getSocketManager());
     }
 
     @Override

@@ -40,6 +40,7 @@ import org.syphr.mythtv.proto.types.GenPixMapResponse;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 import org.syphr.mythtv.proto.types.RecordingStatus;
 import org.syphr.mythtv.proto.types.RecordingType;
+import org.syphr.mythtv.proto.types.SeekOrigin;
 import org.syphr.mythtv.proto.types.TunerStatusCategory;
 import org.syphr.mythtv.proto.types.TvState;
 import org.syphr.mythtv.proto.types.VideoEditMark;
@@ -194,6 +195,14 @@ public class Protocol63Utils
         TV_STATE_MAP.put(TvState.CHANGING_STATE, 8);
     }
 
+    private static final BiMap<SeekOrigin, Integer> SEEK_ORIGIN_MAP = EnumHashBiMap.create(SeekOrigin.class);
+    static
+    {
+        SEEK_ORIGIN_MAP.put(SeekOrigin.BEGINNING, 0);
+        SEEK_ORIGIN_MAP.put(SeekOrigin.CURRENT, 1);
+        SEEK_ORIGIN_MAP.put(SeekOrigin.END, 2);
+    }
+
     public static RecordingStatus getRecordingStatus(int recStatus) throws ProtocolException
     {
         return translate(recStatus, REC_STATUS_MAP.inverse());
@@ -292,6 +301,16 @@ public class Protocol63Utils
     public static int getTvState(TvState tvState) throws ProtocolException
     {
         return translate(tvState, TV_STATE_MAP);
+    }
+
+    public static SeekOrigin getSeekOrigin(int seekOrigin) throws ProtocolException
+    {
+        return translate(seekOrigin, SEEK_ORIGIN_MAP.inverse());
+    }
+
+    public static int getSeekOrigin(SeekOrigin seekOrigin) throws ProtocolException
+    {
+        return translate(seekOrigin, SEEK_ORIGIN_MAP);
     }
 
     private static <K, V> V translate(K key, Map<K, V> map) throws ProtocolException

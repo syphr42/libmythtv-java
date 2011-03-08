@@ -17,6 +17,8 @@ package org.syphr.mythtv.proto;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.types.SeekOrigin;
+
 /**
  * This interface is a sub-protocol to {@link Protocol} and represents the
  * combined file transfer API of all MythTV protocols that are supported.
@@ -79,8 +81,28 @@ public interface QueryFileTransfer
      */
     public long writeBlock(long bytes) throws IOException;
 
-    // TODO
-    public long seek(long position, int offset, long curPosition) throws IOException;
+    /**
+     * Request that the backend seek to another location in the file being
+     * transferred.
+     *
+     * @param position
+     *            the desired position relative to the given origin
+     * @param origin
+     *            the base location from which to seek (the position offset will
+     *            be applied to this location)
+     * @param curPosition
+     *            the current position (this is used with
+     *            {@link SeekOrigin#CURRENT} because the backend has likely read
+     *            beyond to some unknown point in the file, but it will use this
+     *            value as the basis for determining the seek destination)
+     * @return the new location as an offset from the beginning of the file or
+     *         <code>-1</code> if the request failed
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public long seek(long position, SeekOrigin origin, long curPosition) throws IOException;
 
     /**
      * Set the timeout to fast or slow. Fast timeouts are used for static files

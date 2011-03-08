@@ -67,16 +67,18 @@ public class Utils
                    socketManager,
                    file,
                    fileTransfer,
-                   fileTransfer.getSize());
+                   fileTransfer.getSize(),
+                   false);
     }
 
     public static void readToFile(PropertiesManager<Settings> settings,
                                   SocketManager socketManager,
                                   File file,
                                   QueryFileTransfer fileTransfer,
-                                  long size) throws IOException
+                                  long size,
+                                  boolean append) throws IOException
     {
-        FileOutputStream outStream = new FileOutputStream(file);
+        FileOutputStream outStream = new FileOutputStream(file, append);
 
         try
         {

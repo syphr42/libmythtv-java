@@ -41,6 +41,7 @@ import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
 import org.syphr.mythtv.proto.types.ProtocolVersion;
 import org.syphr.mythtv.proto.types.RecordingCategory;
+import org.syphr.mythtv.proto.types.SeekOrigin;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.test.Utils;
 import org.syphr.prom.PropertiesManager;
@@ -138,7 +139,7 @@ public class QueryFileTransferTest
     }
 
     @Test
-    public void testReadRecording() throws IOException
+    public void testReadSeekRecording() throws IOException
     {
         List<ProgramInfo> programs = commandProto.queryRecordings(RecordingCategory.PLAY);
         if (programs.isEmpty())
@@ -167,18 +168,36 @@ public class QueryFileTransferTest
         fileTransfer.setTimeout(false);
         fileTransfer.setTimeout(true);
 
-        /*
-         * If the test case transfered the entire file it would take too long,
-         * so just grab an amount that does not fit nicely into a set of
-         * buffers.
-         *
-         * To get the whole file, switch the size lines below.
-         */
-        // long size = fileTransfer.getSize();
-        long size = (long) (settings.getLongProperty(Settings.BUFFER_SIZE) * 2.5);
+        long buffer = settings.getLongProperty(Settings.BUFFER_SIZE);
+        long totalSize = fileTransfer.getSize();
+        long chunk = buffer * 100;
+        long seekPosition = totalSize - chunk;
+
+        if (chunk >= totalSize)
+        {
+            Assert.fail("Unable to test read/seek - file too small ("
+                        + totalSize
+                        + "B)");
+        }
 
         File tempFile = new File(LOCAL_TEMP, program.getBasename().toString());
-        Utils.readToFile(settings, fileSocketManager, tempFile, fileTransfer, size);
+
+        Utils.readToFile(settings,
+                         fileSocketManager,
+                         tempFile,
+                         fileTransfer,
+                         chunk,
+                         false);
+
+        long newPosition = fileTransfer.seek(seekPosition, SeekOrigin.BEGINNING, chunk);
+        Assert.assertEquals(seekPosition, newPosition);
+
+        Utils.readToFile(settings,
+                         fileSocketManager,
+                         tempFile,
+                         fileTransfer,
+                         chunk,
+                         true);
 
         fileTransfer.done();
 
