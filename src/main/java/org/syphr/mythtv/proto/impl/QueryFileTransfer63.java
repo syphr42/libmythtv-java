@@ -42,7 +42,7 @@ public class QueryFileTransfer63 extends AbstractQueryFileTransfer
     }
 
     @Override
-    public int requestBlock(int bytes) throws IOException
+    public long requestBlock(long bytes) throws IOException
     {
         return new Command63QueryFileTransferRequestBlock(getSocketNumber(),
                                                           bytes).send(getSocketManager());

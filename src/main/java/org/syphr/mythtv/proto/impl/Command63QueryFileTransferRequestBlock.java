@@ -20,11 +20,11 @@ import java.io.IOException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryFileTransferRequestBlock implements Command<Integer>
+/* default */class Command63QueryFileTransferRequestBlock implements Command<Long>
 {
     private final String message;
 
-    public Command63QueryFileTransferRequestBlock(int socketNumber, int bytes)
+    public Command63QueryFileTransferRequestBlock(int socketNumber, long bytes)
     {
         message = Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
                                                            + socketNumber,
@@ -33,13 +33,13 @@ import org.syphr.mythtv.proto.SocketManager;
     }
 
     @Override
-    public Integer send(SocketManager socketManager) throws IOException
+    public Long send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(message);
 
         try
         {
-            return Integer.parseInt(response);
+            return Long.parseLong(response);
         }
         catch (NumberFormatException e)
         {

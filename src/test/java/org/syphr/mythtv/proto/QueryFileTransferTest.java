@@ -27,7 +27,6 @@ import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.List;
 
@@ -137,33 +136,27 @@ public class QueryFileTransferTest
                                                                    TEST_STORAGE_GROUP,
                                                                    commandSocketManager);
 
-        ByteBuffer buffer = ByteBuffer.allocate(settings.getIntegerProperty(Settings.BUFFER_SIZE));
-
         File actualFile = new File(LOCAL_TEMP, "actual.data");
         FileOutputStream outStream = new FileOutputStream(actualFile);
         FileChannel out = outStream.getChannel();
 
         ReadWriteByteChannel in = fileSocketManager.redirectChannel();
 
+        long buffer = settings.getLongProperty(Settings.BUFFER_SIZE);
         long size = fileTransfer.getSize();
         int read = 0;
         while (read < size)
         {
-            buffer.clear();
-
-            int sendCount = fileTransfer.requestBlock((int)Math.min(buffer.capacity(), size - read));
-            buffer.limit(sendCount);
-
-            while (buffer.hasRemaining())
+            long sendCount = fileTransfer.requestBlock(Math.min(buffer, size - read));
+            if (sendCount < 0)
             {
-                read += in.read(buffer);
+                throw new IOException();
             }
 
-            buffer.flip();
-
-            while (buffer.hasRemaining())
+            read += sendCount;
+            while (sendCount > 0)
             {
-                out.write(buffer);
+                sendCount -= out.transferFrom(in, 0, sendCount);
             }
         }
 
@@ -218,14 +211,13 @@ public class QueryFileTransferTest
         fileTransfer.setTimeout(false);
         fileTransfer.setTimeout(true);
 
-        ByteBuffer buffer = ByteBuffer.allocate(settings.getIntegerProperty(Settings.BUFFER_SIZE));
-
         File tempFile = new File(LOCAL_TEMP, program.getBasename().toString());
         FileOutputStream outStream = new FileOutputStream(tempFile);
         FileChannel out = outStream.getChannel();
 
         ReadWriteByteChannel in = fileSocketManager.redirectChannel();
 
+        long buffer = settings.getLongProperty(Settings.BUFFER_SIZE);
         /*
          * If the test case transfered the entire file it would take too long,
          * so just grab an amount that does not fit nicely into a set of
@@ -233,26 +225,21 @@ public class QueryFileTransferTest
          *
          * To get the whole file, switch the size lines below.
          */
-        // long size = fileTransfer.getSize();
-        long size = (long)(buffer.capacity() * 2.5);
+//         long size = fileTransfer.getSize();
+        long size = (long)(buffer * 2.5);
         int read = 0;
         while (read < size)
         {
-            buffer.clear();
-
-            int sendCount = fileTransfer.requestBlock((int)Math.min(buffer.capacity(), size - read));
-            buffer.limit(sendCount);
-
-            while (buffer.hasRemaining())
+            long sendCount = fileTransfer.requestBlock(Math.min(buffer, size - read));
+            if (sendCount < 0)
             {
-                read += in.read(buffer);
+                throw new IOException();
             }
 
-            buffer.flip();
-
-            while (buffer.hasRemaining())
+            read += sendCount;
+            while (sendCount > 0)
             {
-                out.write(buffer);
+                sendCount -= out.transferFrom(in, 0, sendCount);
             }
         }
 
@@ -295,11 +282,12 @@ public class QueryFileTransferTest
 
         ReadWriteByteChannel out = fileSocketManager.redirectChannel();
 
+        long buffer = settings.getLongProperty(Settings.BUFFER_SIZE);
         long size = EXPECTED_FILE.length();
         int written = 0;
         while (written < size)
         {
-            long sendCount = in.transferTo(written, size - written, out);
+            long sendCount = in.transferTo(written, Math.min(buffer, size - written), out);
 
             long received = fileTransfer.writeBlock(sendCount);
             if (received < 0)

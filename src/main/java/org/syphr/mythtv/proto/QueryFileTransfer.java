@@ -55,13 +55,14 @@ public interface QueryFileTransfer
      * @param bytes
      *            the number of bytes requested by the client
      * @return the number of bytes actually being transferred by the server
-     *         (this does not have to match the request)
+     *         (this does not have to match the request) or <code>-1</code> if
+     *         there was an error
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public int requestBlock(int bytes) throws IOException;
+    public long requestBlock(long bytes) throws IOException;
 
     /**
      * Notify the backend that data will be sent over this file transfer socket.
