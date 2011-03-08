@@ -37,6 +37,7 @@ import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.test.Utils;
 import org.syphr.prom.PropertiesManager;
 
 public class Protocol63Test
@@ -49,11 +50,7 @@ public class Protocol63Test
     public static void setUpBeforeClass() throws IOException
     {
         settings = Settings.createSettings();
-
-        socketManager = new SocketManager();
-        socketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
-                              settings.getIntegerProperty(Settings.BACKEND_PORT),
-                              settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
+        socketManager = Utils.connect(settings);
 
         proto = new Protocol63(socketManager);
         proto.mythProtoVersion();

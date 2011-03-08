@@ -15,14 +15,9 @@
  */
 package org.syphr.mythtv.test;
 
-import java.net.InetAddress;
-
 import org.syphr.mythtv.proto.Protocol;
-import org.syphr.mythtv.proto.ProtocolFactory;
 import org.syphr.mythtv.proto.SocketManager;
-import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
-import org.syphr.mythtv.proto.types.ProtocolVersion;
 import org.syphr.prom.PropertiesManager;
 
 public class CommandRunner
@@ -39,18 +34,8 @@ public class CommandRunner
 
         PropertiesManager<Settings> settings = Settings.createSettings();
 
-        SocketManager socketManager = new SocketManager();
-        socketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
-                              settings.getIntegerProperty(Settings.BACKEND_PORT),
-                              settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
-
-        Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
-                                                                                 ProtocolVersion.class),
-                                                        socketManager);
-        proto.mythProtoVersion();
-        proto.ann(ConnectionType.MONITOR,
-                  InetAddress.getLocalHost().getHostName(),
-                  EventLevel.NONE);
+        SocketManager socketManager = Utils.connect(settings);
+        Protocol proto = Utils.announceMonitor(settings, socketManager, EventLevel.NONE);
 
         try
         {

@@ -38,11 +38,7 @@ public class EventMonitor
 
         PropertiesManager<Settings> settings = Settings.createSettings();
 
-        SocketManager socketManager = new SocketManager();
-        socketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
-                              settings.getIntegerProperty(Settings.BACKEND_PORT),
-                              settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
-
+        SocketManager socketManager = Utils.connect(settings);
         Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
                                                                                  ProtocolVersion.class),
                                                         socketManager);

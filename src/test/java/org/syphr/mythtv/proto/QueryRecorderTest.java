@@ -16,15 +16,13 @@
 package org.syphr.mythtv.proto;
 
 import java.io.IOException;
-import java.net.InetAddress;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
-import org.syphr.mythtv.proto.types.ProtocolVersion;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.test.Utils;
 import org.syphr.prom.PropertiesManager;
 
 public class QueryRecorderTest
@@ -40,19 +38,8 @@ public class QueryRecorderTest
     public static void setUpBeforeClass() throws IOException
     {
         settings = Settings.createSettings();
-
-        socketManager = new SocketManager();
-        socketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
-                              settings.getIntegerProperty(Settings.BACKEND_PORT),
-                              settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
-
-        proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
-                                                                        ProtocolVersion.class),
-                                               socketManager);
-        proto.mythProtoVersion();
-        proto.ann(ConnectionType.MONITOR,
-                  InetAddress.getLocalHost().getHostName(),
-                  EventLevel.NONE);
+        socketManager = Utils.connect(settings);
+        proto = Utils.announceMonitor(settings, socketManager, EventLevel.NONE);
 
         int recorderId = settings.getIntegerProperty(Settings.RECORDER);
         System.out.println("Interrogating recorder " + recorderId);
