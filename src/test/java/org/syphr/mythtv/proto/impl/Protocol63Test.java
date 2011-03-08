@@ -381,15 +381,6 @@ public class Protocol63Test
     }
 
     @Test
-    public void testQueryRecordingsDelete() throws IOException
-    {
-        // FIXME this provides the same response as PLAY, seems broken
-        List<ProgramInfo> delete = proto.queryRecordings(RecordingCategory.DELETE);
-        System.out.println("Delete count: " + delete.size());
-        printFirstFive(delete);
-    }
-
-    @Test
     public void testQueryRecordingsPlay() throws IOException
     {
         List<ProgramInfo> play = proto.queryRecordings(RecordingCategory.PLAY);
