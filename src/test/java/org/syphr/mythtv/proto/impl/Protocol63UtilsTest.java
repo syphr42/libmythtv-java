@@ -27,7 +27,7 @@ public class Protocol63UtilsTest
     {
         long value = 1234567890098765432L;
 
-        Pair<Integer, Integer> split = Protocol63Utils.splitLong(value);
-        Assert.assertEquals(value, Protocol63Utils.combineInts(split.getLeftElement(), split.getRightElement()));
+        Pair<Integer, Integer> split = ProtocolUtils.splitLong(value);
+        Assert.assertEquals(value, ProtocolUtils.combineInts(split.getLeftElement(), split.getRightElement()));
     }
 }

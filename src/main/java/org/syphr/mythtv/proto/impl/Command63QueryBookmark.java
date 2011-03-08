@@ -50,7 +50,7 @@ import org.syphr.mythtv.proto.data.Channel;
             throw new ProtocolException(response);
         }
 
-        return Protocol63Utils.combineInts(Integer.parseInt(args.get(0)),
+        return ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
                                            Integer.parseInt(args.get(1)));
     }
 }

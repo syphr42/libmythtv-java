@@ -76,9 +76,8 @@ import org.syphr.mythtv.proto.types.FileTransferType;
             }
 
             int socketNumber = Integer.parseInt(args.get(1));
-            // TODO what is returned in write mode? probably need to set the size
-            long size = Protocol63Utils.combineInts(Integer.parseInt(args.get(2)),
-                                                    Integer.parseInt(args.get(3)));
+            long size = ProtocolUtils.combineInts(Integer.parseInt(args.get(2)),
+                                                  Integer.parseInt(args.get(3)));
 
             return new QueryFileTransfer63(socketNumber, size, commandSocketManager);
         }

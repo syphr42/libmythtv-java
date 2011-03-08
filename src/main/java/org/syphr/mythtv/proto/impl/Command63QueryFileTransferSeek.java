@@ -32,8 +32,8 @@ import org.syphr.mythtv.proto.types.SeekOrigin;
                                           SeekOrigin origin,
                                           long curPosition) throws ProtocolException
     {
-        Pair<Integer, Integer> splitPosition = Protocol63Utils.splitLong(position);
-        Pair<Integer, Integer> splitCurPosition = Protocol63Utils.splitLong(curPosition);
+        Pair<Integer, Integer> splitPosition = ProtocolUtils.splitLong(position);
+        Pair<Integer, Integer> splitCurPosition = ProtocolUtils.splitLong(curPosition);
 
         message = Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
                                                            + socketNumber,
@@ -58,7 +58,7 @@ import org.syphr.mythtv.proto.types.SeekOrigin;
 
         try
         {
-            return Protocol63Utils.combineInts(Integer.parseInt(args.get(0)),
+            return ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
                                                Integer.parseInt(args.get(1)));
         }
         catch (NumberFormatException e)

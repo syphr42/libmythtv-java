@@ -33,9 +33,9 @@ import org.syphr.mythtv.proto.data.DriveInfo;
 
         try
         {
-            long totalSpace = Protocol63Utils.combineInts(Integer.parseInt(args.get(0)),
+            long totalSpace = ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
                                                           Integer.parseInt(args.get(1)));
-            long usedSpace = Protocol63Utils.combineInts(Integer.parseInt(args.get(2)),
+            long usedSpace = ProtocolUtils.combineInts(Integer.parseInt(args.get(2)),
                                                          Integer.parseInt(args.get(3)));
 
             return new DriveInfo(null,

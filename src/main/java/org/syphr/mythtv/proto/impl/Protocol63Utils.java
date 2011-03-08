@@ -23,11 +23,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.DriveInfo;
@@ -205,123 +203,112 @@ public class Protocol63Utils
 
     public static RecordingStatus getRecordingStatus(int recStatus) throws ProtocolException
     {
-        return translate(recStatus, REC_STATUS_MAP.inverse());
+        return ProtocolUtils.translate(recStatus, REC_STATUS_MAP.inverse());
     }
 
     public static int getRecordingStatus(RecordingStatus recStatus) throws ProtocolException
     {
-        return translate(recStatus, REC_STATUS_MAP);
+        return ProtocolUtils.translate(recStatus, REC_STATUS_MAP);
     }
 
     public static ConnectionType getConnectionType(String connType) throws ProtocolException
     {
-        return translate(connType, CONN_TYPE_MAP.inverse());
+        return ProtocolUtils.translate(connType, CONN_TYPE_MAP.inverse());
     }
 
     public static String getConnectionType(ConnectionType connType) throws ProtocolException
     {
-        return translate(connType, CONN_TYPE_MAP);
+        return ProtocolUtils.translate(connType, CONN_TYPE_MAP);
     }
 
     public static EventLevel getEventLevel(int eventLevel) throws ProtocolException
     {
-        return translate(eventLevel, EVENT_LEVEL_MAP.inverse());
+        return ProtocolUtils.translate(eventLevel, EVENT_LEVEL_MAP.inverse());
     }
 
     public static int getEventLevel(EventLevel eventLevel) throws ProtocolException
     {
-        return translate(eventLevel, EVENT_LEVEL_MAP);
+        return ProtocolUtils.translate(eventLevel, EVENT_LEVEL_MAP);
     }
 
     public static RecordingCategory getRecordingCategory(String recCategory) throws ProtocolException
     {
-        return translate(recCategory, REC_CATEGORY_MAP.inverse());
+        return ProtocolUtils.translate(recCategory, REC_CATEGORY_MAP.inverse());
     }
 
     public static String getRecordingCategory(RecordingCategory recCategory) throws ProtocolException
     {
-        return translate(recCategory, REC_CATEGORY_MAP);
+        return ProtocolUtils.translate(recCategory, REC_CATEGORY_MAP);
     }
 
     public static RecordingType getRecordingType(int recType) throws ProtocolException
     {
-        return translate(recType, REC_TYPE_MAP.inverse());
+        return ProtocolUtils.translate(recType, REC_TYPE_MAP.inverse());
     }
 
     public static int getRecordingType(RecordingType recType) throws ProtocolException
     {
-        return translate(recType, REC_TYPE_MAP);
+        return ProtocolUtils.translate(recType, REC_TYPE_MAP);
     }
 
     public static TunerStatusCategory getTunerStatusCategory(String tunerStatusCategory) throws ProtocolException
     {
-        return translate(tunerStatusCategory, TUNER_STATUS_CATEGORY_MAP.inverse());
+        return ProtocolUtils.translate(tunerStatusCategory, TUNER_STATUS_CATEGORY_MAP.inverse());
     }
 
     public static String getTunerStatusCategory(TunerStatusCategory tunerStatusCategory) throws ProtocolException
     {
-        return translate(tunerStatusCategory, TUNER_STATUS_CATEGORY_MAP);
+        return ProtocolUtils.translate(tunerStatusCategory, TUNER_STATUS_CATEGORY_MAP);
     }
 
     public static GenPixMapResponse getGenPixMapResponse(String genPixMapRespose) throws ProtocolException
     {
-        return translate(genPixMapRespose, GEN_PIX_MAP_RESPONSE_MAP.inverse());
+        return ProtocolUtils.translate(genPixMapRespose, GEN_PIX_MAP_RESPONSE_MAP.inverse());
     }
 
     public static String getGenPixMapResponse(GenPixMapResponse genPixMapRespose) throws ProtocolException
     {
-        return translate(genPixMapRespose, GEN_PIX_MAP_RESPONSE_MAP);
+        return ProtocolUtils.translate(genPixMapRespose, GEN_PIX_MAP_RESPONSE_MAP);
     }
 
     public static FileTransferType getFileTransferType(int fileTransferType) throws ProtocolException
     {
-        return translate(fileTransferType, FILE_TRANSFER_TYPE_MAP.inverse());
+        return ProtocolUtils.translate(fileTransferType, FILE_TRANSFER_TYPE_MAP.inverse());
     }
 
     public static int getFileTransferType(FileTransferType fileTransferType) throws ProtocolException
     {
-        return translate(fileTransferType, FILE_TRANSFER_TYPE_MAP);
+        return ProtocolUtils.translate(fileTransferType, FILE_TRANSFER_TYPE_MAP);
     }
 
     public static VideoEditMark getVideoEditMark(int videoEditMark) throws ProtocolException
     {
-        return translate(videoEditMark, VIDEO_EDIT_MARK_MAP.inverse());
+        return ProtocolUtils.translate(videoEditMark, VIDEO_EDIT_MARK_MAP.inverse());
     }
 
     public static int getVideoEditMark(VideoEditMark videoEditMark) throws ProtocolException
     {
-        return translate(videoEditMark, VIDEO_EDIT_MARK_MAP);
+        return ProtocolUtils.translate(videoEditMark, VIDEO_EDIT_MARK_MAP);
     }
 
     public static TvState getTvState(int tvState) throws ProtocolException
     {
-        return translate(tvState, TV_STATE_MAP.inverse());
+        return ProtocolUtils.translate(tvState, TV_STATE_MAP.inverse());
     }
 
     public static int getTvState(TvState tvState) throws ProtocolException
     {
-        return translate(tvState, TV_STATE_MAP);
+        return ProtocolUtils.translate(tvState, TV_STATE_MAP);
     }
 
     public static SeekOrigin getSeekOrigin(int seekOrigin) throws ProtocolException
     {
-        return translate(seekOrigin, SEEK_ORIGIN_MAP.inverse());
+        return ProtocolUtils.translate(seekOrigin, SEEK_ORIGIN_MAP.inverse());
     }
 
     public static int getSeekOrigin(SeekOrigin seekOrigin) throws ProtocolException
     {
-        return translate(seekOrigin, SEEK_ORIGIN_MAP);
-    }
-
-    private static <K, V> V translate(K key, Map<K, V> map) throws ProtocolException
-    {
-        V translated = map.get(key);
-        if (translated == null)
-        {
-            throw new ProtocolException("Invalid argument: " + key);
-        }
-
-        return translated;
+        return ProtocolUtils.translate(seekOrigin, SEEK_ORIGIN_MAP);
     }
 
     public static List<String> getArguments(String value)
@@ -373,9 +360,9 @@ public class Protocol63Utils
                 long driveNumber = Long.parseLong(args.get(i++));
                 long storageGroupId = Long.parseLong(args.get(i++));
                 long blockSize = Long.parseLong(args.get(i++));
-                long totalSpace = combineInts(Integer.parseInt(args.get(i++)),
+                long totalSpace = ProtocolUtils.combineInts(Integer.parseInt(args.get(i++)),
                                               Integer.parseInt(args.get(i++)));
-                long usedSpace = combineInts(Integer.parseInt(args.get(i++)),
+                long usedSpace = ProtocolUtils.combineInts(Integer.parseInt(args.get(i++)),
                                              Integer.parseInt(args.get(i++)));
 
                 drives.add(new DriveInfo(hostname,
@@ -619,25 +606,5 @@ public class Protocol63Utils
     private static String getDateTime(Date date)
     {
         return String.valueOf(TimeUnit.MILLISECONDS.toSeconds(date.getTime()));
-    }
-
-    public static DateFormat getIsoDateFormat()
-    {
-        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    }
-
-    public static DateFormat getConcatDateFormat()
-    {
-        return new SimpleDateFormat("yyyyMMddHHmmss");
-    }
-
-    public static long combineInts(int high, int low)
-    {
-        return ((long)high << 32) + low;
-    }
-
-    public static Pair<Integer, Integer> splitLong(long value)
-    {
-        return Pair.of((int)(value >> 32), (int)value);
     }
 }

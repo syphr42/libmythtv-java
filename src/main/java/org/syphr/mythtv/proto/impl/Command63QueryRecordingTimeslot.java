@@ -34,7 +34,7 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
         builder.append("QUERY_RECORDING TIMESLOT ");
         builder.append(channel.getId());
         builder.append(' ');
-        builder.append(Protocol63Utils.getConcatDateFormat().format(recStartTs));
+        builder.append(ProtocolUtils.getMySqlDateFormat().format(recStartTs));
 
         message = builder.toString();
     }

@@ -70,7 +70,7 @@ import org.syphr.mythtv.proto.data.VideoEditInfo;
             for (int i = 1; i < args.size();)
             {
                 edits.add(new VideoEditInfo(Protocol63Utils.getVideoEditMark(Integer.parseInt(args.get(i++))),
-                                            Protocol63Utils.combineInts(Integer.parseInt(args.get(i++)),
+                                            ProtocolUtils.combineInts(Integer.parseInt(args.get(i++)),
                                                                         Integer.parseInt(args.get(i++)))));
             }
 

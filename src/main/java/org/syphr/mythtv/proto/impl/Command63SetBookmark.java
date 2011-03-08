@@ -38,7 +38,7 @@ import org.syphr.mythtv.proto.data.Channel;
         builder.append(TimeUnit.MILLISECONDS.toSeconds(recStartTs.getTime()));
         builder.append(' ');
 
-        Pair<Integer, Integer> ints = Protocol63Utils.splitLong(location);
+        Pair<Integer, Integer> ints = ProtocolUtils.splitLong(location);
         builder.append(ints.getLeftElement());
         builder.append(' ');
         builder.append(ints.getRightElement());

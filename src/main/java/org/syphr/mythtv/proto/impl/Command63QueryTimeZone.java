@@ -41,7 +41,7 @@ import org.syphr.mythtv.proto.data.TimeInfo;
         try
         {
             TimeZone tz = TimeZone.getTimeZone(args.get(0));
-            Date dateTime = Protocol63Utils.getIsoDateFormat().parse(args.get(2));
+            Date dateTime = ProtocolUtils.getIsoDateFormat().parse(args.get(2));
 
             return new TimeInfo(dateTime, tz);
         }
