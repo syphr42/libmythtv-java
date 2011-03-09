@@ -22,12 +22,18 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
-/* default */class Command63QueryGetExpiring implements Command<List<ProgramInfo>>
+/* default */class Command63QueryGetExpiring extends AbstractCommand<List<ProgramInfo>>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_GETEXPIRING";
+    }
+
     @Override
     public List<ProgramInfo> send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("QUERY_GETEXPIRING");
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         try

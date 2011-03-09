@@ -20,25 +20,18 @@ import java.io.IOException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryIsActiveBackend extends AbstractCommand<Boolean>
+/* default */abstract class AbstractCommand63OkResponse extends AbstractCommand<Void>
 {
-    private final String hostname;
-
-    public Command63QueryIsActiveBackend(String hostname)
-    {
-        this.hostname = hostname;
-    }
-
     @Override
-    protected String getMessage() throws ProtocolException
+    public Void send(SocketManager socketManager) throws IOException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_IS_ACTIVE_BACKEND",
-                                                hostname);
-    }
+        String response = socketManager.sendAndWait(getMessage());
 
-    @Override
-    public Boolean send(SocketManager socketManager) throws IOException
-    {
-        return Boolean.valueOf(socketManager.sendAndWait(getMessage()));
+        if(!"OK".equalsIgnoreCase(response))
+        {
+            throw new ProtocolException(response);
+        }
+
+        return null;
     }
 }

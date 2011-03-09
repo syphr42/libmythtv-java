@@ -22,12 +22,18 @@ import java.util.List;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63GetFreeRecorderList implements Command<List<Integer>>
+/* default */class Command63GetFreeRecorderList extends AbstractCommand<List<Integer>>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "GET_FREE_RECORDER_LIST";
+    }
+
     @Override
     public List<Integer> send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("GET_FREE_RECORDER_LIST");
+        String response = socketManager.sendAndWait(getMessage());
 
         List<Integer> freeRecorders = new ArrayList<Integer>();
 

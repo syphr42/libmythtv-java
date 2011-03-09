@@ -26,8 +26,9 @@ import org.syphr.mythtv.proto.types.RecordingCategory;
     }
 
     @Override
-    protected String buildMessage(RecordingCategory recCategory) throws ProtocolException
+    protected String getMessage() throws ProtocolException
     {
-        return "QUERY_RECORDINGS " + Protocol65Utils.getRecordingCategory(recCategory);
+        return "QUERY_RECORDINGS "
+               + Protocol65Utils.getRecordingCategory(getRecCategory());
     }
 }

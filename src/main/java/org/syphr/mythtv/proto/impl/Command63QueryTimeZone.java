@@ -25,12 +25,18 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.TimeInfo;
 
-/* default */class Command63QueryTimeZone implements Command<TimeInfo>
+/* default */class Command63QueryTimeZone extends AbstractCommand<TimeInfo>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_TIME_ZONE";
+    }
+
     @Override
     public TimeInfo send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("QUERY_TIME_ZONE");
+        String response = socketManager.sendAndWait(getMessage());
 
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 3)

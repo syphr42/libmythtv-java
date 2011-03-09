@@ -15,23 +15,13 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.IOException;
-
 import org.syphr.mythtv.proto.ProtocolException;
-import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63BlockShutdown implements Command<Void>
+/* default */class Command63BlockShutdown extends AbstractCommand63OkResponse
 {
     @Override
-    public Void send(SocketManager socketManager) throws IOException
+    protected String getMessage() throws ProtocolException
     {
-        String response = socketManager.sendAndWait("BLOCK_SHUTDOWN");
-
-        if(!"OK".equals(response))
-        {
-            throw new ProtocolException(response);
-        }
-
-        return null;
+        return "BLOCK_SHUTDOWN";
     }
 }

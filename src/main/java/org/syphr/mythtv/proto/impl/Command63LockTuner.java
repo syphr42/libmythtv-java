@@ -22,19 +22,34 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.RecorderDevice;
 
-/* default */class Command63LockTuner implements Command<RecorderDevice>
+/* default */class Command63LockTuner extends AbstractCommand<RecorderDevice>
 {
-    private final String message;
+    private final int recorderId;
 
     public Command63LockTuner(int recorderId)
     {
-        message = "LOCK_TUNER" + (recorderId > 0 ? " " + recorderId : "");
+        this.recorderId = recorderId;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("LOCK_TUNER");
+
+        if (recorderId > 0)
+        {
+            builder.append(' ');
+            builder.append(recorderId);
+        }
+
+        return builder.toString();
     }
 
     @Override
     public RecorderDevice send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.isEmpty())
         {

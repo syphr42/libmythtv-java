@@ -15,33 +15,25 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.IOException;
-
 import org.syphr.mythtv.proto.ProtocolException;
-import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryFileTransferSetTimeout implements Command<Void>
+/* default */class Command63QueryFileTransferSetTimeout extends AbstractCommand63OkResponse
 {
-    private final String message;
+    private final int socketNumber;
+    private final boolean fast;
 
     public Command63QueryFileTransferSetTimeout(int socketNumber, boolean fast)
     {
-        message = Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
-                                                           + socketNumber,
-                                                   "SET_TIMEOUT",
-                                                   fast ? "1" : "0");
+        this.socketNumber = socketNumber;
+        this.fast = fast;
     }
 
     @Override
-    public Void send(SocketManager socketManager) throws IOException
+    protected String getMessage() throws ProtocolException
     {
-        String response = socketManager.sendAndWait(message);
-
-        if (!"ok".equals(response))
-        {
-            throw new ProtocolException(response);
-        }
-
-        return null;
+        return Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
+                                                        + socketNumber,
+                                                "SET_TIMEOUT",
+                                                fast ? "1" : "0");
     }
 }

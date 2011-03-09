@@ -20,12 +20,18 @@ import java.io.IOException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63GetFreeRecorderCount implements Command<Integer>
+/* default */class Command63GetFreeRecorderCount extends AbstractCommand<Integer>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "GET_FREE_RECORDER_COUNT";
+    }
+
     @Override
     public Integer send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("GET_FREE_RECORDER_COUNT");
+        String response = socketManager.sendAndWait(getMessage());
 
         try
         {

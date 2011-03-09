@@ -15,39 +15,36 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.IOException;
-
 import org.syphr.mythtv.proto.ProtocolException;
-import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 
-/* default */class Command63Ann implements Command<Void>
+/* default */class Command63Ann extends AbstractCommand63OkResponse
 {
-    private final String message;
+    private final ConnectionType connectionType;
+    private final String host;
+    private final EventLevel eventLevel;
 
     public Command63Ann(ConnectionType connectionType,
                         String host,
-                        EventLevel level) throws ProtocolException
+                        EventLevel eventLevel)
     {
-        message = "ANN "
-                  + Protocol63Utils.getConnectionType(connectionType)
-                  + " "
-                  + host
-                  + " "
-                  + Protocol63Utils.getEventLevel(level);
+        this.connectionType = connectionType;
+        this.host = host;
+        this.eventLevel = eventLevel;
     }
 
     @Override
-    public Void send(SocketManager socketManager) throws IOException
+    protected String getMessage() throws ProtocolException
     {
-        String response = socketManager.sendAndWait(message);
+        StringBuilder builder = new StringBuilder();
+        builder.append("ANN ");
+        builder.append(Protocol63Utils.getConnectionType(connectionType));
+        builder.append(' ');
+        builder.append(host);
+        builder.append(' ');
+        builder.append(Protocol63Utils.getEventLevel(eventLevel));
 
-        if (!"OK".equals(response))
-        {
-            throw new ProtocolException(response);
-        }
-
-        return null;
+        return builder.toString();
     }
 }

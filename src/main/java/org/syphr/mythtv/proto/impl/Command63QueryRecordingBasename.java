@@ -22,19 +22,25 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
-/* default */class Command63QueryRecordingBasename implements Command<ProgramInfo>
+/* default */class Command63QueryRecordingBasename extends AbstractCommand<ProgramInfo>
 {
-    private final String message;
+    private final String basename;
 
     public Command63QueryRecordingBasename(String basename)
     {
-        message = "QUERY_RECORDING BASENAME " + basename;
+        this.basename = basename;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_RECORDING BASENAME " + basename;
     }
 
     @Override
     public ProgramInfo send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         try

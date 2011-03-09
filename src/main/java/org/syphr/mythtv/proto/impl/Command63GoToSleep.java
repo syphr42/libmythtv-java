@@ -20,12 +20,18 @@ import java.io.IOException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63GoToSleep implements Command<String>
+/* default */class Command63GoToSleep extends AbstractCommand<String>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "GO_TO_SLEEP";
+    }
+
     @Override
     public String send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("GO_TO_SLEEP");
+        String response = socketManager.sendAndWait(getMessage());
 
         if (response != null && response.startsWith("ERROR: "))
         {

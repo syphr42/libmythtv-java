@@ -15,31 +15,21 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.IOException;
-
 import org.syphr.mythtv.proto.ProtocolException;
-import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryFileTransferDone implements Command<Void>
+/* default */class Command63QueryFileTransferDone extends AbstractCommand63OkResponse
 {
-    private final String message;
+    private final int socketNumber;
 
     public Command63QueryFileTransferDone(int socketNumber)
     {
-        message = Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
-                                                   + socketNumber, "DONE");
+        this.socketNumber = socketNumber;
     }
 
     @Override
-    public Void send(SocketManager socketManager) throws IOException
+    protected String getMessage() throws ProtocolException
     {
-        String response = socketManager.sendAndWait(message);
-
-        if (!"ok".equals(response))
-        {
-            throw new ProtocolException(response);
-        }
-
-        return null;
+        return Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
+                                                + socketNumber, "DONE");
     }
 }

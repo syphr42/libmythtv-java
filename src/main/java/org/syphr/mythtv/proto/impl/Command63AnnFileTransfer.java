@@ -24,9 +24,14 @@ import org.syphr.mythtv.proto.QueryFileTransfer;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.types.FileTransferType;
 
-/* default */class Command63AnnFileTransfer implements Command<QueryFileTransfer>
+/* default */class Command63AnnFileTransfer extends AbstractCommand<QueryFileTransfer>
 {
-    private final String message;
+    private final String host;
+    private final FileTransferType type;
+    private final boolean readAhead;
+    private final long timeout;
+    private final URI uri;
+    private final String storageGroup;
     private final SocketManager commandSocketManager;
 
     public Command63AnnFileTransfer(String host,
@@ -35,7 +40,19 @@ import org.syphr.mythtv.proto.types.FileTransferType;
                                     long timeout,
                                     URI uri,
                                     String storageGroup,
-                                    SocketManager commandSocketManager) throws ProtocolException
+                                    SocketManager commandSocketManager)
+    {
+        this.host = host;
+        this.type = type;
+        this.readAhead = readAhead;
+        this.timeout = timeout;
+        this.uri = uri;
+        this.storageGroup = storageGroup;
+        this.commandSocketManager = commandSocketManager;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         StringBuilder builder = new StringBuilder();
         builder.append("ANN FileTransfer ");
@@ -51,17 +68,15 @@ import org.syphr.mythtv.proto.types.FileTransferType;
             builder.append(timeout);
         }
 
-        this.message = Protocol63Utils.getProtocolValue(builder.toString(),
-                                                        uri.toString(),
-                                                        storageGroup);
-
-        this.commandSocketManager = commandSocketManager;
+        return Protocol63Utils.getProtocolValue(builder.toString(),
+                                                uri.toString(),
+                                                storageGroup);
     }
 
     @Override
     public QueryFileTransfer send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 4)
         {
@@ -79,7 +94,9 @@ import org.syphr.mythtv.proto.types.FileTransferType;
             long size = ProtocolUtils.combineInts(Integer.parseInt(args.get(2)),
                                                   Integer.parseInt(args.get(3)));
 
-            return new QueryFileTransfer63(socketNumber, size, commandSocketManager);
+            return new QueryFileTransfer63(socketNumber,
+                                           size,
+                                           commandSocketManager);
         }
         catch (RuntimeException e)
         {

@@ -17,14 +17,21 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryUptime implements Command<Long>
+/* default */class Command63QueryUptime extends AbstractCommand<Long>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_UPTIME";
+    }
+
     @Override
     public Long send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("QUERY_UPTIME");
+        String response = socketManager.sendAndWait(getMessage());
 
         try
         {

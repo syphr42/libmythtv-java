@@ -21,23 +21,38 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 
-/* default */class Command63QueryRecorderSpawnLiveTv implements Command<Boolean>
+/* default */class Command63QueryRecorderSpawnLiveTv extends AbstractCommand<Boolean>
 {
-    private final String message;
+    private final int recorder;
+    private final String chainId;
+    private final boolean pip;
+    private final Channel startChannel;
 
-    public Command63QueryRecorderSpawnLiveTv(int recorder, String chainId, boolean pip, Channel startChannel)
+    public Command63QueryRecorderSpawnLiveTv(int recorder,
+                                             String chainId,
+                                             boolean pip,
+                                             Channel startChannel)
     {
-        message = Protocol63Utils.getProtocolValue("QUERY_RECORDER " + recorder,
-                                                   "SPAWN_LIVETV",
-                                                   chainId,
-                                                   pip ? "1" : "0",
-                                                   startChannel.getNumber());
+        this.recorder = recorder;
+        this.chainId = chainId;
+        this.pip = pip;
+        this.startChannel = startChannel;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("QUERY_RECORDER " + recorder,
+                                                "SPAWN_LIVETV",
+                                                chainId,
+                                                pip ? "1" : "0",
+                                                startChannel.getNumber());
     }
 
     @Override
     public Boolean send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if ("bad".equals(response))
         {

@@ -21,22 +21,34 @@ import java.util.List;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */abstract class AbstractCommand63QuerySg<T> implements Command<T>
+/* default */abstract class AbstractCommand63QuerySg<T> extends AbstractCommand<T>
 {
-    private final String message;
+    private final String host;
+    private final String storageGroup;
+    private final String path;
 
-    public AbstractCommand63QuerySg(String host, String storageGroup, String path)
+    public AbstractCommand63QuerySg(String host,
+                                    String storageGroup,
+                                    String path)
     {
-        message = Protocol63Utils.getProtocolValue(getCommand(),
-                                                   host,
-                                                   storageGroup,
-                                                   path);
+        this.host = host;
+        this.storageGroup = storageGroup;
+        this.path = path;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue(getCommand(),
+                                                host,
+                                                storageGroup,
+                                                path);
     }
 
     @Override
     public T send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         if (args.isEmpty())

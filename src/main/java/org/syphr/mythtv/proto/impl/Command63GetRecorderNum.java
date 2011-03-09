@@ -16,6 +16,7 @@
 package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
@@ -23,21 +24,29 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.RecorderLocation;
 
-/* default */class Command63GetRecorderNum implements Command<RecorderLocation>
+/* default */class Command63GetRecorderNum extends AbstractCommand<RecorderLocation>
 {
-    private final String message;
+    private final ProgramInfo program;
 
-    public Command63GetRecorderNum(ProgramInfo program) throws ProtocolException
+    public Command63GetRecorderNum(ProgramInfo program)
     {
-        List<String> extracted = Protocol63Utils.extractProgramInfo(program);
-        extracted.add(0, "GET_RECORDER_NUM");
-        message = Protocol63Utils.getProtocolValue(extracted);
+        this.program = program;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        List<String> args = new ArrayList<String>();
+        args.add("GET_RECORDER_NUM");
+        args.addAll(Protocol63Utils.extractProgramInfo(program));
+
+        return Protocol63Utils.getProtocolValue(args);
     }
 
     @Override
     public RecorderLocation send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 3)
@@ -53,7 +62,9 @@ import org.syphr.mythtv.proto.data.RecorderLocation;
                 return null;
             }
 
-            return new RecorderLocation(recorderId, args.get(1), Integer.parseInt(args.get(2)));
+            return new RecorderLocation(recorderId,
+                                        args.get(1),
+                                        Integer.parseInt(args.get(2)));
         }
         catch (NumberFormatException e)
         {

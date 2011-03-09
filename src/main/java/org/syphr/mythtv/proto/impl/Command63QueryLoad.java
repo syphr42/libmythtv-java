@@ -24,13 +24,19 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Load;
 import org.syphr.mythtv.proto.types.LoadCategory;
 
-/* default */class Command63QueryLoad implements Command<Load>
+/* default */class Command63QueryLoad extends AbstractCommand<Load>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_LOAD";
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public Load send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("QUERY_LOAD");
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         if (args.size() != 3)

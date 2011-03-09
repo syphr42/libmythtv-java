@@ -23,32 +23,44 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.types.SeekOrigin;
 
-/* default */class Command63QueryFileTransferSeek implements Command<Long>
+/* default */class Command63QueryFileTransferSeek extends AbstractCommand<Long>
 {
-    private final String message;
+    private final int socketNumber;
+    private final long position;
+    private final SeekOrigin origin;
+    private final long curPosition;
 
     public Command63QueryFileTransferSeek(int socketNumber,
                                           long position,
                                           SeekOrigin origin,
-                                          long curPosition) throws ProtocolException
+                                          long curPosition)
+    {
+        this.socketNumber = socketNumber;
+        this.position = position;
+        this.origin = origin;
+        this.curPosition = curPosition;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         Pair<Integer, Integer> splitPosition = ProtocolUtils.splitLong(position);
         Pair<Integer, Integer> splitCurPosition = ProtocolUtils.splitLong(curPosition);
 
-        message = Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
-                                                           + socketNumber,
-                                                   "SEEK",
-                                                   String.valueOf(splitPosition.getLeftElement()),
-                                                   String.valueOf(splitPosition.getRightElement()),
-                                                   String.valueOf(Protocol63Utils.getSeekOrigin(origin)),
-                                                   String.valueOf(splitCurPosition.getLeftElement()),
-                                                   String.valueOf(splitCurPosition.getRightElement()));
+        return Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
+                                                        + socketNumber,
+                                                "SEEK",
+                                                String.valueOf(splitPosition.getLeftElement()),
+                                                String.valueOf(splitPosition.getRightElement()),
+                                                String.valueOf(Protocol63Utils.getSeekOrigin(origin)),
+                                                String.valueOf(splitCurPosition.getLeftElement()),
+                                                String.valueOf(splitCurPosition.getRightElement()));
     }
 
     @Override
     public Long send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         if (args.size() != 2)
@@ -59,7 +71,7 @@ import org.syphr.mythtv.proto.types.SeekOrigin;
         try
         {
             return ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
-                                               Integer.parseInt(args.get(1)));
+                                             Integer.parseInt(args.get(1)));
         }
         catch (NumberFormatException e)
         {

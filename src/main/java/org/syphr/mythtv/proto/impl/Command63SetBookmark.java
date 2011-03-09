@@ -24,11 +24,21 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 
-/* default */class Command63SetBookmark implements Command<Boolean>
+/* default */class Command63SetBookmark extends AbstractCommand<Boolean>
 {
-    private final String message;
+    private final Channel channel;
+    private final Date recStartTs;
+    private final long location;
 
     public Command63SetBookmark(Channel channel, Date recStartTs, long location)
+    {
+        this.channel = channel;
+        this.recStartTs = recStartTs;
+        this.location = location;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         StringBuilder builder = new StringBuilder();
         builder.append("SET_BOOKMARK");
@@ -43,13 +53,13 @@ import org.syphr.mythtv.proto.data.Channel;
         builder.append(' ');
         builder.append(ints.getRightElement());
 
-        message = builder.toString();
+        return builder.toString();
     }
 
     @Override
     public Boolean send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if ("FAILED".equals(response))
         {

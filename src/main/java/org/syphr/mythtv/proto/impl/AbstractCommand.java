@@ -17,11 +17,7 @@ package org.syphr.mythtv.proto.impl;
 
 import org.syphr.mythtv.proto.ProtocolException;
 
-/* default */class Command63AllowShutdown extends AbstractCommand63OkResponse
+public abstract class AbstractCommand<T> implements Command<T>
 {
-    @Override
-    protected String getMessage() throws ProtocolException
-    {
-        return "ALLOW_SHUTDOWN";
-    }
+    protected abstract String getMessage() throws ProtocolException;
 }

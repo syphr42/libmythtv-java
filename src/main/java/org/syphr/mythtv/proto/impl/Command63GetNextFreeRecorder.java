@@ -22,20 +22,26 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.RecorderLocation;
 
-/* default */class Command63GetNextFreeRecorder implements Command<RecorderLocation>
+/* default */class Command63GetNextFreeRecorder extends AbstractCommand<RecorderLocation>
 {
-    private final String message;
+    private final RecorderLocation from;
 
     public Command63GetNextFreeRecorder(RecorderLocation from)
     {
-        message = Protocol63Utils.getProtocolValue("GET_NEXT_FREE_RECORDER",
-                                                   String.valueOf(from.getId()));
+        this.from = from;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("GET_NEXT_FREE_RECORDER",
+                                                String.valueOf(from.getId()));
     }
 
     @Override
     public RecorderLocation send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 3)
@@ -51,7 +57,9 @@ import org.syphr.mythtv.proto.data.RecorderLocation;
                 return null;
             }
 
-            return new RecorderLocation(recorderId, args.get(1), Integer.parseInt(args.get(2)));
+            return new RecorderLocation(recorderId,
+                                        args.get(1),
+                                        Integer.parseInt(args.get(2)));
         }
         catch (NumberFormatException e)
         {

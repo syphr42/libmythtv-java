@@ -20,19 +20,26 @@ import java.io.IOException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryRecorderStopLiveTv implements Command<Boolean>
+/* default */class Command63QueryRecorderStopLiveTv extends AbstractCommand<Boolean>
 {
-    private final String message;
+    private final int recorder;
 
     public Command63QueryRecorderStopLiveTv(int recorder)
     {
-        message = Protocol63Utils.getProtocolValue("QUERY_RECORDER " + recorder, "STOP_LIVETV");
+        this.recorder = recorder;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("QUERY_RECORDER " + recorder,
+                                                "STOP_LIVETV");
     }
 
     @Override
     public Boolean send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if ("bad".equals(response))
         {

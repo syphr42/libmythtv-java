@@ -24,11 +24,19 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
-/* default */class Command63QueryRecordingTimeslot implements Command<ProgramInfo>
+/* default */class Command63QueryRecordingTimeslot extends AbstractCommand<ProgramInfo>
 {
-    private final String message;
+    private final Channel channel;
+    private final Date recStartTs;
 
     public Command63QueryRecordingTimeslot(Channel channel, Date recStartTs)
+    {
+        this.channel = channel;
+        this.recStartTs = recStartTs;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         StringBuilder builder = new StringBuilder();
         builder.append("QUERY_RECORDING TIMESLOT ");
@@ -36,13 +44,13 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
         builder.append(' ');
         builder.append(ProtocolUtils.getMySqlDateFormat().format(recStartTs));
 
-        message = builder.toString();
+        return builder.toString();
     }
 
     @Override
     public ProgramInfo send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         try

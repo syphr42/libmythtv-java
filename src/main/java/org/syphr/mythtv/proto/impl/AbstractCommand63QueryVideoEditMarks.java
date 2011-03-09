@@ -26,11 +26,19 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.VideoEditInfo;
 
-/* default */abstract class AbstractCommand63QueryVideoEditMarks implements Command<List<VideoEditInfo>>
+/* default */abstract class AbstractCommand63QueryVideoEditMarks extends AbstractCommand<List<VideoEditInfo>>
 {
-    private final String message;
+    private final Channel channel;
+    private final Date recStartTs;
 
     public AbstractCommand63QueryVideoEditMarks(Channel channel, Date recStartTs)
+    {
+        this.channel = channel;
+        this.recStartTs = recStartTs;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         StringBuilder builder = new StringBuilder();
         builder.append(getCommand());
@@ -39,13 +47,13 @@ import org.syphr.mythtv.proto.data.VideoEditInfo;
         builder.append(' ');
         builder.append(TimeUnit.MILLISECONDS.toSeconds(recStartTs.getTime()));
 
-        message = builder.toString();
+        return builder.toString();
     }
 
     @Override
     public List<VideoEditInfo> send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.isEmpty())
         {
@@ -71,7 +79,7 @@ import org.syphr.mythtv.proto.data.VideoEditInfo;
             {
                 edits.add(new VideoEditInfo(Protocol63Utils.getVideoEditMark(Integer.parseInt(args.get(i++))),
                                             ProtocolUtils.combineInts(Integer.parseInt(args.get(i++)),
-                                                                        Integer.parseInt(args.get(i++)))));
+                                                                      Integer.parseInt(args.get(i++)))));
             }
 
             return edits;

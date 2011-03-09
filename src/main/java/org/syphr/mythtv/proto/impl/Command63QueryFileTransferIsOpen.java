@@ -20,20 +20,26 @@ import java.io.IOException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryFileTransferIsOpen implements Command<Boolean>
+/* default */class Command63QueryFileTransferIsOpen extends AbstractCommand<Boolean>
 {
-    private final String message;
+    private final int socketNumber;
 
     public Command63QueryFileTransferIsOpen(int socketNumber)
     {
-        message = Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
-                                                   + socketNumber, "IS_OPEN");
+        this.socketNumber = socketNumber;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
+                                                + socketNumber, "IS_OPEN");
     }
 
     @Override
     public Boolean send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if ("0".equals(response))
         {

@@ -20,22 +20,30 @@ import java.io.IOException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryFileTransferWriteBlock implements Command<Long>
+/* default */class Command63QueryFileTransferWriteBlock extends AbstractCommand<Long>
 {
-    private final String message;
+    private final int socketNumber;
+    private final long bytes;
 
     public Command63QueryFileTransferWriteBlock(int socketNumber, long bytes)
     {
-        message = Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
-                                                           + socketNumber,
-                                                   "WRITE_BLOCK",
-                                                   String.valueOf(bytes));
+        this.socketNumber = socketNumber;
+        this.bytes = bytes;
+    }
+
+    @Override
+    public String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
+                                                        + socketNumber,
+                                                "WRITE_BLOCK",
+                                                String.valueOf(bytes));
     }
 
     @Override
     public Long send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         try
         {

@@ -23,24 +23,31 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 
-/* default */class Command63QueryRecordings implements Command<List<ProgramInfo>>
+/* default */class Command63QueryRecordings extends AbstractCommand<List<ProgramInfo>>
 {
-    private final String message;
+    private final RecordingCategory recCategory;
 
-    public Command63QueryRecordings(RecordingCategory recCategory) throws ProtocolException
+    public Command63QueryRecordings(RecordingCategory recCategory)
     {
-        message = buildMessage(recCategory);
+        this.recCategory = recCategory;
     }
 
-    protected String buildMessage(RecordingCategory recCategory) throws ProtocolException
+    public RecordingCategory getRecCategory()
     {
-        return "QUERY_RECORDINGS " + Protocol63Utils.getRecordingCategory(recCategory);
+        return recCategory;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_RECORDINGS "
+               + Protocol63Utils.getRecordingCategory(getRecCategory());
     }
 
     @Override
     public List<ProgramInfo> send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         try

@@ -20,20 +20,26 @@ import java.io.IOException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63RescheduleRecordings implements Command<Void>
+/* default */class Command63RescheduleRecordings extends AbstractCommand<Void>
 {
-    private final String message;
+    private final int recorderId;
 
-    public Command63RescheduleRecordings(int recorderId) throws ProtocolException
+    public Command63RescheduleRecordings(int recorderId)
     {
-        message = Protocol63Utils.getProtocolValue("RESCHEDULE_RECORDINGS",
-                                                   String.valueOf(recorderId));
+        this.recorderId = recorderId;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("RESCHEDULE_RECORDINGS",
+                                                String.valueOf(recorderId));
     }
 
     @Override
     public Void send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if (!"1".equals(response))
         {

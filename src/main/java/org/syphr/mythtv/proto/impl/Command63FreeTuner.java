@@ -20,19 +20,25 @@ import java.io.IOException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63FreeTuner implements Command<Boolean>
+/* default */class Command63FreeTuner extends AbstractCommand<Boolean>
 {
-    private final String message;
+    private final int recorderId;
 
     public Command63FreeTuner(int recorderId)
     {
-        message = "FREE_TUNER " + recorderId;
+        this.recorderId = recorderId;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "FREE_TUNER " + recorderId;
     }
 
     @Override
     public Boolean send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if (!"OK".equals(response))
         {

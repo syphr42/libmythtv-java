@@ -24,24 +24,32 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.types.GenPixMapResponse;
 
-/* default */class Command63GenPixMap2 implements Command<GenPixMapResponse>
+/* default */class Command63GenPixMap2 extends AbstractCommand<GenPixMapResponse>
 {
-    private final String message;
+    private final String id;
+    private final ProgramInfo program;
 
-    public Command63GenPixMap2(String id, ProgramInfo program) throws ProtocolException
+    public Command63GenPixMap2(String id, ProgramInfo program)
+    {
+        this.id = id;
+        this.program = program;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         List<String> messageList = new ArrayList<String>();
         messageList.add("QUERY_GENPIXMAP2");
         messageList.add(id);
         messageList.addAll(Protocol63Utils.extractProgramInfo(program));
 
-        message = Protocol63Utils.getProtocolValue(messageList);
+        return Protocol63Utils.getProtocolValue(messageList);
     }
 
     @Override
     public GenPixMapResponse send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         try

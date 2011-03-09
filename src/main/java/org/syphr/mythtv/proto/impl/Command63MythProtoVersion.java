@@ -21,13 +21,24 @@ import java.util.List;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63MythProtoVersion implements Command<Void>
+/* default */class Command63MythProtoVersion extends AbstractCommand<Void>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("MYTH_PROTO_VERSION ");
+        builder.append(getVersion());
+        builder.append(' ');
+        builder.append(getToken());
+
+        return builder.toString();
+    }
+
     @Override
     public Void send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("MYTH_PROTO_VERSION " + getVersion() + " "
-                                                    + getToken());
+        String response = socketManager.sendAndWait(getMessage());
 
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() < 2)
@@ -37,7 +48,9 @@ import org.syphr.mythtv.proto.SocketManager;
 
         if (!args.get(0).equals("ACCEPT"))
         {
-            throw new ProtocolException("Attempted protocol " + getVersion() + ", backend accepts "
+            throw new ProtocolException("Attempted protocol "
+                                        + getVersion()
+                                        + ", backend accepts "
                                         + args.get(1));
         }
 

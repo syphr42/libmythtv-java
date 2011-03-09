@@ -22,14 +22,26 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 
-/* default */class Command63DeleteRecording implements Command<Boolean>
+/* default */class Command63DeleteRecording extends AbstractCommand<Boolean>
 {
-    private final String message;
+    private final Channel channel;
+    private final Date recStartTs;
+    private final boolean force;
+    private final boolean forget;
 
     public Command63DeleteRecording(Channel channel,
                                     Date recStartTs,
                                     boolean force,
                                     boolean forget)
+    {
+        this.channel = channel;
+        this.recStartTs = recStartTs;
+        this.force = force;
+        this.forget = forget;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         StringBuilder builder = new StringBuilder();
         builder.append("DELETE_RECORDING ");
@@ -41,13 +53,13 @@ import org.syphr.mythtv.proto.data.Channel;
         builder.append(' ');
         builder.append(forget ? "FORGET" : "NO_FORGET");
 
-        message = builder.toString();
+        return builder.toString();
     }
 
     @Override
     public Boolean send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         try
         {

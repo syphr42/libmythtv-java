@@ -17,13 +17,20 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryHostname implements Command<String>
+/* default */class Command63QueryHostname extends AbstractCommand<String>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_HOSTNAME";
+    }
+
     @Override
     public String send(SocketManager socketManager) throws IOException
     {
-        return socketManager.sendAndWait("QUERY_HOSTNAME");
+        return socketManager.sendAndWait(getMessage());
     }
 }

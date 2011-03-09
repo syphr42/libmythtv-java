@@ -24,11 +24,19 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 
-/* default */class Command63QueryBookmark implements Command<Long>
+/* default */class Command63QueryBookmark extends AbstractCommand<Long>
 {
-    private final String message;
+    private final Channel channel;
+    private final Date recStartTs;
 
     public Command63QueryBookmark(Channel channel, Date recStartTs)
+    {
+        this.channel = channel;
+        this.recStartTs = recStartTs;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         StringBuilder builder = new StringBuilder();
         builder.append("QUERY_BOOKMARK");
@@ -37,13 +45,13 @@ import org.syphr.mythtv.proto.data.Channel;
         builder.append(' ');
         builder.append(TimeUnit.MILLISECONDS.toSeconds(recStartTs.getTime()));
 
-        message = builder.toString();
+        return builder.toString();
     }
 
     @Override
     public Long send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 2)
         {
@@ -51,6 +59,6 @@ import org.syphr.mythtv.proto.data.Channel;
         }
 
         return ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
-                                           Integer.parseInt(args.get(1)));
+                                         Integer.parseInt(args.get(1)));
     }
 }

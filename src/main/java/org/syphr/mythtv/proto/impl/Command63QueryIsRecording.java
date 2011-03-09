@@ -22,12 +22,18 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.RecordingsInProgress;
 
-/* default */class Command63QueryIsRecording implements Command<RecordingsInProgress>
+/* default */class Command63QueryIsRecording extends AbstractCommand<RecordingsInProgress>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_ISRECORDING";
+    }
+
     @Override
     public RecordingsInProgress send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("QUERY_ISRECORDING");
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         if (args.size() != 2)

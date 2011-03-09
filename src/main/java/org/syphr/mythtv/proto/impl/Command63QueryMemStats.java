@@ -24,13 +24,19 @@ import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.MemStats;
 import org.syphr.mythtv.proto.types.MemStatCategory;
 
-/* default */class Command63QueryMemStats implements Command<MemStats>
+/* default */class Command63QueryMemStats extends AbstractCommand<MemStats>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_MEMSTATS";
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public MemStats send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("QUERY_MEMSTATS");
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         if (args.size() != 4)

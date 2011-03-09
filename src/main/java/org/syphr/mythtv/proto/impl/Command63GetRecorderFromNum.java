@@ -22,23 +22,26 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.RecorderLocation;
 
-/* default */class Command63GetRecorderFromNum implements Command<RecorderLocation>
+/* default */class Command63GetRecorderFromNum extends AbstractCommand<RecorderLocation>
 {
     private final int recorderId;
-    private final String message;
 
     public Command63GetRecorderFromNum(int recorderId)
     {
         this.recorderId = recorderId;
+    }
 
-        message = Protocol63Utils.getProtocolValue("GET_RECORDER_FROM_NUM",
-                                                   String.valueOf(recorderId));
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("GET_RECORDER_FROM_NUM",
+                                                String.valueOf(recorderId));
     }
 
     @Override
     public RecorderLocation send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 2)
@@ -54,7 +57,9 @@ import org.syphr.mythtv.proto.data.RecorderLocation;
 
         try
         {
-            return new RecorderLocation(recorderId, host, Integer.parseInt(args.get(1)));
+            return new RecorderLocation(recorderId,
+                                        host,
+                                        Integer.parseInt(args.get(1)));
         }
         catch (NumberFormatException e)
         {

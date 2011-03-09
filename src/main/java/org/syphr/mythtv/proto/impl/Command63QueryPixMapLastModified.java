@@ -25,23 +25,29 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
-/* default */class Command63QueryPixMapLastModified implements Command<Date>
+/* default */class Command63QueryPixMapLastModified extends AbstractCommand<Date>
 {
-    private final String message;
+    private final ProgramInfo program;
 
-    public Command63QueryPixMapLastModified(ProgramInfo program) throws ProtocolException
+    public Command63QueryPixMapLastModified(ProgramInfo program)
+    {
+        this.program = program;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         List<String> messageList = new ArrayList<String>();
         messageList.add("QUERY_PIXMAP_LASTMODIFIED");
         messageList.addAll(Protocol63Utils.extractProgramInfo(program));
 
-        message = Protocol63Utils.getProtocolValue(messageList);
+        return Protocol63Utils.getProtocolValue(messageList);
     }
 
     @Override
     public Date send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if ("BAD".equals(response))
         {

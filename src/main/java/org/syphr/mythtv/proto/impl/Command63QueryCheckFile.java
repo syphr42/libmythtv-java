@@ -25,24 +25,32 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
-/* default */class Command63QueryCheckFile implements Command<URI>
+/* default */class Command63QueryCheckFile extends AbstractCommand<URI>
 {
-    private final String message;
+    private final boolean checkSlaves;
+    private final ProgramInfo program;
 
-    public Command63QueryCheckFile(boolean checkSlaves, ProgramInfo program) throws ProtocolException
+    public Command63QueryCheckFile(boolean checkSlaves, ProgramInfo program)
+    {
+        this.checkSlaves = checkSlaves;
+        this.program = program;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         List<String> messageList = new ArrayList<String>();
         messageList.add("QUERY_CHECKFILE");
         messageList.add(checkSlaves ? "1" : "0");
         messageList.addAll(Protocol63Utils.extractProgramInfo(program));
 
-        message = Protocol63Utils.getProtocolValue(messageList);
+        return Protocol63Utils.getProtocolValue(messageList);
     }
 
     @Override
     public URI send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 2)
         {

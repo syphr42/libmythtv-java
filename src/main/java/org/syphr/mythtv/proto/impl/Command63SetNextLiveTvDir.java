@@ -20,11 +20,19 @@ import java.io.IOException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63SetNextLiveTvDir implements Command<Boolean>
+/* default */class Command63SetNextLiveTvDir extends AbstractCommand<Boolean>
 {
-    private final String message;
+    private final int recorderId;
+    private final String path;
 
     public Command63SetNextLiveTvDir(int recorderId, String path)
+    {
+        this.recorderId = recorderId;
+        this.path = path;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         StringBuilder builder = new StringBuilder();
         builder.append("SET_NEXT_LIVETV_DIR ");
@@ -32,13 +40,13 @@ import org.syphr.mythtv.proto.SocketManager;
         builder.append(' ');
         builder.append(path);
 
-        message = builder.toString();
+        return builder.toString();
     }
 
     @Override
     public Boolean send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if ("OK".equals(response))
         {

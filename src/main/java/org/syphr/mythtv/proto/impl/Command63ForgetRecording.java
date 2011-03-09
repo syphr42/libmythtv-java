@@ -16,28 +16,36 @@
 package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
-/* default */class Command63ForgetRecording implements Command<Void>
+/* default */class Command63ForgetRecording extends AbstractCommand<Void>
 {
-    private final String message;
+    private final ProgramInfo program;
 
-    public Command63ForgetRecording(ProgramInfo program) throws ProtocolException
+    public Command63ForgetRecording(ProgramInfo program)
     {
-        List<String> extracted = Protocol63Utils.extractProgramInfo(program);
-        extracted.add(0, "FORGET_RECORDING");
+        this.program = program;
+    }
 
-        message = Protocol63Utils.getProtocolValue(extracted);
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        List<String> args = new ArrayList<String>();
+        args.add("FORGET_RECORDING");
+        args.addAll(Protocol63Utils.extractProgramInfo(program));
+
+        return Protocol63Utils.getProtocolValue(args);
     }
 
     @Override
     public Void send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if (!"0".equals(response))
         {

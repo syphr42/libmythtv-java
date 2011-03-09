@@ -18,15 +18,24 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.UpcomingRecordings;
 
-/* default */class Command63QueryGetAllPending implements Command<UpcomingRecordings>
+/* default */class Command63QueryGetAllPending extends AbstractCommand<UpcomingRecordings>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_GETALLPENDING";
+    }
+
     @Override
     public UpcomingRecordings send(SocketManager socketManager) throws IOException
     {
-        List<String> args = Protocol63Utils.getArguments(socketManager.sendAndWait("QUERY_GETALLPENDING"));
+        String response = socketManager.sendAndWait(getMessage());
+        List<String> args = Protocol63Utils.getArguments(response);
+
         return Protocol63Utils.parseUpcomingRecordings(args);
     }
 }

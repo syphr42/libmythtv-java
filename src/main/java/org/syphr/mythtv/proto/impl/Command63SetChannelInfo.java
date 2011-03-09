@@ -21,30 +21,38 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 
-/* default */class Command63SetChannelInfo implements Command<Boolean>
+/* default */class Command63SetChannelInfo extends AbstractCommand<Boolean>
 {
-    private final String message;
+    private final Channel oldChannel;
+    private final Channel newChannel;
 
-    public Command63SetChannelInfo(Channel oldChannel, Channel newChannel) throws ProtocolException
+    public Command63SetChannelInfo(Channel oldChannel, Channel newChannel)
+    {
+        this.oldChannel = oldChannel;
+        this.newChannel = newChannel;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
     {
         if (!oldChannel.equals(newChannel))
         {
             throw new ProtocolException("Cannot replace channel information across different channels");
         }
 
-        message = Protocol63Utils.getProtocolValue(String.valueOf(newChannel.getId()),
-                                                   String.valueOf(newChannel.getSourceId()),
-                                                   oldChannel.getNumber(),
-                                                   newChannel.getCallsign(),
-                                                   newChannel.getNumber(),
-                                                   newChannel.getName(),
-                                                   newChannel.getXmltvId());
+        return Protocol63Utils.getProtocolValue(String.valueOf(newChannel.getId()),
+                                                String.valueOf(newChannel.getSourceId()),
+                                                oldChannel.getNumber(),
+                                                newChannel.getCallsign(),
+                                                newChannel.getNumber(),
+                                                newChannel.getName(),
+                                                newChannel.getXmltvId());
     }
 
     @Override
     public Boolean send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if ("0".equals(response))
         {

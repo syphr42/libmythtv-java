@@ -18,15 +18,24 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.DriveInfo;
 
-/* default */class Command63QueryFreeSpace implements Command<List<DriveInfo>>
+/* default */class Command63QueryFreeSpace extends AbstractCommand<List<DriveInfo>>
 {
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_FREE_SPACE";
+    }
+
     @Override
     public List<DriveInfo> send(SocketManager socketManager) throws IOException
     {
-        List<String> args = Protocol63Utils.getArguments(socketManager.sendAndWait("QUERY_FREE_SPACE"));
+        String response = socketManager.sendAndWait(getMessage());
+        List<String> args = Protocol63Utils.getArguments(response);
+
         return Protocol63Utils.parseDriveInfo(args);
     }
 }

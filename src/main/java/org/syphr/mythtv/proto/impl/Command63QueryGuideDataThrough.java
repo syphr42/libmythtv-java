@@ -24,19 +24,25 @@ import java.util.Date;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryGuideDataThrough implements Command<Date>
+/* default */class Command63QueryGuideDataThrough extends AbstractCommand<Date>
 {
-    private static final String BAD_RESPONSE = "0000-00-00 00:00";
+    private static final String UNKNOWN = "0000-00-00 00:00";
 
     private final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return "QUERY_GUIDEDATATHROUGH";
+    }
+
+    @Override
     public Date send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("QUERY_GUIDEDATATHROUGH");
-        if (BAD_RESPONSE.equals(response))
+        String response = socketManager.sendAndWait(getMessage());
+        if (UNKNOWN.equals(response))
         {
-            throw new ProtocolException("Unable to determine guide data date");
+            return null;
         }
 
         try

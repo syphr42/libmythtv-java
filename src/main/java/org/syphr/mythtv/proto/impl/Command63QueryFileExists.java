@@ -25,21 +25,29 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.FileInfo;
 
-/* default */class Command63QueryFileExists implements Command<FileInfo>
+/* default */class Command63QueryFileExists extends AbstractCommand<FileInfo>
 {
-    private final String message;
+    private final URI filename;
+    private final String storageGroup;
 
     public Command63QueryFileExists(URI filename, String storageGroup)
     {
-        message = Protocol63Utils.getProtocolValue("QUERY_FILE_EXISTS",
-                                                   filename.getPath(),
-                                                   storageGroup);
+        this.filename = filename;
+        this.storageGroup = storageGroup;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("QUERY_FILE_EXISTS",
+                                                filename.getPath(),
+                                                storageGroup);
     }
 
     @Override
     public FileInfo send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
         if ("0".equals(response))
         {
             return null;

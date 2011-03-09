@@ -18,23 +18,32 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.net.URI;
 
+import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63QueryFileHash implements Command<String>
+/* default */class Command63QueryFileHash extends AbstractCommand<String>
 {
-    private final String message;
+    private final URI filename;
+    private final String storageGroup;
 
     public Command63QueryFileHash(URI filename, String storageGroup)
     {
-        message = Protocol63Utils.getProtocolValue("QUERY_FILE_HASH",
-                                                   filename.getPath(),
-                                                   storageGroup);
+        this.filename = filename;
+        this.storageGroup = storageGroup;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("QUERY_FILE_HASH",
+                                                filename.getPath(),
+                                                storageGroup);
     }
 
     @Override
     public String send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if ("NULL".equals(response))
         {

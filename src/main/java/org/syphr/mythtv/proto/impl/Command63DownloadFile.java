@@ -24,27 +24,38 @@ import java.util.List;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63DownloadFile implements Command<URI>
+/* default */class Command63DownloadFile extends AbstractCommand<URI>
 {
-    private final String message;
+    private final URL url;
+    private final String storageGroup;
+    private final URI filename;
+    private final boolean now;
 
     public Command63DownloadFile(URL url,
                                  String storageGroup,
                                  URI filename,
                                  boolean now)
     {
-        String command = now ? "DOWNLOAD_FILE_NOW" : "DOWNLOAD_FILE";
+        this.url = url;
+        this.storageGroup = storageGroup;
+        this.filename = filename;
+        this.now = now;
+    }
 
-        message = Protocol63Utils.getProtocolValue(command,
-                                                   url.toString(),
-                                                   storageGroup,
-                                                   filename.getPath());
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        String command = now ? "DOWNLOAD_FILE_NOW" : "DOWNLOAD_FILE";
+        return Protocol63Utils.getProtocolValue(command,
+                                                url.toString(),
+                                                storageGroup,
+                                                filename.getPath());
     }
 
     @Override
     public URI send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if ("ERROR".equals(response))
         {

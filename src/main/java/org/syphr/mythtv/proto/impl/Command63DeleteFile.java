@@ -21,21 +21,29 @@ import java.net.URI;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63DeleteFile implements Command<Boolean>
+/* default */class Command63DeleteFile extends AbstractCommand<Boolean>
 {
-    private final String message;
+    private final URI filename;
+    private final String storageGroup;
 
     public Command63DeleteFile(URI filename, String storageGroup)
     {
-        message = Protocol63Utils.getProtocolValue("DELETE_FILE",
-                                                   filename.getPath(),
-                                                   storageGroup);
+        this.filename = filename;
+        this.storageGroup = storageGroup;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("DELETE_FILE",
+                                                filename.getPath(),
+                                                storageGroup);
     }
 
     @Override
     public Boolean send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        String response = socketManager.sendAndWait(getMessage());
 
         if ("0".equals(response))
         {

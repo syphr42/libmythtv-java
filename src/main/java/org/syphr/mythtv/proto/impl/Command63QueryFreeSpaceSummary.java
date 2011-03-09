@@ -23,20 +23,31 @@ import javax.xml.ws.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.DriveInfo;
 
-/* default */class Command63QueryFreeSpaceSummary implements Command<DriveInfo>
+/* default */class Command63QueryFreeSpaceSummary extends AbstractCommand<DriveInfo>
 {
+    @Override
+    protected String getMessage() throws org.syphr.mythtv.proto.ProtocolException
+    {
+        return "QUERY_FREE_SPACE_SUMMARY";
+    }
+
     @Override
     public DriveInfo send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait("QUERY_FREE_SPACE_SUMMARY");
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
+
+        if (args.size() != 4)
+        {
+            throw new ProtocolException(response);
+        }
 
         try
         {
             long totalSpace = ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
-                                                          Integer.parseInt(args.get(1)));
+                                                        Integer.parseInt(args.get(1)));
             long usedSpace = ProtocolUtils.combineInts(Integer.parseInt(args.get(2)),
-                                                         Integer.parseInt(args.get(3)));
+                                                       Integer.parseInt(args.get(3)));
 
             return new DriveInfo(null,
                                  null,
@@ -47,7 +58,7 @@ import org.syphr.mythtv.proto.data.DriveInfo;
                                  totalSpace,
                                  usedSpace);
         }
-        catch (RuntimeException e)
+        catch (NumberFormatException e)
         {
             throw new ProtocolException(response, e);
         }

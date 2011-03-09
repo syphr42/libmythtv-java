@@ -17,21 +17,28 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63ShutdownNow implements Command<Void>
+/* default */class Command63ShutdownNow extends AbstractCommand<Void>
 {
-    private final String message;
+    private final String command;
 
     public Command63ShutdownNow(String command)
     {
-        message = Protocol63Utils.getProtocolValue("SHUTDOWN_NOW", command);
+        this.command = command;
+    }
+
+    @Override
+    protected String getMessage() throws ProtocolException
+    {
+        return Protocol63Utils.getProtocolValue("SHUTDOWN_NOW", command);
     }
 
     @Override
     public Void send(SocketManager socketManager) throws IOException
     {
-        socketManager.send(message);
+        socketManager.send(getMessage());
         return null;
     }
 }
