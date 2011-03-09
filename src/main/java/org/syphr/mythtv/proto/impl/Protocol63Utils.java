@@ -35,10 +35,12 @@ import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
 import org.syphr.mythtv.proto.types.GenPixMapResponse;
+import org.syphr.mythtv.proto.types.RecorderFlag;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 import org.syphr.mythtv.proto.types.RecordingStatus;
 import org.syphr.mythtv.proto.types.RecordingType;
 import org.syphr.mythtv.proto.types.SeekOrigin;
+import org.syphr.mythtv.proto.types.SleepStatus;
 import org.syphr.mythtv.proto.types.TunerStatusCategory;
 import org.syphr.mythtv.proto.types.TvState;
 import org.syphr.mythtv.proto.types.VideoEditMark;
@@ -200,6 +202,51 @@ public class Protocol63Utils
         SEEK_ORIGIN_MAP.put(SeekOrigin.END, 2);
     }
 
+    private static final BiMap<SleepStatus, Integer> SLEEP_STATUS_MAP = EnumHashBiMap.create(SleepStatus.class);
+    static
+    {
+        SLEEP_STATUS_MAP.put(SleepStatus.AWAKE, 0);
+        SLEEP_STATUS_MAP.put(SleepStatus.ASLEEP, 1);
+        SLEEP_STATUS_MAP.put(SleepStatus.FALLING_ASLEEP, 3);
+        SLEEP_STATUS_MAP.put(SleepStatus.WAKING, 5);
+        SLEEP_STATUS_MAP.put(SleepStatus.UNDEFINED, 8);
+    }
+
+    private static final BiMap<RecorderFlag, Long> REC_FLAG_MAP = EnumHashBiMap.create(RecorderFlag.class);
+    static
+    {
+        /*
+         * In MythTV, these values are unsigned integers.
+         */
+        REC_FLAG_MAP.put(RecorderFlag.FRONTEND_READY, 0x00000001L);
+        REC_FLAG_MAP.put(RecorderFlag.RUN_MAIN_LOOP, 0x00000002L);
+        REC_FLAG_MAP.put(RecorderFlag.EXIT_PLAYER, 0x00000004L);
+        REC_FLAG_MAP.put(RecorderFlag.FINISH_RECORDING, 0x00000008L);
+        REC_FLAG_MAP.put(RecorderFlag.ERRORED, 0x00000010L);
+        REC_FLAG_MAP.put(RecorderFlag.CANCEL_NEXT_RECORDING, 0x00000020L);
+        REC_FLAG_MAP.put(RecorderFlag.LIVE_TV, 0x00000100L);
+        REC_FLAG_MAP.put(RecorderFlag.RECORDING, 0x00000200L);
+        REC_FLAG_MAP.put(RecorderFlag.ANTENNA_ADJUST, 0x00000400L);
+        REC_FLAG_MAP.put(RecorderFlag.REC, 0x00000F00L);
+        REC_FLAG_MAP.put(RecorderFlag.EIT_SCAN, 0x00001000L);
+        REC_FLAG_MAP.put(RecorderFlag.CLOSE_REC, 0x00002000L);
+        REC_FLAG_MAP.put(RecorderFlag.KILL_REC, 0x00004000L);
+        REC_FLAG_MAP.put(RecorderFlag.NO_REC, 0x0000F000L);
+        REC_FLAG_MAP.put(RecorderFlag.KILL_RING_BUFFER, 0x00010000L);
+        REC_FLAG_MAP.put(RecorderFlag.WAITING_FOR_REC_PAUSE, 0x00100000L);
+        REC_FLAG_MAP.put(RecorderFlag.WAITING_FOR_SIGNAL, 0x00200000L);
+        REC_FLAG_MAP.put(RecorderFlag.NEED_TO_START_RECORDER, 0x00800000L);
+        REC_FLAG_MAP.put(RecorderFlag.PENDING_ACTIONS, 0x00F00000L);
+        REC_FLAG_MAP.put(RecorderFlag.SIGNAL_MONITOR_RUNNING, 0x01000000L);
+        REC_FLAG_MAP.put(RecorderFlag.EIT_SCANNER_RUNNING, 0x04000000L);
+        REC_FLAG_MAP.put(RecorderFlag.DUMMY_RECORDER_RUNNING, 0x10000000L);
+        REC_FLAG_MAP.put(RecorderFlag.RECORDER_RUNNING, 0x20000000L);
+        REC_FLAG_MAP.put(RecorderFlag.ANY_REC_RUNNING, 0x30000000L);
+        REC_FLAG_MAP.put(RecorderFlag.ANY_RUNNING, 0x3F000000L);
+        REC_FLAG_MAP.put(RecorderFlag.RING_BUFFER_READY, 0x40000000L);
+        REC_FLAG_MAP.put(RecorderFlag.DETECT, 0x80000000L);
+    }
+
     public static RecordingStatus getRecordingStatus(int recStatus) throws ProtocolException
     {
         return ProtocolUtils.translate(recStatus, REC_STATUS_MAP.inverse());
@@ -308,6 +355,26 @@ public class Protocol63Utils
     public static int getSeekOrigin(SeekOrigin seekOrigin) throws ProtocolException
     {
         return ProtocolUtils.translate(seekOrigin, SEEK_ORIGIN_MAP);
+    }
+
+    public static SleepStatus getSleepStatus(int sleepStatus) throws ProtocolException
+    {
+        return ProtocolUtils.translate(sleepStatus, SLEEP_STATUS_MAP.inverse());
+    }
+
+    public static int getSleepStatus(SleepStatus sleepStatus) throws ProtocolException
+    {
+        return ProtocolUtils.translate(sleepStatus, SLEEP_STATUS_MAP);
+    }
+
+    public static List<RecorderFlag> getRecorderFlags(long recFlags) throws ProtocolException
+    {
+        return ProtocolUtils.translateMultiple(recFlags, REC_FLAG_MAP.inverse());
+    }
+
+    public static long getRecorderFlags(List<RecorderFlag> recFlags) throws ProtocolException
+    {
+        return ProtocolUtils.translateMultiple(recFlags, REC_FLAG_MAP);
     }
 
     public static List<String> getArguments(String value)

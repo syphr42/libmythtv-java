@@ -16,32 +16,88 @@
 package org.syphr.mythtv.proto;
 
 import java.io.IOException;
+import java.util.List;
+
+import org.syphr.mythtv.proto.data.ProgramInfo;
+import org.syphr.mythtv.proto.types.RecorderFlag;
+import org.syphr.mythtv.proto.types.RecordingStatus;
+import org.syphr.mythtv.proto.types.SleepStatus;
+import org.syphr.mythtv.proto.types.TvState;
 
 public interface QueryRemoteEncoder
 {
     // TODO
     public void cancelNextRecording() throws IOException;
 
-    // TODO
-    public void getCurrentRecording() throws IOException;
+    /**
+     * Retrieve the currently recording program.
+     *
+     * @return the currently recording program or <code>null</code> if nothing is
+     *         recording
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public ProgramInfo getCurrentRecording() throws IOException;
 
-    // TODO
-    public void getFlags() throws IOException;
+    /**
+     * Retrieve state information about various parts of the recorder.
+     *
+     * @return all set flags
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public List<RecorderFlag> getFlags() throws IOException;
 
     // TODO
     public void getFreeInputs() throws IOException;
 
-    // TODO
-    public void getMaxBitrate() throws IOException;
+    /**
+     * Retrieve the maximum bits per second for this recorder.
+     *
+     * @return the max bitrate
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public long getMaxBitrate() throws IOException;
 
-    // TODO
-    public void getRecordingStatus() throws IOException;
+    /**
+     * Retrieve the current recording status of this recorder.
+     *
+     * @return the status
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public RecordingStatus getRecordingStatus() throws IOException;
 
-    // TODO
-    public void getSleepStatus() throws IOException;
+    /**
+     * Retrieve the current sleep/awake state of this recorder.
+     *
+     * @return the status
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public SleepStatus getSleepStatus() throws IOException;
 
-    // TODO
-    public void getState() throws IOException;
+    /**
+     * Retrieve the current state of this recorder.
+     *
+     * @return the state
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public TvState getState() throws IOException;
 
     // TODO
     public void isBusy() throws IOException;
@@ -55,6 +111,13 @@ public interface QueryRemoteEncoder
     // TODO
     public void startRecording() throws IOException;
 
-    // TODO
+    /**
+     * Request that this recorder stop recording, if it is currently recording.
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
     public void stopRecording() throws IOException;
 }

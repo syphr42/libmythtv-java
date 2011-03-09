@@ -16,9 +16,15 @@
 package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.syphr.mythtv.proto.QueryRemoteEncoder;
 import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.data.ProgramInfo;
+import org.syphr.mythtv.proto.types.RecorderFlag;
+import org.syphr.mythtv.proto.types.RecordingStatus;
+import org.syphr.mythtv.proto.types.SleepStatus;
+import org.syphr.mythtv.proto.types.TvState;
 
 public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements QueryRemoteEncoder
 {
@@ -34,15 +40,15 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public void getCurrentRecording() throws IOException
+    public ProgramInfo getCurrentRecording() throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRemoteEncoderGetCurrentRecording(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public void getFlags() throws IOException
+    public List<RecorderFlag> getFlags() throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRemoteEncoderGetFlags(getRecorderId()).send(getSocketManager());
     }
 
     @Override
@@ -52,27 +58,27 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public void getMaxBitrate() throws IOException
+    public long getMaxBitrate() throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRemoteEncoderGetMaxBitrate(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public void getRecordingStatus() throws IOException
+    public RecordingStatus getRecordingStatus() throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRemoteEncoderGetRecordingStatus(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public void getSleepStatus() throws IOException
+    public SleepStatus getSleepStatus() throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRemoteEncoderGetSleepStatus(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public void getState() throws IOException
+    public TvState getState() throws IOException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRemoteEncoderGetState(getRecorderId()).send(getSocketManager());
     }
 
     @Override
@@ -102,6 +108,6 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     @Override
     public void stopRecording() throws IOException
     {
-        throw new UnsupportedOperationException();
+        new Command63QueryRemoteEncoderStopRecording(getRecorderId()).send(getSocketManager());
     }
 }
