@@ -18,10 +18,11 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.ProtocolException;
@@ -40,22 +41,22 @@ public class ProtocolUtils
         return translated;
     }
 
-    public static <T> List<T> translateMultiple(Long value, Map<Long, T> map)
+    public static <T> Set<T> translateMultiple(Long value, Map<Long, T> map)
     {
-        List<T> list = new ArrayList<T>();
+        Set<T> set = new HashSet<T>();
 
         for (Entry<Long, T> entry : map.entrySet())
         {
             if ((value & entry.getKey()) > 0)
             {
-                list.add(entry.getValue());
+                set.add(entry.getValue());
             }
         }
 
-        return list;
+        return set;
     }
 
-    public static <T> long translateMultiple(List<T> values, Map<T, Long> map) throws ProtocolException
+    public static <T> long translateMultiple(Collection<T> values, Map<T, Long> map) throws ProtocolException
     {
         long result = 0;
 

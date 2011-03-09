@@ -21,8 +21,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
@@ -367,12 +369,12 @@ public class Protocol63Utils
         return ProtocolUtils.translate(sleepStatus, SLEEP_STATUS_MAP);
     }
 
-    public static List<RecorderFlag> getRecorderFlags(long recFlags) throws ProtocolException
+    public static Set<RecorderFlag> getRecorderFlags(long recFlags) throws ProtocolException
     {
         return ProtocolUtils.translateMultiple(recFlags, REC_FLAG_MAP.inverse());
     }
 
-    public static long getRecorderFlags(List<RecorderFlag> recFlags) throws ProtocolException
+    public static long getRecorderFlags(Collection<RecorderFlag> recFlags) throws ProtocolException
     {
         return ProtocolUtils.translateMultiple(recFlags, REC_FLAG_MAP);
     }

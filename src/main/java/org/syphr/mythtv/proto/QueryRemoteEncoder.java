@@ -16,7 +16,7 @@
 package org.syphr.mythtv.proto;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.types.RecorderFlag;
@@ -50,7 +50,7 @@ public interface QueryRemoteEncoder
      *
      * @since 63
      */
-    public List<RecorderFlag> getFlags() throws IOException;
+    public Set<RecorderFlag> getFlags() throws IOException;
 
     // TODO
     public void getFreeInputs() throws IOException;

@@ -16,13 +16,13 @@
 package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.types.RecorderFlag;
 
-/* default */class Command63QueryRemoteEncoderGetFlags extends AbstractCommand63QueryRemoteEncoder<List<RecorderFlag>>
+/* default */class Command63QueryRemoteEncoderGetFlags extends AbstractCommand63QueryRemoteEncoder<Set<RecorderFlag>>
 {
     public Command63QueryRemoteEncoderGetFlags(int recorderId)
     {
@@ -36,7 +36,7 @@ import org.syphr.mythtv.proto.types.RecorderFlag;
     }
 
     @Override
-    public List<RecorderFlag> send(SocketManager socketManager) throws IOException
+    public Set<RecorderFlag> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
 

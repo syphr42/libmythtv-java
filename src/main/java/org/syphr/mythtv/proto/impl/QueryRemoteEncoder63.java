@@ -16,7 +16,7 @@
 package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import org.syphr.mythtv.proto.QueryRemoteEncoder;
 import org.syphr.mythtv.proto.SocketManager;
@@ -46,7 +46,7 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public List<RecorderFlag> getFlags() throws IOException
+    public Set<RecorderFlag> getFlags() throws IOException
     {
         return new Command63QueryRemoteEncoderGetFlags(getRecorderId()).send(getSocketManager());
     }
