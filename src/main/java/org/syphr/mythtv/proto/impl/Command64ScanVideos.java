@@ -16,7 +16,7 @@
 package org.syphr.mythtv.proto.impl;
 
 import org.syphr.mythtv.proto.ProtocolException;
-/* default */class Command64ScanVideos extends AbstractCommand63OkResponse
+/* default */class Command64ScanVideos extends AbstractCommandOkResponse
 {
     @Override
     protected String getMessage() throws ProtocolException

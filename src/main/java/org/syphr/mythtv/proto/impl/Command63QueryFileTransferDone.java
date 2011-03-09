@@ -17,7 +17,7 @@ package org.syphr.mythtv.proto.impl;
 
 import org.syphr.mythtv.proto.ProtocolException;
 
-/* default */class Command63QueryFileTransferDone extends AbstractCommand63OkResponse
+/* default */class Command63QueryFileTransferDone extends AbstractCommandOkResponse
 {
     private final int socketNumber;
 

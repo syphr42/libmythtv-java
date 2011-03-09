@@ -17,21 +17,14 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */abstract class AbstractCommand63OkResponse extends AbstractCommand<Void>
+/* default */abstract class AbstractCommandOkResponse extends AbstractCommand<Void>
 {
     @Override
     public Void send(SocketManager socketManager) throws IOException
     {
-        String response = socketManager.sendAndWait(getMessage());
-
-        if(!"OK".equalsIgnoreCase(response))
-        {
-            throw new ProtocolException(response);
-        }
-
+        ProtocolUtils.sendExpectOk(socketManager, getMessage());
         return null;
     }
 }

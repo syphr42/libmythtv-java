@@ -19,7 +19,7 @@ import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 
-/* default */class Command63Ann extends AbstractCommand63OkResponse
+/* default */class Command63Ann extends AbstractCommandOkResponse
 {
     private final ConnectionType connectionType;
     private final String host;

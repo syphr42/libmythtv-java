@@ -17,7 +17,7 @@ package org.syphr.mythtv.proto.impl;
 
 import org.syphr.mythtv.proto.ProtocolException;
 
-/* default */class Command63BlockShutdown extends AbstractCommand63OkResponse
+/* default */class Command63BlockShutdown extends AbstractCommandOkResponse
 {
     @Override
     protected String getMessage() throws ProtocolException

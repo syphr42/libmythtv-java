@@ -17,7 +17,7 @@ package org.syphr.mythtv.proto.impl;
 
 import org.syphr.mythtv.proto.ProtocolException;
 
-/* default */class Command63RefreshBackend extends AbstractCommand63OkResponse
+/* default */class Command63RefreshBackend extends AbstractCommandOkResponse
 {
     @Override
     protected String getMessage() throws ProtocolException

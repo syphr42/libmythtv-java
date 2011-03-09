@@ -17,7 +17,7 @@ package org.syphr.mythtv.proto.impl;
 
 import org.syphr.mythtv.proto.ProtocolException;
 
-/* default */class Command63SetSetting extends AbstractCommand63OkResponse
+/* default */class Command63SetSetting extends AbstractCommandOkResponse
 {
     private final String host;
     private final String name;

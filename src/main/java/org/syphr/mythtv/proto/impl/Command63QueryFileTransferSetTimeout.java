@@ -17,7 +17,7 @@ package org.syphr.mythtv.proto.impl;
 
 import org.syphr.mythtv.proto.ProtocolException;
 
-/* default */class Command63QueryFileTransferSetTimeout extends AbstractCommand63OkResponse
+/* default */class Command63QueryFileTransferSetTimeout extends AbstractCommandOkResponse
 {
     private final int socketNumber;
     private final boolean fast;

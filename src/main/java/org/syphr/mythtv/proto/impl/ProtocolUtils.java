@@ -15,24 +15,62 @@
  */
 package org.syphr.mythtv.proto.impl;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.SocketManager;
 
 public class ProtocolUtils
 {
-    public static <K, V> V translate(K key, Map<K, V> map) throws ProtocolException
+    public static <V, T> T translate(V value, Map<V, T> map) throws ProtocolException
     {
-        V translated = map.get(key);
+        T translated = map.get(value);
         if (translated == null)
         {
-            throw new ProtocolException("Invalid argument: " + key);
+            throw new ProtocolException("Invalid value: " + value);
         }
 
         return translated;
+    }
+
+    public static <T> List<T> translateMultiple(Long value, Map<Long, T> map)
+    {
+        List<T> list = new ArrayList<T>();
+
+        for (Entry<Long, T> entry : map.entrySet())
+        {
+            if ((value & entry.getKey()) > 0)
+            {
+                list.add(entry.getValue());
+            }
+        }
+
+        return list;
+    }
+
+    public static <T> long translateMultiple(List<T> values, Map<T, Long> map) throws ProtocolException
+    {
+        long result = 0;
+
+        for (T value : values)
+        {
+            Long translated = map.get(value);
+            if (translated == null)
+            {
+                throw new ProtocolException("Invalid value: " + value);
+            }
+
+            result |= translated;
+        }
+
+        return result;
     }
 
     public static DateFormat getIsoDateFormat()
@@ -53,6 +91,16 @@ public class ProtocolUtils
     public static Pair<Integer, Integer> splitLong(long value)
     {
         return Pair.of((int)(value >> 32), (int)value);
+    }
+
+    public static void sendExpectOk(SocketManager socketManager, String message) throws IOException
+    {
+        String response = socketManager.sendAndWait(message);
+
+        if (!"OK".equalsIgnoreCase(response))
+        {
+            throw new ProtocolException(response);
+        }
     }
 
     private ProtocolUtils()
