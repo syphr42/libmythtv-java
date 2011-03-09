@@ -22,10 +22,5 @@ public enum RecordingCategory
 
     ASCENDING,
     DESCENDING,
-    UNSORTED,
-
-    /**
-     * @deprecated as of 57
-     */
-    DELETE
+    UNSORTED
 }
