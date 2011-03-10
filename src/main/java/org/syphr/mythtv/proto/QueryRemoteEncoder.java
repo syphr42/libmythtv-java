@@ -161,8 +161,19 @@ public interface QueryRemoteEncoder
      */
     public void recordPending(int secondsLeft, boolean hasLater, ProgramInfo program) throws IOException;
 
-    // TODO
-    public void startRecording() throws IOException;
+    /**
+     * Request the given program start recording on this recorder.
+     *
+     * @param program
+     *            the program to record
+     * @return <code>true</code> if the program started recording successfully;
+     *         <code>false</code> otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public boolean startRecording(ProgramInfo program) throws IOException;
 
     /**
      * Request that this recorder stop recording, if it is currently recording.

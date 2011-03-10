@@ -107,8 +107,9 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public void startRecording() throws IOException
+    public boolean startRecording(ProgramInfo program) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
