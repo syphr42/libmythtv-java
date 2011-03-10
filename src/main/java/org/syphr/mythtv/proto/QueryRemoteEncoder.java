@@ -16,8 +16,11 @@
 package org.syphr.mythtv.proto;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.Pair;
+import org.syphr.mythtv.proto.data.InputInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.types.RecorderFlag;
 import org.syphr.mythtv.proto.types.RecordingStatus;
@@ -26,8 +29,20 @@ import org.syphr.mythtv.proto.types.TvState;
 
 public interface QueryRemoteEncoder
 {
-    // TODO
-    public void cancelNextRecording() throws IOException;
+    /**
+     * Inform this encoder to cancel or continue recording the next program scheduled to
+     * be recorded. This is useful when the encoder is recording live TV and there is a
+     * scheduled recording that needs this encoder.
+     *
+     * @param cancel
+     *            if <code>true</code>, the next recording will be cancelled; otherwise
+     *            the recording will continue as scheduled
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public void cancelNextRecording(boolean cancel) throws IOException;
 
     /**
      * Retrieve the currently recording program.
@@ -53,7 +68,7 @@ public interface QueryRemoteEncoder
     public Set<RecorderFlag> getFlags() throws IOException;
 
     // TODO
-    public void getFreeInputs() throws IOException;
+    public List<InputInfo> getFreeInputs() throws IOException;
 
     /**
      * Retrieve the maximum bits per second for this recorder.
@@ -99,14 +114,52 @@ public interface QueryRemoteEncoder
      */
     public TvState getState() throws IOException;
 
-    // TODO
-    public void isBusy() throws IOException;
+    /**
+     * Determine whether or not this recorder is busy or will be within the given number
+     * of seconds.
+     *
+     * @param withinSeconds
+     *            the number of seconds ahead to check
+     * @return information about the busy input or <code>null</code> if the recorder will
+     *         not be busy
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public Pair<Boolean, InputInfo> isBusy(int withinSeconds) throws IOException;
 
-    // TODO
-    public void matchesRecording() throws IOException;
+    /**
+     * Determine whether or not the recorder is currently recording the given program.
+     *
+     * @param program
+     *            the program to check
+     * @return <code>true</code> if the recorder is recording the given program;
+     *         <code>false</code> otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public boolean matchesRecording(ProgramInfo program) throws IOException;
 
-    // TODO
-    public void recordPending() throws IOException;
+    /**
+     * Inform the backend that the given program is scheduled for this recorder in the
+     * given number of seconds.
+     *
+     * @param secondsLeft
+     *            the number of seconds until the recording is sceduled to start
+     * @param hasLater
+     *            <code>true</code> indicates that there is a later showing of this
+     *            program that is not conflicted
+     * @param program
+     *            the program that is scheduled to be recorded
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public void recordPending(int secondsLeft, boolean hasLater, ProgramInfo program) throws IOException;
 
     // TODO
     public void startRecording() throws IOException;

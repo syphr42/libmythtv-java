@@ -16,10 +16,13 @@
 package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.QueryRemoteEncoder;
 import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.data.InputInfo;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.types.RecorderFlag;
 import org.syphr.mythtv.proto.types.RecordingStatus;
@@ -34,8 +37,9 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public void cancelNextRecording() throws IOException
+    public void cancelNextRecording(boolean cancel) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
@@ -52,7 +56,7 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public void getFreeInputs() throws IOException
+    public List<InputInfo> getFreeInputs() throws IOException
     {
         throw new UnsupportedOperationException();
     }
@@ -82,20 +86,23 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public void isBusy() throws IOException
+    public Pair<Boolean, InputInfo> isBusy(int withinSeconds) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void matchesRecording() throws IOException
+    public boolean matchesRecording(ProgramInfo program) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void recordPending() throws IOException
+    public void recordPending(int secondsLeft, boolean hasLater, ProgramInfo program) throws IOException
     {
+        // TODO
         throw new UnsupportedOperationException();
     }
 
