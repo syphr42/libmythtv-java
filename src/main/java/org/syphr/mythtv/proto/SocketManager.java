@@ -447,6 +447,8 @@ public class SocketManager
                      * so that it can be thrown away when it arrives.
                      */
                     skippedResponses.incrementAndGet();
+
+                    response = "";
                 }
 
                 return response;
@@ -454,7 +456,7 @@ public class SocketManager
             catch (InterruptedException e)
             {
                 logger.info("Interrupted while waiting for response", e);
-                return null;
+                return "";
             }
         }
     }
