@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.QueryFileTransfer;
 import org.syphr.mythtv.proto.QueryRecorder;
@@ -46,7 +47,6 @@ import org.syphr.mythtv.proto.events.impl.EventProtocol63;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
-import org.syphr.mythtv.proto.types.GenPixMapResponse;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 
 public class Protocol63 extends AbstractProtocol
@@ -91,7 +91,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void mythProtoVersion() throws IOException
+    public void mythProtoVersion() throws IOException, CommandException
     {
         new Command63MythProtoVersion().send(getSocketManager());
     }
@@ -151,23 +151,23 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public boolean deleteRecording(Channel channel,
+    public void deleteRecording(Channel channel,
                                    Date recStartTs,
                                    boolean force,
-                                   boolean forget) throws IOException
+                                   boolean forget) throws IOException, CommandException
     {
-        return new Command63DeleteRecording(channel, recStartTs, force, forget).send(getSocketManager());
+        new Command63DeleteRecording(channel, recStartTs, force, forget).send(getSocketManager());
     }
 
     @Override
-    public URI downloadFile(URL url, String storageGroup, URI filename) throws IOException
+    public URI downloadFile(URL url, String storageGroup, URI filename) throws IOException, CommandException
     {
         // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public URI downloadFileNow(URL url, String storageGroup, URI filename) throws IOException
+    public URI downloadFileNow(URL url, String storageGroup, URI filename) throws IOException, CommandException
     {
         return new Command63DownloadFile(url, storageGroup, filename, true).send(getSocketManager());
     }
@@ -216,7 +216,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public RecorderLocation getRecorderFromNum(int recorderId) throws IOException
+    public RecorderLocation getRecorderFromNum(int recorderId) throws IOException, CommandException
     {
         return new Command63GetRecorderFromNum(recorderId).send(getSocketManager());
     }
@@ -291,9 +291,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public GenPixMapResponse queryGenPixMap2(String id, ProgramInfo program) throws IOException
+    public void queryGenPixMap2(String id, ProgramInfo program) throws IOException, CommandException
     {
-        return new Command63GenPixMap2(id, program).send(getSocketManager());
+        new Command63QueryGenPixMap2(id, program).send(getSocketManager());
     }
 
     @Override
@@ -377,7 +377,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public ProgramInfo queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException
+    public ProgramInfo queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException, CommandException
     {
         return new Command63QueryRecordingTimeslot(channel, recStartTs).send(getSocketManager());
     }
@@ -447,14 +447,14 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public boolean setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException
+    public void setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException
     {
         // TODO
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean setNextLiveTvDir(int recorderId, String path) throws IOException
+    public void setNextLiveTvDir(int recorderId, String path) throws IOException
     {
         // TODO
         throw new UnsupportedOperationException();

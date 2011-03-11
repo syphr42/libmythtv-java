@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.Protocol;
 import org.syphr.mythtv.proto.ProtocolFactory;
 import org.syphr.mythtv.proto.SocketManager;
@@ -26,7 +27,7 @@ import org.syphr.prom.PropertiesManager;
 
 public class EventMonitor
 {
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException, CommandException
     {
         if (args.length == 0)
         {

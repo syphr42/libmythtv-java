@@ -18,7 +18,9 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 
 /* default */abstract class AbstractCommand63QuerySg<T> extends AbstractCommand<T>
@@ -46,18 +48,27 @@ import org.syphr.mythtv.proto.SocketManager;
     }
 
     @Override
-    public T send(SocketManager socketManager) throws IOException
+    public T send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
         if (args.isEmpty())
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         String first = args.get(0);
-        if ("SLAVE UNREACHABLE: ".equals(first) || "EMPTY_LIST".equals(first))
+        if ("SLAVE UNREACHABLE: ".equals(first))
+        {
+            if (args.size() != 2)
+            {
+                throw new ProtocolException(response, Direction.RECEIVE);
+            }
+
+            throw new CommandException("Slave backend \"" + args.get(1) + "\" is unreachable");
+        }
+        else if ("EMPTY_LIST".equals(first))
         {
             return null;
         }

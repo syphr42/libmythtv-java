@@ -17,10 +17,12 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63SetNextLiveTvDir extends AbstractCommand<Boolean>
+/* default */class Command63SetNextLiveTvDir extends AbstractCommand<Void>
 {
     private final int recorderId;
     private final String path;
@@ -44,20 +46,20 @@ import org.syphr.mythtv.proto.SocketManager;
     }
 
     @Override
-    public Boolean send(SocketManager socketManager) throws IOException
+    public Void send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
 
         if ("OK".equals(response))
         {
-            return true;
+            return null;
         }
 
         if ("bad".equals(response))
         {
-            return false;
+            throw new CommandException("Unable to set next live TV directory");
         }
 
-        throw new ProtocolException(response);
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 }

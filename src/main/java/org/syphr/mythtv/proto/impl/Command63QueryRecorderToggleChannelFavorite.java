@@ -15,46 +15,34 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.IOException;
-
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
-import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 
-/* default */class Command63QueryRecorderToggleChannelFavorite extends AbstractCommand<Void>
+/* default */class Command63QueryRecorderToggleChannelFavorite extends AbstractCommand63QueryRecorder<Void>
 {
-    private final int recorder;
     private final String channelGroup;
 
-    public Command63QueryRecorderToggleChannelFavorite(int recorder,
+    public Command63QueryRecorderToggleChannelFavorite(int recorderId,
                                                        String channelGroup)
     {
-        this.recorder = recorder;
+        super(recorderId);
         this.channelGroup = channelGroup;
     }
 
     @Override
-    protected String getMessage() throws ProtocolException
+    protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_RECORDER " + recorder,
-                                                "TOGGLE_CHANNEL_FAVORITE",
+        return Protocol63Utils.getProtocolValue("TOGGLE_CHANNEL_FAVORITE",
                                                 channelGroup);
     }
 
     @Override
-    public Void send(SocketManager socketManager) throws IOException
+    protected Void parseResponse(String response) throws ProtocolException, CommandException
     {
-        String response = socketManager.sendAndWait(getMessage());
-
-        /*
-         * A response of "bad" only indicates that the recorder was not
-         * connected. A response of "ok" does not imply that that channel was
-         * actually toggled, only that the recorder was connected when the
-         * request was received. Since there is no way to know if the toggle
-         * actually succeeded, this command will not return a boolean value.
-         */
-        if (!"bad".equals(response) && !"ok".equals(response))
+        if (!"ok".equals(response))
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         return null;

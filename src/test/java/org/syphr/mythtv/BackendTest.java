@@ -22,6 +22,7 @@ import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.ProtocolVersion;
 import org.syphr.mythtv.test.Settings;
@@ -32,7 +33,7 @@ public class BackendTest
     private static Backend backend;
 
     @BeforeClass
-    public static void setUpBeforeClass() throws IOException
+    public static void setUpBeforeClass() throws IOException, CommandException
     {
         PropertiesManager<Settings> settings = Settings.createSettings();
 

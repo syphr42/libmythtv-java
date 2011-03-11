@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 
 /* default */class Command63GetFreeRecorderList extends AbstractCommand<List<Integer>>
@@ -54,7 +55,7 @@ import org.syphr.mythtv.proto.SocketManager;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

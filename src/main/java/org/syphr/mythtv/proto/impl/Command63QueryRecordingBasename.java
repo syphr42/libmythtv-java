@@ -18,7 +18,9 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
@@ -38,24 +40,29 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
     }
 
     @Override
-    public ProgramInfo send(SocketManager socketManager) throws IOException
+    public ProgramInfo send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
-        try
+        if (args.isEmpty())
         {
-            if (!"OK".equals(args.get(0)))
-            {
-                throw new ProtocolException();
-            }
+            throw new ProtocolException(response, Direction.RECEIVE);
+        }
 
+        String status = args.get(0);
+
+        if ("ERROR".equals(status))
+        {
+            throw new CommandException("An unexpected error occurred while retrieving recording information");
+        }
+
+        if ("OK".equals(status))
+        {
             args.remove(0);
             return Protocol63Utils.parseProgramInfo(args);
         }
-        catch (RuntimeException e)
-        {
-            throw new ProtocolException(response, e);
-        }
+
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 }

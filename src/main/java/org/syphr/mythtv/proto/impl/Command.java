@@ -17,9 +17,10 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.SocketManager;
 
 public interface Command<T>
 {
-    public T send(SocketManager socketManager) throws IOException;
+    public T send(SocketManager socketManager) throws IOException, CommandException;
 }

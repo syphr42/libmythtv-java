@@ -35,7 +35,7 @@ public class QueryRemoteEncoderTest
     private static QueryRemoteEncoder queryRemoteEncoder;
 
     @BeforeClass
-    public static void setUpBeforeClass() throws IOException
+    public static void setUpBeforeClass() throws IOException, CommandException
     {
         settings = Settings.createSettings();
         socketManager = Utils.connect(settings);

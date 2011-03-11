@@ -15,55 +15,46 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.IOException;
-
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
-import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.data.Channel;
 
-/* default */class Command63QueryRecorderSpawnLiveTv extends AbstractCommand<Boolean>
+/* default */class Command63QueryRecorderSpawnLiveTv extends AbstractCommand63QueryRecorder<Void>
 {
-    private final int recorder;
     private final String chainId;
     private final boolean pip;
     private final Channel startChannel;
 
-    public Command63QueryRecorderSpawnLiveTv(int recorder,
+    public Command63QueryRecorderSpawnLiveTv(int recorderId,
                                              String chainId,
                                              boolean pip,
                                              Channel startChannel)
     {
-        this.recorder = recorder;
+        super(recorderId);
+
         this.chainId = chainId;
         this.pip = pip;
         this.startChannel = startChannel;
     }
 
     @Override
-    protected String getMessage() throws ProtocolException
+    protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_RECORDER " + recorder,
-                                                "SPAWN_LIVETV",
+        return Protocol63Utils.getProtocolValue("SPAWN_LIVETV",
                                                 chainId,
                                                 pip ? "1" : "0",
                                                 startChannel.getNumber());
     }
 
     @Override
-    public Boolean send(SocketManager socketManager) throws IOException
+    protected Void parseResponse(String response) throws ProtocolException, CommandException
     {
-        String response = socketManager.sendAndWait(getMessage());
-
-        if ("bad".equals(response))
+        if (!"ok".equals(response))
         {
-            return false;
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
-        if ("ok".equals(response))
-        {
-            return true;
-        }
-
-        throw new ProtocolException(response);
+        return null;
     }
 }

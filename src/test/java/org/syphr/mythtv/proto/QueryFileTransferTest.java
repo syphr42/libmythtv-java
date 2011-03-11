@@ -62,7 +62,7 @@ public class QueryFileTransferTest
     private static Protocol commandProto;
 
     @BeforeClass
-    public static void setUpBeforeClass() throws IOException
+    public static void setUpBeforeClass() throws IOException, CommandException
     {
         if (!LOCAL_TEMP.exists() && !LOCAL_TEMP.mkdirs())
         {
@@ -97,7 +97,7 @@ public class QueryFileTransferTest
     }
 
     @Test
-    public void testDownloadReadDeleteFile() throws IOException, URISyntaxException
+    public void testDownloadReadDeleteFile() throws IOException, URISyntaxException, CommandException
     {
         URI dest = new URI(TEST_URI);
 
@@ -139,7 +139,7 @@ public class QueryFileTransferTest
     }
 
     @Test
-    public void testReadSeekRecording() throws IOException
+    public void testReadSeekRecording() throws IOException, CommandException
     {
         List<ProgramInfo> programs = commandProto.queryRecordings(RecordingCategory.PLAY);
         if (programs.isEmpty())
@@ -206,7 +206,7 @@ public class QueryFileTransferTest
     }
 
     @Test
-    public void testWriteDelete() throws IOException, URISyntaxException
+    public void testWriteDelete() throws IOException, URISyntaxException, CommandException
     {
         URI dest = new URI(TEST_URI);
 

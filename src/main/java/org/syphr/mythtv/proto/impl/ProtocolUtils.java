@@ -26,16 +26,17 @@ import java.util.Set;
 
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 
 public class ProtocolUtils
 {
-    public static <V, T> T translate(V value, Map<V, T> map) throws ProtocolException
+    public static <V, T> T translate(V value, Map<V, T> map, Direction direction) throws ProtocolException
     {
         T translated = map.get(value);
         if (translated == null)
         {
-            throw new ProtocolException("Invalid value: " + value);
+            throw new ProtocolException("Invalid value: " + value, direction);
         }
 
         return translated;
@@ -65,7 +66,7 @@ public class ProtocolUtils
             Long translated = map.get(value);
             if (translated == null)
             {
-                throw new ProtocolException("Invalid value: " + value);
+                throw new ProtocolException("Invalid value: " + value, Direction.SEND);
             }
 
             result |= translated;
@@ -100,7 +101,7 @@ public class ProtocolUtils
 
         if (!"OK".equalsIgnoreCase(response))
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
     }
 

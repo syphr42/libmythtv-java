@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.TimeInfo;
 
@@ -41,7 +42,7 @@ import org.syphr.mythtv.proto.data.TimeInfo;
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 3)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
@@ -53,7 +54,7 @@ import org.syphr.mythtv.proto.data.TimeInfo;
         }
         catch (ParseException e)
         {
-            throw new ProtocolException(e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

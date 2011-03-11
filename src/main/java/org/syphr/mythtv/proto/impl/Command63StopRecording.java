@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
@@ -53,7 +54,7 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

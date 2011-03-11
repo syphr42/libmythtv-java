@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 
 /* default */class Command63QueryRemoteEncoderGetMaxBitrate extends AbstractCommand63QueryRemoteEncoder<Long>
@@ -42,7 +43,7 @@ import org.syphr.mythtv.proto.SocketManager;
 
         if (args.size() != 2)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
@@ -52,7 +53,7 @@ import org.syphr.mythtv.proto.SocketManager;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

@@ -18,6 +18,7 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.types.RecordingStatus;
 
@@ -45,7 +46,7 @@ import org.syphr.mythtv.proto.types.RecordingStatus;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

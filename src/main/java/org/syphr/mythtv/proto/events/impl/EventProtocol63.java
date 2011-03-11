@@ -26,6 +26,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.TunerStatus;
@@ -145,7 +146,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
             {
                 if (!"OK".equals(message.getData().get(0)))
                 {
-                    throw new ProtocolException(message.toString());
+                    throw new ProtocolException(message.toString(), Direction.RECEIVE);
                 }
 
                 DateFormat isoFormat = ProtocolUtils.getIsoDateFormat();
@@ -382,7 +383,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                 List<String> args = message.getArgs();
                 if (args.size() != 3)
                 {
-                    throw new ProtocolException(message.toString());
+                    throw new ProtocolException(message.toString(), Direction.RECEIVE);
                 }
 
                 final Channel channel = new Channel(Integer.parseInt(args.get(0)));
@@ -412,9 +413,9 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
         }
         catch (Exception e)
         {
-            throw new ProtocolException(e);
+            throw new ProtocolException(message.toString(), Direction.RECEIVE, e);
         }
 
-        throw new ProtocolException("Unknown backend message: " + message.toString());
+        throw new ProtocolException("Unknown backend message: " + message.toString(), Direction.RECEIVE);
     }
 }

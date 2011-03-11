@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
@@ -54,7 +55,7 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 2)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         String indicator = args.get(0);
@@ -70,10 +71,10 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
             }
             catch (URISyntaxException e)
             {
-                throw new ProtocolException(response, e);
+                throw new ProtocolException(response, Direction.RECEIVE, e);
             }
         }
 
-        throw new ProtocolException(response);
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 }

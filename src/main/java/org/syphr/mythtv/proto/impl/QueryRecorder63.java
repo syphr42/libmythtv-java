@@ -17,6 +17,7 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.QueryRecorder;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
@@ -191,7 +192,7 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public boolean isRecording() throws IOException
+    public boolean isRecording() throws IOException, CommandException
     {
         return new Command63QueryRecorderIsRecording(getRecorderId()).send(getSocketManager());
     }
@@ -227,19 +228,19 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public boolean spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException
+    public void spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException, CommandException
     {
-        return new Command63QueryRecorderSpawnLiveTv(getRecorderId(), chainId, pip, startChannel).send(getSocketManager());
+        new Command63QueryRecorderSpawnLiveTv(getRecorderId(), chainId, pip, startChannel).send(getSocketManager());
     }
 
     @Override
-    public boolean stopLiveTv() throws IOException
+    public void stopLiveTv() throws IOException, CommandException
     {
-        return new Command63QueryRecorderStopLiveTv(getRecorderId()).send(getSocketManager());
+        new Command63QueryRecorderStopLiveTv(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public void toggleChannelFavorite(String channelGroup) throws IOException
+    public void toggleChannelFavorite(String channelGroup) throws IOException, CommandException
     {
         // TODO
         throw new UnsupportedOperationException();

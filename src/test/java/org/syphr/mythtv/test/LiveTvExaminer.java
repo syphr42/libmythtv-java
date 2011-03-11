@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Date;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.Protocol;
 import org.syphr.mythtv.proto.ProtocolFactory;
 import org.syphr.mythtv.proto.QueryRecorder;
@@ -32,7 +33,7 @@ import org.syphr.prom.PropertiesManager;
 
 public class LiveTvExaminer
 {
-    public static void main(String[] args) throws IOException, InterruptedException
+    public static void main(String[] args) throws IOException, InterruptedException, CommandException
     {
         if (args.length == 0)
         {
@@ -74,12 +75,9 @@ public class LiveTvExaminer
         try
         {
             QueryRecorder queryRecorder = proto.queryRecorder(recorderId);
-            if (!queryRecorder.spawnLiveTv("live-livetv-tester-" + new Date().getTime(), false,
-                                           new Channel(-1, -1, args[0], null, null)))
-            {
-                System.out.println("Failed to start live tv");
-                return;
-            }
+            queryRecorder.spawnLiveTv("live-livetv-tester-" + new Date().getTime(),
+                                      false,
+                                      new Channel(-1, -1, args[0], null, null));
 
             try
             {
@@ -87,11 +85,7 @@ public class LiveTvExaminer
             }
             finally
             {
-                if (!queryRecorder.stopLiveTv())
-                {
-                    System.out.println("Failed to stop live tv");
-                    return;
-                }
+                queryRecorder.stopLiveTv();
             }
         }
         finally

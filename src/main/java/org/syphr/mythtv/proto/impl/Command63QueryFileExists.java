@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.FileInfo;
 
@@ -56,7 +57,7 @@ import org.syphr.mythtv.proto.data.FileInfo;
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() < 2 || !"1".equals(args.get(0)))
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         if (args.size() == 2)
@@ -87,10 +88,10 @@ import org.syphr.mythtv.proto.data.FileInfo;
             }
             catch (NumberFormatException e)
             {
-                throw new ProtocolException(response, e);
+                throw new ProtocolException(response, Direction.RECEIVE, e);
             }
         }
 
-        throw new ProtocolException(response);
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 }

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URI;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 
 /* default */class Command63DeleteFile extends AbstractCommand<Boolean>
@@ -55,6 +56,6 @@ import org.syphr.mythtv.proto.SocketManager;
             return true;
         }
 
-        throw new ProtocolException(response);
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 }

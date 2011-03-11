@@ -19,17 +19,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
-import org.syphr.mythtv.proto.types.GenPixMapResponse;
 
-/* default */class Command63GenPixMap2 extends AbstractCommand<GenPixMapResponse>
+/* default */class Command63QueryGenPixMap2 extends AbstractCommand<Void>
 {
     private final String id;
     private final ProgramInfo program;
 
-    public Command63GenPixMap2(String id, ProgramInfo program)
+    public Command63QueryGenPixMap2(String id, ProgramInfo program)
     {
         this.id = id;
         this.program = program;
@@ -47,20 +48,41 @@ import org.syphr.mythtv.proto.types.GenPixMapResponse;
     }
 
     @Override
-    public GenPixMapResponse send(SocketManager socketManager) throws IOException
+    public Void send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
-        try
+        if (args.size() == 1 && "OK".equals(args.get(0)))
         {
-            return Protocol63Utils.getGenPixMapResponse("BAD".equals(args.get(0))
-                    ? args.get(1)
-                    : args.get(0));
+            return null;
         }
-        catch (RuntimeException e)
+
+        if (args.size() == 2 && "BAD".equals(args.get(0)))
         {
-            throw new ProtocolException(response, e);
+            String error = args.get(0);
+
+            if ("ERROR_INVALID_REQUEST".equals(error))
+            {
+                throw new CommandException("Invalid request");
+            }
+
+            if ("ERROR_NOFILE".equals(error))
+            {
+                throw new CommandException("File not found");
+            }
+
+            if ("ERROR_UNKNOWN".equals(error))
+            {
+                throw new CommandException("Unexpected error occurred");
+            }
+
+            if ("NO_PATHNAME".equals(error))
+            {
+                throw new CommandException("No pathname was given");
+            }
         }
+
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 }

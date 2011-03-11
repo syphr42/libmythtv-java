@@ -18,6 +18,7 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.types.RecordingCategory;
@@ -30,7 +31,7 @@ public class Protocol65 extends Protocol64
     }
 
     @Override
-    public void mythProtoVersion() throws IOException
+    public void mythProtoVersion() throws IOException, CommandException
     {
         new Command63MythProtoVersion()
         {

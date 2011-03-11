@@ -18,11 +18,13 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.util.Date;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 
-/* default */class Command63DeleteRecording extends AbstractCommand<Boolean>
+/* default */class Command63DeleteRecording extends AbstractCommand<Void>
 {
     private final Channel channel;
     private final Date recStartTs;
@@ -57,7 +59,7 @@ import org.syphr.mythtv.proto.data.Channel;
     }
 
     @Override
-    public Boolean send(SocketManager socketManager) throws IOException
+    public Void send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
 
@@ -66,19 +68,19 @@ import org.syphr.mythtv.proto.data.Channel;
             int result = Integer.parseInt(response);
             if (result == -2)
             {
-                return false;
+                throw new CommandException("Unable to determine filename or the file does not exist");
             }
 
-            if (result > -2)
+            if (result < -2)
             {
-                return true;
+                throw new ProtocolException(response, Direction.RECEIVE);
             }
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
 
-        throw new ProtocolException(response);
+        return null;
     }
 }

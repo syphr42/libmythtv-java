@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
@@ -49,7 +50,7 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
 
         if (!"0".equals(response))
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         return null;

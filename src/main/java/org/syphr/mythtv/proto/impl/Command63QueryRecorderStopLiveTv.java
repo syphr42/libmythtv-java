@@ -15,42 +15,31 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.IOException;
-
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
-import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 
-/* default */class Command63QueryRecorderStopLiveTv extends AbstractCommand<Boolean>
+/* default */class Command63QueryRecorderStopLiveTv extends AbstractCommand63QueryRecorder<Void>
 {
-    private final int recorder;
-
-    public Command63QueryRecorderStopLiveTv(int recorder)
+    public Command63QueryRecorderStopLiveTv(int recorderId)
     {
-        this.recorder = recorder;
+        super(recorderId);
     }
 
     @Override
-    protected String getMessage() throws ProtocolException
+    protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_RECORDER " + recorder,
-                                                "STOP_LIVETV");
+        return "STOP_LIVETV";
     }
 
     @Override
-    public Boolean send(SocketManager socketManager) throws IOException
+    protected Void parseResponse(String response) throws ProtocolException, CommandException
     {
-        String response = socketManager.sendAndWait(getMessage());
-
-        if ("bad".equals(response))
+        if (!"ok".equals(response))
         {
-            return false;
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
-        if ("ok".equals(response))
-        {
-            return true;
-        }
-
-        throw new ProtocolException(response);
+        return null;
     }
 }

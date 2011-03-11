@@ -117,10 +117,12 @@ public interface QueryRecorder
      *         <code>false</code> otherwise
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if this recorder is unknown
      *
      * @since 63
      */
-    public boolean isRecording() throws IOException;
+    public boolean isRecording() throws IOException, CommandException;
 
     // TODO
     public void pause() throws IOException;
@@ -147,26 +149,26 @@ public interface QueryRecorder
      *            Picture-In-Picture
      * @param startChannel
      *            the channel to start recording
-     * @return <code>true</code> if the request was successful; <code>false</code>
-     *         otherwise
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if this recorder is unknown
      *
      * @since 63
      */
-    public boolean spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException;
+    public void spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException, CommandException;
 
     /**
-     * Request that the recorder stop recording and cancel it's LiveTV chain.
+     * Request that the recorder stop recording and cancel it's live TV chain.
      *
-     * @return <code>true</code> if the request was successful; <code>false</code>
-     *         otherwise
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if this recorder is unknown
      *
      * @since 63
      */
-    public boolean stopLiveTv() throws IOException;
+    public void stopLiveTv() throws IOException, CommandException;
 
     /**
      * Toggle the current channel as a member of the given channel group. The request only
@@ -177,8 +179,10 @@ public interface QueryRecorder
      *            the group in which to toggle the current channel
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if this recorder is unknown
      *
      * @since 63
      */
-    public void toggleChannelFavorite(String channelGroup) throws IOException;
+    public void toggleChannelFavorite(String channelGroup) throws IOException, CommandException;
 }

@@ -24,23 +24,26 @@ public class ProtocolException extends IOException
      */
     private static final long serialVersionUID = 1L;
 
-    public ProtocolException()
+    private final Direction direction;
+
+    public ProtocolException(String message, Direction direction)
     {
-        super();
+        this(message, direction, null);
     }
 
-    public ProtocolException(String message, Throwable cause)
+    public ProtocolException(String message, Direction direction, Throwable cause)
     {
         super(message, cause);
+        this.direction = direction;
     }
 
-    public ProtocolException(String message)
+    public Direction getDirection()
     {
-        super(message);
+        return direction;
     }
 
-    public ProtocolException(Throwable cause)
+    public static enum Direction
     {
-        super(cause);
+        SEND, RECEIVE
     }
 }

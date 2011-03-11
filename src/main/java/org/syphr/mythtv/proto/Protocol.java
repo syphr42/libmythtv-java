@@ -38,7 +38,6 @@ import org.syphr.mythtv.proto.events.BackendEventListener;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
-import org.syphr.mythtv.proto.types.GenPixMapResponse;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 
 /**
@@ -57,10 +56,12 @@ public interface Protocol
      *
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend does not speak the same protocol
      *
      * @since 63
      */
-    public void mythProtoVersion() throws IOException;
+    public void mythProtoVersion() throws IOException, CommandException;
 
     /**
      * Announce this connection to the backend. This should be the second
@@ -183,30 +184,29 @@ public interface Protocol
     public boolean deleteFile(URI filename, String storageGroup) throws IOException;
 
     /**
-     * Request that a recording be deleted. To only remove a recording from the
-     * history, see {@link #forgetRecording(ProgramInfo)}.
+     * Request that a recording be deleted. To only remove a recording from the history,
+     * see {@link #forgetRecording(ProgramInfo)}.
      *
      * @param channel
      *            the channel on which the program was recorded
      * @param recStartTs
      *            the actual (not scheduled) start time of the recording
      * @param force
-     *            if <code>true</code>, metadata will be removed even if the
-     *            file cannot be located
+     *            if <code>true</code>, metadata will be removed even if the file cannot
+     *            be located
      * @param forget
-     *            if <code>true</code>, the history of this recording will be
-     *            removed
-     * @return <code>true</code> if delete was successful; <code>false</code>
-     *         otherwise
+     *            if <code>true</code>, the history of this recording will be removed
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recording cannot be located
      *
      * @since 63
      */
-    public boolean deleteRecording(Channel channel,
+    public void deleteRecording(Channel channel,
                                    Date recStartTs,
                                    boolean force,
-                                   boolean forget) throws IOException;
+                                   boolean forget) throws IOException, CommandException;
 
     /**
      * Request that the backend manage a file download. This command will return
@@ -223,10 +223,12 @@ public interface Protocol
      * @return the URI of the new file or <code>null</code> if an error occurred
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if an error occurs while attempting the download
      *
      * @since 63
      */
-    public URI downloadFile(URL url, String storageGroup, URI filename) throws IOException;
+    public URI downloadFile(URL url, String storageGroup, URI filename) throws IOException, CommandException;
 
     /**
      * Request that the backend manage a file download. This command will not
@@ -243,10 +245,12 @@ public interface Protocol
      * @return the URI of the new file or <code>null</code> if an error occurred
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if an error occurs while attempting the download
      *
      * @since 63
      */
-    public URI downloadFileNow(URL url, String storageGroup, URI filename) throws IOException;
+    public URI downloadFileNow(URL url, String storageGroup, URI filename) throws IOException, CommandException;
 
     /**
      * Change the path to a URI if necessary and fill in the file size for the given
@@ -349,14 +353,15 @@ public interface Protocol
      *
      * @param recorderId
      *            the ID of the recorder to lookup
-     * @return the requested recorder information or <code>null</code> if the specified ID
-     *         does not exist
+     * @return the requested recorder information
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the given recorder ID is unknown
      *
      * @since 63
      */
-    public RecorderLocation getRecorderFromNum(int recorderId) throws IOException;
+    public RecorderLocation getRecorderFromNum(int recorderId) throws IOException, CommandException;
 
     /**
      * Request the recorder that is actively recording the given program.
@@ -380,10 +385,12 @@ public interface Protocol
      *         why the request was rejected
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if an error occurs while try to put the slave backend to sleep
      *
      * @since 63
      */
-    public String goToSleep() throws IOException;
+    public String goToSleep() throws IOException, CommandException;
 
     /**
      * Request that the given recorder be locked for exclusive use. When the recorder is
@@ -392,14 +399,15 @@ public interface Protocol
      * @param recorderId
      *            the ID of desired recorder, a value less than zero indicates no
      *            preference
-     * @return device information for the recorder that was locked or <code>null</code> if
-     *         the request could not be fulfilled
+     * @return device information for the recorder that was locked
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the tuner cannot be locked
      *
      * @since 63
      */
-    public RecorderDevice lockTuner(int recorderId) throws IOException;
+    public RecorderDevice lockTuner(int recorderId) throws IOException, CommandException;
 
     /**
      * Retrieve the bookmark set on a recording.
@@ -494,10 +502,12 @@ public interface Protocol
      * @return the hash value or <code>null</code> if the hash could not be computed
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend is unable to determine the hash value
      *
      * @since 63
      */
-    public String queryFileHash(URI filename, String storageGroup) throws IOException;
+    public String queryFileHash(URI filename, String storageGroup) throws IOException, CommandException;
 
     /**
      * Determine how much space is available on all drives connected to this backend.
@@ -530,13 +540,14 @@ public interface Protocol
      *            a unique identifier
      * @param program
      *            the program for which the pix map is to be generated
-     * @return the response from the backend
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend encounters an error
      *
      * @since 63
      */
-    public GenPixMapResponse queryGenPixMap2(String id, ProgramInfo program) throws IOException;
+    public void queryGenPixMap2(String id, ProgramInfo program) throws IOException, CommandException;
 
     /**
      * Retrieve a list of all scheduled recordings that are coming up soon.
@@ -685,8 +696,7 @@ public interface Protocol
     public QueryRecorder queryRecorder(int recorderId);
 
     /**
-     * Retrieve the program data associated with the given recording by its base
-     * filename.
+     * Retrieve the program data associated with the given recording by its base filename.
      *
      * @see #queryRecordingTimeslot(Channel, Date)
      *
@@ -695,10 +705,12 @@ public interface Protocol
      * @return the relevant program data
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend cannot determine recording information
      *
      * @since 63
      */
-    public ProgramInfo queryRecordingBasename(String basename) throws IOException;
+    public ProgramInfo queryRecordingBasename(String basename) throws IOException, CommandException;
 
     /**
      * Retrieve the program data associated with the given channel and start time.
@@ -712,10 +724,12 @@ public interface Protocol
      * @return the relevant program data
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend cannot determine recording information
      *
      * @since 63
      */
-    public ProgramInfo queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException;
+    public ProgramInfo queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException, CommandException;
 
     /**
      * Retrieve a list of recordings matching the given category.
@@ -761,8 +775,8 @@ public interface Protocol
     public String querySetting(String host, String name) throws IOException;
 
     /**
-     * Retrieve file information (i.e. last modified date, file size) for a file
-     * within a storage group.
+     * Retrieve file information (i.e. last modified date, file size) for a file within a
+     * storage group.
      *
      * @param host
      *            the host machine containing the file
@@ -770,15 +784,16 @@ public interface Protocol
      *            the storage group containing the file
      * @param path
      *            the full path to the file
-     * @return the file information or <code>null</code> if the file cannot be
-     *         found (which may be temporary, such as when a slave backend is
-     *         unavailable)
+     * @return the file information or <code>null</code> if the file cannot be found
+     *         (which may be temporary, such as when a slave backend is unavailable)
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the host is a slave backend and is not reachable
      *
      * @since 63
      */
-    public FileInfo querySgFileQuery(String host, String storageGroup, String path) throws IOException;
+    public FileInfo querySgFileQuery(String host, String storageGroup, String path) throws IOException, CommandException;
 
     /**
      * Retrieve a complete directory listing within a storage group.
@@ -794,10 +809,12 @@ public interface Protocol
      *         such as when a slave backend is unavailable)
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the host is a slave backend and is not reachable
      *
      * @since 63
      */
-    public List<FileEntry> querySgGetFileList(String host, String storageGroup, String path) throws IOException;
+    public List<FileEntry> querySgGetFileList(String host, String storageGroup, String path) throws IOException, CommandException;
 
     /**
      * Retrieve time information from the backend, including current date, time, and time
@@ -866,14 +883,16 @@ public interface Protocol
      *            the actual (not scheduled) start time of the recording
      * @param location
      *            the location in number of frames to set the bookmark
-     * @return <code>true</code> if the bookmark was set successfully;
-     *         <code>false</code> otherwise
+     * @return <code>true</code> if the bookmark was set successfully; <code>false</code>
+     *         otherwise
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend is unable to set the bookmark
      *
      * @since 63
      */
-    public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException;
+    public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException, CommandException;
 
     /**
      * Replace a channel with new information.
@@ -882,31 +901,31 @@ public interface Protocol
      *            the channel being replaced/modified
      * @param newChannel
      *            the new channel information
-     * @return <code>true</code> if the update was successful; <code>false</code>
-     *         otherwise
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend is unable to set the channel information
      *
      * @since 63
      */
-    public boolean setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException;
+    public void setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException, CommandException;
 
     /**
-     * Request that the given recorder put the next LiveTV recording in the
-     * directory specified by the given path.
+     * Request that the given recorder put the next LiveTV recording in the directory
+     * specified by the given path.
      *
      * @param recorderId
      *            the ID of the recorder to change
      * @param path
      *            the path of the directory to set
-     * @return <code>true</code> if the request was successful;
-     *         <code>false</code> otherwise
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend is unable to set the directory
      *
      * @since 63
      */
-    public boolean setNextLiveTvDir(int recorderId, String path) throws IOException;
+    public void setNextLiveTvDir(int recorderId, String path) throws IOException, CommandException;
 
     /**
      * Update the value of a setting.

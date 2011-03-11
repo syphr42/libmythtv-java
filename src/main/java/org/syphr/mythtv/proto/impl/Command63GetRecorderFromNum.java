@@ -18,7 +18,9 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.RecorderLocation;
 
@@ -39,20 +41,20 @@ import org.syphr.mythtv.proto.data.RecorderLocation;
     }
 
     @Override
-    public RecorderLocation send(SocketManager socketManager) throws IOException
+    public RecorderLocation send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
 
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 2)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         String host = args.get(0);
         if ("nohost".equals(host))
         {
-            return null;
+            throw new CommandException("Unknown recorder ID: " + recorderId);
         }
 
         try
@@ -63,7 +65,7 @@ import org.syphr.mythtv.proto.data.RecorderLocation;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

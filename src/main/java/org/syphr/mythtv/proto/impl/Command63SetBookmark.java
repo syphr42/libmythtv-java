@@ -20,7 +20,9 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.Pair;
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 
@@ -57,20 +59,20 @@ import org.syphr.mythtv.proto.data.Channel;
     }
 
     @Override
-    public Boolean send(SocketManager socketManager) throws IOException
+    public Boolean send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-
-        if ("FAILED".equals(response))
-        {
-            return false;
-        }
 
         if ("OK".equals(response))
         {
             return true;
         }
 
-        throw new ProtocolException(response);
+        if ("FAILED".equals(response))
+        {
+            throw new CommandException("Unable to set bookmark");
+        }
+
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 }

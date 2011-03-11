@@ -17,22 +17,44 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
-import org.syphr.mythtv.proto.data.UpcomingRecordings;
 
-/* default */class Command63QueryGetAllPending extends AbstractCommand<UpcomingRecordings>
+/* default */abstract class AbstractCommand63QueryRecorder<T> extends AbstractCommand<T>
 {
+    private final int recorderId;
+
+    public AbstractCommand63QueryRecorder(int recorderId)
+    {
+        this.recorderId = recorderId;
+    }
+
+    public int getRecorderId()
+    {
+        return recorderId;
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return "QUERY_GETALLPENDING";
+        return Protocol63Utils.getProtocolValue("QUERY_RECORDER " + recorderId, getSubCommand());
     }
 
     @Override
-    public UpcomingRecordings send(SocketManager socketManager) throws IOException
+    public T send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-        return Protocol63Utils.parseUpcomingRecordings(response);
+
+        if ("bad".equals(response))
+        {
+            throw new CommandException("Unknown recorder ID: " + getRecorderId());
+        }
+
+        return parseResponse(response);
     }
+
+    protected abstract String getSubCommand() throws ProtocolException;
+
+    protected abstract T parseResponse(String response) throws ProtocolException, CommandException;
 }

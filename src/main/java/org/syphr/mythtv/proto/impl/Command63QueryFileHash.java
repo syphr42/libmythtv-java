@@ -18,6 +18,7 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.net.URI;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
 import org.syphr.mythtv.proto.SocketManager;
 
@@ -41,13 +42,13 @@ import org.syphr.mythtv.proto.SocketManager;
     }
 
     @Override
-    public String send(SocketManager socketManager) throws IOException
+    public String send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
 
         if ("NULL".equals(response))
         {
-            return null;
+            throw new CommandException("The backend was unable to compute the hash");
         }
 
         return response;

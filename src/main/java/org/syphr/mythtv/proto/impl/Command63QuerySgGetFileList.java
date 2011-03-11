@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.data.FileEntry;
 import org.syphr.mythtv.proto.types.FileEntryType;
 
@@ -45,7 +46,7 @@ import org.syphr.mythtv.proto.types.FileEntryType;
             String[] pair = fileEntryStr.split("::");
             if (pair.length != 2)
             {
-                throw new ProtocolException(response);
+                throw new ProtocolException(response, Direction.RECEIVE);
             }
 
             FileEntryType type;
@@ -59,7 +60,7 @@ import org.syphr.mythtv.proto.types.FileEntryType;
             }
             else
             {
-                throw new ProtocolException(response);
+                throw new ProtocolException(response, Direction.RECEIVE);
             }
 
             list.add(new FileEntry(type, pair[1]));

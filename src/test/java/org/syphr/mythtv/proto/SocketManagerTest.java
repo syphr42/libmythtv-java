@@ -36,7 +36,7 @@ public class SocketManagerTest
     private static Protocol proto;
 
     @BeforeClass
-    public static void setUpBeforeClass() throws IOException
+    public static void setUpBeforeClass() throws IOException, CommandException
     {
         settings = Settings.createSettings();
         socketManager = Utils.connect(settings);
@@ -57,7 +57,7 @@ public class SocketManagerTest
          * The response to this message does not parse as a long. It should be discarded
          * and not returned to the second command.
          */
-        Assert.assertNull(socketManager.sendAndWait("QUERY_LOAD", 1, TimeUnit.NANOSECONDS));
+        Assert.assertEquals("", socketManager.sendAndWait("QUERY_LOAD", 1, TimeUnit.NANOSECONDS));
 
         String uptime = socketManager.sendAndWait("QUERY_UPTIME");
         Assert.assertNotNull(uptime);

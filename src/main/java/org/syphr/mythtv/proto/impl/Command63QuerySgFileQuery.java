@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.data.FileInfo;
 
 /* default */class Command63QuerySgFileQuery extends AbstractCommand63QuerySg<FileInfo>
@@ -40,7 +41,7 @@ import org.syphr.mythtv.proto.data.FileInfo;
     {
         if (args.size() != 3)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
@@ -51,7 +52,7 @@ import org.syphr.mythtv.proto.data.FileInfo;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

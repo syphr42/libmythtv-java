@@ -35,7 +35,7 @@ public class QueryRecorderTest
     private static QueryRecorder queryRecorder;
 
     @BeforeClass
-    public static void setUpBeforeClass() throws IOException
+    public static void setUpBeforeClass() throws IOException, CommandException
     {
         settings = Settings.createSettings();
         socketManager = Utils.connect(settings);
@@ -54,7 +54,7 @@ public class QueryRecorderTest
     }
 
     @Test
-    public void testIsRecording() throws IOException
+    public void testIsRecording() throws IOException, CommandException
     {
         System.out.println("Is recording? " + queryRecorder.isRecording());
     }

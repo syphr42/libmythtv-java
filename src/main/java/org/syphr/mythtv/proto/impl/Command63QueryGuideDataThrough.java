@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 
 /* default */class Command63QueryGuideDataThrough extends AbstractCommand<Date>
@@ -51,7 +52,7 @@ import org.syphr.mythtv.proto.SocketManager;
         }
         catch (ParseException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 
@@ -36,14 +37,12 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
         String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
 
-        try
+        if (args.isEmpty())
         {
-            args.remove(0);
-            return Protocol63Utils.parseProgramInfos(args);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
-        catch (RuntimeException e)
-        {
-            throw new ProtocolException(response, e);
-        }
+
+        args.remove(0);
+        return Protocol63Utils.parseProgramInfos(args);
     }
 }

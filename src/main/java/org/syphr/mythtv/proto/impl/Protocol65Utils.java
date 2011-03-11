@@ -16,6 +16,7 @@
 package org.syphr.mythtv.proto.impl;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 
 import com.google.common.collect.BiMap;
@@ -34,11 +35,11 @@ public class Protocol65Utils
 
     public static RecordingCategory getRecordingCategory(String recCategory) throws ProtocolException
     {
-        return ProtocolUtils.translate(recCategory, REC_CATEGORY_MAP.inverse());
+        return ProtocolUtils.translate(recCategory, REC_CATEGORY_MAP.inverse(), Direction.RECEIVE);
     }
 
     public static String getRecordingCategory(RecordingCategory recCategory) throws ProtocolException
     {
-        return ProtocolUtils.translate(recCategory, REC_CATEGORY_MAP);
+        return ProtocolUtils.translate(recCategory, REC_CATEGORY_MAP, Direction.SEND);
     }
 }

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.RecorderLocation;
 
@@ -46,7 +47,7 @@ import org.syphr.mythtv.proto.data.RecorderLocation;
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 3)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
@@ -63,7 +64,7 @@ import org.syphr.mythtv.proto.data.RecorderLocation;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

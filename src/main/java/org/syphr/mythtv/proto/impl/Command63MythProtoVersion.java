@@ -18,7 +18,9 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 
 /* default */class Command63MythProtoVersion extends AbstractCommand<Void>
@@ -36,25 +38,30 @@ import org.syphr.mythtv.proto.SocketManager;
     }
 
     @Override
-    public Void send(SocketManager socketManager) throws IOException
+    public Void send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
 
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() < 2)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
-        if (!args.get(0).equals("ACCEPT"))
+        if ("ACCEPT".equals(args.get(0)))
         {
-            throw new ProtocolException("Attempted protocol "
-                                        + getVersion()
-                                        + ", backend accepts "
-                                        + args.get(1));
+            return null;
         }
 
-        return null;
+        if ("REJECT".equals(args.get(0)))
+        {
+            throw new CommandException("Attempted protocol "
+                                    + getVersion()
+                                    + ", backend accepts "
+                                    + args.get(1));
+        }
+
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 
     protected String getVersion()

@@ -20,6 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.QueryFileTransfer;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.types.FileTransferType;
@@ -80,14 +81,14 @@ import org.syphr.mythtv.proto.types.FileTransferType;
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 4)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
         {
             if (!"OK".equals(args.get(0)))
             {
-                throw new ProtocolException(response);
+                throw new ProtocolException(response, Direction.RECEIVE);
             }
 
             int socketNumber = Integer.parseInt(args.get(1));
@@ -98,9 +99,9 @@ import org.syphr.mythtv.proto.types.FileTransferType;
                                            size,
                                            commandSocketManager);
         }
-        catch (RuntimeException e)
+        catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

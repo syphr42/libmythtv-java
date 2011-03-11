@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.VideoEditInfo;
@@ -57,7 +58,7 @@ import org.syphr.mythtv.proto.data.VideoEditInfo;
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.isEmpty())
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         List<VideoEditInfo> edits = new ArrayList<VideoEditInfo>();
@@ -72,7 +73,7 @@ import org.syphr.mythtv.proto.data.VideoEditInfo;
 
             if (args.size() < numEdits * 3 + 1)
             {
-                throw new ProtocolException(response);
+                throw new ProtocolException(response, Direction.RECEIVE);
             }
 
             for (int i = 1; i < args.size();)
@@ -86,7 +87,7 @@ import org.syphr.mythtv.proto.data.VideoEditInfo;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 

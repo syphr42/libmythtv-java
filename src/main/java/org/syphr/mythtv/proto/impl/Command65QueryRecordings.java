@@ -20,7 +20,7 @@ import org.syphr.mythtv.proto.types.RecordingCategory;
 
 /* default */class Command65QueryRecordings extends Command63QueryRecordings
 {
-    public Command65QueryRecordings(RecordingCategory recCategory) throws ProtocolException
+    public Command65QueryRecordings(RecordingCategory recCategory)
     {
         super(recCategory);
     }

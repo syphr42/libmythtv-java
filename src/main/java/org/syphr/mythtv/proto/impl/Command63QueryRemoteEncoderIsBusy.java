@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.InputInfo;
 
@@ -47,7 +48,7 @@ import org.syphr.mythtv.proto.data.InputInfo;
 
         if (args.size() != 6)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         boolean busy;
@@ -61,7 +62,7 @@ import org.syphr.mythtv.proto.data.InputInfo;
         }
         else
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
@@ -77,7 +78,7 @@ import org.syphr.mythtv.proto.data.InputInfo;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

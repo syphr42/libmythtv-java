@@ -20,6 +20,7 @@ import java.net.InetAddress;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.Protocol;
 import org.syphr.mythtv.proto.ProtocolFactory;
 import org.syphr.mythtv.proto.SocketManager;
@@ -42,7 +43,7 @@ public class Backend
         this.connectionType = connectionType;
     }
 
-    public void connect(String host, int port, int timeout) throws IOException
+    public void connect(String host, int port, int timeout) throws IOException, CommandException
     {
         socketManager.connect(host, port, timeout);
 
@@ -56,6 +57,11 @@ public class Backend
                          EventLevel.NONE);
         }
         catch (IOException e)
+        {
+            disconnect();
+            throw e;
+        }
+        catch (CommandException e)
         {
             disconnect();
             throw e;

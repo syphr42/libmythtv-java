@@ -17,11 +17,13 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 
-/* default */class Command63SetChannelInfo extends AbstractCommand<Boolean>
+/* default */class Command63SetChannelInfo extends AbstractCommand<Void>
 {
     private final Channel oldChannel;
     private final Channel newChannel;
@@ -37,7 +39,8 @@ import org.syphr.mythtv.proto.data.Channel;
     {
         if (!oldChannel.equals(newChannel))
         {
-            throw new ProtocolException("Cannot replace channel information across different channels");
+            throw new ProtocolException("Cannot replace channel information across different channels",
+                                        Direction.SEND);
         }
 
         return Protocol63Utils.getProtocolValue(String.valueOf(newChannel.getId()),
@@ -50,20 +53,20 @@ import org.syphr.mythtv.proto.data.Channel;
     }
 
     @Override
-    public Boolean send(SocketManager socketManager) throws IOException
+    public Void send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        if ("0".equals(response))
-        {
-            return false;
-        }
-
         if ("1".equals(response))
         {
-            return true;
+            return null;
         }
 
-        throw new ProtocolException(response);
+        if ("0".equals(response))
+        {
+            throw new CommandException("Unable to set channel info: " + newChannel);
+        }
+
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 }

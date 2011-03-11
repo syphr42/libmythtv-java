@@ -17,10 +17,12 @@ package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 
-/* default */class Command63GoToSleep extends AbstractCommand<String>
+/* default */class Command63GoToSleep extends AbstractCommand<Void>
 {
     @Override
     protected String getMessage() throws ProtocolException
@@ -29,21 +31,21 @@ import org.syphr.mythtv.proto.SocketManager;
     }
 
     @Override
-    public String send(SocketManager socketManager) throws IOException
+    public Void send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        if (response != null && response.startsWith("ERROR: "))
+        if (response.startsWith("ERROR: "))
         {
             /*
              * Return the message after "ERROR: ".
              */
-            return response.substring(7);
+            throw new CommandException(response.substring(7));
         }
 
         if (!"OK".equals(response))
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         return null;

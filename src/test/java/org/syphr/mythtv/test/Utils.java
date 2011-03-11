@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.channels.FileChannel;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.Protocol;
 import org.syphr.mythtv.proto.ProtocolFactory;
 import org.syphr.mythtv.proto.QueryFileTransfer;
@@ -46,7 +47,7 @@ public class Utils
 
     public static Protocol announceMonitor(PropertiesManager<Settings> settings,
                                            SocketManager socketManager,
-                                           EventLevel eventLevel) throws IOException
+                                           EventLevel eventLevel) throws IOException, CommandException
     {
         Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
                                                                                  ProtocolVersion.class),

@@ -15,33 +15,26 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-import java.io.IOException;
-
 import org.syphr.mythtv.proto.ProtocolException;
-import org.syphr.mythtv.proto.SocketManager;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 
-/* default */class Command63QueryRecorderIsRecording extends AbstractCommand<Boolean>
+/* default */class Command63QueryRecorderIsRecording extends AbstractCommand63QueryRecorder<Boolean>
 {
-    private final int recorder;
-
-    public Command63QueryRecorderIsRecording(int recorder)
+    public Command63QueryRecorderIsRecording(int recorderId)
     {
-        this.recorder = recorder;
+        super(recorderId);
     }
 
     @Override
-    protected String getMessage() throws ProtocolException
+    protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_RECORDER " + recorder,
-                                                "IS_RECORDING");
+        return "IS_RECORDING";
     }
 
     @Override
-    public Boolean send(SocketManager socketManager) throws IOException
+    public Boolean parseResponse(String response) throws ProtocolException
     {
-        String response = socketManager.sendAndWait(getMessage());
-
-        if ("0".equals(response) || "bad".equals(response))
+        if ("0".equals(response))
         {
             return false;
         }
@@ -51,6 +44,6 @@ import org.syphr.mythtv.proto.SocketManager;
             return true;
         }
 
-        throw new ProtocolException(response);
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 }

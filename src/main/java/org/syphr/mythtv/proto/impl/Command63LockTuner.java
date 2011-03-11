@@ -18,7 +18,9 @@ package org.syphr.mythtv.proto.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.RecorderDevice;
 
@@ -47,33 +49,39 @@ import org.syphr.mythtv.proto.data.RecorderDevice;
     }
 
     @Override
-    public RecorderDevice send(SocketManager socketManager) throws IOException
+    public RecorderDevice send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.isEmpty())
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
         {
-            int recorderId = Integer.parseInt(args.get(0));
-            if (recorderId < 1)
+            int retRecorderId = Integer.parseInt(args.get(0));
+
+            if (retRecorderId == -2)
             {
-                return null;
+                throw new CommandException("Tuner already in use");
+            }
+
+            if (retRecorderId == -1)
+            {
+                throw new CommandException("Unknown recorder ID: " + recorderId);
             }
 
             if (args.size() < 4)
             {
-                throw new ProtocolException(response);
+                throw new ProtocolException(response, Direction.RECEIVE);
             }
 
-            return new RecorderDevice(recorderId, args.get(1), args.get(2), args.get(3));
+            return new RecorderDevice(retRecorderId, args.get(1), args.get(2), args.get(3));
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

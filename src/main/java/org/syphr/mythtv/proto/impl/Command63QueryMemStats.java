@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.MemStats;
 import org.syphr.mythtv.proto.types.MemStatCategory;
@@ -41,7 +42,7 @@ import org.syphr.mythtv.proto.types.MemStatCategory;
 
         if (args.size() != 4)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
@@ -56,7 +57,7 @@ import org.syphr.mythtv.proto.types.MemStatCategory;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }

@@ -26,6 +26,7 @@ import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.Protocol;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.DriveInfo;
@@ -47,7 +48,7 @@ public class Protocol63Test
     private static Protocol proto;
 
     @BeforeClass
-    public static void setUpBeforeClass() throws IOException
+    public static void setUpBeforeClass() throws IOException, CommandException
     {
         settings = Settings.createSettings();
         socketManager = Utils.connect(settings);
@@ -171,13 +172,16 @@ public class Protocol63Test
     }
 
     @Test
-    public void testGetRecorderFromNum() throws IOException
+    public void testGetRecorderFromNumGood() throws IOException, CommandException
     {
         RecorderLocation good = proto.getRecorderFromNum(settings.getIntegerProperty(Settings.RECORDER));
         Assert.assertNotNull(good);
+    }
 
-        RecorderLocation bad = proto.getRecorderFromNum(-1);
-        Assert.assertNull(bad);
+    @Test(expected = CommandException.class)
+    public void testGetRecorderFromNumBad() throws IOException, CommandException
+    {
+        proto.getRecorderFromNum(-1);
     }
 
     @Test
@@ -389,7 +393,7 @@ public class Protocol63Test
     }
 
     @Test
-    public void testQueryRecordingTimeslot() throws IOException
+    public void testQueryRecordingTimeslot() throws IOException, CommandException
     {
         List<ProgramInfo> allRecordings = proto.queryRecordings(RecordingCategory.PLAY);
         if (allRecordings.isEmpty())
@@ -455,7 +459,7 @@ public class Protocol63Test
 //    }
 //
 //    @Test
-//    public void testDeleteRecording() throws IOException
+//    public void testDeleteRecording() throws IOException, MythException
 //    {
 //        List<ProgramInfo> recorded = proto.queryRecordings(RecordingCategory.PLAY);
 //        if (recorded.isEmpty())
@@ -465,10 +469,7 @@ public class Protocol63Test
 //
 //        ProgramInfo delete = recorded.get(0);
 //        System.out.println("Deleting \"" + delete.getTitle() + ": " + delete.getSubtitle() + "\"");
-//        Assert.assertTrue(proto.deleteRecording(delete.getChannel(),
-//                                                delete.getRecStartTs(),
-//                                                false,
-//                                                false));
+//        proto.deleteRecording(delete.getChannel(), delete.getRecStartTs(), false, false);
 //    }
 //
 //    @Test
@@ -522,7 +523,7 @@ public class Protocol63Test
 //    }
 //
 //    @Test
-//    public void testQueryGenPixMap2() throws IOException
+//    public void testQueryGenPixMap2() throws IOException, MythException
 //    {
 //        List<ProgramInfo> programs = proto.queryGetExpiring();
 //        if (programs.isEmpty())
@@ -530,9 +531,7 @@ public class Protocol63Test
 //            return;
 //        }
 //
-//        GenPixMapResponse response = proto.queryGenPixMap2(Protocol63Test.class.getName(),
-//                                                           programs.get(0));
-//        Assert.assertEquals(GenPixMapResponse.OK, response);
+//        proto.queryGenPixMap2(Protocol63Test.class.getName(), programs.get(0));
 //    }
 
     /*

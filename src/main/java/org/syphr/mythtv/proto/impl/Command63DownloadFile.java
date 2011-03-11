@@ -21,7 +21,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
+import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.ProtocolException;
+import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 
 /* default */class Command63DownloadFile extends AbstractCommand<URI>
@@ -53,19 +55,19 @@ import org.syphr.mythtv.proto.SocketManager;
     }
 
     @Override
-    public URI send(SocketManager socketManager) throws IOException
+    public URI send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
 
         if ("ERROR".equals(response))
         {
-            return null;
+            throw new CommandException("Error occurred while attempting download");
         }
 
         List<String> args = Protocol63Utils.getArguments(response);
         if (args.size() != 2 || !"OK".equals(args.get(0)))
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
@@ -74,7 +76,7 @@ import org.syphr.mythtv.proto.SocketManager;
         }
         catch (URISyntaxException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }
