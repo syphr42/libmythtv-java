@@ -39,8 +39,7 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     @Override
     public void cancelNextRecording(boolean cancel) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        new Command63QueryRemoteEncoderCancelNextRecording(getRecorderId(), cancel).send(getSocketManager());
     }
 
     @Override
@@ -88,29 +87,25 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     @Override
     public Pair<Boolean, InputInfo> isBusy(int withinSeconds) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QueryRemoteEncoderIsBusy(getRecorderId(), withinSeconds).send(getSocketManager());
     }
 
     @Override
     public boolean matchesRecording(ProgramInfo program) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QueryRemoteEncoderMatchesRecording(getRecorderId(), program).send(getSocketManager());
     }
 
     @Override
     public void recordPending(int secondsLeft, boolean hasLater, ProgramInfo program) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        new Command63QueryRemoteEncoderRecordPending(getRecorderId(), secondsLeft, hasLater, program).send(getSocketManager());
     }
 
     @Override
     public boolean startRecording(ProgramInfo program) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QueryRemoteEncoderStartRecording(getRecorderId(), program).send(getSocketManager());
     }
 
     @Override

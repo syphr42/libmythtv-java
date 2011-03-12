@@ -54,6 +54,12 @@ public class QueryRemoteEncoderTest
     }
 
     @Test
+    public void testCancelNextRecording() throws IOException
+    {
+        // TODO
+    }
+
+    @Test
     public void testGetCurrentRecording() throws IOException
     {
         System.out.println("Current recording: " + queryRemoteEncoder.getCurrentRecording());
@@ -91,6 +97,30 @@ public class QueryRemoteEncoderTest
     public void testGetState() throws IOException
     {
         System.out.println("State: " + queryRemoteEncoder.getState());
+    }
+
+    @Test
+    public void testIsBusy() throws IOException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testMatchesRecording() throws IOException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testRecordPending() throws IOException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testStartRecording() throws IOException
+    {
+        // TODO
     }
 
     /*
