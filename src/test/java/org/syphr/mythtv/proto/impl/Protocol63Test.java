@@ -214,12 +214,6 @@ public class Protocol63Test
     }
 
     @Test
-    public void testGoToSleep() throws IOException
-    {
-        // TODO
-    }
-
-    @Test
     public void testLockTuner() throws IOException
     {
         // TODO
@@ -599,6 +593,20 @@ public class Protocol63Test
 //        ProgramInfo forget = expiring.get(0);
 //        System.out.println("Forgetting \"" + forget.getTitle() + ": " + forget.getSubtitle() + "\"");
 //        proto.forgetRecording(forget);
+//    }
+//
+//    @Test
+//    public void testGoToSleep() throws IOException
+//    {
+//        try
+//        {
+//            proto.goToSleep();
+//            System.out.println("Backend OK with sleep command");
+//        }
+//        catch (CommandException e)
+//        {
+//            System.out.println("Backend refused sleep command: " + e.getMessage());
+//        }
 //    }
 //
 //    @Test
