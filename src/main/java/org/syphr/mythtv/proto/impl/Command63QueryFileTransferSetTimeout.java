@@ -31,7 +31,7 @@ import org.syphr.mythtv.proto.ProtocolException;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
+        return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
                                                         + socketNumber,
                                                 "SET_TIMEOUT",
                                                 fast ? "1" : "0");

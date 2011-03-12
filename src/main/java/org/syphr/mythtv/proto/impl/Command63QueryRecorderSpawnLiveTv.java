@@ -41,7 +41,7 @@ import org.syphr.mythtv.proto.data.Channel;
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("SPAWN_LIVETV",
+        return Protocol63Utils.combineArguments("SPAWN_LIVETV",
                                                 chainId,
                                                 pip ? "1" : "0",
                                                 startChannel.getNumber());

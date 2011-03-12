@@ -39,7 +39,7 @@ import org.syphr.mythtv.proto.SocketManager;
     public Long send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.size() != 2)
         {

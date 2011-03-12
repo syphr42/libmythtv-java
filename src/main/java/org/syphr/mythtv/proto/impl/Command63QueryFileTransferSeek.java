@@ -48,7 +48,7 @@ import org.syphr.mythtv.proto.types.SeekOrigin;
         Pair<Integer, Integer> splitPosition = ProtocolUtils.splitLong(position);
         Pair<Integer, Integer> splitCurPosition = ProtocolUtils.splitLong(curPosition);
 
-        return Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
+        return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
                                                         + socketNumber,
                                                 "SEEK",
                                                 String.valueOf(splitPosition.getLeftElement()),
@@ -62,7 +62,7 @@ import org.syphr.mythtv.proto.types.SeekOrigin;
     public Long send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.size() != 2)
         {

@@ -36,7 +36,7 @@ import org.syphr.mythtv.proto.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_FILE_HASH",
+        return Protocol63Utils.combineArguments("QUERY_FILE_HASH",
                                                 filename.getPath(),
                                                 storageGroup);
     }

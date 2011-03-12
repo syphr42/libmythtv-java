@@ -49,7 +49,7 @@ import org.syphr.mythtv.proto.types.RecordingCategory;
     public List<ProgramInfo> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.isEmpty())
         {

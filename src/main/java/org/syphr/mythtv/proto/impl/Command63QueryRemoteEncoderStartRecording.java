@@ -41,7 +41,7 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
         args.add("START_RECORDING");
         args.addAll(Protocol63Utils.extractProgramInfo(program));
 
-        return Protocol63Utils.getProtocolValue(args);
+        return Protocol63Utils.combineArguments(args);
     }
 
     @Override

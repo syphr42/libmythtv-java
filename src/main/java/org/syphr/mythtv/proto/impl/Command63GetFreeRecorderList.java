@@ -43,7 +43,7 @@ import org.syphr.mythtv.proto.SocketManager;
             return freeRecorders;
         }
 
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
         try
         {
             for (String arg : args)

@@ -34,7 +34,7 @@ import org.syphr.mythtv.proto.ProtocolException;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_REMOTEENCODER " + recorderId, getSubCommand());
+        return Protocol63Utils.combineArguments("QUERY_REMOTEENCODER " + recorderId, getSubCommand());
     }
 
     protected abstract String getSubCommand() throws ProtocolException;

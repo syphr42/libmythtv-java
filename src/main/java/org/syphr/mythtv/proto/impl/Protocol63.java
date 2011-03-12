@@ -67,7 +67,7 @@ public class Protocol63 extends AbstractProtocol
             @Override
             public boolean isBackendEvent(String value)
             {
-                List<String> args = Protocol63Utils.getArguments(value);
+                List<String> args = Protocol63Utils.splitArguments(value);
 
                 if (!args.isEmpty() && "BACKEND_MESSAGE".equals(args.get(0)))
                 {

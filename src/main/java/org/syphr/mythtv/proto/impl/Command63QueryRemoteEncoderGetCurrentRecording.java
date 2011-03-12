@@ -40,7 +40,7 @@ import org.syphr.mythtv.proto.types.RecordingType;
     public ProgramInfo send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
 
         ProgramInfo program = Protocol63Utils.parseProgramInfo(args);
         if (RecordingType.NOT_RECORDING.equals(program.getRecType()))

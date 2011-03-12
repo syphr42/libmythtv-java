@@ -42,14 +42,14 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
         args.add(host);
         args.addAll(Protocol63Utils.extractProgramInfo(program));
 
-        return Protocol63Utils.getProtocolValue(args);
+        return Protocol63Utils.combineArguments(args);
     }
 
     @Override
     public ProgramInfo send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
 
         return Protocol63Utils.parseProgramInfo(args);
     }

@@ -33,7 +33,7 @@ import org.syphr.mythtv.proto.ProtocolException.Direction;
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("TOGGLE_CHANNEL_FAVORITE",
+        return Protocol63Utils.combineArguments("TOGGLE_CHANNEL_FAVORITE",
                                                 channelGroup);
     }
 

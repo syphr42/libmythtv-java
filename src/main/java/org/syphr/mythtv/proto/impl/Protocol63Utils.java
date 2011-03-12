@@ -359,17 +359,17 @@ public class Protocol63Utils
         return ProtocolUtils.translateMultiple(recFlags, REC_FLAG_MAP);
     }
 
-    public static List<String> getArguments(String value)
+    public static List<String> splitArguments(String value)
     {
         return new ArrayList<String>(Arrays.asList(value.split(Pattern.quote(DELIMITER))));
     }
 
-    public static String getProtocolValue(String... args)
+    public static String combineArguments(String... args)
     {
-        return getProtocolValue(new ArrayList<String>(Arrays.asList(args)));
+        return combineArguments(new ArrayList<String>(Arrays.asList(args)));
     }
 
-    public static String getProtocolValue(List<String> args)
+    public static String combineArguments(List<String> args)
     {
         StringBuilder builder = new StringBuilder();
 
@@ -400,7 +400,7 @@ public class Protocol63Utils
 
         try
         {
-            List<String> args = getArguments(value);
+            List<String> args = splitArguments(value);
 
             for (int i = 0; i < args.size();)
             {
@@ -435,7 +435,7 @@ public class Protocol63Utils
 
     public static UpcomingRecordings parseUpcomingRecordings(String value) throws ProtocolException
     {
-        List<String> args = Protocol63Utils.getArguments(value);
+        List<String> args = Protocol63Utils.splitArguments(value);
 
         try
         {

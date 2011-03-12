@@ -44,14 +44,14 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
         messageList.add(id);
         messageList.addAll(Protocol63Utils.extractProgramInfo(program));
 
-        return Protocol63Utils.getProtocolValue(messageList);
+        return Protocol63Utils.combineArguments(messageList);
     }
 
     @Override
     public Void send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.size() == 1 && "OK".equals(args.get(0)))
         {

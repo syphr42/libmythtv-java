@@ -32,7 +32,7 @@ import org.syphr.mythtv.proto.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("SHUTDOWN_NOW", command);
+        return Protocol63Utils.combineArguments("SHUTDOWN_NOW", command);
     }
 
     @Override

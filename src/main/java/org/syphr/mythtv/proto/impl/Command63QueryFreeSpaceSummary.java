@@ -35,7 +35,7 @@ import org.syphr.mythtv.proto.data.DriveInfo;
     public DriveInfo send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.size() != 4)
         {

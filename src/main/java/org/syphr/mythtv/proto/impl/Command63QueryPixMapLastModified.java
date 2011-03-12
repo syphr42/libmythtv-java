@@ -42,7 +42,7 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
         messageList.add("QUERY_PIXMAP_LASTMODIFIED");
         messageList.addAll(Protocol63Utils.extractProgramInfo(program));
 
-        return Protocol63Utils.getProtocolValue(messageList);
+        return Protocol63Utils.combineArguments(messageList);
     }
 
     @Override

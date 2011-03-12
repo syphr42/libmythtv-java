@@ -36,7 +36,7 @@ import org.syphr.mythtv.proto.data.RecorderLocation;
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
         if (args.size() != 3)
         {
             throw new ProtocolException(response, Direction.RECEIVE);

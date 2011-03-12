@@ -43,7 +43,7 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
     public ProgramInfo send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.isEmpty())
         {

@@ -36,7 +36,7 @@ import org.syphr.mythtv.proto.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("DELETE_FILE",
+        return Protocol63Utils.combineArguments("DELETE_FILE",
                                                 filename.getPath(),
                                                 storageGroup);
     }

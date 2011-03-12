@@ -48,7 +48,7 @@ import org.syphr.mythtv.proto.SocketManager;
     protected String getMessage() throws ProtocolException
     {
         String command = now ? "DOWNLOAD_FILE_NOW" : "DOWNLOAD_FILE";
-        return Protocol63Utils.getProtocolValue(command,
+        return Protocol63Utils.combineArguments(command,
                                                 url.toString(),
                                                 storageGroup,
                                                 filename.getPath());
@@ -64,7 +64,7 @@ import org.syphr.mythtv.proto.SocketManager;
             throw new CommandException("Error occurred while attempting download");
         }
 
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
         if (args.size() != 2 || !"OK".equals(args.get(0)))
         {
             throw new ProtocolException(response, Direction.RECEIVE);

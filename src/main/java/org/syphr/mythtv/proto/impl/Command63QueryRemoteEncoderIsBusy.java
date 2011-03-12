@@ -37,14 +37,14 @@ import org.syphr.mythtv.proto.data.InputInfo;
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("IS_BUSY", String.valueOf(withinSeconds));
+        return Protocol63Utils.combineArguments("IS_BUSY", String.valueOf(withinSeconds));
     }
 
     @Override
     public Pair<Boolean, InputInfo> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.size() != 6)
         {

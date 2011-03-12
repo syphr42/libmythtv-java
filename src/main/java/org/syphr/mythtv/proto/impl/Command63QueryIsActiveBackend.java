@@ -32,7 +32,7 @@ import org.syphr.mythtv.proto.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_IS_ACTIVE_BACKEND",
+        return Protocol63Utils.combineArguments("QUERY_IS_ACTIVE_BACKEND",
                                                 hostname);
     }
 

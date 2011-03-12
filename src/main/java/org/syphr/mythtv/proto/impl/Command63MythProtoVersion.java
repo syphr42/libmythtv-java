@@ -42,7 +42,7 @@ import org.syphr.mythtv.proto.SocketManager;
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
         if (args.size() < 2)
         {
             throw new ProtocolException(response, Direction.RECEIVE);

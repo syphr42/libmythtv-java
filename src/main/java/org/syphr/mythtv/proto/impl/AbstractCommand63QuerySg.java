@@ -41,7 +41,7 @@ import org.syphr.mythtv.proto.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue(getCommand(),
+        return Protocol63Utils.combineArguments(getCommand(),
                                                 host,
                                                 storageGroup,
                                                 path);
@@ -51,7 +51,7 @@ import org.syphr.mythtv.proto.SocketManager;
     public T send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.isEmpty())
         {

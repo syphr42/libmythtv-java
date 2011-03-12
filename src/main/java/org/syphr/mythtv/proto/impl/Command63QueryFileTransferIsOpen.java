@@ -33,7 +33,7 @@ import org.syphr.mythtv.proto.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_FILETRANSFER "
+        return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
                                                 + socketNumber, "IS_OPEN");
     }
 

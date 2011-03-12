@@ -33,7 +33,7 @@ import org.syphr.mythtv.proto.SocketManager;
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("CANCEL_NEXT_RECORDING", String.valueOf(cancel));
+        return Protocol63Utils.combineArguments("CANCEL_NEXT_RECORDING", String.valueOf(cancel));
     }
 
     @Override

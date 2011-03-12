@@ -36,7 +36,7 @@ import org.syphr.mythtv.proto.data.RecorderLocation;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("GET_RECORDER_FROM_NUM",
+        return Protocol63Utils.combineArguments("GET_RECORDER_FROM_NUM",
                                                 String.valueOf(recorderId));
     }
 
@@ -45,7 +45,7 @@ import org.syphr.mythtv.proto.data.RecorderLocation;
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
         if (args.size() != 2)
         {
             throw new ProtocolException(response, Direction.RECEIVE);

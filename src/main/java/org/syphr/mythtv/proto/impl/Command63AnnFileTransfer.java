@@ -69,7 +69,7 @@ import org.syphr.mythtv.proto.types.FileTransferType;
             builder.append(timeout);
         }
 
-        return Protocol63Utils.getProtocolValue(builder.toString(),
+        return Protocol63Utils.combineArguments(builder.toString(),
                                                 uri.toString(),
                                                 storageGroup);
     }
@@ -78,7 +78,7 @@ import org.syphr.mythtv.proto.types.FileTransferType;
     public QueryFileTransfer send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
         if (args.size() != 4)
         {
             throw new ProtocolException(response, Direction.RECEIVE);

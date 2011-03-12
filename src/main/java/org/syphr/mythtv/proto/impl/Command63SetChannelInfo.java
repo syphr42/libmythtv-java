@@ -43,7 +43,7 @@ import org.syphr.mythtv.proto.data.Channel;
                                         Direction.SEND);
         }
 
-        return Protocol63Utils.getProtocolValue(String.valueOf(newChannel.getId()),
+        return Protocol63Utils.combineArguments(String.valueOf(newChannel.getId()),
                                                 String.valueOf(newChannel.getSourceId()),
                                                 oldChannel.getNumber(),
                                                 newChannel.getCallsign(),

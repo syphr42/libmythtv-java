@@ -40,7 +40,7 @@ import org.syphr.mythtv.proto.data.FileInfo;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.getProtocolValue("QUERY_FILE_EXISTS",
+        return Protocol63Utils.combineArguments("QUERY_FILE_EXISTS",
                                                 filename.getPath(),
                                                 storageGroup);
     }
@@ -54,7 +54,7 @@ import org.syphr.mythtv.proto.data.FileInfo;
             return null;
         }
 
-        List<String> args = Protocol63Utils.getArguments(response);
+        List<String> args = Protocol63Utils.splitArguments(response);
         if (args.size() < 2 || !"1".equals(args.get(0)))
         {
             throw new ProtocolException(response, Direction.RECEIVE);
