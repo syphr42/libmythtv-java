@@ -381,8 +381,6 @@ public interface Protocol
      * Request that a slave backend go to sleep. This request will have no affect on the
      * master backend.
      *
-     * @return <code>null</code> if the request was accepted; otherwise a message about
-     *         why the request was rejected
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
@@ -390,7 +388,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public String goToSleep() throws IOException, CommandException;
+    public void goToSleep() throws IOException, CommandException;
 
     /**
      * Request that the given recorder be locked for exclusive use. When the recorder is

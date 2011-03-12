@@ -37,6 +37,7 @@ import org.syphr.mythtv.proto.data.UpcomingRecordings;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.RecordingCategory;
+import org.syphr.mythtv.proto.types.RecordingStatus;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.test.Utils;
 import org.syphr.prom.PropertiesManager;
@@ -81,6 +82,12 @@ public class Protocol63Test
         {
             Assert.assertNotSame(0, proto.checkRecording(recPrograms.get(0)));
         }
+    }
+
+    @Test
+    public void testDownloadFile() throws IOException
+    {
+        // TODO
     }
 
     @Test
@@ -137,6 +144,12 @@ public class Protocol63Test
         System.out.println("File info for " + fillInProgram.getChannel() + "/"
                            + fillInProgram.getRecStartTs() + ": " + fillInProgram.getFilename()
                            + " / " + fillInProgram.getFileSize());
+    }
+
+    @Test
+    public void testFreeTuner() throws IOException
+    {
+        // TODO
     }
 
     @Test
@@ -201,6 +214,37 @@ public class Protocol63Test
     }
 
     @Test
+    public void testGoToSleep() throws IOException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testLockTuner() throws IOException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testQueryBookmark() throws IOException
+    {
+        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
+        if (recordings.isEmpty())
+        {
+            return;
+        }
+
+        ProgramInfo program = recordings.get(0);
+        System.out.println("Bookmark for "
+                           + program.getChannel()
+                           + "/"
+                           + program.getStartTime()
+                           + ": "
+                           + proto.queryBookmark(program.getChannel(),
+                                                 program.getRecStartTs()));
+    }
+
+    @Test
     public void testQueryCommBreak() throws IOException
     {
         List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
@@ -257,22 +301,9 @@ public class Protocol63Test
     }
 
     @Test
-    public void testQueryBookmark() throws IOException
+    public void testQueryFileHash() throws IOException
     {
-        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
-        if (recordings.isEmpty())
-        {
-            return;
-        }
-
-        ProgramInfo program = recordings.get(0);
-        System.out.println("Bookmark for "
-                           + program.getChannel()
-                           + "/"
-                           + program.getStartTime()
-                           + ": "
-                           + proto.queryBookmark(program.getChannel(),
-                                                 program.getRecStartTs()));
+        // TODO
     }
 
     @Test
@@ -306,6 +337,39 @@ public class Protocol63Test
         List<ProgramInfo> scheduled = proto.queryGetAllScheduled();
         System.out.println("Scheduled count: " + scheduled.size());
         printFirstFive(scheduled);
+    }
+
+    @Test
+    public void testQueryGetConflicting() throws IOException
+    {
+        UpcomingRecordings upcoming = proto.queryGetAllPending();
+        if (upcoming.isEmpty())
+        {
+            return;
+        }
+
+        ProgramInfo program = null;
+        if (upcoming.isConflicted())
+        {
+            for (ProgramInfo pendingProg : upcoming)
+            {
+                if (RecordingStatus.CONFLICT.equals(pendingProg.getRecStatus()))
+                {
+                    program = pendingProg;
+                    break;
+                }
+            }
+
+            Assert.assertNotNull(program);
+        }
+        else
+        {
+            program = upcoming.get(0);
+        }
+
+        List<ProgramInfo> conflicted = proto.queryGetConflicting(program);
+        System.out.println("Conflicted count: " + conflicted.size());
+        printFirstFive(conflicted);
     }
 
     @Test
@@ -393,6 +457,21 @@ public class Protocol63Test
     }
 
     @Test
+    public void testQueryRecordingBasename() throws IOException, CommandException
+    {
+        List<ProgramInfo> allRecordings = proto.queryRecordings(RecordingCategory.PLAY);
+        if (allRecordings.isEmpty())
+        {
+            return;
+        }
+
+        ProgramInfo program = allRecordings.get(0);
+        Assert.assertEquals(program,
+                            proto.queryRecordingBasename(program.getFilename()
+                                                                .getPath()));
+    }
+
+    @Test
     public void testQueryRecordingTimeslot() throws IOException, CommandException
     {
         List<ProgramInfo> allRecordings = proto.queryRecordings(RecordingCategory.PLAY);
@@ -424,6 +503,18 @@ public class Protocol63Test
     }
 
     @Test
+    public void testQuerySgFileQuery() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testQuerySgGetFileList() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
     public void testQueryTimeZone() throws IOException
     {
         System.out.println(proto.queryTimeZone());
@@ -440,6 +531,30 @@ public class Protocol63Test
     {
         System.out.println("Refreshing backend config");
         proto.refreshBackend();
+    }
+
+    @Test
+    public void testSetBookmark() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testSetChannelInfo() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testSetNextLiveTvDir() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testSetSetting() throws IOException
+    {
+        // TODO
     }
 
     /*
@@ -532,6 +647,17 @@ public class Protocol63Test
 //        }
 //
 //        proto.queryGenPixMap2(Protocol63Test.class.getName(), programs.get(0));
+//    }
+//
+//    @Test
+//    public void testRescheduleRecordings() throws IOException
+//    {
+//        int recorderId = settings.getIntegerProperty(Settings.RECORDER);
+//        System.out.println("Requesting reschedule on recorder " + recorderId);
+//        proto.rescheduleRecordings(recorderId);
+//
+//        System.out.println("Requesting full reschedule");
+//        proto.rescheduleRecordings(-1);
 //    }
 
     /*

@@ -162,8 +162,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public URI downloadFile(URL url, String storageGroup, URI filename) throws IOException, CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63DownloadFile(url, storageGroup, filename, false).send(getSocketManager());
     }
 
     @Override
@@ -187,8 +186,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public boolean freeTuner(int recorderId) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63FreeTuner(recorderId).send(getSocketManager());
     }
 
     @Override
@@ -228,17 +226,15 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public String goToSleep() throws IOException
+    public void goToSleep() throws IOException, CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        new Command63GoToSleep().send(getSocketManager());
     }
 
     @Override
-    public RecorderDevice lockTuner(int recorderId) throws IOException
+    public RecorderDevice lockTuner(int recorderId) throws IOException, CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63LockTuner(recorderId).send(getSocketManager());
     }
 
     @Override
@@ -272,10 +268,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public String queryFileHash(URI filename, String storageGroup) throws IOException
+    public String queryFileHash(URI filename, String storageGroup) throws IOException, CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QueryFileHash(filename, storageGroup).send(getSocketManager());
     }
 
     @Override
@@ -311,8 +306,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public List<ProgramInfo> queryGetConflicting(ProgramInfo program) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QueryGetConflicting(program).send(getSocketManager());
     }
 
     @Override
@@ -370,10 +364,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public ProgramInfo queryRecordingBasename(String basename) throws IOException
+    public ProgramInfo queryRecordingBasename(String basename) throws IOException, CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecordingBasename(basename).send(getSocketManager());
     }
 
     @Override
@@ -401,17 +394,15 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public FileInfo querySgFileQuery(String host, String storageGroup, String path) throws IOException
+    public FileInfo querySgFileQuery(String host, String storageGroup, String path) throws IOException, CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QuerySgFileQuery(host, storageGroup, path).send(getSocketManager());
     }
 
     @Override
-    public List<FileEntry> querySgGetFileList(String host, String storageGroup, String path) throws IOException
+    public List<FileEntry> querySgGetFileList(String host, String storageGroup, String path) throws IOException, CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63QuerySgGetFileList(host, storageGroup, path).send(getSocketManager());
     }
 
     @Override
@@ -435,36 +426,31 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public void rescheduleRecordings(int recorderId) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        new Command63RescheduleRecordings(recorderId).send(getSocketManager());
     }
 
     @Override
-    public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException
+    public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException, CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new Command63SetBookmark(channel, recStartTs, location).send(getSocketManager());
     }
 
     @Override
-    public void setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException
+    public void setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException, CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        new Command63SetChannelInfo(oldChannel, newChannel).send(getSocketManager());
     }
 
     @Override
-    public void setNextLiveTvDir(int recorderId, String path) throws IOException
+    public void setNextLiveTvDir(int recorderId, String path) throws IOException, CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        new Command63SetNextLiveTvDir(recorderId, path).send(getSocketManager());
     }
 
     @Override
     public void setSetting(String host, String name, String value) throws IOException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        new Command63SetSetting(host, name, value).send(getSocketManager());
     }
 
     @Override

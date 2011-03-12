@@ -33,8 +33,7 @@ import org.syphr.mythtv.proto.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("RESCHEDULE_RECORDINGS",
-                                                String.valueOf(recorderId));
+        return "RESCHEDULE_RECORDINGS " + String.valueOf(recorderId);
     }
 
     @Override
