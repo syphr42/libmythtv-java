@@ -417,6 +417,24 @@ public class Protocol63Test
     }
 
     @Test
+    public void testQueryPixMapGetIfModified() throws IOException, CommandException
+    {
+        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);
+        if (recordings.isEmpty())
+        {
+            return;
+        }
+
+        ProgramInfo program = recordings.get(0);
+        System.out.println("Pix map for "
+                           + program.getChannel()
+                           + "/"
+                           + program.getStartTime()
+                           + ": "
+                           + proto.queryPixMapGetIfModified(null, Integer.MAX_VALUE, program));
+    }
+
+    @Test
     public void testQueryPixMapLastModified() throws IOException
     {
         List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.PLAY);

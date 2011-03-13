@@ -27,6 +27,7 @@ import org.syphr.mythtv.proto.data.FileEntry;
 import org.syphr.mythtv.proto.data.FileInfo;
 import org.syphr.mythtv.proto.data.Load;
 import org.syphr.mythtv.proto.data.MemStats;
+import org.syphr.mythtv.proto.data.PixMap;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.RecorderDevice;
 import org.syphr.mythtv.proto.data.RecorderLocation;
@@ -663,6 +664,29 @@ public interface Protocol
      * @since 63
      */
     public MemStats queryMemStats() throws IOException;
+
+    /**
+     * Retrieve the pix map for a program if it was last modified after the
+     * given timestamp and it is under the given max size.
+     *
+     * @param timestamp
+     *            the timestamp to check against for modification (
+     *            <code>null</code> ignores the timestamp)
+     * @param maxFileSize
+     *            the maximum size to accept
+     * @param program
+     *            the program to check
+     * @return the requested pix map
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if there is an error in retrieving the information or no
+     *             match to the given criteria
+     */
+    public PixMap queryPixMapGetIfModified(Date timestamp,
+                                           int maxFileSize,
+                                           ProgramInfo program) throws IOException,
+                                                               CommandException;
 
     /**
      * Retrieve the last modified date of the current pix map for the given

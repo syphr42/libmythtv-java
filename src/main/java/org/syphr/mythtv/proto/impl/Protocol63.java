@@ -35,6 +35,7 @@ import org.syphr.mythtv.proto.data.FileEntry;
 import org.syphr.mythtv.proto.data.FileInfo;
 import org.syphr.mythtv.proto.data.Load;
 import org.syphr.mythtv.proto.data.MemStats;
+import org.syphr.mythtv.proto.data.PixMap;
 import org.syphr.mythtv.proto.data.ProgramInfo;
 import org.syphr.mythtv.proto.data.RecorderDevice;
 import org.syphr.mythtv.proto.data.RecorderLocation;
@@ -349,6 +350,15 @@ public class Protocol63 extends AbstractProtocol
     public MemStats queryMemStats() throws IOException
     {
         return new Command63QueryMemStats().send(getSocketManager());
+    }
+
+    @Override
+    public PixMap queryPixMapGetIfModified(Date timestamp,
+                                         int maxFileSize,
+                                         ProgramInfo program) throws IOException,
+                                                             CommandException
+    {
+        return new Command63QueryPixMapGetIfModified(timestamp, maxFileSize, program).send(getSocketManager());
     }
 
     @Override
