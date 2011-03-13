@@ -23,7 +23,7 @@ src/test/java/org/syphr/mythtv/test/Settings.java.
 Logging
 ================
 
-libmythtv-java uses SLFJ to handle logging. For testing, JDK logging
+libmythtv-java uses SLF4J to handle logging. For testing, JDK logging
 is defined. To override settings, use the JVM argument 
 -Djava.util.logging.config.file=/path/to/properties. A default config
 is provided at src/test/resources/logging.properties.
