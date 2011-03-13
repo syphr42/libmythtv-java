@@ -19,7 +19,7 @@ import java.util.Date;
 
 public class PixMap
 {
-    private final Date lastModified;
+    private final long lastModified;
     private final int size;
     private final String checksum;
     private final byte[] data;
@@ -31,15 +31,15 @@ public class PixMap
 
     public PixMap(Date lastModified, int size, String checksum, byte[] data)
     {
-        this.lastModified = lastModified;
+        this.lastModified = lastModified.getTime();
         this.size = size;
         this.checksum = checksum;
-        this.data = data;
+        this.data = data.clone();
     }
 
     public Date getLastModified()
     {
-        return lastModified;
+        return new Date(lastModified);
     }
 
     public int getSize()
@@ -54,7 +54,7 @@ public class PixMap
 
     public byte[] getData()
     {
-        return data;
+        return data.clone();
     }
 
     @Override
