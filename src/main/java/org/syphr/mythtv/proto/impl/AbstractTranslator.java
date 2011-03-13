@@ -17,7 +17,10 @@ package org.syphr.mythtv.proto.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.syphr.mythtv.proto.ProtocolException;
@@ -36,7 +39,7 @@ public abstract class AbstractTranslator implements Translator
     @Override
     public <E extends Enum<E>> String toString(E constant) throws ProtocolException
     {
-        return ProtocolUtils.translate(constant, getMap(constant.getClass()), Direction.RECEIVE);
+        return translate(constant, getMap(constant.getClass()), Direction.RECEIVE);
     }
 
     @Override
@@ -48,19 +51,82 @@ public abstract class AbstractTranslator implements Translator
         }
 
         E firstElement = constants.iterator().next();
-        return ProtocolUtils.translateMultiple(constants, getMap(firstElement.getClass()));
+        return translateMultiple(constants, getMap(firstElement.getClass()));
     }
 
     @Override
     public <E extends Enum<E>> E toEnum(String value, Class<E> type) throws ProtocolException
     {
-        return ProtocolUtils.translate(value, getMap(type).inverse(), Direction.SEND);
+        return translate(value, getMap(type).inverse(), Direction.SEND);
     }
 
     @Override
     public <E extends Enum<E>> Set<E> toEnums(String value, Class<E> type) throws ProtocolException
     {
-        return ProtocolUtils.translateMultiple(value, getMap(type).inverse());
+        return translateMultiple(value, getMap(type).inverse());
+    }
+
+    private <V, T> T translate(V value, Map<V, T> map, Direction direction) throws ProtocolException
+    {
+        T translated = map.get(value);
+        if (translated == null)
+        {
+            throw new ProtocolException("Invalid value: " + value, direction);
+        }
+
+        return translated;
+    }
+
+    private <T> String translateMultiple(Collection<T> values, Map<T, String> map) throws ProtocolException
+    {
+        try
+        {
+            long result = 0;
+
+            for (T value : values)
+            {
+                String translated = map.get(value);
+                if (translated == null)
+                {
+                    throw new ProtocolException("Invalid value: " + value, Direction.SEND);
+                }
+
+                long longTranslated = Long.parseLong(translated);
+                result |= longTranslated;
+            }
+
+            return result == 0 ? "" : String.valueOf(result);
+        }
+        catch (NumberFormatException e)
+        {
+            throw new ProtocolException("Invalid values: " + values, Direction.RECEIVE, e);
+        }
+    }
+
+    private <T> Set<T> translateMultiple(String value, Map<String, T> map) throws ProtocolException
+    {
+        try
+        {
+            long longValue = Long.parseLong(value);
+
+            Set<T> set = new HashSet<T>();
+
+            for (Entry<String, T> entry : map.entrySet())
+            {
+                long longEntry = Long.parseLong(entry.getKey());
+
+                if ((longValue & longEntry) > 0)
+                {
+                    set.add(entry.getValue());
+                }
+            }
+
+            return set;
+        }
+        catch (NumberFormatException e)
+        {
+            throw new ProtocolException("Invalid value: " + value, Direction.RECEIVE, e);
+        }
     }
 
     protected abstract <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type);
