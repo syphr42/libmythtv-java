@@ -33,7 +33,7 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
 
 /* default */class Command63QueryPixMapGetIfModified extends AbstractCommand<PixMap>
 {
-    private static final Pattern BAD_RESPONSE_PATTERN = Pattern.compile("(ERROR|WARNING)\\d: (.*)");
+    private static final Pattern BAD_RESPONSE_PATTERN = Pattern.compile("\\d: (.*)");
 
     private final Date timestamp;
     private final int maxFileSize;
@@ -67,16 +67,31 @@ import org.syphr.mythtv.proto.data.ProgramInfo;
                                                    CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
+        List<String> args = Protocol63Utils.splitArguments(response);
 
-        Matcher matcher = BAD_RESPONSE_PATTERN.matcher(response);
-        if (matcher.find())
+        if (args.size() == 0)
         {
-            throw new CommandException(matcher.group(1));
+            throw new ProtocolException(response, Direction.RECEIVE);
+        }
+
+        if ("ERROR".equals(args.get(0)) || "WARNING".equals(args.get(0)))
+        {
+            if (args.size() != 2)
+            {
+                throw new ProtocolException(response, Direction.RECEIVE);
+            }
+
+            Matcher matcher = BAD_RESPONSE_PATTERN.matcher(args.get(1));
+            if (matcher.find())
+            {
+                throw new CommandException(matcher.group(1));
+            }
+
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
         {
-            List<String> args = Protocol63Utils.splitArguments(response);
             switch (args.size())
             {
                 case 1:
