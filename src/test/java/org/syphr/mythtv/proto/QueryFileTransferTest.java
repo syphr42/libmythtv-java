@@ -15,23 +15,21 @@
  */
 package org.syphr.mythtv.proto;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
+import java.util.zip.CRC32;
+import java.util.zip.Checksum;
 
 import junit.framework.Assert;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -45,6 +43,9 @@ import org.syphr.mythtv.proto.types.SeekOrigin;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.test.Utils;
 import org.syphr.prom.PropertiesManager;
+
+import com.google.common.io.Files;
+import com.google.common.io.Resources;
 
 public class QueryFileTransferTest
 {
@@ -74,10 +75,8 @@ public class QueryFileTransferTest
          * Download a file directly for comparison later.
          */
         OutputStream directDownloadOut = new BufferedOutputStream(new FileOutputStream(EXPECTED_FILE));
-        InputStream directDownloadIn = new BufferedInputStream(new URL(TEST_URL).openStream());
-        IOUtils.copy(directDownloadIn, directDownloadOut);
+        Resources.copy(new URL(TEST_URL), directDownloadOut);
         directDownloadOut.close();
-        directDownloadIn.close();
 
         settings = Settings.createSettings();
 
@@ -93,7 +92,7 @@ public class QueryFileTransferTest
         commandProto.done();
         commandSocketManager.disconnect();
 
-        FileUtils.deleteDirectory(LOCAL_TEMP);
+        Files.deleteRecursively(LOCAL_TEMP);
     }
 
     @Test
@@ -130,8 +129,9 @@ public class QueryFileTransferTest
         fileProto.done();
         fileSocketManager.disconnect();
 
-        Assert.assertEquals(FileUtils.checksumCRC32(EXPECTED_FILE),
-                            FileUtils.checksumCRC32(actualFile));
+        Checksum crc32 = new CRC32();
+        Assert.assertEquals(Files.getChecksum(EXPECTED_FILE, crc32),
+                            Files.getChecksum(actualFile, crc32));
 
         Assert.assertNotNull(commandProto.queryFileExists(dest, TEST_STORAGE_GROUP));
         Assert.assertTrue(commandProto.deleteFile(dest, TEST_STORAGE_GROUP));
