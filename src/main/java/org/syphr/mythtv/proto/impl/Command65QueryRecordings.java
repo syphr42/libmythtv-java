@@ -29,6 +29,6 @@ import org.syphr.mythtv.proto.types.RecordingCategory;
     protected String getMessage() throws ProtocolException
     {
         return "QUERY_RECORDINGS "
-               + Protocol65Utils.getRecordingCategory(getRecCategory());
+               + Protocol65Utils.getTranslator().toString(getRecCategory());
     }
 }

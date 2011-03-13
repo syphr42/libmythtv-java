@@ -15,12 +15,21 @@
  */
 package org.syphr.mythtv.proto.impl;
 
-public class Protocol65Utils
-{
-    private static final Translator TRANSLATOR = new Translator65();
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
-    public static Translator getTranslator()
-    {
-        return TRANSLATOR;
-    }
+import org.syphr.mythtv.proto.ProtocolException;
+
+public interface Translator
+{
+    public <E extends Enum<E>> List<E> getAllowed(Class<E> type);
+
+    public <E extends Enum<E>> String toString(E constant) throws ProtocolException;
+
+    public <E extends Enum<E>> String toString(Collection<E> constants) throws ProtocolException;
+
+    public <E extends Enum<E>> E toEnum(String value, Class<E> type) throws ProtocolException;
+
+    public <E extends Enum<E>> Set<E> toEnums(String value, Class<E> type) throws ProtocolException;
 }

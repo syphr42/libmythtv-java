@@ -54,4 +54,10 @@ public class Protocol65 extends Protocol64
     {
         return new Command65QueryRecordings(recCategory).send(getSocketManager());
     }
+
+    @Override
+    protected Translator getTranslator()
+    {
+        return Protocol65Utils.getTranslator();
+    }
 }

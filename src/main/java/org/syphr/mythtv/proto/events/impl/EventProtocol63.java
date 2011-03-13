@@ -302,7 +302,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                 int i = 0;
                 while (i < data.size())
                 {
-                    TunerStatusCategory category = Protocol63Utils.getTunerStatusCategory(data.get(i++));
+                    TunerStatusCategory category = Protocol63Utils.getTranslator().toEnum(data.get(i++), TunerStatusCategory.class);
 
                     String[] split = data.get(i++).split(" ");
                     TunerData tunerData = new TunerData(split[0],

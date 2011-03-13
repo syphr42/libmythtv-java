@@ -39,11 +39,11 @@ import org.syphr.mythtv.proto.types.EventLevel;
     {
         StringBuilder builder = new StringBuilder();
         builder.append("ANN ");
-        builder.append(Protocol63Utils.getConnectionType(connectionType));
+        builder.append(Protocol63Utils.getTranslator().toString(connectionType));
         builder.append(' ');
         builder.append(host);
         builder.append(' ');
-        builder.append(Protocol63Utils.getEventLevel(eventLevel));
+        builder.append(Protocol63Utils.getTranslator().toString(eventLevel));
 
         return builder.toString();
     }

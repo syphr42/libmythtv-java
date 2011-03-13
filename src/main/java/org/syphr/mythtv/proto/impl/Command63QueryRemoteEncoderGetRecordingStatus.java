@@ -42,7 +42,7 @@ import org.syphr.mythtv.proto.types.RecordingStatus;
 
         try
         {
-            return Protocol63Utils.getRecordingStatus(Integer.parseInt(response));
+            return Protocol63Utils.getTranslator().toEnum(response, RecordingStatus.class);
         }
         catch (NumberFormatException e)
         {

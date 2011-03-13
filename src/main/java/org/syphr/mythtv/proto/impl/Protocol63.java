@@ -486,4 +486,10 @@ public class Protocol63 extends AbstractProtocol
     {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    protected Translator getTranslator()
+    {
+        return Protocol63Utils.getTranslator();
+    }
 }

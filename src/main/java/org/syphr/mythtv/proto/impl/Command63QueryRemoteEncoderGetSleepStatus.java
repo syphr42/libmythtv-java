@@ -42,7 +42,7 @@ import org.syphr.mythtv.proto.types.SleepStatus;
 
         try
         {
-            return Protocol63Utils.getSleepStatus(Integer.parseInt(response));
+            return Protocol63Utils.getTranslator().toEnum(response, SleepStatus.class);
         }
         catch (NumberFormatException e)
         {

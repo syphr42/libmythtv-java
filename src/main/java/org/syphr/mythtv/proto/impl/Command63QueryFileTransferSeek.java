@@ -53,7 +53,7 @@ import org.syphr.mythtv.proto.types.SeekOrigin;
                                                 "SEEK",
                                                 String.valueOf(splitPosition.getLeftElement()),
                                                 String.valueOf(splitPosition.getRightElement()),
-                                                String.valueOf(Protocol63Utils.getSeekOrigin(origin)),
+                                                String.valueOf(Protocol63Utils.getTranslator().toString(origin)),
                                                 String.valueOf(splitCurPosition.getLeftElement()),
                                                 String.valueOf(splitCurPosition.getRightElement()));
     }

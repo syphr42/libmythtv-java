@@ -42,7 +42,7 @@ import org.syphr.mythtv.proto.types.TvState;
 
         try
         {
-            return Protocol63Utils.getTvState(Integer.parseInt(response));
+            return Protocol63Utils.getTranslator().toEnum(response, TvState.class);
         }
         catch (NumberFormatException e)
         {

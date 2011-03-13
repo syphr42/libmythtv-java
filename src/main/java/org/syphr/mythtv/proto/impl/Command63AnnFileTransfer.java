@@ -59,7 +59,7 @@ import org.syphr.mythtv.proto.types.FileTransferType;
         builder.append("ANN FileTransfer ");
         builder.append(host);
         builder.append(' ');
-        builder.append(Protocol63Utils.getFileTransferType(type));
+        builder.append(Protocol63Utils.getTranslator().toString(type));
         builder.append(' ');
         builder.append(readAhead ? 1 : 0);
 

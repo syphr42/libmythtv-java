@@ -43,7 +43,7 @@ import org.syphr.mythtv.proto.types.RecorderFlag;
 
         try
         {
-            return Protocol63Utils.getRecorderFlags(Long.parseLong(response));
+            return Protocol63Utils.getTranslator().toEnums(response, RecorderFlag.class);
         }
         catch (NumberFormatException e)
         {

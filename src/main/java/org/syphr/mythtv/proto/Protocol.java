@@ -1007,6 +1007,24 @@ public interface Protocol
     public boolean undeleteRecording(ProgramInfo program) throws IOException;
 
     /**
+     * Retrieve a list of constants of the given type that are valid for this
+     * protocol.<br>
+     * <br>
+     * This is useful to know before trying a command that a certain option is
+     * valid. For example, to use {@link #queryRecordings(RecordingCategory)}
+     * without the risk of sending an invalid category, first make sure it is in
+     * the list returned from
+     * <code>getAvailableTypes(RecordingCategory.class)</code>
+     *
+     * @param <E>
+     *            the generic enum type
+     * @param type
+     *            the enum class
+     * @return a list of constants that are valid for this protocol
+     */
+    public <E extends Enum<E>> List<E> getAvailableTypes(Class<E> type);
+
+    /**
      * Add a listener to receive unsolicited backend event messages.
      *
      * @param l

@@ -58,5 +58,13 @@ public abstract class AbstractProtocol implements Protocol
         return listeners;
     }
 
+    @Override
+    public <E extends Enum<E>> List<E> getAvailableTypes(Class<E> type)
+    {
+        return getTranslator().getAllowed(type);
+    }
+
     protected abstract BackendEventGrabber createEventGrabber();
+
+    protected abstract Translator getTranslator();
 }

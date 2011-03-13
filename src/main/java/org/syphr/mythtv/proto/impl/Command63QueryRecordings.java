@@ -42,7 +42,7 @@ import org.syphr.mythtv.proto.types.RecordingCategory;
     protected String getMessage() throws ProtocolException
     {
         return "QUERY_RECORDINGS "
-               + Protocol63Utils.getRecordingCategory(getRecCategory());
+               + Protocol63Utils.getTranslator().toString(getRecCategory());
     }
 
     @Override

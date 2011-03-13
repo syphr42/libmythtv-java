@@ -26,6 +26,7 @@ import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.data.Channel;
 import org.syphr.mythtv.proto.data.VideoEditInfo;
+import org.syphr.mythtv.proto.types.VideoEditMark;
 
 /* default */abstract class AbstractCommand63QueryVideoEditMarks extends AbstractCommand<List<VideoEditInfo>>
 {
@@ -78,7 +79,7 @@ import org.syphr.mythtv.proto.data.VideoEditInfo;
 
             for (int i = 1; i < args.size();)
             {
-                edits.add(new VideoEditInfo(Protocol63Utils.getVideoEditMark(Integer.parseInt(args.get(i++))),
+                edits.add(new VideoEditInfo(Protocol63Utils.getTranslator().toEnum(args.get(i++), VideoEditMark.class),
                                             ProtocolUtils.combineInts(Integer.parseInt(args.get(i++)),
                                                                       Integer.parseInt(args.get(i++)))));
             }

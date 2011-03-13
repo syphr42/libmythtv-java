@@ -42,37 +42,56 @@ public class ProtocolUtils
         return translated;
     }
 
-    public static <T> Set<T> translateMultiple(Long value, Map<Long, T> map)
+    public static <T> Set<T> translateMultiple(String value, Map<String, T> map) throws ProtocolException
     {
-        Set<T> set = new HashSet<T>();
-
-        for (Entry<Long, T> entry : map.entrySet())
+        try
         {
-            if ((value & entry.getKey()) > 0)
-            {
-                set.add(entry.getValue());
-            }
-        }
+            long longValue = Long.parseLong(value);
 
-        return set;
+            Set<T> set = new HashSet<T>();
+
+            for (Entry<String, T> entry : map.entrySet())
+            {
+                long longEntry = Long.parseLong(entry.getKey());
+
+                if ((longValue & longEntry) > 0)
+                {
+                    set.add(entry.getValue());
+                }
+            }
+
+            return set;
+        }
+        catch (NumberFormatException e)
+        {
+            throw new ProtocolException("Invalid value: " + value, Direction.RECEIVE, e);
+        }
     }
 
-    public static <T> long translateMultiple(Collection<T> values, Map<T, Long> map) throws ProtocolException
+    public static <T> String translateMultiple(Collection<T> values, Map<T, String> map) throws ProtocolException
     {
-        long result = 0;
-
-        for (T value : values)
+        try
         {
-            Long translated = map.get(value);
-            if (translated == null)
+            long result = 0;
+
+            for (T value : values)
             {
-                throw new ProtocolException("Invalid value: " + value, Direction.SEND);
+                String translated = map.get(value);
+                if (translated == null)
+                {
+                    throw new ProtocolException("Invalid value: " + value, Direction.SEND);
+                }
+
+                long longTranslated = Long.parseLong(translated);
+                result |= longTranslated;
             }
 
-            result |= translated;
+            return result == 0 ? "" : String.valueOf(result);
         }
-
-        return result;
+        catch (NumberFormatException e)
+        {
+            throw new ProtocolException("Invalid values: " + values, Direction.RECEIVE, e);
+        }
     }
 
     public static DateFormat getIsoDateFormat()
