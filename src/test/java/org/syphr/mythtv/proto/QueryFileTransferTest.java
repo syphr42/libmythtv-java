@@ -141,7 +141,7 @@ public class QueryFileTransferTest
     @Test
     public void testReadSeekRecording() throws IOException, CommandException
     {
-        List<ProgramInfo> programs = commandProto.queryRecordings(RecordingCategory.PLAY);
+        List<ProgramInfo> programs = commandProto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (programs.isEmpty())
         {
             return;

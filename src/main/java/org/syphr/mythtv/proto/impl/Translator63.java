@@ -82,7 +82,7 @@ public class Translator63 extends AbstractTranslator
     static
     {
         REC_CATEGORY_MAP.put(RecordingCategory.RECORDING, "Recording");
-        REC_CATEGORY_MAP.put(RecordingCategory.PLAY, "Play");
+        REC_CATEGORY_MAP.put(RecordingCategory.RECORDED_UNSORTED, "Play");
     }
 
     private static final BiMap<RecordingType, String> REC_TYPE_MAP = EnumHashBiMap.create(RecordingType.class);

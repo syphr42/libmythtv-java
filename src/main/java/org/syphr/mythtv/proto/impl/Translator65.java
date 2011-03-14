@@ -26,9 +26,9 @@ public class Translator65 extends Translator63
     static
     {
         REC_CATEGORY_MAP.put(RecordingCategory.RECORDING, "Recording");
-        REC_CATEGORY_MAP.put(RecordingCategory.ASCENDING, "Ascending");
-        REC_CATEGORY_MAP.put(RecordingCategory.DESCENDING, "Descending");
-        REC_CATEGORY_MAP.put(RecordingCategory.UNSORTED, "Unsorted");
+        REC_CATEGORY_MAP.put(RecordingCategory.RECORDED_UNSORTED, "Unsorted");
+        REC_CATEGORY_MAP.put(RecordingCategory.RECORDED_ASCENDING, "Ascending");
+        REC_CATEGORY_MAP.put(RecordingCategory.RECORDED_DESCENDING, "Descending");
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

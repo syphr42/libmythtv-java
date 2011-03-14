@@ -18,9 +18,8 @@ package org.syphr.mythtv.proto.types;
 public enum RecordingCategory
 {
     RECORDING,
-    PLAY,
 
-    ASCENDING,
-    DESCENDING,
-    UNSORTED
+    RECORDED_UNSORTED,
+    RECORDED_ASCENDING,
+    RECORDED_DESCENDING
 }
