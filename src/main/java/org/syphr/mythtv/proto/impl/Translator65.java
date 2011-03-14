@@ -31,13 +31,17 @@ public class Translator65 extends Translator63
         REC_CATEGORY_MAP.put(RecordingCategory.UNSORTED, "Unsorted");
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type)
     {
-        if (type == RecordingCategory.class)
+        /*
+         * Cast to raw BiMap necessary to appease javac (Eclipse doesn't require it).
+         */
+
+        if (RecordingCategory.class.equals(type))
         {
-            return (BiMap<E, String>) REC_CATEGORY_MAP;
+            return (BiMap)REC_CATEGORY_MAP;
         }
 
         return super.getMap(type);

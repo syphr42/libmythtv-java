@@ -218,68 +218,72 @@ public class Translator63 extends AbstractTranslator
         REC_FLAG_MAP.put(RecorderFlag.DETECT, String.valueOf(0x80000000L));
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type)
     {
-        if (type == RecordingStatus.class)
+        /*
+         * Cast to raw BiMap necessary to appease javac (Eclipse doesn't require it).
+         */
+
+        if (RecordingStatus.class.equals(type))
         {
-            return (BiMap<E, String>)REC_STATUS_MAP;
+            return (BiMap)REC_STATUS_MAP;
         }
 
-        if (type == ConnectionType.class)
+        if (ConnectionType.class.equals(type))
         {
-            return (BiMap<E, String>)CONN_TYPE_MAP;
+            return (BiMap)CONN_TYPE_MAP;
         }
 
-        if (type == EventLevel.class)
+        if (EventLevel.class.equals(type))
         {
-            return (BiMap<E, String>)EVENT_LEVEL_MAP;
+            return (BiMap)EVENT_LEVEL_MAP;
         }
 
-        if (type == RecordingCategory.class)
+        if (RecordingCategory.class.equals(type))
         {
-            return (BiMap<E, String>)REC_CATEGORY_MAP;
+            return (BiMap)REC_CATEGORY_MAP;
         }
 
-        if (type == RecordingType.class)
+        if (RecordingType.class.equals(type))
         {
-            return (BiMap<E, String>)REC_TYPE_MAP;
+            return (BiMap)REC_TYPE_MAP;
         }
 
-        if (type == TunerStatusCategory.class)
+        if (TunerStatusCategory.class.equals(type))
         {
-            return (BiMap<E, String>)TUNER_STATUS_CATEGORY_MAP;
+            return (BiMap)TUNER_STATUS_CATEGORY_MAP;
         }
 
-        if (type == FileTransferType.class)
+        if (FileTransferType.class.equals(type))
         {
-            return (BiMap<E, String>)FILE_TRANSFER_TYPE_MAP;
+            return (BiMap)FILE_TRANSFER_TYPE_MAP;
         }
 
-        if (type == VideoEditMark.class)
+        if (VideoEditMark.class.equals(type))
         {
-            return (BiMap<E, String>)VIDEO_EDIT_MARK_MAP;
+            return (BiMap)VIDEO_EDIT_MARK_MAP;
         }
 
-        if (type == TvState.class)
+        if (TvState.class.equals(type))
         {
-            return (BiMap<E, String>)TV_STATE_MAP;
+            return (BiMap)TV_STATE_MAP;
         }
 
-        if (type == SeekOrigin.class)
+        if (SeekOrigin.class.equals(type))
         {
-            return (BiMap<E, String>)SEEK_ORIGIN_MAP;
+            return (BiMap)SEEK_ORIGIN_MAP;
         }
 
-        if (type == SleepStatus.class)
+        if (SleepStatus.class.equals(type))
         {
-            return (BiMap<E, String>)SLEEP_STATUS_MAP;
+            return (BiMap)SLEEP_STATUS_MAP;
         }
 
-        if (type == RecorderFlag.class)
+        if (RecorderFlag.class.equals(type))
         {
-            return (BiMap<E, String>)REC_FLAG_MAP;
+            return (BiMap)REC_FLAG_MAP;
         }
 
         throw new IllegalArgumentException("Unknown type: " + type);

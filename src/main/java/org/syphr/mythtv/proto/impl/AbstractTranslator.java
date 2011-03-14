@@ -36,12 +36,17 @@ public abstract class AbstractTranslator implements Translator
         return new ArrayList<E>(getMap(type).keySet());
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <E extends Enum<E>> String toString(E constant) throws ProtocolException
     {
-        return translate(constant, getMap(constant.getClass()), Direction.RECEIVE);
+        /*
+         * Cast to String necessary to appease javac (Eclipse doesn't require it).
+         */
+        return (String)translate(constant, getMap(constant.getClass()), Direction.RECEIVE);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <E extends Enum<E>> String toString(Collection<E> constants) throws ProtocolException
     {
