@@ -34,6 +34,8 @@ public class QueryRecorderTest
 
     private static QueryRecorder queryRecorder;
 
+    private static boolean recording;
+
     @BeforeClass
     public static void setUpBeforeClass() throws IOException, CommandException
     {
@@ -44,6 +46,8 @@ public class QueryRecorderTest
         int recorderId = settings.getIntegerProperty(Settings.RECORDER);
         System.out.println("Interrogating recorder " + recorderId);
         queryRecorder = proto.queryRecorder(recorderId);
+
+        recording = queryRecorder.isRecording();
     }
 
     @AfterClass
@@ -54,8 +58,24 @@ public class QueryRecorderTest
     }
 
     @Test
-    public void testIsRecording() throws IOException, CommandException
+    public void testGetFrameRateRecording() throws IOException, CommandException
     {
-        System.out.println("Is recording? " + queryRecorder.isRecording());
+        if (!recording)
+        {
+            return;
+        }
+
+        System.out.println("Frame rate: " + queryRecorder.getFrameRate());
+    }
+
+    @Test(expected = CommandException.class)
+    public void testGetFrameRateNotRecording() throws IOException, CommandException
+    {
+        if (recording)
+        {
+            throw new CommandException();
+        }
+
+        queryRecorder.getFrameRate();
     }
 }

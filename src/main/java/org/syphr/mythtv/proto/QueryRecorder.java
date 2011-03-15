@@ -80,8 +80,19 @@ public interface QueryRecorder
     // TODO
     public void getFilePosition() throws IOException;
 
-    // TODO
-    public void getFramerate() throws IOException;
+    /**
+     * Get the frame rate of the current recording. Note that this command only
+     * works for recorders local to this backend.
+     *
+     * @return the frame rate
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
+     *
+     * @since 63
+     */
+    public float getFrameRate() throws IOException, CommandException;
 
     // TODO
     public void getFramesWritten() throws IOException;
