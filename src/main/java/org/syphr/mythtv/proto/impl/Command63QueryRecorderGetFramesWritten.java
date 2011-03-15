@@ -37,11 +37,6 @@ import org.syphr.mythtv.proto.ProtocolException.Direction;
     @Override
     public Long parseResponse(String response) throws ProtocolException, CommandException
     {
-        if ("-1".equals(response))
-        {
-            throw new CommandException("Unable to determine number of frames written");
-        }
-
         List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.size() != 2)
@@ -49,7 +44,19 @@ import org.syphr.mythtv.proto.ProtocolException.Direction;
             throw new ProtocolException(response, Direction.RECEIVE);
         }
 
-        return ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
-                                         Integer.parseInt(args.get(1)));
+        if ("-1".equals(args.get(0)))
+        {
+            throw new CommandException("Unable to determine number of frames written");
+        }
+
+        try
+        {
+            return ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
+                                             Integer.parseInt(args.get(1)));
+        }
+        catch (NumberFormatException e)
+        {
+            throw new ProtocolException(response, Direction.RECEIVE, e);
+        }
     }
 }
