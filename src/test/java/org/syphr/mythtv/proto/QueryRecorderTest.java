@@ -58,6 +58,28 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testGetFilePositionRecording() throws IOException, CommandException
+    {
+        if (!recording)
+        {
+            return;
+        }
+
+        System.out.println("File position: " + queryRecorder.getFilePosition() + "B");
+    }
+
+    @Test(expected = CommandException.class)
+    public void testGetFilePositionNotRecording() throws IOException, CommandException
+    {
+        if (recording)
+        {
+            throw new CommandException();
+        }
+
+        queryRecorder.getFilePosition();
+    }
+
+    @Test
     public void testGetFrameRateRecording() throws IOException, CommandException
     {
         if (!recording)

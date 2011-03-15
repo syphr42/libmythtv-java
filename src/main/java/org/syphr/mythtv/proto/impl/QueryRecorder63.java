@@ -126,9 +126,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getFilePosition()
+    public long getFilePosition() throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderGetFilePosition(getRecorderId()).send(getSocketManager());
     }
 
     @Override

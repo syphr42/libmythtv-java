@@ -77,8 +77,19 @@ public interface QueryRecorder
     // TODO
     public void getCurrentRecording() throws IOException;
 
-    // TODO
-    public void getFilePosition() throws IOException;
+    /**
+     * Get the number of bytes written to disk for the current recording. Note
+     * that this command only works for recorders local to this backend.
+     *
+     * @return the number of bytes written
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
+     *
+     * @since 63
+     */
+    public long getFilePosition() throws IOException, CommandException;
 
     /**
      * Get the frame rate of the current recording. Note that this command only
