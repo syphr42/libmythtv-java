@@ -26,8 +26,11 @@ import org.syphr.prom.PropertiesManagers;
 public enum Settings implements Defaultable
 {
     BACKEND_HOST("localhost"),
-    BACKEND_PORT("6543"),
-    BACKEND_TIMEOUT("10000"),
+
+    BACKEND_SOCKET_PORT("6543"),
+    BACKEND_SOCKET_TIMEOUT("10000"),
+
+    BACKEND_HTTP_PORT("6544"),
 
     FRONTEND_HOST("localhost"),
 

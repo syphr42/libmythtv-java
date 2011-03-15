@@ -42,8 +42,8 @@ public class BackendTest
                                                        ProtocolVersion.class),
                               ConnectionType.MONITOR);
         backend.connect(settings.getProperty(Settings.BACKEND_HOST),
-                        settings.getIntegerProperty(Settings.BACKEND_PORT),
-                        settings.getIntegerProperty(Settings.BACKEND_TIMEOUT));
+                        settings.getIntegerProperty(Settings.BACKEND_SOCKET_PORT),
+                        settings.getIntegerProperty(Settings.BACKEND_SOCKET_TIMEOUT));
     }
 
     @AfterClass
