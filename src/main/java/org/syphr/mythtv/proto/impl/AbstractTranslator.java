@@ -59,6 +59,20 @@ public abstract class AbstractTranslator implements Translator
         return translateMultiple(constants, getMap(firstElement.getClass()));
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public <E extends Enum<E>> String toString(Collection<E> constants,
+                                               String delimiter) throws ProtocolException
+    {
+        if (constants.isEmpty())
+        {
+            return "";
+        }
+
+        E firstElement = constants.iterator().next();
+        return translateMultiple(constants, delimiter, getMap(firstElement.getClass()));
+    }
+
     @Override
     public <E extends Enum<E>> E toEnum(String value, Class<E> type) throws ProtocolException
     {
@@ -106,6 +120,37 @@ public abstract class AbstractTranslator implements Translator
         {
             throw new ProtocolException("Invalid values: " + values, Direction.RECEIVE, e);
         }
+    }
+
+    private <T> String translateMultiple(Collection<T> values,
+                                         String delimiter,
+                                         Map<T, String> map) throws ProtocolException
+    {
+        StringBuilder builder = new StringBuilder();
+
+        for (T value : values)
+        {
+            String translated = map.get(value);
+            if (translated == null)
+            {
+                throw new ProtocolException("Invalid value: " + value,
+                                            Direction.SEND);
+            }
+
+            builder.append(translated);
+            builder.append(delimiter);
+        }
+
+        /*
+         * If we added at least one value to the string builder, remove the
+         * trailing delimiter.
+         */
+        if (builder.length() > 0)
+        {
+            builder.setLength(builder.length() - delimiter.length());
+        }
+
+        return builder.toString();
     }
 
     private <T> Set<T> translateMultiple(String value, Map<String, T> map) throws ProtocolException

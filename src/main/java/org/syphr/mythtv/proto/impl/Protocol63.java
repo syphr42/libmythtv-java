@@ -48,6 +48,7 @@ import org.syphr.mythtv.proto.events.impl.EventProtocol63;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
+import org.syphr.mythtv.proto.types.Verbose;
 import org.syphr.mythtv.proto.types.RecordingCategory;
 
 public class Protocol63 extends AbstractProtocol
@@ -461,6 +462,12 @@ public class Protocol63 extends AbstractProtocol
     public void setSetting(String host, String name, String value) throws IOException
     {
         new Command63SetSetting(host, name, value).send(getSocketManager());
+    }
+
+    @Override
+    public void setVerbose(List<Verbose> options) throws IOException, CommandException
+    {
+        new Command63SetVerbose(options).send(getSocketManager());
     }
 
     @Override

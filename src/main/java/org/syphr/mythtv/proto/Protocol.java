@@ -40,6 +40,7 @@ import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.EventLevel;
 import org.syphr.mythtv.proto.types.FileTransferType;
 import org.syphr.mythtv.proto.types.RecordingCategory;
+import org.syphr.mythtv.proto.types.Verbose;
 
 /**
  * This interface represents the combined API of all MythTV protocols that are supported.
@@ -964,6 +965,20 @@ public interface Protocol
      * @since 63
      */
     public void setSetting(String host, String name, String value) throws IOException;
+
+    /**
+     * Change the verbose logging options on the backend.
+     *
+     * @param options
+     *            the options to set
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend is unable to set the verbose logging options
+     *
+     * @since 63
+     */
+    public void setVerbose(List<Verbose> options) throws IOException, CommandException;
 
     /**
      * Request a slave backend to shut down with the given command. This request will have
