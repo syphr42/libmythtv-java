@@ -210,6 +210,12 @@ public class ProtocolTest
     }
 
     @Test
+    public void testMessageClearSettingsCache() throws IOException
+    {
+        proto.messageClearSettingsCache();
+    }
+
+    @Test
     public void testQueryBookmark() throws IOException
     {
         List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
@@ -613,7 +619,7 @@ public class ProtocolTest
 //    }
 //
 //    @Test
-//    public void testSetVerbose() throws IOException, CommandException
+//    public void testMessageSetVerbose() throws IOException, CommandException
 //    {
 //        proto.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.ALL); add(Verbose.NOT_CHANNEL); }});
 //        proto.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.IMPORTANT); add(Verbose.GENERAL); }});

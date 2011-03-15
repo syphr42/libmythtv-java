@@ -16,7 +16,6 @@
 package org.syphr.mythtv.proto.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.syphr.mythtv.proto.CommandException;
@@ -25,11 +24,11 @@ import org.syphr.mythtv.proto.ProtocolException.Direction;
 import org.syphr.mythtv.proto.SocketManager;
 import org.syphr.mythtv.proto.types.Verbose;
 
-/* default */class Command63SetVerbose extends AbstractCommand<Void>
+/* default */class Command63MessageSetVerbose extends AbstractCommand<Void>
 {
     private final List<Verbose> options;
 
-    public Command63SetVerbose(List<Verbose> options)
+    public Command63MessageSetVerbose(List<Verbose> options)
     {
         this.options = options;
     }
@@ -37,12 +36,9 @@ import org.syphr.mythtv.proto.types.Verbose;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        List<String> messageList = new ArrayList<String>();
-        messageList.add("MESSAGE");
-        messageList.add("SET_VERBOSE "
-                        + Protocol63Utils.getTranslator().toString(options, ","));
-
-        return Protocol63Utils.combineArguments(messageList);
+        return Protocol63Utils.combineArguments("MESSAGE",
+                                                "SET_VERBOSE "
+                                                        + Protocol63Utils.getTranslator().toString(options, ","));
     }
 
     @Override

@@ -410,6 +410,30 @@ public interface Protocol
     public RecorderDevice lockTuner(int recorderId) throws IOException, CommandException;
 
     /**
+     * Request that the backend clear cached settings.
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public void messageClearSettingsCache() throws IOException;
+
+    /**
+     * Change the verbose logging options on the backend.
+     *
+     * @param options
+     *            the options to set
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend is unable to set the verbose logging options
+     *
+     * @since 63
+     */
+    public void messageSetVerbose(List<Verbose> options) throws IOException, CommandException;
+
+    /**
      * Retrieve the bookmark set on a recording.
      *
      * @param channel
@@ -965,20 +989,6 @@ public interface Protocol
      * @since 63
      */
     public void setSetting(String host, String name, String value) throws IOException;
-
-    /**
-     * Change the verbose logging options on the backend.
-     *
-     * @param options
-     *            the options to set
-     * @throws IOException
-     *             if there is a communication or protocol error
-     * @throws CommandException
-     *             if the backend is unable to set the verbose logging options
-     *
-     * @since 63
-     */
-    public void setVerbose(List<Verbose> options) throws IOException, CommandException;
 
     /**
      * Request a slave backend to shut down with the given command. This request will have
