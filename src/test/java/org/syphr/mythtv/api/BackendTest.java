@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv;
+package org.syphr.mythtv.api;
 
 import java.io.IOException;
 
@@ -22,6 +22,7 @@ import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.syphr.mythtv.api.Backend;
 import org.syphr.mythtv.proto.CommandException;
 import org.syphr.mythtv.proto.types.ConnectionType;
 import org.syphr.mythtv.proto.types.ProtocolVersion;
