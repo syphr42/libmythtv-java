@@ -78,4 +78,26 @@ public class QueryRecorderTest
 
         queryRecorder.getFrameRate();
     }
+
+    @Test
+    public void testGetFramesWrittenRecording() throws IOException, CommandException
+    {
+        if (!recording)
+        {
+            return;
+        }
+
+        System.out.println("Frames written: " + queryRecorder.getFramesWritten());
+    }
+
+    @Test(expected = CommandException.class)
+    public void testGetFramesWrittenNotRecording() throws IOException, CommandException
+    {
+        if (recording)
+        {
+            throw new CommandException();
+        }
+
+        queryRecorder.getFramesWritten();
+    }
 }

@@ -138,9 +138,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getFramesWritten()
+    public long getFramesWritten() throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderGetFramesWritten(getRecorderId()).send(getSocketManager());
     }
 
     @Override
