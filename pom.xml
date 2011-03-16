@@ -65,6 +65,9 @@
 	</developers>
 
 	<dependencies>
+		<!--
+			Standard dependencies 
+		-->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -72,6 +75,10 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<!--
+			This dependency comes from the Apache snapshots repository until it is released.
+			http://repository.apache.org/snapshots 
+		-->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -93,6 +100,11 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
+		<!--
+			This dependency comes from the java.net repository.
+			http://download.java.net/maven/2 
+		-->
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
@@ -101,6 +113,9 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!--
+			Test only dependencies
+		-->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -123,12 +138,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>javanet</id>
-			<name>Java.net Repository</name>
-			<url>http://download.java.net/maven/2/</url>
-		</repository>
-	</repositories>
 </project>
