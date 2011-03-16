@@ -19,6 +19,11 @@ import java.io.IOException;
 
 public class ContentException extends IOException
 {
+    /**
+     * Serialization ID
+     */
+    private static final long serialVersionUID = 1L;
+
     public ContentException()
     {
         super();
