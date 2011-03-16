@@ -34,7 +34,7 @@ public class PixMap
         this.lastModified = lastModified.getTime();
         this.size = size;
         this.checksum = checksum;
-        this.data = data.clone();
+        this.data = data != null ? data.clone() : null;
     }
 
     public Date getLastModified()

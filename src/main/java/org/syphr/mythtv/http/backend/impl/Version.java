@@ -55,7 +55,8 @@ public class Version
                 if ((event.isStartElement() && VALUE_TAG.equals(event.asStartElement()
                                                                      .getName()
                                                                      .getLocalPart()))
-                    || (event.isAttribute() && VERSION_TAG.equals(((Attribute)event).getName())))
+                    || (event.isAttribute() && VERSION_TAG.equals(((Attribute) event).getName()
+                                                                                     .getLocalPart())))
                 {
                     return new Version(parser.getElementText());
                 }

@@ -18,6 +18,7 @@ package org.syphr.mythtv.proto.impl;
 import java.io.File;
 import java.net.URI;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -148,7 +149,14 @@ public class Protocol63Utils
         int i = 0;
         while (i < args.size())
         {
-            programs.add(parseProgramInfo(args.subList(i, i += 41), airDateFormat));
+            try
+            {
+                programs.add(parseProgramInfo(args.subList(i, i += 41), airDateFormat));
+            }
+            catch (IndexOutOfBoundsException e)
+            {
+                throw new ProtocolException(args.toString(), Direction.RECEIVE, e);
+            }
         }
 
         return programs;
@@ -255,7 +263,15 @@ public class Protocol63Utils
                                    subtitleType,
                                    year);
         }
-        catch (Exception e)
+        catch (NumberFormatException e)
+        {
+            throw new ProtocolException(args.toString(), Direction.RECEIVE, e);
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+            throw new ProtocolException(args.toString(), Direction.RECEIVE, e);
+        }
+        catch (ParseException e)
         {
             throw new ProtocolException(args.toString(), Direction.RECEIVE, e);
         }
