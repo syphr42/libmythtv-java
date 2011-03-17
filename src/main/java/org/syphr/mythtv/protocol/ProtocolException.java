@@ -17,6 +17,15 @@ package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
 
+/**
+ * This exception indicates that an unexpected response was received from the backend or
+ * an attempt was made to send data to a backend that does not understand it. The likely
+ * cause of this is that the backend is implementing a different version of the protocol
+ * than what the client declared during the initial connection or an invalid parameter was
+ * passed to a command.
+ *
+ * @author Gregory P. Moyer
+ */
 public class ProtocolException extends IOException
 {
     /**
@@ -37,13 +46,34 @@ public class ProtocolException extends IOException
         this.direction = direction;
     }
 
+    /**
+     * Get the direction of the communication when the exception occurred.
+     *
+     * @return {@link Direction#RECEIVE} if the problem was in a message received from the
+     *         backend; {@link Direction#SEND} if the problem was in a message sent from
+     *         the client
+     */
     public Direction getDirection()
     {
         return direction;
     }
 
+    /**
+     * This enum represents the network communication direction.
+     *
+     * @author Gregory P. Moyer
+     */
     public static enum Direction
     {
-        SEND, RECEIVE
+        /**
+         * Client => Server
+         */
+        SEND,
+
+
+        /**
+         * Server => Client
+         */
+        RECEIVE;
     }
 }
