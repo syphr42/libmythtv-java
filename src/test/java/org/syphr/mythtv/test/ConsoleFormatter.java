@@ -30,7 +30,7 @@ public class ConsoleFormatter extends Formatter
     public String format(LogRecord record)
     {
         StringBuilder formattedRecord = new StringBuilder(StringUtils.rightPad(record.getSourceClassName(),
-                                                                               50,
+                                                                               55,
                                                                                '.'));
         formattedRecord.append(" | ");
 
