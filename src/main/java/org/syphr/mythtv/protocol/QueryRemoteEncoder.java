@@ -27,6 +27,16 @@ import org.syphr.mythtv.protocol.types.RecordingStatus;
 import org.syphr.mythtv.protocol.types.SleepStatus;
 import org.syphr.mythtv.protocol.types.TvState;
 
+/**
+ * This interface is a sub-protocol to {@link Protocol} and represents the
+ * combined recorder information API of all MythTV protocols that are supported.
+ * However, any functionality that is not part of the protocol present in the
+ * most current stable release of MythTV will be marked as deprecated.
+ *
+ * @see QueryRecorder
+ *
+ * @author Gregory P. Moyer
+ */
 public interface QueryRemoteEncoder
 {
     /**

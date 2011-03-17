@@ -25,6 +25,8 @@ import org.syphr.mythtv.protocol.data.Channel;
  * However, any functionality that is not part of the protocol present in the
  * most current stable release of MythTV will be marked as deprecated.
  *
+ * @see QueryRemoteEncoder
+ *
  * @author Gregory P. Moyer
  */
 public interface QueryRecorder
