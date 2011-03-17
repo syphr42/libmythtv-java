@@ -38,12 +38,12 @@ public class BackendTest
     {
         PropertiesManager<Settings> settings = Settings.createSettings();
 
-        backend = new Backend(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
+        backend = new Backend(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
                                                        ProtocolVersion.class),
                               ConnectionType.MONITOR);
         backend.connect(settings.getProperty(Settings.BACKEND_HOST),
-                        settings.getIntegerProperty(Settings.BACKEND_SOCKET_PORT),
-                        settings.getIntegerProperty(Settings.BACKEND_SOCKET_TIMEOUT));
+                        settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_PORT),
+                        settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_TIMEOUT));
     }
 
     @AfterClass

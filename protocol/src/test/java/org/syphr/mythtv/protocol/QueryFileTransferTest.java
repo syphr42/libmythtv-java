@@ -112,7 +112,7 @@ public class QueryFileTransferTest
         Assert.assertEquals(TEST_STORAGE_GROUP, result.getUserInfo());
 
         SocketManager fileSocketManager = Utils.connect(settings);
-        Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
+        Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
                                                                                      ProtocolVersion.class),
                                                             fileSocketManager);
         fileProto.mythProtoVersion();
@@ -153,7 +153,7 @@ public class QueryFileTransferTest
         }
 
         SocketManager fileSocketManager = Utils.connect(settings);
-        Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
+        Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
                                                                                      ProtocolVersion.class),
                                                             fileSocketManager);
         fileProto.mythProtoVersion();
@@ -216,7 +216,7 @@ public class QueryFileTransferTest
         URI dest = new URI(TEST_URI);
 
         SocketManager fileSocketManager = Utils.connect(settings);
-        Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
+        Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
                                                                                      ProtocolVersion.class),
                                                             fileSocketManager);
         fileProto.mythProtoVersion();

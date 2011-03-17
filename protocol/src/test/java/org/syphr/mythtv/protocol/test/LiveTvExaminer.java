@@ -47,10 +47,10 @@ public class LiveTvExaminer
 
         SocketManager socketManager = new SocketManager();
         socketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
-                              settings.getIntegerProperty(Settings.BACKEND_SOCKET_PORT),
-                              settings.getIntegerProperty(Settings.BACKEND_SOCKET_TIMEOUT));
+                              settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_PORT),
+                              settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_TIMEOUT));
 
-        Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
+        Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
                                                                                  ProtocolVersion.class),
                                                         socketManager);
         proto.mythProtoVersion();

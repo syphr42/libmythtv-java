@@ -26,14 +26,13 @@ public enum Settings implements Defaultable
 {
     BACKEND_HOST("localhost"),
 
-    BACKEND_SOCKET_PORT("6543"),
-    BACKEND_SOCKET_TIMEOUT("10000"),
-
     BACKEND_HTTP_PORT("6544"),
 
-    FRONTEND_HOST("localhost"),
+    BACKEND_PROTOCOL_PORT("6543"),
+    BACKEND_PROTOCOL_TIMEOUT("10000"),
+    BACKEND_PROTOCOL_VERSION("SIXTY_THREE"),
 
-    PROTOCOL_VERSION("SIXTY_THREE"),
+    FRONTEND_HOST("localhost"),
 
     BUFFER_SIZE("8192"),
 

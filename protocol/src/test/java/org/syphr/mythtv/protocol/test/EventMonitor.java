@@ -41,7 +41,7 @@ public class EventMonitor
         PropertiesManager<Settings> settings = Settings.createSettings();
 
         SocketManager socketManager = Utils.connect(settings);
-        Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.PROTOCOL_VERSION,
+        Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
                                                                                  ProtocolVersion.class),
                                                         socketManager);
         proto.addBackendEventListener(eventListener63);
