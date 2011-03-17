@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.ProtocolException.Direction;
+import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.FileInfo;
 
 /* default */class Command63QueryFileExists extends AbstractCommand<FileInfo>
@@ -37,12 +37,22 @@ import org.syphr.mythtv.protocol.data.FileInfo;
         this.storageGroup = storageGroup;
     }
 
+    public URI getFilename()
+    {
+        return filename;
+    }
+
+    public String getStorageGroup()
+    {
+        return storageGroup;
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {
         return Protocol63Utils.combineArguments("QUERY_FILE_EXISTS",
-                                                filename.getPath(),
-                                                storageGroup);
+                                                getFilename().getPath(),
+                                                getStorageGroup());
     }
 
     @Override

@@ -16,10 +16,12 @@
 package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 
 import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.SocketManager;
+import org.syphr.mythtv.protocol.data.FileInfo;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.types.RecordingCategory;
 
@@ -47,6 +49,12 @@ public class Protocol65 extends Protocol64
                 return "D2BB94C2";
             }
         }.send(getSocketManager());
+    }
+
+    @Override
+    public FileInfo queryFileExists(URI filename, String storageGroup) throws IOException
+    {
+        return new Command65QueryFileExists(filename, storageGroup).send(getSocketManager());
     }
 
     @Override

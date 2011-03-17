@@ -506,7 +506,9 @@ public interface Protocol
      * @param filename
      *            the location of the file to check relative to a storage group
      * @param storageGroup
-     *            the name of the storage group to check
+     *            the name of the storage group to check (starting with version
+     *            65, this can be <code>null</code>, in which case the default
+     *            group will be used)
      * @return if it exists, information about the file; <code>null</code>
      *         otherwise
      * @throws IOException
