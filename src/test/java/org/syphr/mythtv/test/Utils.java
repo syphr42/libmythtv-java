@@ -22,15 +22,15 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.channels.FileChannel;
 
-import org.syphr.mythtv.proto.CommandException;
-import org.syphr.mythtv.proto.Protocol;
-import org.syphr.mythtv.proto.ProtocolFactory;
-import org.syphr.mythtv.proto.QueryFileTransfer;
-import org.syphr.mythtv.proto.SocketManager;
-import org.syphr.mythtv.proto.SocketManager.ReadWriteByteChannel;
-import org.syphr.mythtv.proto.types.ConnectionType;
-import org.syphr.mythtv.proto.types.EventLevel;
-import org.syphr.mythtv.proto.types.ProtocolVersion;
+import org.syphr.mythtv.protocol.CommandException;
+import org.syphr.mythtv.protocol.Protocol;
+import org.syphr.mythtv.protocol.ProtocolFactory;
+import org.syphr.mythtv.protocol.QueryFileTransfer;
+import org.syphr.mythtv.protocol.SocketManager;
+import org.syphr.mythtv.protocol.SocketManager.ReadWriteByteChannel;
+import org.syphr.mythtv.protocol.types.ConnectionType;
+import org.syphr.mythtv.protocol.types.EventLevel;
+import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.prom.PropertiesManager;
 
 public class Utils

@@ -18,7 +18,7 @@ package org.syphr.mythtv.test;
 import java.io.File;
 import java.io.IOException;
 
-import org.syphr.mythtv.proto.types.ProtocolVersion;
+import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.prom.Defaultable;
 import org.syphr.prom.PropertiesManager;
 import org.syphr.prom.PropertiesManagers;

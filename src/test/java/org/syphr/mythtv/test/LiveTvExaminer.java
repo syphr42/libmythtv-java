@@ -19,16 +19,16 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Date;
 
-import org.syphr.mythtv.proto.CommandException;
-import org.syphr.mythtv.proto.Protocol;
-import org.syphr.mythtv.proto.ProtocolFactory;
-import org.syphr.mythtv.proto.QueryRecorder;
-import org.syphr.mythtv.proto.SocketManager;
-import org.syphr.mythtv.proto.data.Channel;
-import org.syphr.mythtv.proto.data.RecorderLocation;
-import org.syphr.mythtv.proto.types.ConnectionType;
-import org.syphr.mythtv.proto.types.EventLevel;
-import org.syphr.mythtv.proto.types.ProtocolVersion;
+import org.syphr.mythtv.protocol.CommandException;
+import org.syphr.mythtv.protocol.Protocol;
+import org.syphr.mythtv.protocol.ProtocolFactory;
+import org.syphr.mythtv.protocol.QueryRecorder;
+import org.syphr.mythtv.protocol.SocketManager;
+import org.syphr.mythtv.protocol.data.Channel;
+import org.syphr.mythtv.protocol.data.RecorderLocation;
+import org.syphr.mythtv.protocol.types.ConnectionType;
+import org.syphr.mythtv.protocol.types.EventLevel;
+import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.prom.PropertiesManager;
 
 public class LiveTvExaminer

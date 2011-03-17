@@ -23,9 +23,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.syphr.mythtv.api.Backend;
-import org.syphr.mythtv.proto.CommandException;
-import org.syphr.mythtv.proto.types.ConnectionType;
-import org.syphr.mythtv.proto.types.ProtocolVersion;
+import org.syphr.mythtv.protocol.CommandException;
+import org.syphr.mythtv.protocol.types.ConnectionType;
+import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.prom.PropertiesManager;
 

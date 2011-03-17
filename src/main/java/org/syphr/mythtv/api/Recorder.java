@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.api;
 
-import org.syphr.mythtv.proto.QueryRecorder;
+import org.syphr.mythtv.protocol.QueryRecorder;
 
 public class Recorder
 {

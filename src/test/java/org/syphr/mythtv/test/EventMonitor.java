@@ -9,20 +9,20 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 
-import org.syphr.mythtv.proto.CommandException;
-import org.syphr.mythtv.proto.Protocol;
-import org.syphr.mythtv.proto.ProtocolFactory;
-import org.syphr.mythtv.proto.SocketManager;
-import org.syphr.mythtv.proto.data.Channel;
-import org.syphr.mythtv.proto.data.ProgramInfo;
-import org.syphr.mythtv.proto.data.TunerStatus;
-import org.syphr.mythtv.proto.events.BackendEventListener;
-import org.syphr.mythtv.proto.events.BackendEventListener63;
-import org.syphr.mythtv.proto.events.SystemEvent;
-import org.syphr.mythtv.proto.events.SystemEventData;
-import org.syphr.mythtv.proto.types.ConnectionType;
-import org.syphr.mythtv.proto.types.EventLevel;
-import org.syphr.mythtv.proto.types.ProtocolVersion;
+import org.syphr.mythtv.protocol.CommandException;
+import org.syphr.mythtv.protocol.Protocol;
+import org.syphr.mythtv.protocol.ProtocolFactory;
+import org.syphr.mythtv.protocol.SocketManager;
+import org.syphr.mythtv.protocol.data.Channel;
+import org.syphr.mythtv.protocol.data.ProgramInfo;
+import org.syphr.mythtv.protocol.data.TunerStatus;
+import org.syphr.mythtv.protocol.events.BackendEventListener;
+import org.syphr.mythtv.protocol.events.BackendEventListener63;
+import org.syphr.mythtv.protocol.events.SystemEvent;
+import org.syphr.mythtv.protocol.events.SystemEventData;
+import org.syphr.mythtv.protocol.types.ConnectionType;
+import org.syphr.mythtv.protocol.types.EventLevel;
+import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.prom.PropertiesManager;
 
 public class EventMonitor

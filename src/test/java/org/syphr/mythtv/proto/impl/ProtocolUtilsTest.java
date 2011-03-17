@@ -19,6 +19,7 @@ import junit.framework.Assert;
 
 import org.apache.commons.lang3.Pair;
 import org.junit.Test;
+import org.syphr.mythtv.protocol.impl.ProtocolUtils;
 
 public class ProtocolUtilsTest
 {
