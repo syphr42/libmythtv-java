@@ -19,12 +19,18 @@ import java.net.URI;
 
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 
 public class ConnectionManager
 {
+    private final Logger logger = LoggerFactory.getLogger(ConnectionManager.class);
+
     private final URI base;
 
     private final Client client;
@@ -52,26 +58,18 @@ public class ConnectionManager
 
     public String getXml(String... paths) throws ContentException
     {
-        try
-        {
-            return getWebResource(paths).accept(MediaType.APPLICATION_XML).get(String.class);
-        }
-        catch (UniformInterfaceException e)
-        {
-            throw new ContentException(e.getMessage(), e);
-        }
+        WebResource wr = getWebResource(paths);
+        logger.trace("Requesting XML from URI: {}", wr.getURI());
+
+        return getData(MediaType.APPLICATION_XML_TYPE, wr);
     }
 
     public String getJson(String... paths) throws ContentException
     {
-        try
-        {
-            return getWebResource(paths).accept(MediaType.APPLICATION_JSON).get(String.class);
-        }
-        catch (UniformInterfaceException e)
-        {
-            throw new ContentException(e.getMessage(), e);
-        }
+        WebResource wr = getWebResource(paths);
+        logger.trace("Requesting JSON from URI: {}", wr.getURI());
+
+        return getData(MediaType.APPLICATION_JSON_TYPE, wr);
     }
 
     private WebResource getWebResource(String... paths)
@@ -83,5 +81,21 @@ public class ConnectionManager
         }
 
         return wr;
+    }
+
+    private String getData(MediaType mediaType, WebResource wr) throws ContentException
+    {
+        try
+        {
+            return wr.accept(mediaType).get(String.class);
+        }
+        catch (UniformInterfaceException e)
+        {
+            throw new ContentException(e.getMessage(), e);
+        }
+        catch (ClientHandlerException e)
+        {
+            throw new ContentException(e.getMessage(), e);
+        }
     }
 }
