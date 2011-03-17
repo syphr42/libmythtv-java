@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.proto.impl;
+package org.syphr.mythtv.protocol.impl;
 
 import junit.framework.Assert;
 

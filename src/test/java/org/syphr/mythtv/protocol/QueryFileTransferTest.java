@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.proto;
+package org.syphr.mythtv.protocol;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
