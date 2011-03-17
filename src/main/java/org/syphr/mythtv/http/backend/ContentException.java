@@ -17,6 +17,14 @@ package org.syphr.mythtv.http.backend;
 
 import java.io.IOException;
 
+/**
+ * This exception indicates that an unexpected response (or lack of one) was received from
+ * the backend or an attempt was made to send data to a backend that does not understand
+ * it. The likely cause of this is that the backend is implementing a version of the data
+ * that this library does not support.
+ *
+ * @author Gregory P. Moyer
+ */
 public class ContentException extends IOException
 {
     /**
