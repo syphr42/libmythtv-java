@@ -17,6 +17,8 @@ package org.syphr.mythtv.test;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.LogManager;
 
 import org.syphr.prom.Defaultable;
 import org.syphr.prom.PropertiesManager;
@@ -37,6 +39,30 @@ public enum Settings implements Defaultable
     BUFFER_SIZE("8192"),
 
     RECORDER("1");
+
+    static
+    {
+        String loggingProps = System.getProperty("java.util.logging.config.file");
+        if (loggingProps == null)
+        {
+            try
+            {
+                InputStream in = Settings.class.getResourceAsStream("logging.properties");
+                try
+                {
+                    LogManager.getLogManager().readConfiguration(in);
+                }
+                finally
+                {
+                    in.close();
+                }
+            }
+            catch (Exception e)
+            {
+                System.out.println("Unable to configure logging");
+            }
+        }
+    }
 
     private final String defaultValue;
 
