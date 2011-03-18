@@ -168,9 +168,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getMaxBitrate()
+    public long getMaxBitrate() throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderGetMaxBitrate(getRecorderId()).send(getSocketManager());
     }
 
     @Override

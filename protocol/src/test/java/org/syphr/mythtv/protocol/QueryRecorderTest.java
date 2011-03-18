@@ -20,10 +20,6 @@ import java.io.IOException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.QueryRecorder;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.test.Settings;
@@ -125,5 +121,15 @@ public class QueryRecorderTest
         }
 
         queryRecorder.getFramesWritten();
+    }
+
+    @Test
+    public void testGetMaxBitRate() throws IOException, CommandException
+    {
+        long bps = queryRecorder.getMaxBitrate();
+        long kbps = bps / 1024;
+        long mbps = kbps / 1024;
+
+        System.out.println(String.format("Max bitrate: %dbps / %dkbps / %dmbps", bps, kbps, mbps));
     }
 }

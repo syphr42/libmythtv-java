@@ -133,8 +133,18 @@ public interface QueryRecorder
     // TODO
     public void getKeyframePos() throws IOException;
 
-    // TODO
-    public void getMaxBitrate() throws IOException;
+    /**
+     * Retrieve the maximum bits per second for this recorder.
+     *
+     * @return the max bitrate
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if this recorder is unknown
+     *
+     * @since 63
+     */
+    public long getMaxBitrate() throws IOException, CommandException;
 
     // TODO
     public void getNextProgramInfo() throws IOException;
