@@ -93,10 +93,8 @@ public class Protocol63Utils
                 long driveNumber = Long.parseLong(args.get(i++));
                 long storageGroupId = Long.parseLong(args.get(i++));
                 long blockSize = Long.parseLong(args.get(i++));
-                long totalSpace = ProtocolUtils.combineInts(Integer.parseInt(args.get(i++)),
-                                              Integer.parseInt(args.get(i++)));
-                long usedSpace = ProtocolUtils.combineInts(Integer.parseInt(args.get(i++)),
-                                             Integer.parseInt(args.get(i++)));
+                long totalSpace = ProtocolUtils.combineInts(args.get(i++), args.get(i++));
+                long usedSpace = ProtocolUtils.combineInts(args.get(i++), args.get(i++));
 
                 drives.add(new DriveInfo(hostname,
                                          driveRoot,

@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.ProtocolException.Direction;
+import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.VideoEditInfo;
 import org.syphr.mythtv.protocol.types.VideoEditMark;
@@ -80,8 +80,7 @@ import org.syphr.mythtv.protocol.types.VideoEditMark;
             for (int i = 1; i < args.size();)
             {
                 edits.add(new VideoEditInfo(Protocol63Utils.getTranslator().toEnum(args.get(i++), VideoEditMark.class),
-                                            ProtocolUtils.combineInts(Integer.parseInt(args.get(i++)),
-                                                                      Integer.parseInt(args.get(i++)))));
+                                            ProtocolUtils.combineInts(args.get(i++), args.get(i++))));
             }
 
             return edits;

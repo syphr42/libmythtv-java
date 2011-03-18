@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.ProtocolException.Direction;
+import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.Channel;
 
 /* default */class Command63QueryBookmark extends AbstractCommand<Long>
@@ -61,8 +61,7 @@ import org.syphr.mythtv.protocol.data.Channel;
 
         try
         {
-            return ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
-                                             Integer.parseInt(args.get(1)));
+            return ProtocolUtils.combineInts(args.get(0), args.get(1));
         }
         catch (NumberFormatException e)
         {

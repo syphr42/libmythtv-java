@@ -22,8 +22,8 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.ProtocolException.Direction;
+import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.Channel;
 
 /* default */class Command63SetBookmark extends AbstractCommand<Boolean>
@@ -50,7 +50,7 @@ import org.syphr.mythtv.protocol.data.Channel;
         builder.append(TimeUnit.MILLISECONDS.toSeconds(recStartTs.getTime()));
         builder.append(' ');
 
-        Pair<Integer, Integer> ints = ProtocolUtils.splitLong(location);
+        Pair<String, String> ints = ProtocolUtils.splitLong(location);
         builder.append(ints.getLeftElement());
         builder.append(' ');
         builder.append(ints.getRightElement());

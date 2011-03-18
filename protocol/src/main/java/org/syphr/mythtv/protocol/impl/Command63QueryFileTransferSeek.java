@@ -20,8 +20,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.ProtocolException.Direction;
+import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.types.SeekOrigin;
 
 /* default */class Command63QueryFileTransferSeek extends AbstractCommand<Long>
@@ -45,17 +45,17 @@ import org.syphr.mythtv.protocol.types.SeekOrigin;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        Pair<Integer, Integer> splitPosition = ProtocolUtils.splitLong(position);
-        Pair<Integer, Integer> splitCurPosition = ProtocolUtils.splitLong(curPosition);
+        Pair<String, String> splitPosition = ProtocolUtils.splitLong(position);
+        Pair<String, String> splitCurPosition = ProtocolUtils.splitLong(curPosition);
 
         return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
                                                         + socketNumber,
                                                 "SEEK",
-                                                String.valueOf(splitPosition.getLeftElement()),
-                                                String.valueOf(splitPosition.getRightElement()),
-                                                String.valueOf(Protocol63Utils.getTranslator().toString(origin)),
-                                                String.valueOf(splitCurPosition.getLeftElement()),
-                                                String.valueOf(splitCurPosition.getRightElement()));
+                                                splitPosition.getLeftElement(),
+                                                splitPosition.getRightElement(),
+                                                Protocol63Utils.getTranslator().toString(origin),
+                                                splitCurPosition.getLeftElement(),
+                                                splitCurPosition.getRightElement());
     }
 
     @Override
@@ -71,8 +71,7 @@ import org.syphr.mythtv.protocol.types.SeekOrigin;
 
         try
         {
-            return ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
-                                             Integer.parseInt(args.get(1)));
+            return ProtocolUtils.combineInts(args.get(0), args.get(1));
         }
         catch (NumberFormatException e)
         {

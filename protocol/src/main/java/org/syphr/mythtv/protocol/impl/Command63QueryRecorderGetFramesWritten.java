@@ -51,8 +51,7 @@ import org.syphr.mythtv.protocol.ProtocolException.Direction;
 
         try
         {
-            return ProtocolUtils.combineInts(Integer.parseInt(args.get(0)),
-                                             Integer.parseInt(args.get(1)));
+            return ProtocolUtils.combineInts(args.get(0), args.get(1));
         }
         catch (NumberFormatException e)
         {

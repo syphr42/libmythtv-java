@@ -19,7 +19,6 @@ import junit.framework.Assert;
 
 import org.apache.commons.lang3.Pair;
 import org.junit.Test;
-import org.syphr.mythtv.protocol.impl.ProtocolUtils;
 
 public class ProtocolUtilsTest
 {
@@ -28,7 +27,9 @@ public class ProtocolUtilsTest
     {
         long value = 1234567890098765432L;
 
-        Pair<Integer, Integer> split = ProtocolUtils.splitLong(value);
-        Assert.assertEquals(value, ProtocolUtils.combineInts(split.getLeftElement(), split.getRightElement()));
+        Pair<String, String> split = ProtocolUtils.splitLong(value);
+        Assert.assertEquals(value,
+                            ProtocolUtils.combineInts(split.getLeftElement(),
+                                                      split.getRightElement()));
     }
 }

@@ -20,9 +20,9 @@ import java.net.URI;
 import java.util.List;
 
 import org.syphr.mythtv.protocol.ProtocolException;
+import org.syphr.mythtv.protocol.ProtocolException.Direction;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.SocketManager;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
 import org.syphr.mythtv.protocol.types.FileTransferType;
 
 /* default */class Command63AnnFileTransfer extends AbstractCommand<QueryFileTransfer>
@@ -92,8 +92,7 @@ import org.syphr.mythtv.protocol.types.FileTransferType;
             }
 
             int socketNumber = Integer.parseInt(args.get(1));
-            long size = ProtocolUtils.combineInts(Integer.parseInt(args.get(2)),
-                                                  Integer.parseInt(args.get(3)));
+            long size = ProtocolUtils.combineInts(args.get(2), args.get(3));
 
             return new QueryFileTransfer63(socketNumber,
                                            size,
