@@ -27,6 +27,12 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 
+/**
+ * This class manages HTTP requests to the backend with a convenient API to retrieve data
+ * in multiple formats.
+ *
+ * @author Gregory P. Moyer
+ */
 public class ConnectionManager
 {
     private final Logger logger = LoggerFactory.getLogger(ConnectionManager.class);
@@ -51,11 +57,33 @@ public class ConnectionManager
         this.client = client;
     }
 
+    /**
+     * Create a new connection manager with an extended base URI. This is useful for
+     * passing a connection manager instance to a more specific class (such as a subset of
+     * REST methods) while still re-using the same client.<br>
+     * <br>
+     * For example:
+     *
+     * <pre>
+     * ConnectionManager connMan = new ConnectionManager("mythbackend", 6544);
+     * ...
+     *
+     * ConnectionManager guideConnMan = connMan.extend(URI.create("/Guide"));
+     * String guideXml = guideConnMan.getXml("GetProgramGuide");
+     * ...
+     * </pre>
+     *
+     * @param newBase
+     *            the URI to resolve against the current base that will be the base of the
+     *            new connection manager
+     * @return a new connection manager
+     */
     public ConnectionManager extend(URI newBase)
     {
         return new ConnectionManager(base.resolve(newBase), client);
     }
 
+    // TODO need to take arguments
     public String getXml(String... paths) throws ContentException
     {
         WebResource wr = getWebResource(paths);
@@ -64,12 +92,35 @@ public class ConnectionManager
         return getData(MediaType.APPLICATION_XML_TYPE, wr);
     }
 
+    // TODO need to take arguments
     public String getJson(String... paths) throws ContentException
     {
         WebResource wr = getWebResource(paths);
         logger.trace("Requesting JSON from URI: {}", wr.getURI());
 
         return getData(MediaType.APPLICATION_JSON_TYPE, wr);
+    }
+
+    public void put(String data, String... paths) throws ContentException
+    {
+        WebResource wr = getWebResource(paths);
+
+        // TODO encode data into uri or as payload
+
+        logger.trace("Posting to URI: {} :: {}", wr.getURI(), data);
+
+        try
+        {
+            wr.post();
+        }
+        catch (UniformInterfaceException e)
+        {
+            throw new ContentException(e.getMessage(), e);
+        }
+        catch (ClientHandlerException e)
+        {
+            throw new ContentException(e.getMessage(), e);
+        }
     }
 
     private WebResource getWebResource(String... paths)
@@ -87,7 +138,11 @@ public class ConnectionManager
     {
         try
         {
-            return wr.accept(mediaType).get(String.class);
+            String data = wr.accept(mediaType).get(String.class);
+
+            logger.trace("Received response: {}", data);
+
+            return data;
         }
         catch (UniformInterfaceException e)
         {
