@@ -13,10 +13,11 @@ a file after transferring it to local disk) is commented out by default.
 Test Settings
 ================
 
-The test cases provided here use a common properties file located at
-src/test/resources/settings.properties. If this file is missing or does
-not have all possible settings defined, default values will come from
-src/test/java/org/syphr/mythtv/test/Settings.java.
+The test cases provided here use a properties file located at
+src/test/resources/settings.properties for each individual module. If 
+this file is missing or does not have all possible settings defined, 
+default values will come from the test module in the enum located at
+src/main/java/org/syphr/mythtv/test/Settings.java.
 
 
 
@@ -24,6 +25,8 @@ Logging
 ================
 
 libmythtv-java uses SLF4J to handle logging. For testing, JDK logging
-is defined. To override settings, use the JVM argument 
--Djava.util.logging.config.file=/path/to/properties. A default config
-is provided at src/test/resources/logging.properties.
+is defined. Some custom logging settings are loaded by default by the
+Settings enum used in the test cases. To override these settings, use 
+the JVM argument -Djava.util.logging.config.file=/path/to/properties. 
+The default config is located in the test module at 
+src/main/resources/org/syphr/mythtv/test/logging.properties.
