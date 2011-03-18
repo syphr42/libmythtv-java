@@ -29,7 +29,7 @@
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
-	<name>MythTV Java API - Common Testing</name>
+	<name>Testing Utilities</name>
 	<description>This library provides common testing code for libmythtv-java.</description>
 
 	<dependencies>

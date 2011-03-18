@@ -29,7 +29,7 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <name>MythTV Java API - High-level Abstract</name>
+    <name>High-level API</name>
     <description>This library provides a high-level abstract Java API to the MythTV ecosystem.</description>
 
 	<dependencies>

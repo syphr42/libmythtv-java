@@ -29,7 +29,7 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <name>MythTV Java API - HTTP</name>
+    <name>HTTP</name>
     <description>This library provides a Java interface to the MythTV backend and frontend HTTP web service.</description>
 
 	<dependencies>
