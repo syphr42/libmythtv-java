@@ -36,14 +36,14 @@
         <dependency>
             <groupId>org.syphr</groupId>
             <artifactId>libmythtv-protocol</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.syphr</groupId>
             <artifactId>libmythtv-http</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>org.syphr</groupId>
             <artifactId>libmythtv-test</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>jar</type>
             <scope>test</scope>
         </dependency>
