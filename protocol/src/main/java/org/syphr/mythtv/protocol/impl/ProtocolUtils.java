@@ -103,8 +103,20 @@ public class ProtocolUtils
      */
     public static void sendExpectOk(SocketManager socketManager, String message) throws IOException
     {
-        String response = socketManager.sendAndWait(message);
+        expectOk(socketManager.sendAndWait(message));
+    }
 
+    /**
+     * Check the response for an "OK" message. Throw an exception if response is not
+     * expected.
+     *
+     * @param response
+     *            the response to check
+     * @throws ProtocolException
+     *             if the response is not the expected case-insensitive "OK"
+     */
+    public static void expectOk(String response) throws ProtocolException
+    {
         if (!"OK".equalsIgnoreCase(response))
         {
             throw new ProtocolException(response, Direction.RECEIVE);

@@ -15,12 +15,10 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.syphr.mythtv.protocol.ProtocolException;
 import org.syphr.mythtv.protocol.ProtocolException.Direction;
-import org.syphr.mythtv.protocol.SocketManager;
 
 /* default */class Command63QueryRemoteEncoderGetMaxBitrate extends AbstractCommand63QueryRemoteEncoder<Long>
 {
@@ -36,9 +34,8 @@ import org.syphr.mythtv.protocol.SocketManager;
     }
 
     @Override
-    public Long send(SocketManager socketManager) throws IOException
+    protected Long parseResponse(String response) throws ProtocolException
     {
-        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.size() != 2)

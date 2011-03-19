@@ -15,11 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
-
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
 import org.syphr.mythtv.protocol.types.TvState;
 
 /* default */class Command63QueryRemoteEncoderGetState extends AbstractCommand63QueryRemoteEncoder<TvState>
@@ -36,17 +32,8 @@ import org.syphr.mythtv.protocol.types.TvState;
     }
 
     @Override
-    public TvState send(SocketManager socketManager) throws IOException
+    protected TvState parseResponse(String response) throws ProtocolException
     {
-        String response = socketManager.sendAndWait(getMessage());
-
-        try
-        {
-            return Protocol63Utils.getTranslator().toEnum(response, TvState.class);
-        }
-        catch (NumberFormatException e)
-        {
-            throw new ProtocolException(response, Direction.RECEIVE, e);
-        }
+        return Protocol63Utils.getTranslator().toEnum(response, TvState.class);
     }
 }

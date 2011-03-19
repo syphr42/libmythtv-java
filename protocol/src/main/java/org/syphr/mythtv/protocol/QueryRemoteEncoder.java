@@ -49,10 +49,12 @@ public interface QueryRemoteEncoder
      *            the recording will continue as scheduled
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public void cancelNextRecording(boolean cancel) throws IOException;
+    public void cancelNextRecording(boolean cancel) throws IOException, CommandException;
 
     /**
      * Retrieve the currently recording program.
@@ -61,10 +63,12 @@ public interface QueryRemoteEncoder
      *         recording
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public ProgramInfo getCurrentRecording() throws IOException;
+    public ProgramInfo getCurrentRecording() throws IOException, CommandException;
 
     /**
      * Retrieve state information about various parts of the recorder.
@@ -72,13 +76,15 @@ public interface QueryRemoteEncoder
      * @return all set flags
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public Set<RecorderFlag> getFlags() throws IOException;
+    public Set<RecorderFlag> getFlags() throws IOException, CommandException;
 
     // TODO
-    public List<InputInfo> getFreeInputs() throws IOException;
+    public List<InputInfo> getFreeInputs() throws IOException, CommandException;
 
     /**
      * Retrieve the maximum bits per second for this recorder.
@@ -86,10 +92,12 @@ public interface QueryRemoteEncoder
      * @return the max bitrate
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public long getMaxBitrate() throws IOException;
+    public long getMaxBitrate() throws IOException, CommandException;
 
     /**
      * Retrieve the current recording status of this recorder.
@@ -97,10 +105,12 @@ public interface QueryRemoteEncoder
      * @return the status
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public RecordingStatus getRecordingStatus() throws IOException;
+    public RecordingStatus getRecordingStatus() throws IOException, CommandException;
 
     /**
      * Retrieve the current sleep/awake state of this recorder.
@@ -108,10 +118,12 @@ public interface QueryRemoteEncoder
      * @return the status
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public SleepStatus getSleepStatus() throws IOException;
+    public SleepStatus getSleepStatus() throws IOException, CommandException;
 
     /**
      * Retrieve the current state of this recorder.
@@ -119,10 +131,12 @@ public interface QueryRemoteEncoder
      * @return the state
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public TvState getState() throws IOException;
+    public TvState getState() throws IOException, CommandException;
 
     /**
      * Determine whether or not this recorder is busy or will be within the given number
@@ -134,10 +148,12 @@ public interface QueryRemoteEncoder
      *         not be busy
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public Pair<Boolean, InputInfo> isBusy(int withinSeconds) throws IOException;
+    public Pair<Boolean, InputInfo> isBusy(int withinSeconds) throws IOException, CommandException;
 
     /**
      * Determine whether or not the recorder is currently recording the given program.
@@ -148,10 +164,12 @@ public interface QueryRemoteEncoder
      *         <code>false</code> otherwise
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public boolean matchesRecording(ProgramInfo program) throws IOException;
+    public boolean matchesRecording(ProgramInfo program) throws IOException, CommandException;
 
     /**
      * Inform the backend that the given program is scheduled for this recorder in the
@@ -166,10 +184,12 @@ public interface QueryRemoteEncoder
      *            the program that is scheduled to be recorded
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public void recordPending(int secondsLeft, boolean hasLater, ProgramInfo program) throws IOException;
+    public void recordPending(int secondsLeft, boolean hasLater, ProgramInfo program) throws IOException, CommandException;
 
     /**
      * Request the given program start recording on this recorder.
@@ -180,18 +200,22 @@ public interface QueryRemoteEncoder
      *         <code>false</code> otherwise
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public boolean startRecording(ProgramInfo program) throws IOException;
+    public boolean startRecording(ProgramInfo program) throws IOException, CommandException;
 
     /**
      * Request that this recorder stop recording, if it is currently recording.
      *
      * @throws IOException
      *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
      *
      * @since 63
      */
-    public void stopRecording() throws IOException;
+    public void stopRecording() throws IOException, CommandException;
 }

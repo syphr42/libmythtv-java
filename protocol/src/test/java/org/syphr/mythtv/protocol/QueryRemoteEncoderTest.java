@@ -60,19 +60,19 @@ public class QueryRemoteEncoderTest
     }
 
     @Test
-    public void testGetCurrentRecording() throws IOException
+    public void testGetCurrentRecording() throws IOException, CommandException
     {
         System.out.println("Current recording: " + queryRemoteEncoder.getCurrentRecording());
     }
 
     @Test
-    public void testGetFlags() throws IOException
+    public void testGetFlags() throws IOException, CommandException
     {
         System.out.println("Flags: " + queryRemoteEncoder.getFlags());
     }
 
     @Test
-    public void testGetMaxBitrate() throws IOException
+    public void testGetMaxBitrate() throws IOException, CommandException
     {
         long bps = queryRemoteEncoder.getMaxBitrate();
         long kbps = bps / 1024;
@@ -82,19 +82,19 @@ public class QueryRemoteEncoderTest
     }
 
     @Test
-    public void testGetRecordingStatus() throws IOException
+    public void testGetRecordingStatus() throws IOException, CommandException
     {
         System.out.println("Recording status: " + queryRemoteEncoder.getRecordingStatus());
     }
 
     @Test
-    public void testGetSleepStatus() throws IOException
+    public void testGetSleepStatus() throws IOException, CommandException
     {
         System.out.println("Sleep status: " + queryRemoteEncoder.getSleepStatus());
     }
 
     @Test
-    public void testGetState() throws IOException
+    public void testGetState() throws IOException, CommandException
     {
         System.out.println("State: " + queryRemoteEncoder.getState());
     }
@@ -129,7 +129,7 @@ public class QueryRemoteEncoderTest
      */
 
 //    @Test
-//    public void testStopRecording() throws IOException
+//    public void testStopRecording() throws IOException, CommandException
 //    {
 //        queryRemoteEncoder.stopRecording();
 //    }

@@ -15,12 +15,9 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
 import java.util.Set;
 
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
 import org.syphr.mythtv.protocol.types.RecorderFlag;
 
 /* default */class Command63QueryRemoteEncoderGetFlags extends AbstractCommand63QueryRemoteEncoder<Set<RecorderFlag>>
@@ -37,17 +34,8 @@ import org.syphr.mythtv.protocol.types.RecorderFlag;
     }
 
     @Override
-    public Set<RecorderFlag> send(SocketManager socketManager) throws IOException
+    protected Set<RecorderFlag> parseResponse(String response) throws ProtocolException
     {
-        String response = socketManager.sendAndWait(getMessage());
-
-        try
-        {
-            return Protocol63Utils.getTranslator().toEnums(response, RecorderFlag.class);
-        }
-        catch (NumberFormatException e)
-        {
-            throw new ProtocolException(response, Direction.RECEIVE, e);
-        }
+        return Protocol63Utils.getTranslator().toEnums(response, RecorderFlag.class);
     }
 }

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.Pair;
+import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
 import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.InputInfo;
@@ -37,19 +38,19 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public void cancelNextRecording(boolean cancel) throws IOException
+    public void cancelNextRecording(boolean cancel) throws IOException, CommandException
     {
         new Command63QueryRemoteEncoderCancelNextRecording(getRecorderId(), cancel).send(getSocketManager());
     }
 
     @Override
-    public ProgramInfo getCurrentRecording() throws IOException
+    public ProgramInfo getCurrentRecording() throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderGetCurrentRecording(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public Set<RecorderFlag> getFlags() throws IOException
+    public Set<RecorderFlag> getFlags() throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderGetFlags(getRecorderId()).send(getSocketManager());
     }
@@ -61,55 +62,55 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public long getMaxBitrate() throws IOException
+    public long getMaxBitrate() throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderGetMaxBitrate(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public RecordingStatus getRecordingStatus() throws IOException
+    public RecordingStatus getRecordingStatus() throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderGetRecordingStatus(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public SleepStatus getSleepStatus() throws IOException
+    public SleepStatus getSleepStatus() throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderGetSleepStatus(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public TvState getState() throws IOException
+    public TvState getState() throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderGetState(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public Pair<Boolean, InputInfo> isBusy(int withinSeconds) throws IOException
+    public Pair<Boolean, InputInfo> isBusy(int withinSeconds) throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderIsBusy(getRecorderId(), withinSeconds).send(getSocketManager());
     }
 
     @Override
-    public boolean matchesRecording(ProgramInfo program) throws IOException
+    public boolean matchesRecording(ProgramInfo program) throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderMatchesRecording(getRecorderId(), program).send(getSocketManager());
     }
 
     @Override
-    public void recordPending(int secondsLeft, boolean hasLater, ProgramInfo program) throws IOException
+    public void recordPending(int secondsLeft, boolean hasLater, ProgramInfo program) throws IOException, CommandException
     {
         new Command63QueryRemoteEncoderRecordPending(getRecorderId(), secondsLeft, hasLater, program).send(getSocketManager());
     }
 
     @Override
-    public boolean startRecording(ProgramInfo program) throws IOException
+    public boolean startRecording(ProgramInfo program) throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderStartRecording(getRecorderId(), program).send(getSocketManager());
     }
 
     @Override
-    public void stopRecording() throws IOException
+    public void stopRecording() throws IOException, CommandException
     {
         new Command63QueryRemoteEncoderStopRecording(getRecorderId()).send(getSocketManager());
     }

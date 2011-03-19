@@ -15,12 +15,11 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang3.Pair;
+import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.ProtocolException.Direction;
 import org.syphr.mythtv.protocol.data.InputInfo;
 
@@ -41,9 +40,9 @@ import org.syphr.mythtv.protocol.data.InputInfo;
     }
 
     @Override
-    public Pair<Boolean, InputInfo> send(SocketManager socketManager) throws IOException
+    protected Pair<Boolean, InputInfo> parseResponse(String response) throws ProtocolException,
+                                                                     CommandException
     {
-        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.size() != 6)

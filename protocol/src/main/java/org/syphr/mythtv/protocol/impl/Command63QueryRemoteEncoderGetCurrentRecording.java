@@ -15,11 +15,9 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.types.RecordingType;
 
@@ -37,9 +35,8 @@ import org.syphr.mythtv.protocol.types.RecordingType;
     }
 
     @Override
-    public ProgramInfo send(SocketManager socketManager) throws IOException
+    protected ProgramInfo parseResponse(String response) throws ProtocolException
     {
-        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.splitArguments(response);
 
         ProgramInfo program = Protocol63Utils.parseProgramInfo(args);

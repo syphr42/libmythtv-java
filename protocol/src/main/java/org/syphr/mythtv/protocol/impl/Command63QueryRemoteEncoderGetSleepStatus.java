@@ -15,11 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
-
+import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
 import org.syphr.mythtv.protocol.types.SleepStatus;
 
 /* default */class Command63QueryRemoteEncoderGetSleepStatus extends AbstractCommand63QueryRemoteEncoder<SleepStatus>
@@ -36,17 +33,8 @@ import org.syphr.mythtv.protocol.types.SleepStatus;
     }
 
     @Override
-    public SleepStatus send(SocketManager socketManager) throws IOException
+    protected SleepStatus parseResponse(String response) throws ProtocolException, CommandException
     {
-        String response = socketManager.sendAndWait(getMessage());
-
-        try
-        {
-            return Protocol63Utils.getTranslator().toEnum(response, SleepStatus.class);
-        }
-        catch (NumberFormatException e)
-        {
-            throw new ProtocolException(response, Direction.RECEIVE, e);
-        }
+        return Protocol63Utils.getTranslator().toEnum(response, SleepStatus.class);
     }
 }

@@ -15,12 +15,11 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.ProtocolException.Direction;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 
@@ -45,10 +44,8 @@ import org.syphr.mythtv.protocol.data.ProgramInfo;
     }
 
     @Override
-    public Boolean send(SocketManager socketManager) throws IOException
+    protected Boolean parseResponse(String response) throws ProtocolException, CommandException
     {
-        String response = socketManager.sendAndWait(getMessage());
-
         if ("-1".equals(response) || "0".equals(response))
         {
             return false;

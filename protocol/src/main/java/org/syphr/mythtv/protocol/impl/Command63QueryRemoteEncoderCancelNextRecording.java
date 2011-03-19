@@ -15,10 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
-
 import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
 
 /* default */class Command63QueryRemoteEncoderCancelNextRecording extends AbstractCommand63QueryRemoteEncoder<Void>
 {
@@ -37,9 +34,9 @@ import org.syphr.mythtv.protocol.SocketManager;
     }
 
     @Override
-    public Void send(SocketManager socketManager) throws IOException
+    protected Void parseResponse(String response) throws ProtocolException
     {
-        ProtocolUtils.sendExpectOk(socketManager, getMessage());
+        ProtocolUtils.expectOk(response);
         return null;
     }
 }
