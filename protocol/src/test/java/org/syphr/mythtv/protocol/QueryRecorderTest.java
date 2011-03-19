@@ -58,6 +58,12 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testGetCurrentRecording() throws IOException, CommandException
+    {
+        System.out.println("Current recording: " + queryRecorder.getCurrentRecording());
+    }
+
+    @Test
     public void testGetFilePositionRecording() throws IOException, CommandException
     {
         if (!recording)

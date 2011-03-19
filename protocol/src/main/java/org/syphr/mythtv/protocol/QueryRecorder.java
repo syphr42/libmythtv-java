@@ -18,6 +18,7 @@ package org.syphr.mythtv.protocol;
 import java.io.IOException;
 
 import org.syphr.mythtv.protocol.data.Channel;
+import org.syphr.mythtv.protocol.data.ProgramInfo;
 
 /**
  * This interface is a sub-protocol to {@link Protocol} and represents the
@@ -76,8 +77,19 @@ public interface QueryRecorder
     // TODO
     public void getContrast() throws IOException;
 
-    // TODO
-    public void getCurrentRecording() throws IOException;
+    /**
+     * Retrieve the currently recording program.
+     *
+     * @return the currently recording program or <code>null</code> if nothing is
+     *         recording
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
+     *
+     * @since 63
+     */
+    public ProgramInfo getCurrentRecording() throws IOException, CommandException;
 
     /**
      * Get the number of bytes written to disk for the current recording. Note
