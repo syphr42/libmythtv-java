@@ -50,5 +50,7 @@
     </menu>
     
     <menu ref="modules" inherit="top"/>
+    
+    <menu ref="parent"/>
   </body>
 </project>
