@@ -130,6 +130,30 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testGetKeyframePosRecording() throws IOException, CommandException
+    {
+        if (!recording)
+        {
+            return;
+        }
+
+        long desiredPosition = queryRecorder.getFramesWritten() / 2;
+        System.out.println("Keyframe position: " + queryRecorder.getKeyframePos(desiredPosition));
+    }
+
+    @Test(expected = CommandException.class)
+    public void testGetKeyframePosNotRecording() throws IOException, CommandException
+    {
+        if (recording)
+        {
+            throw new CommandException();
+        }
+
+        long desiredPosition = queryRecorder.getFramesWritten() / 2;
+        queryRecorder.getKeyframePos(desiredPosition);
+    }
+
+    @Test
     public void testGetMaxBitRate() throws IOException, CommandException
     {
         long bps = queryRecorder.getMaxBitrate();

@@ -163,9 +163,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getKeyframePos()
+    public long getKeyframePos(long desiredPosition) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderGetKeyframePos(getRecorderId(), desiredPosition).send(getSocketManager());
     }
 
     @Override

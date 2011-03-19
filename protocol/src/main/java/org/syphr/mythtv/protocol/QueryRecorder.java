@@ -142,8 +142,18 @@ public interface QueryRecorder
     // TODO
     public void getInput() throws IOException;
 
-    // TODO
-    public void getKeyframePos() throws IOException;
+    /**
+     * Get the closest key frame position to the desired position.
+     *
+     * @param desiredPosition
+     *            the desired frame position
+     * @return the keyframe position closest to the desired location
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if this recorder is unknown
+     */
+    public long getKeyframePos(long desiredPosition) throws IOException, CommandException;
 
     /**
      * Retrieve the maximum bits per second for this recorder.
