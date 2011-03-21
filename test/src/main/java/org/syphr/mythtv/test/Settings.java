@@ -40,6 +40,12 @@ public enum Settings implements Defaultable
 
     RECORDER("1");
 
+    private static final String SETTINGS_ENV_VAR = "LIBMYTHTV_JAVA_TEST_SETTINGS";
+
+    private static final String SETTINGS_SYS_PROP = "libmythtv.java.test.settings";
+
+    private static final String DEFAULT_SETTINGS_FILE = "src/test/resources/settings.properties";
+
     static
     {
         String loggingProps = System.getProperty("java.util.logging.config.file");
@@ -79,7 +85,17 @@ public enum Settings implements Defaultable
 
     public static PropertiesManager<Settings> createSettings() throws IOException
     {
-        PropertiesManager<Settings> settings = PropertiesManagers.newManager(new File("src/test/resources/settings.properties"),
+        String settingsFile = System.getenv(SETTINGS_ENV_VAR);
+        if (settingsFile == null)
+        {
+            settingsFile = System.getProperty(SETTINGS_SYS_PROP);
+        }
+        if (settingsFile == null)
+        {
+            settingsFile = DEFAULT_SETTINGS_FILE;
+        }
+
+        PropertiesManager<Settings> settings = PropertiesManagers.newManager(new File(settingsFile),
                                                                              Settings.class);
         settings.load();
 

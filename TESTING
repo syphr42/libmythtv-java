@@ -13,10 +13,13 @@ a file after transferring it to local disk) is commented out by default.
 Test Settings
 ================
 
-The test cases provided here use a properties file located at
-src/test/resources/settings.properties for each individual module. If 
-this file is missing or does not have all possible settings defined, 
-default values will come from the test module in the enum located at
+The test cases provided here use a properties file that is, by default,
+located at src/test/resources/settings.properties for each individual 
+module. This location can be overridden by setting the environment 
+variable LIBMYTHTV_JAVA_TEST_SETTINGS or passing the system property
+libmythtv.java.test.settings to the JVM (via -D). If this file is 
+missing or does not have all possible settings defined, default values 
+will come from the test module in the enum located at
 src/main/java/org/syphr/mythtv/test/Settings.java.
 
 
