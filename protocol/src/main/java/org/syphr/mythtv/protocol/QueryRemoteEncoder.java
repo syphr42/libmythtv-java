@@ -50,7 +50,7 @@ public interface QueryRemoteEncoder
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
-     *             if the recorder is not local or it is not currently recording
+     *             if the recorder is unknown
      *
      * @since 63
      */

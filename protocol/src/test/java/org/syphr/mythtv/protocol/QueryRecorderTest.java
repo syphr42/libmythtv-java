@@ -90,6 +90,12 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testCancelNextRecording() throws IOException
+    {
+        // TODO
+    }
+
+    @Test
     public void testGetCurrentRecording() throws IOException, CommandException
     {
         System.out.println("Current recording: " + queryRecorder.getCurrentRecording());

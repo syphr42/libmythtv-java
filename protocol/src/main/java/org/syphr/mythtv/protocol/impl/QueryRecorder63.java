@@ -32,9 +32,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void cancelNextRecording()
+    public void cancelNextRecording(boolean cancel) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        new Command63QueryRecorderCancelNextRecording(getRecorderId(), cancel).send(getSocketManager());
     }
 
     @Override

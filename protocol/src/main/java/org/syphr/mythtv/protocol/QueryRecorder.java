@@ -33,8 +33,22 @@ import org.syphr.mythtv.protocol.data.ProgramInfo;
  */
 public interface QueryRecorder
 {
-    // TODO
-    public void cancelNextRecording() throws IOException;
+    /**
+     * Inform this encoder to cancel or continue recording the next program scheduled to
+     * be recorded. This is useful when the encoder is recording live TV and there is a
+     * scheduled recording that needs this encoder.
+     *
+     * @param cancel
+     *            if <code>true</code>, the next recording will be cancelled; otherwise
+     *            the recording will continue as scheduled
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public void cancelNextRecording(boolean cancel) throws IOException, CommandException;
 
     // TODO
     public void changeBrightness() throws IOException;
