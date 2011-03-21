@@ -92,9 +92,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void frontendReady()
+    public void frontendReady() throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        new Command63QueryRecorderFrontendReady(getRecorderId()).send(getSocketManager());
     }
 
     @Override

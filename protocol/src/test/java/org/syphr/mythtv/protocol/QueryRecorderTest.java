@@ -84,6 +84,12 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testFrontendReady() throws IOException, CommandException
+    {
+        queryRecorder.frontendReady();
+    }
+
+    @Test
     public void testGetCurrentRecording() throws IOException, CommandException
     {
         System.out.println("Current recording: " + queryRecorder.getCurrentRecording());

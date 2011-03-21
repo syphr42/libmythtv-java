@@ -77,8 +77,17 @@ public interface QueryRecorder
     // TODO
     public void finishRecording() throws IOException;
 
-    // TODO
-    public void frontendReady() throws IOException;
+    /**
+     * Inform the backend that this client is ready for data.<br>
+     * <br>
+     * TODO - this needs clarification
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     */
+    public void frontendReady() throws IOException, CommandException;
 
     // TODO
     public void getBrightness() throws IOException;
