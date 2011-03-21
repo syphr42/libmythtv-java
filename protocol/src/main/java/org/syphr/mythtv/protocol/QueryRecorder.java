@@ -51,25 +51,25 @@ public interface QueryRecorder
     public void cancelNextRecording(boolean cancel) throws IOException, CommandException;
 
     // TODO
-    public void changeBrightness() throws IOException;
+    public void changeBrightness() throws IOException, CommandException;
 
     // TODO
-    public void changeChannel() throws IOException;
+    public void changeChannel() throws IOException, CommandException;
 
     // TODO
-    public void changeColour() throws IOException;
+    public void changeColour() throws IOException, CommandException;
 
     // TODO
-    public void changeContrast() throws IOException;
+    public void changeContrast() throws IOException, CommandException;
 
     // TODO
-    public void changeHue() throws IOException;
+    public void changeHue() throws IOException, CommandException;
 
     // TODO
-    public void checkChannel() throws IOException;
+    public void checkChannel() throws IOException, CommandException;
 
     // TODO
-    public void checkChannelPrefix() throws IOException;
+    public void checkChannelPrefix() throws IOException, CommandException;
 
     /**
      * Get a map of keyframe positions to file byte offsets for all of the
@@ -89,7 +89,7 @@ public interface QueryRecorder
     public Map<Long, Long> fillPositionMap(long start, long end) throws IOException, CommandException;
 
     // TODO
-    public void finishRecording() throws IOException;
+    public void finishRecording() throws IOException, CommandException;
 
     /**
      * Inform the backend that this client is ready for data.<br>
@@ -104,16 +104,16 @@ public interface QueryRecorder
     public void frontendReady() throws IOException, CommandException;
 
     // TODO
-    public void getBrightness() throws IOException;
+    public void getBrightness() throws IOException, CommandException;
 
     // TODO
-    public void getChannelInfo() throws IOException;
+    public void getChannelInfo() throws IOException, CommandException;
 
     // TODO
-    public void getColour() throws IOException;
+    public void getColour() throws IOException, CommandException;
 
     // TODO
-    public void getContrast() throws IOException;
+    public void getContrast() throws IOException, CommandException;
 
     /**
      * Retrieve the currently recording program.
@@ -172,13 +172,13 @@ public interface QueryRecorder
     public long getFramesWritten() throws IOException, CommandException;
 
     // TODO
-    public void getFreeInputs() throws IOException;
+    public void getFreeInputs() throws IOException, CommandException;
 
     // TODO
-    public void getHue() throws IOException;
+    public void getHue() throws IOException, CommandException;
 
     // TODO
-    public void getInput() throws IOException;
+    public void getInput() throws IOException, CommandException;
 
     /**
      * Get the closest keyframe position to the desired position.
@@ -207,10 +207,10 @@ public interface QueryRecorder
     public long getMaxBitrate() throws IOException, CommandException;
 
     // TODO
-    public void getNextProgramInfo() throws IOException;
+    public void getNextProgramInfo() throws IOException, CommandException;
 
     // TODO
-    public void getRecordingStatus() throws IOException;
+    public void getRecordingStatus() throws IOException, CommandException;
 
     /**
      * Determine whether or not this recorder is currently recording.
@@ -226,20 +226,28 @@ public interface QueryRecorder
      */
     public boolean isRecording() throws IOException, CommandException;
 
-    // TODO
-    public void pause() throws IOException;
+    /**
+     * Request that the backend pause this recorder. This command will do
+     * nothing if the recorder is not local to the connected backend.
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if this recorder is unknown
+     */
+    public void pause() throws IOException, CommandException;
 
     // TODO
-    public void setChannel() throws IOException;
+    public void setChannel() throws IOException, CommandException;
 
     // TODO
-    public void setInput() throws IOException;
+    public void setInput() throws IOException, CommandException;
 
     // TODO
-    public void setSignalMonitoringRate() throws IOException;
+    public void setSignalMonitoringRate() throws IOException, CommandException;
 
     // TODO
-    public void shouldSwitchCard() throws IOException;
+    public void shouldSwitchCard() throws IOException, CommandException;
 
     /**
      * Request a new LiveTV chain to start recording.

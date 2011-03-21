@@ -200,4 +200,10 @@ public class QueryRecorderTest
 
         System.out.println(String.format("Max bitrate: %dbps / %dkbps / %dmbps", bps, kbps, mbps));
     }
+
+    @Test
+    public void testPause() throws IOException
+    {
+        // TODO
+    }
 }

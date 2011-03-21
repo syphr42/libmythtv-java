@@ -194,9 +194,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void pause()
+    public void pause() throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        new Command63QueryRecorderPause(getRecorderId()).send(getSocketManager());
     }
 
     @Override
