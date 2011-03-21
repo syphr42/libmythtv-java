@@ -30,7 +30,7 @@ import org.syphr.mythtv.protocol.ProtocolException;
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("CANCEL_NEXT_RECORDING", String.valueOf(cancel));
+        return Protocol63Utils.combineArguments("CANCEL_NEXT_RECORDING", cancel ? "1" : "0");
     }
 
     @Override
