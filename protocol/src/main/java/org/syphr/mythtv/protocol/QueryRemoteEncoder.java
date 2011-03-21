@@ -208,7 +208,7 @@ public interface QueryRemoteEncoder
     public boolean startRecording(ProgramInfo program) throws IOException, CommandException;
 
     /**
-     * Request that this recorder stop recording, if it is currently recording.
+     * Request that this recorder stop recording immediately.
      *
      * @throws IOException
      *             if there is a communication or protocol error
