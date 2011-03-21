@@ -187,9 +187,6 @@ public interface QueryRecorder
     public void getNextProgramInfo() throws IOException;
 
     // TODO
-    public void getRecording() throws IOException;
-
-    // TODO
     public void getRecordingStatus() throws IOException;
 
     /**

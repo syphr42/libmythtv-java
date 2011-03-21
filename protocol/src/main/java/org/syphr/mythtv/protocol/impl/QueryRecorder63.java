@@ -182,12 +182,6 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getRecording()
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void getRecordingStatus()
     {
         throw new UnsupportedOperationException();
