@@ -16,6 +16,7 @@
 package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
@@ -56,8 +57,22 @@ public interface QueryRecorder
     // TODO
     public void checkChannelPrefix() throws IOException;
 
-    // TODO
-    public void fillPositionMap() throws IOException;
+    /**
+     * Get a map of keyframe positions to file byte offsets for all of the
+     * keyframes within the given range.
+     *
+     * @param start
+     *            the start of the desired range
+     * @param end
+     *            the end of the desired range or a negative number to indicate
+     *            no end to the range
+     * @return the relevant keyframe positions and file offsets
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
+     */
+    public Map<Long, Long> fillPositionMap(long start, long end) throws IOException, CommandException;
 
     // TODO
     public void finishRecording() throws IOException;
@@ -143,7 +158,7 @@ public interface QueryRecorder
     public void getInput() throws IOException;
 
     /**
-     * Get the closest key frame position to the desired position.
+     * Get the closest keyframe position to the desired position.
      *
      * @param desiredPosition
      *            the desired frame position
@@ -151,7 +166,7 @@ public interface QueryRecorder
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
-     *             if this recorder is unknown
+     *             if the recorder is not local or it is not currently recording
      */
     public long getKeyframePos(long desiredPosition) throws IOException, CommandException;
 

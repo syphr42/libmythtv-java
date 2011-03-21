@@ -16,6 +16,7 @@
 package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.QueryRecorder;
@@ -79,9 +80,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void fillPositionMap()
+    public Map<Long, Long> fillPositionMap(long start, long end) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderFillPositionMap(getRecorderId(), start, end).send(getSocketManager());
     }
 
     @Override

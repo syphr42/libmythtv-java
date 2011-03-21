@@ -58,6 +58,32 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testFillPositionMapRecording() throws IOException, CommandException
+    {
+        if (!recording)
+        {
+            return;
+        }
+
+        long start = 0;
+        long end = -1;
+        System.out.println("Keyframe position map: " + queryRecorder.fillPositionMap(start, end));
+    }
+
+    @Test(expected = CommandException.class)
+    public void testFillPositionMapNotRecording() throws IOException, CommandException
+    {
+        if (recording)
+        {
+            throw new CommandException();
+        }
+
+        long start = 0;
+        long end = -1;
+        System.out.println("Keyframe position map: " + queryRecorder.fillPositionMap(start, end));
+    }
+
+    @Test
     public void testGetCurrentRecording() throws IOException, CommandException
     {
         System.out.println("Current recording: " + queryRecorder.getCurrentRecording());
