@@ -20,6 +20,8 @@ import java.io.IOException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.test.Settings;
@@ -27,6 +29,8 @@ import org.syphr.prom.PropertiesManager;
 
 public class QueryRemoteEncoderTest
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(QueryRemoteEncoderTest.class);
+
     private static PropertiesManager<Settings> settings;
 
     private static SocketManager socketManager;
@@ -42,7 +46,7 @@ public class QueryRemoteEncoderTest
         proto = Utils.announceMonitor(settings, socketManager, EventLevel.NONE);
 
         int recorderId = settings.getIntegerProperty(Settings.RECORDER);
-        System.out.println("Interrogating recorder " + recorderId);
+        LOGGER.debug("Interrogating recorder {}", recorderId);
         queryRemoteEncoder = proto.queryRemoteEncoder(recorderId);
     }
 
@@ -62,13 +66,13 @@ public class QueryRemoteEncoderTest
     @Test
     public void testGetCurrentRecording() throws IOException, CommandException
     {
-        System.out.println("Current recording: " + queryRemoteEncoder.getCurrentRecording());
+        LOGGER.debug("Current recording: {}", queryRemoteEncoder.getCurrentRecording());
     }
 
     @Test
     public void testGetFlags() throws IOException, CommandException
     {
-        System.out.println("Flags: " + queryRemoteEncoder.getFlags());
+        LOGGER.debug("Flags: {}", queryRemoteEncoder.getFlags());
     }
 
     @Test
@@ -78,25 +82,25 @@ public class QueryRemoteEncoderTest
         long kbps = bps / 1024;
         long mbps = kbps / 1024;
 
-        System.out.println(String.format("Max bitrate: %dbps / %dkbps / %dmbps", bps, kbps, mbps));
+        LOGGER.debug(String.format("Max bitrate: %dbps / %dkbps / %dmbps", bps, kbps, mbps));
     }
 
     @Test
     public void testGetRecordingStatus() throws IOException, CommandException
     {
-        System.out.println("Recording status: " + queryRemoteEncoder.getRecordingStatus());
+        LOGGER.debug("Recording status: {}", queryRemoteEncoder.getRecordingStatus());
     }
 
     @Test
     public void testGetSleepStatus() throws IOException, CommandException
     {
-        System.out.println("Sleep status: " + queryRemoteEncoder.getSleepStatus());
+        LOGGER.debug("Sleep status: {}", queryRemoteEncoder.getSleepStatus());
     }
 
     @Test
     public void testGetState() throws IOException, CommandException
     {
-        System.out.println("State: " + queryRemoteEncoder.getState());
+        LOGGER.debug("State: {}", queryRemoteEncoder.getState());
     }
 
     @Test
@@ -127,7 +131,6 @@ public class QueryRemoteEncoderTest
      * ----------------------------------------------------------------
      * The following unit tests can cause side effects. Use with care.
      */
-
 //    @Test
 //    public void testStopRecording() throws IOException, CommandException
 //    {

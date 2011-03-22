@@ -26,6 +26,8 @@ import org.syphr.prom.PropertiesManager;
 
 public class MythTest
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MythTest.class);
+
     private static PropertiesManager<Settings> settings;
 
     private static Myth myth;
@@ -44,8 +46,7 @@ public class MythTest
         }
         catch (ContentException e)
         {
-            Logger logger = LoggerFactory.getLogger(MythTest.class);
-            logger.warn("Backend HTTP test are disabled: " + e.getMessage());
+            LOGGER.warn("Backend HTTP test are disabled: " + e.getMessage());
         }
     }
 
@@ -56,7 +57,7 @@ public class MythTest
         {
             return;
         }
-        
-        System.out.println(myth.getConnectionInfo());
+
+        LOGGER.debug(myth.getConnectionInfo().toString());
     }
 }

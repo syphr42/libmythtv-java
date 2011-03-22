@@ -20,6 +20,8 @@ import java.io.IOException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.test.Settings;
@@ -27,6 +29,8 @@ import org.syphr.prom.PropertiesManager;
 
 public class QueryRecorderTest
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(QueryRecorderTest.class);
+
     private static PropertiesManager<Settings> settings;
 
     private static SocketManager socketManager;
@@ -44,7 +48,7 @@ public class QueryRecorderTest
         proto = Utils.announceMonitor(settings, socketManager, EventLevel.NONE);
 
         int recorderId = settings.getIntegerProperty(Settings.RECORDER);
-        System.out.println("Interrogating recorder " + recorderId);
+        LOGGER.debug("Interrogating recorder {}", recorderId);
         queryRecorder = proto.queryRecorder(recorderId);
 
         recording = queryRecorder.isRecording();
@@ -67,7 +71,7 @@ public class QueryRecorderTest
 
         long start = 0;
         long end = -1;
-        System.out.println("Keyframe position map: " + queryRecorder.fillPositionMap(start, end));
+        LOGGER.debug("Keyframe position map: {}", queryRecorder.fillPositionMap(start, end));
     }
 
     @Test(expected = CommandException.class)
@@ -80,7 +84,7 @@ public class QueryRecorderTest
 
         long start = 0;
         long end = -1;
-        System.out.println("Keyframe position map: " + queryRecorder.fillPositionMap(start, end));
+        queryRecorder.fillPositionMap(start, end);
     }
 
     @Test
@@ -98,7 +102,7 @@ public class QueryRecorderTest
     @Test
     public void testGetCurrentRecording() throws IOException, CommandException
     {
-        System.out.println("Current recording: " + queryRecorder.getCurrentRecording());
+        LOGGER.debug("Current recording: {}", queryRecorder.getCurrentRecording());
     }
 
     @Test
@@ -109,7 +113,7 @@ public class QueryRecorderTest
             return;
         }
 
-        System.out.println("File position: " + queryRecorder.getFilePosition() + "B");
+        LOGGER.debug("File position: {}B", queryRecorder.getFilePosition());
     }
 
     @Test(expected = CommandException.class)
@@ -131,7 +135,7 @@ public class QueryRecorderTest
             return;
         }
 
-        System.out.println("Frame rate: " + queryRecorder.getFrameRate());
+        LOGGER.debug("Frame rate: {}", queryRecorder.getFrameRate());
     }
 
     @Test(expected = CommandException.class)
@@ -153,7 +157,7 @@ public class QueryRecorderTest
             return;
         }
 
-        System.out.println("Frames written: " + queryRecorder.getFramesWritten());
+        LOGGER.debug("Frames written: {}", queryRecorder.getFramesWritten());
     }
 
     @Test(expected = CommandException.class)
@@ -176,7 +180,7 @@ public class QueryRecorderTest
         }
 
         long desiredPosition = queryRecorder.getFramesWritten() / 2;
-        System.out.println("Keyframe position: " + queryRecorder.getKeyframePos(desiredPosition));
+        LOGGER.debug("Keyframe position: {}", queryRecorder.getKeyframePos(desiredPosition));
     }
 
     @Test(expected = CommandException.class)
@@ -198,7 +202,7 @@ public class QueryRecorderTest
         long kbps = bps / 1024;
         long mbps = kbps / 1024;
 
-        System.out.println(String.format("Max bitrate: %dbps / %dkbps / %dmbps", bps, kbps, mbps));
+        LOGGER.debug(String.format("Max bitrate: %dbps / %dkbps / %dmbps", bps, kbps, mbps));
     }
 
     @Test

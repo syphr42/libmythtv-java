@@ -25,9 +25,8 @@ import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.SocketManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.protocol.data.DriveInfo;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.data.RecorderLocation;
@@ -42,6 +41,8 @@ import org.syphr.prom.PropertiesManager;
 
 public class ProtocolTest
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProtocolTest.class);
+
     private static PropertiesManager<Settings> settings;
     private static SocketManager socketManager;
     private static Protocol proto;
@@ -67,7 +68,8 @@ public class ProtocolTest
         List<ProgramInfo> expiringPrograms = proto.queryGetExpiring();
         if (!expiringPrograms.isEmpty())
         {
-            Assert.assertEquals(0, proto.checkRecording(expiringPrograms.get(0)));
+            Assert.assertEquals(0,
+                                proto.checkRecording(expiringPrograms.get(0)));
         }
 
         List<ProgramInfo> recPrograms = proto.queryRecordings(RecordingCategory.RECORDING);
@@ -134,9 +136,14 @@ public class ProtocolTest
         ProgramInfo fillInProgram = proto.fillProgramInfo(settings.getProperty(Settings.FRONTEND_HOST),
                                                           partialProgram);
 
-        System.out.println("File info for " + fillInProgram.getChannel() + "/"
-                           + fillInProgram.getRecStartTs() + ": " + fillInProgram.getFilename()
-                           + " / " + fillInProgram.getFileSize());
+        LOGGER.debug("File info for "
+                     + fillInProgram.getChannel()
+                     + "/"
+                     + fillInProgram.getRecStartTs()
+                     + ": "
+                     + fillInProgram.getFilename()
+                     + " / "
+                     + fillInProgram.getFileSize());
     }
 
     @Test
@@ -158,8 +165,8 @@ public class ProtocolTest
 
         Assert.assertEquals(count, freeRecorders.size());
 
-        System.out.println("Free recorder count: " + count);
-        System.out.println("Free recorders: " + freeRecorders);
+        LOGGER.debug("Free recorder count: {}", count);
+        LOGGER.debug("Free recorders: {}", freeRecorders);
 
         RecorderLocation freeRecorder = proto.getFreeRecorder();
         if (count > 0)
@@ -171,21 +178,22 @@ public class ProtocolTest
             Assert.assertNull(freeRecorder);
         }
 
-        System.out.println("Next free recorder after "
-                           + freeRecorder.getId()
-                           + ": "
-                           + proto.getNextFreeRecorder(freeRecorder));
+        LOGGER.debug("Next free recorder after {}: {}",
+                     freeRecorder.getId(),
+                     proto.getNextFreeRecorder(freeRecorder));
     }
 
     @Test
-    public void testGetRecorderFromNumGood() throws IOException, CommandException
+    public void testGetRecorderFromNumGood() throws IOException,
+                                            CommandException
     {
         RecorderLocation good = proto.getRecorderFromNum(settings.getIntegerProperty(Settings.RECORDER));
         Assert.assertNotNull(good);
     }
 
     @Test(expected = CommandException.class)
-    public void testGetRecorderFromNumBad() throws IOException, CommandException
+    public void testGetRecorderFromNumBad() throws IOException,
+                                           CommandException
     {
         proto.getRecorderFromNum(-1);
     }
@@ -228,13 +236,13 @@ public class ProtocolTest
         }
 
         ProgramInfo program = recordings.get(0);
-        System.out.println("Bookmark for "
-                           + program.getChannel()
-                           + "/"
-                           + program.getStartTime()
-                           + ": "
-                           + proto.queryBookmark(program.getChannel(),
-                                                 program.getRecStartTs()));
+        LOGGER.debug("Bookmark for "
+                     + program.getChannel()
+                     + "/"
+                     + program.getStartTime()
+                     + ": "
+                     + proto.queryBookmark(program.getChannel(),
+                                           program.getRecStartTs()));
     }
 
     @Test
@@ -247,13 +255,13 @@ public class ProtocolTest
         }
 
         ProgramInfo program = recordings.get(0);
-        System.out.println("Commercial breaks for "
-                           + program.getChannel()
-                           + "/"
-                           + program.getStartTime()
-                           + ": "
-                           + proto.queryCommBreak(program.getChannel(),
-                                                  program.getRecStartTs()));
+        LOGGER.debug("Commercial breaks for "
+                     + program.getChannel()
+                     + "/"
+                     + program.getStartTime()
+                     + ": "
+                     + proto.queryCommBreak(program.getChannel(),
+                                            program.getRecStartTs()));
     }
 
     @Test
@@ -266,13 +274,13 @@ public class ProtocolTest
         }
 
         ProgramInfo program = recordings.get(0);
-        System.out.println("Cut list marks for "
-                           + program.getChannel()
-                           + "/"
-                           + program.getStartTime()
-                           + ": "
-                           + proto.queryCutList(program.getChannel(),
-                                                program.getRecStartTs()));
+        LOGGER.debug("Cut list marks for "
+                     + program.getChannel()
+                     + "/"
+                     + program.getStartTime()
+                     + ": "
+                     + proto.queryCutList(program.getChannel(),
+                                          program.getRecStartTs()));
     }
 
     @Test
@@ -285,12 +293,12 @@ public class ProtocolTest
         }
 
         ProgramInfo program = recordings.get(0);
-        System.out.println("URI for "
-                           + program.getChannel()
-                           + "/"
-                           + program.getRecStartTs()
-                           + ": "
-                           + proto.queryCheckFile(true, program));
+        LOGGER.debug("URI for "
+                     + program.getChannel()
+                     + "/"
+                     + program.getRecStartTs()
+                     + ": "
+                     + proto.queryCheckFile(true, program));
     }
 
     @Test
@@ -304,14 +312,14 @@ public class ProtocolTest
     {
         for (DriveInfo drive : proto.queryFreeSpace())
         {
-            System.out.println(drive);
+            LOGGER.debug(drive.toString());
         }
     }
 
     @Test
     public void testQueryFreeSpaceSummary() throws IOException
     {
-        System.out.println(proto.queryFreeSpaceSummary());
+        LOGGER.debug(proto.queryFreeSpaceSummary().toString());
     }
 
     @Test
@@ -319,8 +327,8 @@ public class ProtocolTest
     {
         UpcomingRecordings upcoming = proto.queryGetAllPending();
 
-        System.out.println("Conflicts? " + upcoming.isConflicted());
-        System.out.println("Upcoming count: " + upcoming.size());
+        LOGGER.debug("Conflicts? {}", upcoming.isConflicted());
+        LOGGER.debug("Upcoming count: {}", upcoming.size());
         printFirstFive(upcoming);
     }
 
@@ -328,7 +336,7 @@ public class ProtocolTest
     public void testQueryGetAllScheduled() throws IOException
     {
         List<ProgramInfo> scheduled = proto.queryGetAllScheduled();
-        System.out.println("Scheduled count: " + scheduled.size());
+        LOGGER.debug("Scheduled count: {}", scheduled.size());
         printFirstFive(scheduled);
     }
 
@@ -361,7 +369,7 @@ public class ProtocolTest
         }
 
         List<ProgramInfo> conflicted = proto.queryGetConflicting(program);
-        System.out.println("Conflicted count: " + conflicted.size());
+        LOGGER.debug("Conflicted count: {}", conflicted.size());
         printFirstFive(conflicted);
     }
 
@@ -369,20 +377,20 @@ public class ProtocolTest
     public void testQueryGetExpiring() throws IOException
     {
         List<ProgramInfo> expiring = proto.queryGetExpiring();
-        System.out.println("Expiring count: " + expiring.size());
+        LOGGER.debug("Expiring count: {}", expiring.size());
         printFirstFive(expiring);
     }
 
     @Test
     public void testQueryGuideDataThrough() throws IOException
     {
-        System.out.println("Guide data through: " + proto.queryGuideDataThrough());
+        LOGGER.debug("Guide data through: {}", proto.queryGuideDataThrough());
     }
 
     @Test
     public void testQueryHostname() throws IOException
     {
-        System.out.println("Hostname: " + proto.queryHostname());
+        LOGGER.debug("Hostname: {}", proto.queryHostname());
     }
 
     @Test
@@ -398,7 +406,7 @@ public class ProtocolTest
         List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDING);
         RecordingsInProgress inProgress = proto.queryIsRecording();
 
-        System.out.println(inProgress);
+        LOGGER.debug(inProgress.toString());
 
         Assert.assertEquals(recordings.size(), inProgress.getTotal());
     }
@@ -406,17 +414,18 @@ public class ProtocolTest
     @Test
     public void testQueryLoad() throws IOException
     {
-        System.out.println(proto.queryLoad());
+        LOGGER.debug(proto.queryLoad().toString());
     }
 
     @Test
     public void testQueryMemStats() throws IOException
     {
-        System.out.println(proto.queryMemStats());
+        LOGGER.debug(proto.queryMemStats().toString());
     }
 
     @Test
-    public void testQueryPixMapGetIfModified() throws IOException, CommandException
+    public void testQueryPixMapGetIfModified() throws IOException,
+                                              CommandException
     {
         List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (recordings.isEmpty())
@@ -425,12 +434,14 @@ public class ProtocolTest
         }
 
         ProgramInfo program = recordings.get(0);
-        System.out.println("Pix map for "
-                           + program.getChannel()
-                           + "/"
-                           + program.getStartTime()
-                           + ": "
-                           + proto.queryPixMapGetIfModified(null, Integer.MAX_VALUE, program));
+        LOGGER.debug("Pix map for "
+                     + program.getChannel()
+                     + "/"
+                     + program.getStartTime()
+                     + ": "
+                     + proto.queryPixMapGetIfModified(null,
+                                                      Integer.MAX_VALUE,
+                                                      program));
     }
 
     @Test
@@ -443,12 +454,12 @@ public class ProtocolTest
         }
 
         ProgramInfo program = recordings.get(0);
-        System.out.println("Pix map last modified for "
-                           + program.getChannel()
-                           + "/"
-                           + program.getStartTime()
-                           + ": "
-                           + proto.queryPixMapLastModified(program));
+        LOGGER.debug("Pix map last modified for "
+                     + program.getChannel()
+                     + "/"
+                     + program.getStartTime()
+                     + ": "
+                     + proto.queryPixMapLastModified(program));
     }
 
     @Test
@@ -457,13 +468,14 @@ public class ProtocolTest
         for (RecordingCategory category : proto.getAvailableTypes(RecordingCategory.class))
         {
             List<ProgramInfo> list = proto.queryRecordings(category);
-            System.out.println(category.toString() + " count: " + list.size());
+            LOGGER.debug("{} count: {}", category.toString(), list.size());
             printFirstFive(list);
         }
     }
 
     @Test
-    public void testQueryRecordingBasename() throws IOException, CommandException
+    public void testQueryRecordingBasename() throws IOException,
+                                            CommandException
     {
         List<ProgramInfo> allRecordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (allRecordings.isEmpty())
@@ -478,7 +490,8 @@ public class ProtocolTest
     }
 
     @Test
-    public void testQueryRecordingTimeslot() throws IOException, CommandException
+    public void testQueryRecordingTimeslot() throws IOException,
+                                            CommandException
     {
         List<ProgramInfo> allRecordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (allRecordings.isEmpty())
@@ -523,19 +536,18 @@ public class ProtocolTest
     @Test
     public void testQueryTimeZone() throws IOException
     {
-        System.out.println(proto.queryTimeZone());
+        LOGGER.debug(proto.queryTimeZone().toString());
     }
 
     @Test
     public void testQueryUptime() throws IOException
     {
-        System.out.println("Uptime: " + proto.queryUptime() + " secs");
+        LOGGER.debug("Uptime: {} secs", proto.queryUptime());
     }
 
     @Test
     public void testRefreshBackend() throws IOException
     {
-        System.out.println("Refreshing backend config");
         proto.refreshBackend();
     }
 
@@ -580,7 +592,7 @@ public class ProtocolTest
 //    }
 //
 //    @Test
-//    public void testDeleteRecording() throws IOException, MythException
+//    public void testDeleteRecording() throws IOException, CommandException
 //    {
 //        List<ProgramInfo> recorded = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
 //        if (recorded.isEmpty())
@@ -589,7 +601,7 @@ public class ProtocolTest
 //        }
 //
 //        ProgramInfo delete = recorded.get(0);
-//        System.out.println("Deleting \"" + delete.getTitle() + ": " + delete.getSubtitle() + "\"");
+//        LOGGER.debug("Deleting \"{}\" : \"{}\"", delete.getTitle(), delete.getSubtitle());
 //        proto.deleteRecording(delete.getChannel(), delete.getRecStartTs(), false, false);
 //    }
 //
@@ -603,7 +615,7 @@ public class ProtocolTest
 //        }
 //
 //        ProgramInfo forget = expiring.get(0);
-//        System.out.println("Forgetting \"" + forget.getTitle() + ": " + forget.getSubtitle() + "\"");
+//        LOGGER.debug("Forgetting \"{}\" : \"{}\"", forget.getTitle(), forget.getSubtitle());
 //        proto.forgetRecording(forget);
 //    }
 //
@@ -613,26 +625,26 @@ public class ProtocolTest
 //        try
 //        {
 //            proto.goToSleep();
-//            System.out.println("Backend OK with sleep command");
+//            LOGGER.debug("Backend OK with sleep command");
 //        }
 //        catch (CommandException e)
 //        {
-//            System.out.println("Backend refused sleep command: " + e.getMessage());
+//            LOGGER.debug("Backend refused sleep command: " + e.getMessage());
 //        }
 //    }
 //
 //    @Test
 //    public void testMessageSetVerbose() throws IOException, CommandException
 //    {
-//        proto.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.ALL); add(Verbose.NOT_CHANNEL); }});
-//        proto.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.IMPORTANT); add(Verbose.GENERAL); }});
+//        proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.ALL); add(Verbose.NOT_CHANNEL); }});
+//        proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.IMPORTANT); add(Verbose.GENERAL); }});
 //    }
 //
 //    @Test
 //    public void testShutdownNow() throws IOException
 //    {
 //        String backendHost = settings.getProperty(Settings.BACKEND_HOST);
-//        System.out.println("Attempting to shut down " + backendHost);
+//        LOGGER.debug("Attempting to shut down {}", backendHost);
 //        proto.shutdownNow("halt");
 //    }
 //
@@ -646,7 +658,8 @@ public class ProtocolTest
 //        }
 //
 //        ProgramInfo stop = recording.get(0);
-//        System.out.println("Stopping \"" + stop.getTitle() + ": " + stop.getSubtitle() + "\"");
+//
+//        LOGGER.debug("Stopping \"{}\" : \"{}\"", stop.getTitle(), stop.getSubtitle());
 //        Assert.assertNotSame(-1, proto.stopRecording(stop));
 //    }
 //
@@ -660,12 +673,12 @@ public class ProtocolTest
 //        }
 //
 //        ProgramInfo undelete = expiring.get(0);
-//        System.out.println("Undeleting \"" + undelete.getTitle() + ": " + undelete.getSubtitle() + "\"");
+//        LOGGER.debug("Undeleting \"{}\" : \"{}\"", undelete.getTitle(), undelete.getSubtitle());
 //        Assert.assertTrue(proto.undeleteRecording(undelete));
 //    }
 //
 //    @Test
-//    public void testQueryGenPixMap2() throws IOException, MythException
+//    public void testQueryGenPixMap2() throws IOException, CommandException
 //    {
 //        List<ProgramInfo> programs = proto.queryGetExpiring();
 //        if (programs.isEmpty())
@@ -673,17 +686,17 @@ public class ProtocolTest
 //            return;
 //        }
 //
-//        proto.queryGenPixMap2(Protocol63Test.class.getName(), programs.get(0));
+//        proto.queryGenPixMap2(getClass().getName(), programs.get(0));
 //    }
 //
 //    @Test
 //    public void testRescheduleRecordings() throws IOException
 //    {
 //        int recorderId = settings.getIntegerProperty(Settings.RECORDER);
-//        System.out.println("Requesting reschedule on recorder " + recorderId);
+//        LOGGER.debug("Requesting reschedule on recorder {}", recorderId);
 //        proto.rescheduleRecordings(recorderId);
 //
-//        System.out.println("Requesting full reschedule");
+//        LOGGER.debug("Requesting full reschedule");
 //        proto.rescheduleRecordings(-1);
 //    }
 
@@ -701,11 +714,11 @@ public class ProtocolTest
             return;
         }
 
-        System.out.println("(Up to) the first five:");
+        LOGGER.debug("(Up to) the first five:");
 
         while (iter.hasNext() && counter < 5)
         {
-            System.out.println(iter.next());
+            LOGGER.debug(iter.next().toString());
             counter++;
         }
     }

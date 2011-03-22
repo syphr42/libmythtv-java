@@ -16,6 +16,7 @@
 package org.syphr.mythtv.test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.LogManager;
@@ -40,6 +41,8 @@ public enum Settings implements Defaultable
 
     RECORDER("1");
 
+    private static final String LOGGING_ENV_VAR = "JAVA_UTIL_LOGGING_CONFIG_FILE";
+
     private static final String SETTINGS_ENV_VAR = "LIBMYTHTV_JAVA_TEST_SETTINGS";
 
     private static final String SETTINGS_SYS_PROP = "libmythtv.java.test.settings";
@@ -53,7 +56,18 @@ public enum Settings implements Defaultable
         {
             try
             {
-                InputStream in = Settings.class.getResourceAsStream("logging.properties");
+                InputStream in;
+
+                loggingProps = System.getenv(LOGGING_ENV_VAR);
+                if (loggingProps != null)
+                {
+                    in = new FileInputStream(loggingProps);
+                }
+                else
+                {
+                    in = Settings.class.getResourceAsStream("logging.properties");
+                }
+
                 try
                 {
                     LogManager.getLogManager().readConfiguration(in);
@@ -66,6 +80,7 @@ public enum Settings implements Defaultable
             catch (Exception e)
             {
                 System.out.println("Unable to configure logging");
+                e.printStackTrace();
             }
         }
     }
