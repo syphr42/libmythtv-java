@@ -85,6 +85,8 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
+     *
+     * @since 63
      */
     public Map<Long, Long> fillPositionMap(long start, long end) throws IOException, CommandException;
 
@@ -107,6 +109,8 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
+     *
+     * @since 63
      */
     public void frontendReady() throws IOException, CommandException;
 
@@ -137,8 +141,10 @@ public interface QueryRecorder
     public ProgramInfo getCurrentRecording() throws IOException, CommandException;
 
     /**
-     * Get the number of bytes written to disk for the current recording. Note
-     * that this command only works for recorders local to this backend.
+     * Get the number of bytes written to disk for the current recording.<br>
+     * <br>
+     * Note, this command will throw an exception if the recorder is not local
+     * to the connected backend.
      *
      * @return the number of bytes written
      * @throws IOException
@@ -151,8 +157,10 @@ public interface QueryRecorder
     public long getFilePosition() throws IOException, CommandException;
 
     /**
-     * Get the frame rate of the current recording. Note that this command only
-     * works for recorders local to this backend.
+     * Get the frame rate of the current recording.<br>
+     * <br>
+     * Note, this command will throw an exception if the recorder is not local
+     * to the connected backend.
      *
      * @return the frame rate
      * @throws IOException
@@ -165,8 +173,10 @@ public interface QueryRecorder
     public float getFrameRate() throws IOException, CommandException;
 
     /**
-     * Get the number of frames written to disk for the current recording. Note
-     * that this command only works for recorders local to this backend.
+     * Get the number of frames written to disk for the current recording.<br>
+     * <br>
+     * Note, this command will throw an exception if the recorder is not local
+     * to the connected backend.
      *
      * @return the number of frames written
      * @throws IOException
@@ -197,6 +207,8 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
+     *
+     * @since 63
      */
     public long getKeyframePos(long desiredPosition) throws IOException, CommandException;
 
@@ -234,13 +246,17 @@ public interface QueryRecorder
     public boolean isRecording() throws IOException, CommandException;
 
     /**
-     * Request that the backend pause this recorder. This command will do
-     * nothing if the recorder is not local to the connected backend.
+     * Request that the backend pause this recorder.<br>
+     * <br>
+     * Note, this command will do nothing if the recorder is not local to the
+     * connected backend.
      *
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if this recorder is unknown
+     *
+     * @since 63
      */
     public void pause() throws IOException, CommandException;
 
@@ -249,6 +265,22 @@ public interface QueryRecorder
 
     // TODO
     public void setInput() throws IOException, CommandException;
+
+    /**
+     * Toggle the current state of the current recording between a actual
+     * "recording" that will be preserved and a live show.<br>
+     * <br>
+     * Note, this command will do nothing if the recorder is not local to the
+     * connected backend.
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if this recorder is unknown
+     *
+     * @since 63
+     */
+    public void setLiveRecording() throws IOException, CommandException;
 
     // TODO
     public void setSignalMonitoringRate() throws IOException, CommandException;

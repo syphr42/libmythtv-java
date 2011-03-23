@@ -216,4 +216,10 @@ public class QueryRecorderTest
     {
         // TODO
     }
+
+    @Test
+    public void testSetLiveRecording() throws IOException
+    {
+        // TODO
+    }
 }

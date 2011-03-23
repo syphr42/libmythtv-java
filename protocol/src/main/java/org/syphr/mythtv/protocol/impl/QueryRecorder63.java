@@ -212,6 +212,12 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
+    public void setLiveRecording() throws IOException, CommandException
+    {
+        new Command63QueryRecorderSetLiveRecording(getRecorderId()).send(getSocketManager());
+    }
+
+    @Override
     public void setSignalMonitoringRate()
     {
         throw new UnsupportedOperationException();
