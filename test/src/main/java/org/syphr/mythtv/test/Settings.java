@@ -43,6 +43,8 @@ public enum Settings implements Defaultable
 
     private static final String LOGGING_ENV_VAR = "JAVA_UTIL_LOGGING_CONFIG_FILE";
 
+    private static final String LOGGING_SYS_PROP = "java.util.logging.config.file";
+
     private static final String SETTINGS_ENV_VAR = "LIBMYTHTV_JAVA_TEST_SETTINGS";
 
     private static final String SETTINGS_SYS_PROP = "libmythtv.java.test.settings";
@@ -51,7 +53,7 @@ public enum Settings implements Defaultable
 
     static
     {
-        String loggingProps = System.getProperty("java.util.logging.config.file");
+        String loggingProps = System.getProperty(LOGGING_SYS_PROP);
         if (loggingProps == null)
         {
             try
@@ -79,7 +81,7 @@ public enum Settings implements Defaultable
             }
             catch (Exception e)
             {
-                System.out.println("Unable to configure logging");
+                System.out.println("Unable to configure logging; using default configuration");
                 e.printStackTrace();
             }
         }
