@@ -289,9 +289,6 @@ public interface QueryRecorder
     // TODO
     public void getNextProgramInfo() throws IOException, CommandException;
 
-    // TODO
-    public void getRecordingStatus() throws IOException, CommandException;
-
     /**
      * Determine whether or not this recorder is currently recording.
      *

@@ -182,12 +182,6 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getRecordingStatus()
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public boolean isRecording() throws IOException, CommandException
     {
         return new Command63QueryRecorderIsRecording(getRecorderId()).send(getSocketManager());
