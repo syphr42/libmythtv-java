@@ -88,13 +88,20 @@ public interface QueryRecorder
      */
     public Map<Long, Long> fillPositionMap(long start, long end) throws IOException, CommandException;
 
-    // TODO
+    /**
+     * Request that this recorder stop recording as soon as possible.
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
+     *
+     * @since 63
+     */
     public void finishRecording() throws IOException, CommandException;
 
     /**
-     * Inform the backend that this client is ready for data.<br>
-     * <br>
-     * TODO - this needs clarification
+     * Inform the backend that this client is ready to receive messages.
      *
      * @throws IOException
      *             if there is a communication or protocol error

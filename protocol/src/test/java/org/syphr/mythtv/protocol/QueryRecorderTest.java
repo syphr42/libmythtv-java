@@ -62,6 +62,12 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testCancelNextRecording() throws IOException
+    {
+        // TODO
+    }
+
+    @Test
     public void testFillPositionMapRecording() throws IOException, CommandException
     {
         if (!recording)
@@ -88,15 +94,15 @@ public class QueryRecorderTest
     }
 
     @Test
-    public void testFrontendReady() throws IOException, CommandException
+    public void testFinishRecording() throws IOException
     {
-        queryRecorder.frontendReady();
+        // TODO
     }
 
     @Test
-    public void testCancelNextRecording() throws IOException
+    public void testFrontendReady() throws IOException, CommandException
     {
-        // TODO
+        queryRecorder.frontendReady();
     }
 
     @Test
