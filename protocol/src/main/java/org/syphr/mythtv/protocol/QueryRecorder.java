@@ -114,17 +114,53 @@ public interface QueryRecorder
      */
     public void frontendReady() throws IOException, CommandException;
 
-    // TODO
-    public void getBrightness() throws IOException, CommandException;
+    /**
+     * Get the current brightness value for this recorder. This command is
+     * likely to only be useful for framegrabbing recorders.
+     *
+     * @return the current value [0, 100] or <code>-1</code> if the recorder is
+     *         not local to this backend or the value cannot be determined
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public int getBrightness() throws IOException, CommandException;
 
     // TODO
     public void getChannelInfo() throws IOException, CommandException;
 
-    // TODO
-    public void getColour() throws IOException, CommandException;
+    /**
+     * Get the current color value for this recorder. This command is likely to
+     * only be useful for framegrabbing recorders.
+     *
+     * @return the current value [0, 100] or <code>-1</code> if the recorder is
+     *         not local to this backend or the value cannot be determined
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public int getColour() throws IOException, CommandException;
 
-    // TODO
-    public void getContrast() throws IOException, CommandException;
+    /**
+     * Get the current contrast value for this recorder. This command is likely
+     * to only be useful for framegrabbing recorders.
+     *
+     * @return the current value [0, 100] or <code>-1</code> if the recorder is
+     *         not local to this backend or the value cannot be determined
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public int getContrast() throws IOException, CommandException;
 
     /**
      * Retrieve the currently recording program.
@@ -191,8 +227,20 @@ public interface QueryRecorder
     // TODO
     public void getFreeInputs() throws IOException, CommandException;
 
-    // TODO
-    public void getHue() throws IOException, CommandException;
+    /**
+     * Get the current hue value for this recorder. This command is likely to
+     * only be useful for framegrabbing recorders.
+     *
+     * @return the current value [0, 100] or <code>-1</code> if the recorder is
+     *         not local to this backend or the value cannot be determined
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public int getHue() throws IOException, CommandException;
 
     /**
      * Get the input on the card to which this recorder is connected.<br>

@@ -98,9 +98,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getBrightness()
+    public int getBrightness() throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderGetBrightness(getRecorderId()).send(getSocketManager());
     }
 
     @Override
@@ -110,15 +110,15 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getColour()
+    public int getColour() throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderGetColour(getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public void getContrast()
+    public int getContrast() throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderGetContrast(getRecorderId()).send(getSocketManager());
     }
 
     @Override
@@ -152,9 +152,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getHue()
+    public int getHue() throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderGetHue(getRecorderId()).send(getSocketManager());
     }
 
     @Override

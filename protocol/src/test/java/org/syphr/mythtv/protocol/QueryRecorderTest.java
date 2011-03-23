@@ -62,9 +62,27 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testGetBrightness() throws IOException, CommandException
+    {
+        LOGGER.debug("Brightness value: {}", queryRecorder.getBrightness());
+    }
+
+    @Test
     public void testCancelNextRecording() throws IOException
     {
         // TODO
+    }
+
+    @Test
+    public void testGetColour() throws IOException, CommandException
+    {
+        LOGGER.debug("Colour value: {}", queryRecorder.getColour());
+    }
+
+    @Test
+    public void testGetContrast() throws IOException, CommandException
+    {
+        LOGGER.debug("Contrast value: {}", queryRecorder.getContrast());
     }
 
     @Test
@@ -215,6 +233,12 @@ public class QueryRecorderTest
         long mbps = kbps / 1024;
 
         LOGGER.debug(String.format("Max bitrate: %dbps / %dkbps / %dmbps", bps, kbps, mbps));
+    }
+
+    @Test
+    public void testGetHue() throws IOException, CommandException
+    {
+        LOGGER.debug("Hue value: {}", queryRecorder.getHue());
     }
 
     @Test
