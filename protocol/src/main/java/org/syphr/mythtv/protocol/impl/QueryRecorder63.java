@@ -23,6 +23,7 @@ import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
+import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
 
 public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRecorder
 {
@@ -44,9 +45,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void changeChannel()
+    public void changeChannel(ChannelChangeDirection direction) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        new Command63QueryRecorderChangeChannel(getRecorderId(), direction).send(getSocketManager());
     }
 
     @Override

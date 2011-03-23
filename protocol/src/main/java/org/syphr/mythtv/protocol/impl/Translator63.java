@@ -15,6 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
 import org.syphr.mythtv.protocol.types.ConnectionType;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.protocol.types.FileTransferType;
@@ -289,6 +290,15 @@ public class Translator63 extends AbstractTranslator
         LOG_OPTION_MAP.put(Verbose.NOT_TIMESTAMP, "notimestamp");
     }
 
+    private static final BiMap<ChannelChangeDirection, String> CHANNEL_CHANGE_MAP = EnumHashBiMap.create(ChannelChangeDirection.class);
+    static
+    {
+        CHANNEL_CHANGE_MAP.put(ChannelChangeDirection.UP, "0");
+        CHANNEL_CHANGE_MAP.put(ChannelChangeDirection.DOWN, "1");
+        CHANNEL_CHANGE_MAP.put(ChannelChangeDirection.FAVORITE, "2");
+        CHANNEL_CHANGE_MAP.put(ChannelChangeDirection.SAME, "3");
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type)
@@ -360,6 +370,11 @@ public class Translator63 extends AbstractTranslator
         if (Verbose.class.equals(type))
         {
             return (BiMap)LOG_OPTION_MAP;
+        }
+
+        if (ChannelChangeDirection.class.equals(type))
+        {
+            return (BiMap)CHANNEL_CHANGE_MAP;
         }
 
         throw new IllegalArgumentException("Unknown type: " + type);

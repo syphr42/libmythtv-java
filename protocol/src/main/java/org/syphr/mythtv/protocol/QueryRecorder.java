@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
+import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
 
 /**
  * This interface is a sub-protocol to {@link Protocol} and represents the
@@ -53,8 +54,23 @@ public interface QueryRecorder
     // TODO
     public void changeBrightness() throws IOException, CommandException;
 
-    // TODO
-    public void changeChannel() throws IOException, CommandException;
+    /**
+     * Change the channel in the given direction of the currently recording stream.<br>
+     * <br>
+     * Note that {@link #pause()} must be called before this command.<br>
+     * <br>
+     * Note that this command only works for recorders local to this backend.
+     *
+     * @param direction
+     *            the direction in which to change the channel
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public void changeChannel(ChannelChangeDirection direction) throws IOException, CommandException;
 
     // TODO
     public void changeColour() throws IOException, CommandException;

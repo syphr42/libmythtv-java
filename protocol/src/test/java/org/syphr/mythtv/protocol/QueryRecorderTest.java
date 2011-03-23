@@ -62,6 +62,12 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testChangeChannel() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
     public void testFillPositionMapRecording() throws IOException, CommandException
     {
         if (!recording)
