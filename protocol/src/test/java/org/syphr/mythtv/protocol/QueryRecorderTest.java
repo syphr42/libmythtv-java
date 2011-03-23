@@ -74,7 +74,31 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testChangeBrightness() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
     public void testChangeChannel() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testChangeColour() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testChangeContrast() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testChangeHue() throws IOException, CommandException
     {
         // TODO
     }

@@ -19,6 +19,7 @@ import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
 import org.syphr.mythtv.protocol.types.ConnectionType;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.protocol.types.FileTransferType;
+import org.syphr.mythtv.protocol.types.PictureAdjustType;
 import org.syphr.mythtv.protocol.types.RecorderFlag;
 import org.syphr.mythtv.protocol.types.RecordingCategory;
 import org.syphr.mythtv.protocol.types.RecordingStatus;
@@ -299,6 +300,15 @@ public class Translator63 extends AbstractTranslator
         CHANNEL_CHANGE_MAP.put(ChannelChangeDirection.SAME, "3");
     }
 
+    private static final BiMap<PictureAdjustType, String> PICTURE_ADJUST_MAP = EnumHashBiMap.create(PictureAdjustType.class);
+    static
+    {
+        PICTURE_ADJUST_MAP.put(PictureAdjustType.NONE, "0");
+        PICTURE_ADJUST_MAP.put(PictureAdjustType.PLAYBACK, "1");
+        PICTURE_ADJUST_MAP.put(PictureAdjustType.CHANNEL, "2");
+        PICTURE_ADJUST_MAP.put(PictureAdjustType.RECORDING, "3");
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type)
@@ -375,6 +385,11 @@ public class Translator63 extends AbstractTranslator
         if (ChannelChangeDirection.class.equals(type))
         {
             return (BiMap)CHANNEL_CHANGE_MAP;
+        }
+
+        if (PictureAdjustType.class.equals(type))
+        {
+            return (BiMap)PICTURE_ADJUST_MAP;
         }
 
         throw new IllegalArgumentException("Unknown type: " + type);

@@ -24,6 +24,7 @@ import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
+import org.syphr.mythtv.protocol.types.PictureAdjustType;
 
 public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRecorder
 {
@@ -39,9 +40,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void changeBrightness()
+    public int changeBrightness(PictureAdjustType type, boolean increment) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderChangeBrightness(getRecorderId(), type, increment).send(getSocketManager());
     }
 
     @Override
@@ -51,21 +52,21 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void changeColour()
+    public int changeColour(PictureAdjustType type, boolean increment) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderChangeColour(getRecorderId(), type, increment).send(getSocketManager());
     }
 
     @Override
-    public void changeContrast()
+    public int changeContrast(PictureAdjustType type, boolean increment) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderChangeContrast(getRecorderId(), type, increment).send(getSocketManager());
     }
 
     @Override
-    public void changeHue()
+    public int changeHue(PictureAdjustType type, boolean increment) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderChangeHue(getRecorderId(), type, increment).send(getSocketManager());
     }
 
     @Override

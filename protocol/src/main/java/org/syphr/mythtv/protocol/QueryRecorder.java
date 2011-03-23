@@ -21,6 +21,7 @@ import java.util.Map;
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
+import org.syphr.mythtv.protocol.types.PictureAdjustType;
 
 /**
  * This interface is a sub-protocol to {@link Protocol} and represents the
@@ -51,8 +52,26 @@ public interface QueryRecorder
      */
     public void cancelNextRecording(boolean cancel) throws IOException, CommandException;
 
-    // TODO
-    public void changeBrightness() throws IOException, CommandException;
+    /**
+     * Increment or decrement the current brightness value for this recorder. This command
+     * is likely to only be useful for frame grabbing recorders.
+     *
+     * @param type
+     *            the level of permanence for this change (i.e. everything recorded on
+     *            this channel vs. this recording vs. this playback only)
+     * @param increment
+     *            if <code>true</code>, increment the current value; otherwise decrement
+     *            the current value
+     * @return the new value [0, 100] or <code>-1</code> if the recorder is not local to
+     *         this backend or the value cannot be changed
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public int changeBrightness(PictureAdjustType type, boolean increment) throws IOException, CommandException;
 
     /**
      * Change the channel in the given direction of the currently recording stream.<br>
@@ -72,14 +91,68 @@ public interface QueryRecorder
      */
     public void changeChannel(ChannelChangeDirection direction) throws IOException, CommandException;
 
-    // TODO
-    public void changeColour() throws IOException, CommandException;
+    /**
+     * Increment or decrement the current color value for this recorder. This command is
+     * likely to only be useful for frame grabbing recorders.
+     *
+     * @param type
+     *            the level of permanence for this change (i.e. everything recorded on
+     *            this channel vs. this recording vs. this playback only)
+     * @param increment
+     *            if <code>true</code>, increment the current value; otherwise decrement
+     *            the current value
+     * @return the new value [0, 100] or <code>-1</code> if the recorder is not local to
+     *         this backend or the value cannot be changed
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public int changeColour(PictureAdjustType type, boolean increment) throws IOException, CommandException;
 
-    // TODO
-    public void changeContrast() throws IOException, CommandException;
+    /**
+     * Increment or decrement the current contrast value for this recorder. This command
+     * is likely to only be useful for frame grabbing recorders.
+     *
+     * @param type
+     *            the level of permanence for this change (i.e. everything recorded on
+     *            this channel vs. this recording vs. this playback only)
+     * @param increment
+     *            if <code>true</code>, increment the current value; otherwise decrement
+     *            the current value
+     * @return the new value [0, 100] or <code>-1</code> if the recorder is not local to
+     *         this backend or the value cannot be changed
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public int changeContrast(PictureAdjustType type, boolean increment) throws IOException, CommandException;
 
-    // TODO
-    public void changeHue() throws IOException, CommandException;
+    /**
+     * Increment or decrement the current contrast value for this recorder. This command
+     * is likely to only be useful for frame grabbing recorders.
+     *
+     * @param type
+     *            the level of permanence for this change (i.e. everything recorded on
+     *            this channel vs. this recording vs. this playback only)
+     * @param increment
+     *            if <code>true</code>, increment the current value; otherwise decrement
+     *            the current value
+     * @return the new value [0, 100] or <code>-1</code> if the recorder is not local to
+     *         this backend or the value cannot be changed
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public int changeHue(PictureAdjustType type, boolean increment) throws IOException, CommandException;
 
     // TODO
     public void checkChannel() throws IOException, CommandException;
@@ -132,7 +205,7 @@ public interface QueryRecorder
 
     /**
      * Get the current brightness value for this recorder. This command is
-     * likely to only be useful for framegrabbing recorders.
+     * likely to only be useful for frame grabbing recorders.
      *
      * @return the current value [0, 100] or <code>-1</code> if the recorder is
      *         not local to this backend or the value cannot be determined
@@ -150,7 +223,7 @@ public interface QueryRecorder
 
     /**
      * Get the current color value for this recorder. This command is likely to
-     * only be useful for framegrabbing recorders.
+     * only be useful for frame grabbing recorders.
      *
      * @return the current value [0, 100] or <code>-1</code> if the recorder is
      *         not local to this backend or the value cannot be determined
@@ -165,7 +238,7 @@ public interface QueryRecorder
 
     /**
      * Get the current contrast value for this recorder. This command is likely
-     * to only be useful for framegrabbing recorders.
+     * to only be useful for frame grabbing recorders.
      *
      * @return the current value [0, 100] or <code>-1</code> if the recorder is
      *         not local to this backend or the value cannot be determined
@@ -245,7 +318,7 @@ public interface QueryRecorder
 
     /**
      * Get the current hue value for this recorder. This command is likely to
-     * only be useful for framegrabbing recorders.
+     * only be useful for frame grabbing recorders.
      *
      * @return the current value [0, 100] or <code>-1</code> if the recorder is
      *         not local to this backend or the value cannot be determined
