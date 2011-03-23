@@ -194,8 +194,21 @@ public interface QueryRecorder
     // TODO
     public void getHue() throws IOException, CommandException;
 
-    // TODO
-    public void getInput() throws IOException, CommandException;
+    /**
+     * Get the input on the card to which this recorder is connected.<br>
+     * <br>
+     * Note, this command will throw an exception if the recorder is not local
+     * to the connected backend.
+     *
+     * @return the name of the input
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
+     *
+     * @since 63
+     */
+    public String getInput() throws IOException, CommandException;
 
     /**
      * Get the closest keyframe position to the desired position.

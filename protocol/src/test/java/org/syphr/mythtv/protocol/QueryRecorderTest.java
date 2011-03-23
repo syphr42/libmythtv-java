@@ -178,6 +178,12 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testGetInput() throws IOException, CommandException
+    {
+        LOGGER.debug("Input: {}", queryRecorder.getInput());
+    }
+
+    @Test
     public void testGetKeyframePosRecording() throws IOException, CommandException
     {
         if (!recording)
