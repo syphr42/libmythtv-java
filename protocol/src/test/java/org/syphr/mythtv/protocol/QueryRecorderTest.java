@@ -62,9 +62,33 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testGetBrightness() throws IOException, CommandException
+    {
+        LOGGER.debug("Brightness value: {}", queryRecorder.getBrightness());
+    }
+
+    @Test
+    public void testCancelNextRecording() throws IOException
+    {
+        // TODO
+    }
+
+    @Test
     public void testChangeChannel() throws IOException, CommandException
     {
         // TODO
+    }
+
+    @Test
+    public void testGetColour() throws IOException, CommandException
+    {
+        LOGGER.debug("Colour value: {}", queryRecorder.getColour());
+    }
+
+    @Test
+    public void testGetContrast() throws IOException, CommandException
+    {
+        LOGGER.debug("Contrast value: {}", queryRecorder.getContrast());
     }
 
     @Test
@@ -94,15 +118,15 @@ public class QueryRecorderTest
     }
 
     @Test
-    public void testFrontendReady() throws IOException, CommandException
+    public void testFinishRecording() throws IOException
     {
-        queryRecorder.frontendReady();
+        // TODO
     }
 
     @Test
-    public void testCancelNextRecording() throws IOException
+    public void testFrontendReady() throws IOException, CommandException
     {
-        // TODO
+        queryRecorder.frontendReady();
     }
 
     @Test
@@ -178,6 +202,12 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testGetInput() throws IOException, CommandException
+    {
+        LOGGER.debug("Input: {}", queryRecorder.getInput());
+    }
+
+    @Test
     public void testGetKeyframePosRecording() throws IOException, CommandException
     {
         if (!recording)
@@ -212,6 +242,12 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testGetHue() throws IOException, CommandException
+    {
+        LOGGER.debug("Hue value: {}", queryRecorder.getHue());
+    }
+
+    @Test
     public void testPause() throws IOException
     {
         // TODO
@@ -219,6 +255,12 @@ public class QueryRecorderTest
 
     @Test
     public void testSetChannel() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testSetLiveRecording() throws IOException
     {
         // TODO
     }
