@@ -216,4 +216,10 @@ public class QueryRecorderTest
     {
         // TODO
     }
+
+    @Test
+    public void testSetChannel() throws IOException, CommandException
+    {
+        // TODO
+    }
 }

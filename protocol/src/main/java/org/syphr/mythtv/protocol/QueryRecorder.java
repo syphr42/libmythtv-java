@@ -253,8 +253,23 @@ public interface QueryRecorder
      */
     public void pause() throws IOException, CommandException;
 
-    // TODO
-    public void setChannel() throws IOException, CommandException;
+    /**
+     * Change to the given channel in the currently recording stream.<br>
+     * <br>
+     * Note that {@link #pause()} must be called before this command.<br>
+     * <br>
+     * Note that this command only works for recorders local to this backend.
+     *
+     * @param chanNum
+     *            the channel number (which does not necessarily have to be a number)
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public void setChannel(String chanNum) throws IOException, CommandException;
 
     // TODO
     public void setInput() throws IOException, CommandException;
