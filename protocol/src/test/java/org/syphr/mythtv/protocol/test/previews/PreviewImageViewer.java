@@ -36,6 +36,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 import org.slf4j.Logger;
@@ -67,6 +68,15 @@ public class PreviewImageViewer
 
         final SocketManager socketManager = Utils.connect(settings);
         final Protocol proto = Utils.announceMonitor(settings, socketManager, EventLevel.NONE);
+
+        try
+        {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (Exception e)
+        {
+            logger.warn("Unable to set system look & feel", e);
+        }
 
         final ViewerPanel viewerPanel = new ViewerPanel(proto);
         viewerPanel.setBorder(BorderFactory.createTitledBorder("Preview Image"));
