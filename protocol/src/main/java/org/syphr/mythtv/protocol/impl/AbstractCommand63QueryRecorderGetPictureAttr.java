@@ -15,7 +15,6 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.ProtocolException;
 import org.syphr.mythtv.protocol.ProtocolException.Direction;
 
@@ -27,7 +26,7 @@ import org.syphr.mythtv.protocol.ProtocolException.Direction;
     }
 
     @Override
-    public Integer parseResponse(String response) throws ProtocolException, CommandException
+    public Integer parseResponse(String response) throws ProtocolException
     {
         try
         {
