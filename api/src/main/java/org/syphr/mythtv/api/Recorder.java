@@ -15,9 +15,13 @@
  */
 package org.syphr.mythtv.api;
 
+import java.io.IOException;
+
+import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
+import org.syphr.mythtv.protocol.types.PictureAdjustType;
 
 public class Recorder
 {
@@ -31,6 +35,16 @@ public class Recorder
         this.id = id;
         this.queryRecorder = protocol.queryRecorder(id);
         this.queryRemoteEncoder = protocol.queryRemoteEncoder(id);
+    }
+
+    public PictureControls getPictureControls() throws IOException, CommandException
+    {
+        if (queryRecorder.getBrightness() >= 0)
+        {
+            return new PictureControlsImpl(queryRecorder, PictureAdjustType.RECORDING);
+        }
+
+        return new PictureControlsNoOp();
     }
 
     @Override
