@@ -284,6 +284,18 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testSetInput() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
+    public void testSetInputNext() throws IOException, CommandException
+    {
+        // TODO
+    }
+
+    @Test
     public void testSetLiveRecording() throws IOException
     {
         // TODO

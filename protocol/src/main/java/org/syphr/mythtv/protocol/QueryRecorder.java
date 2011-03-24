@@ -425,8 +425,41 @@ public interface QueryRecorder
      */
     public void setChannel(String chanNum) throws IOException, CommandException;
 
-    // TODO
-    public void setInput() throws IOException, CommandException;
+    /**
+     * Request that this recorder switch to the given input.<br>
+     * <br>
+     * Note that {@link #pause()} must be called before this command.
+     *
+     * @see #setInputNext()
+     *
+     * @param input
+     *            the input to which to the recorder should switch
+     * @return the current input after the switch
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
+     *
+     * @since 63
+     */
+    public String setInput(String input) throws IOException, CommandException;
+
+    /**
+     * Request that this recorder switch to the next available input.<br>
+     * <br>
+     * Note that {@link #pause()} must be called before this command.
+     *
+     * @see #setInput(String)
+     *
+     * @return the current input after the switch
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is not local or it is not currently recording
+     *
+     * @since 63
+     */
+    public String setInputNext() throws IOException, CommandException;
 
     /**
      * Toggle the current state of the current recording between a actual

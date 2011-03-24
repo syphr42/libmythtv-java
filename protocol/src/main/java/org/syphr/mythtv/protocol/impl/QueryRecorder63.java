@@ -202,9 +202,15 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void setInput()
+    public String setInput(String input) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderSetInput(getRecorderId(), input).send(getSocketManager());
+    }
+
+    @Override
+    public String setInputNext() throws IOException, CommandException
+    {
+        return new Command63QueryRecorderSetInputNext(getRecorderId()).send(getSocketManager());
     }
 
     @Override
