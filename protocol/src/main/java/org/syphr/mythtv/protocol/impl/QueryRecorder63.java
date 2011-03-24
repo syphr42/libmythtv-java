@@ -70,9 +70,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void checkChannel()
+    public boolean checkChannel(String chanNum) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderCheckChannel(getRecorderId(), chanNum).send(getSocketManager());
     }
 
     @Override

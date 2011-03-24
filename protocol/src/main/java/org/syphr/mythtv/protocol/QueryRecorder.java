@@ -154,8 +154,25 @@ public interface QueryRecorder
      */
     public int changeHue(PictureAdjustType type, boolean increment) throws IOException, CommandException;
 
-    // TODO
-    public void checkChannel() throws IOException, CommandException;
+    /**
+     * Determine whether or not the given channel exists on this recorder.<br>
+     * <br>
+     * Note, this command will return <code>false</code> if the recorder is not
+     * local to the connected backend.
+     *
+     * @param chanNum
+     *            the channel number to check
+     * @return <code>true</code> if the channel exists; <code>false</code> if it
+     *         does not exist or this recorder is not local to the connected
+     *         backend
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public boolean checkChannel(String chanNum) throws IOException, CommandException;
 
     // TODO
     public void checkChannelPrefix() throws IOException, CommandException;

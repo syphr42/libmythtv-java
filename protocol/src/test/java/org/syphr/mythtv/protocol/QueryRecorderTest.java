@@ -104,6 +104,15 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testCheckChannel() throws IOException, CommandException
+    {
+        String chanNum = "3";
+        LOGGER.debug("Does channel {} exist on this recorder? {}",
+                     chanNum,
+                     queryRecorder.checkChannel(chanNum));
+    }
+
+    @Test
     public void testGetColour() throws IOException, CommandException
     {
         LOGGER.debug("Colour value: {}", queryRecorder.getColour());
