@@ -511,8 +511,22 @@ public interface QueryRecorder
     // TODO
     public void setSignalMonitoringRate() throws IOException, CommandException;
 
-    // TODO
-    public void shouldSwitchCard() throws IOException, CommandException;
+    /**
+     * Determine if the given channel exists on a recorder other than this one.
+     *
+     * @param channel
+     *            the channel to check
+     * @return <code>true</code> if the channel exists on another recorder;
+     *         <code>false</code> if the channel does not exist or this recorder
+     *         is not local to the connected backend
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if this recorder is unknown
+     *
+     * @since 63
+     */
+    public boolean shouldSwitchCard(Channel channel) throws IOException, CommandException;
 
     /**
      * Request a new LiveTV chain to start recording.

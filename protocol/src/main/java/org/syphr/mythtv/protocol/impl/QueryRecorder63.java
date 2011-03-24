@@ -226,9 +226,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void shouldSwitchCard()
+    public boolean shouldSwitchCard(Channel channel) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderShouldSwitchCard(getRecorderId(), channel).send(getSocketManager());
     }
 
     @Override

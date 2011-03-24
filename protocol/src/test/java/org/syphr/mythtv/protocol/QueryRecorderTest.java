@@ -22,6 +22,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.test.Settings;
@@ -299,6 +300,15 @@ public class QueryRecorderTest
     public void testSetChannel() throws IOException, CommandException
     {
         // TODO
+    }
+
+    @Test
+    public void testShouldSwitchCard() throws IOException, CommandException
+    {
+        int chanId = 1001;
+        LOGGER.debug("Should switch card to access channel ID {}? {}",
+                     chanId,
+                     queryRecorder.shouldSwitchCard(new Channel(chanId)));
     }
 
     @Test
