@@ -163,6 +163,15 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testGetChannelInfo() throws IOException, CommandException
+    {
+        int chanId = 1001;
+        LOGGER.debug("Info for channel ID {}: {}",
+                     chanId,
+                     queryRecorder.getChannelInfo(chanId));
+    }
+
+    @Test
     public void testGetCurrentRecording() throws IOException, CommandException
     {
         LOGGER.debug("Current recording: {}", queryRecorder.getCurrentRecording());

@@ -275,6 +275,33 @@ public class Protocol63Utils
         }
     }
 
+    public static Channel parseChannel(String value) throws ProtocolException
+    {
+        List<String> args = splitArguments(value);
+        if (args.size() != 6)
+        {
+            throw new ProtocolException(value, Direction.RECEIVE);
+        }
+
+        try
+        {
+            int i = 0;
+
+            int id = Integer.parseInt(args.get(i++));
+            int sourceId = Integer.parseInt(args.get(i++));
+            String callsign = args.get(i++);
+            String number = args.get(i++);
+            String name = args.get(i++);
+            String xmltvId = args.get(i++);
+
+            return new Channel(id, sourceId, number, callsign, name, xmltvId);
+        }
+        catch (NumberFormatException e)
+        {
+            throw new ProtocolException(value, Direction.RECEIVE, e);
+        }
+    }
+
     public static List<String> extractProgramInfo(ProgramInfo program) throws ProtocolException
     {
         List<String> extracted = new ArrayList<String>();

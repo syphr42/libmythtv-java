@@ -106,9 +106,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getChannelInfo()
+    public Channel getChannelInfo(int channelId) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderGetChannelInfo(getRecorderId(), channelId).send(getSocketManager());
     }
 
     @Override

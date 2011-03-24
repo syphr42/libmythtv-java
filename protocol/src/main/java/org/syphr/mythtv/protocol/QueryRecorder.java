@@ -235,8 +235,22 @@ public interface QueryRecorder
      */
     public int getBrightness() throws IOException, CommandException;
 
-    // TODO
-    public void getChannelInfo() throws IOException, CommandException;
+    /**
+     * Get information about the channel identified with the given ID.<br>
+     * <br>
+     * Note that this command only works for recorders local to this backend.
+     *
+     * @param channelId
+     *            the unique ID of the channel whose information is requested
+     * @return the corresponding channel information
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public Channel getChannelInfo(int channelId) throws IOException, CommandException;
 
     /**
      * Get the current color value for this recorder. This command is likely to
