@@ -160,7 +160,7 @@ public interface QueryRecorder
      * Note, this command will return <code>false</code> if the recorder is not
      * local to the connected backend.
      *
-     * @param chanNum
+     * @param channelNumber
      *            the channel number to check
      * @return <code>true</code> if the channel exists; <code>false</code> if it
      *         does not exist or this recorder is not local to the connected
@@ -172,7 +172,7 @@ public interface QueryRecorder
      *
      * @since 63
      */
-    public boolean checkChannel(String chanNum) throws IOException, CommandException;
+    public boolean checkChannel(String channelNumber) throws IOException, CommandException;
 
     // TODO
     public void checkChannelPrefix() throws IOException, CommandException;
@@ -445,7 +445,7 @@ public interface QueryRecorder
      * <br>
      * Note that this command only works for recorders local to this backend.
      *
-     * @param chanNum
+     * @param channelNumber
      *            the channel number (which does not necessarily have to be a number)
      * @throws IOException
      *             if there is a communication or protocol error
@@ -454,7 +454,7 @@ public interface QueryRecorder
      *
      * @since 63
      */
-    public void setChannel(String chanNum) throws IOException, CommandException;
+    public void setChannel(String channelNumber) throws IOException, CommandException;
 
     /**
      * Request that this recorder switch to the given input.<br>

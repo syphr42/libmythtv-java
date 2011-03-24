@@ -20,18 +20,18 @@ import org.syphr.mythtv.protocol.ProtocolException.Direction;
 
 /* default */class Command63QueryRecorderCheckChannel extends AbstractCommand63QueryRecorder<Boolean>
 {
-    private final String chanNum;
+    private final String channelNumber;
 
-    public Command63QueryRecorderCheckChannel(int recorderId, String chanNum)
+    public Command63QueryRecorderCheckChannel(int recorderId, String channelNumber)
     {
         super(recorderId);
-        this.chanNum = chanNum;
+        this.channelNumber = channelNumber;
     }
 
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("CHECK_CHANNEL", chanNum);
+        return Protocol63Utils.combineArguments("CHECK_CHANNEL", channelNumber);
     }
 
     @Override
