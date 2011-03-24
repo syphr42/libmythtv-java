@@ -15,22 +15,22 @@
  */
 package org.syphr.mythtv.api;
 
+import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.QueryRecorder;
+import org.syphr.mythtv.protocol.QueryRemoteEncoder;
 
 public class Recorder
 {
     private final int id;
-    private final QueryRecorder query;
 
-    public Recorder(int id, QueryRecorder query)
+    private final QueryRecorder queryRecorder;
+    private final QueryRemoteEncoder queryRemoteEncoder;
+
+    public Recorder(int id, Protocol protocol)
     {
         this.id = id;
-        this.query = query;
-    }
-
-    public int getId()
-    {
-        return id;
+        this.queryRecorder = protocol.queryRecorder(id);
+        this.queryRemoteEncoder = protocol.queryRemoteEncoder(id);
     }
 
     @Override

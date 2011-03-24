@@ -17,6 +17,8 @@ package org.syphr.mythtv.api;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,7 @@ import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolFactory;
 import org.syphr.mythtv.protocol.SocketManager;
+import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.protocol.types.ConnectionType;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.protocol.types.ProtocolVersion;
@@ -34,27 +37,27 @@ public class Backend
 
     private final SocketManager socketManager;
     private final Protocol protocol;
-    private final ConnectionType connectionType;
 
-    public Backend(ProtocolVersion version, ConnectionType connectionType)
+    public Backend(ProtocolVersion version)
     {
         socketManager = new SocketManager();
-        this.protocol = ProtocolFactory.createInstance(version, socketManager);
-        this.connectionType = connectionType;
+        protocol = ProtocolFactory.createInstance(version, socketManager);
     }
 
-    public void connect(String host, int port, int timeout) throws IOException, CommandException
+    public void connect(String host,
+                        int port,
+                        int timeout,
+                        ConnectionType connectionType,
+                        EventLevel eventLevel) throws IOException, CommandException
     {
         socketManager.connect(host, port, timeout);
 
         try
         {
             protocol.mythProtoVersion();
-
-            // TODO don't hard-code this
             protocol.ann(connectionType,
                          InetAddress.getLocalHost().getHostName(),
-                         EventLevel.NONE);
+                         eventLevel);
         }
         catch (IOException e)
         {
@@ -71,6 +74,14 @@ public class Backend
     public boolean isConnected()
     {
         return socketManager.isConnected();
+    }
+
+    private void verifyConnected() throws IOException
+    {
+        if (!isConnected())
+        {
+            throw new IOException("not connected");
+        }
     }
 
     public void disconnect()
@@ -90,5 +101,34 @@ public class Backend
         }
 
         socketManager.disconnect();
+    }
+
+    public void addBackendEventListener(BackendEventListener l)
+    {
+        protocol.addBackendEventListener(l);
+    }
+
+    public void removeBackendEventListener(BackendEventListener l)
+    {
+        protocol.removeBackendEventListener(l);
+    }
+
+    public ServerInfo getInfo() throws IOException
+    {
+        return new ServerInfo(protocol);
+    }
+
+    public List<Recorder> getFreeRecorders() throws IOException
+    {
+        verifyConnected();
+
+        List<Recorder> recorders = new ArrayList<Recorder>();
+
+        for (Integer recorderId : protocol.getFreeRecorderList())
+        {
+            recorders.add(new Recorder(recorderId, protocol));
+        }
+
+        return recorders;
     }
 }
