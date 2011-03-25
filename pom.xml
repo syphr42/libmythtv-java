@@ -70,6 +70,8 @@
 	   <module>protocol</module>
 	   
 	   <module>test</module>
+	   
+	   <module>example</module>
 	</modules>
 	
 	<properties>
