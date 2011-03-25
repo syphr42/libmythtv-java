@@ -111,6 +111,8 @@ public class SocketManager
      * Connect to a backend server. This method will block until the connection completes.
      * If a connection is already active, this method will do nothing.
      *
+     * @see #connect(InetSocketAddress, long)
+     *
      * @param host
      *            the hostname (or IP address) of the server
      * @param port
@@ -123,12 +125,31 @@ public class SocketManager
      */
     public void connect(String host, int port, final long timeout) throws IOException
     {
+        connect(new InetSocketAddress(host, port), timeout);
+    }
+
+    /**
+     * Connect to a backend server. This method will block until the connection completes.
+     * If a connection is already active, this method will do nothing.
+     *
+     * @see #connect(String, int, long)
+     *
+     * @param addr
+     *            the server location
+     * @param timeout
+     *            number of milliseconds to wait before assuming the connection failed
+     *            (values < 1 indicate no timeout)
+     * @throws IOException
+     *             if the connection could not be completed
+     */
+    public void connect(InetSocketAddress addr, final long timeout) throws IOException
+    {
         if (isConnected())
         {
             return;
         }
 
-        logger.info("Connecting to {}:{}", host, port);
+        logger.info("Connecting to {}:{}", addr.getHostName(), addr.getPort());
 
         socket = SocketChannel.open();
         socket.configureBlocking(true);
@@ -165,7 +186,7 @@ public class SocketManager
         timeoutThread.start();
         try
         {
-            socket.connect(new InetSocketAddress(host, port));
+            socket.connect(addr);
         }
         finally
         {
@@ -325,6 +346,40 @@ public class SocketManager
     public boolean isConnected()
     {
         return socket != null && socket.isConnected();
+    }
+
+    /**
+     * Retrieve the address to which this instance is currently connected.
+     *
+     * @see #isConnected()
+     *
+     * @return the connected address or <code>null</code> if this manager is not connected
+     */
+    public InetSocketAddress getConnectedAddress()
+    {
+        return isConnected() ? (InetSocketAddress)socket.socket().getRemoteSocketAddress() : null;
+    }
+
+    /**
+     * Create a copy of this manager that is connected to the same server (if this
+     * instance is connected).
+     *
+     * @see #isConnected()
+     *
+     * @return the new manager instance
+     * @throws IOException
+     *             if the connection could not be completed
+     */
+    public SocketManager newConnection() throws IOException
+    {
+        SocketManager newManager = new SocketManager();
+
+        if (isConnected())
+        {
+            newManager.connect(getConnectedAddress(), 0);
+        }
+
+        return newManager;
     }
 
     /**
