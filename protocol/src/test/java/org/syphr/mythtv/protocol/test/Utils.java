@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.nio.channels.ByteChannel;
 import java.nio.channels.FileChannel;
 
 import org.syphr.mythtv.protocol.CommandException;
@@ -27,7 +28,6 @@ import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolFactory;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.SocketManager;
-import org.syphr.mythtv.protocol.SocketManager.ReadWriteByteChannel;
 import org.syphr.mythtv.protocol.types.ConnectionType;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.protocol.types.ProtocolVersion;
@@ -88,7 +88,7 @@ public class Utils
 
             try
             {
-                ReadWriteByteChannel in = socketManager.redirectChannel();
+                ByteChannel in = socketManager.redirectChannel();
 
                 try
                 {
@@ -139,7 +139,7 @@ public class Utils
 
             try
             {
-                ReadWriteByteChannel out = socketManager.redirectChannel();
+                ByteChannel out = socketManager.redirectChannel();
 
                 try
                 {

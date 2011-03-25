@@ -19,11 +19,10 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.ByteChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
-import java.nio.channels.WritableByteChannel;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,7 +60,7 @@ public class SocketManager
 
     private BackendEventGrabber backendEventGrabber;
 
-    private ReadWriteByteChannel redirect;
+    private ByteChannel redirect;
 
     /**
      * Construct a new socket manager that is not connected to any backend.
@@ -468,7 +467,7 @@ public class SocketManager
      *
      * @return the redirected channel stream
      */
-    public ReadWriteByteChannel redirectChannel()
+    public ByteChannel redirectChannel()
     {
         synchronized (Lock.REDIRECT_CHANNEL)
         {
@@ -489,7 +488,7 @@ public class SocketManager
         SEND_AND_WAIT, REDIRECT_CHANNEL
     }
 
-    private class RedirectedChannel implements ReadWriteByteChannel
+    private class RedirectedChannel implements ByteChannel
     {
         private volatile boolean closed;
 
@@ -538,17 +537,5 @@ public class SocketManager
                 throw new IOException("redirected channel is no longer accessible");
             }
         }
-    }
-
-    /**
-     * A composition of {@link ReadableByteChannel} and {@link WritableByteChannel}.
-     *
-     * @author Gregory P. Moyer
-     */
-    public interface ReadWriteByteChannel extends ReadableByteChannel, WritableByteChannel
-    {
-        /*
-         * Composite interface
-         */
     }
 }
