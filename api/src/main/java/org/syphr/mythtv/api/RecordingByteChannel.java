@@ -30,6 +30,8 @@ import org.syphr.mythtv.protocol.types.SeekOrigin;
 
 public class RecordingByteChannel implements ReadableByteChannel
 {
+    private final ProgramInfo program;
+
     private final Protocol transferProtocol;
     private final QueryFileTransfer fileTransfer;
     private final ReadableByteChannel channel;
@@ -37,10 +39,12 @@ public class RecordingByteChannel implements ReadableByteChannel
     private boolean open;
 
     public RecordingByteChannel(Protocol protocol,
-                                   ProgramInfo program,
-                                   boolean readAhead,
-                                   long timeout) throws IOException, CommandException
+                                ProgramInfo program,
+                                boolean readAhead,
+                                long timeout) throws IOException, CommandException
     {
+        this.program = program;
+
         // TODO what if some of this code succeeds and then an exception is thrown? need to guarantee cleanup
         transferProtocol = protocol.newProtocol();
         transferProtocol.mythProtoVersion();
@@ -56,6 +60,11 @@ public class RecordingByteChannel implements ReadableByteChannel
         channel = transferProtocol.getChannel();
 
         open = true;
+    }
+
+    public ProgramInfo getProgram()
+    {
+        return program;
     }
 
     @Override
