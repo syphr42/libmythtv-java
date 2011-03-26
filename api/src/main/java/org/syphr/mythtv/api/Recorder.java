@@ -16,23 +16,29 @@
 package org.syphr.mythtv.api;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
+import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.types.PictureAdjustType;
 
 public class Recorder
 {
     private final int id;
 
+    private final Protocol protocol;
     private final QueryRecorder queryRecorder;
     private final QueryRemoteEncoder queryRemoteEncoder;
 
     public Recorder(int id, Protocol protocol)
     {
         this.id = id;
+
+        this.protocol = protocol;
         this.queryRecorder = protocol.queryRecorder(id);
         this.queryRemoteEncoder = protocol.queryRemoteEncoder(id);
     }
@@ -45,6 +51,22 @@ public class Recorder
         }
 
         return new PictureControlsNoOp();
+    }
+
+    public boolean isBusyWithin(int duration, TimeUnit unit) throws IOException, CommandException
+    {
+        return queryRemoteEncoder.isBusy((int)unit.toSeconds(duration)).getLeftElement();
+    }
+
+    public RecordingByteChannel startLiveTv(Channel channel) throws IOException, CommandException
+    {
+        queryRecorder.spawnLiveTv("livetv-" + new Date().getTime(), false, channel);
+        return new RecordingByteChannel(protocol, queryRecorder.getCurrentRecording(), false, 3000);
+    }
+
+    public void stopLiveTv() throws IOException, CommandException
+    {
+        queryRecorder.stopLiveTv();
     }
 
     @Override
