@@ -20,7 +20,6 @@ import java.io.IOException;
 import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.types.SeekOrigin;
 
-
 public class QueryFileTransfer63 extends AbstractQueryFileTransfer
 {
     public QueryFileTransfer63(int socketNumber,

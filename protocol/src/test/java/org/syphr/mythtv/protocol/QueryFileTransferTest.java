@@ -38,7 +38,6 @@ import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.protocol.types.FileTransferType;
-import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.mythtv.protocol.types.RecordingCategory;
 import org.syphr.mythtv.protocol.types.SeekOrigin;
 import org.syphr.mythtv.test.Settings;
@@ -106,10 +105,7 @@ public class QueryFileTransferTest
                             result.getPath().replace("/", ""));
         Assert.assertEquals(TEST_STORAGE_GROUP, result.getUserInfo());
 
-        SocketManager fileSocketManager = commandSocketManager.newConnection();
-        Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
-                                                                                     ProtocolVersion.class),
-                                                            fileSocketManager);
+        Protocol fileProto = commandProto.newProtocol();
         fileProto.mythProtoVersion();
 
         QueryFileTransfer fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
@@ -119,15 +115,13 @@ public class QueryFileTransferTest
                                                                    0L,
                                                                    dest,
                                                                    TEST_STORAGE_GROUP,
-                                                                   commandSocketManager);
+                                                                   commandProto);
 
         File actualFile = new File(LOCAL_TEMP, "actual.data");
-        Utils.readToFile(settings, fileSocketManager, actualFile, fileTransfer);
+        Utils.readToFile(settings, fileProto, actualFile, fileTransfer);
 
         fileTransfer.done();
-
         fileProto.done();
-        fileSocketManager.disconnect();
 
         Checksum crc32 = new CRC32();
         Assert.assertEquals(Files.getChecksum(EXPECTED_FILE, crc32),
@@ -147,10 +141,7 @@ public class QueryFileTransferTest
             return;
         }
 
-        SocketManager fileSocketManager = commandSocketManager.newConnection();
-        Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
-                                                                                     ProtocolVersion.class),
-                                                            fileSocketManager);
+        Protocol fileProto = commandProto.newProtocol();
         fileProto.mythProtoVersion();
 
         ProgramInfo program = programs.get(0);
@@ -161,7 +152,7 @@ public class QueryFileTransferTest
                                                                    0L,
                                                                    program.getBasename(),
                                                                    program.getStorageGroup(),
-                                                                   commandSocketManager);
+                                                                   commandProto);
 
         Assert.assertTrue(fileTransfer.isOpen());
 
@@ -183,7 +174,7 @@ public class QueryFileTransferTest
         File tempFile = new File(LOCAL_TEMP, program.getBasename().toString());
 
         Utils.readToFile(settings,
-                         fileSocketManager,
+                         fileProto,
                          tempFile,
                          fileTransfer,
                          chunk,
@@ -193,16 +184,14 @@ public class QueryFileTransferTest
         Assert.assertEquals(seekPosition, newPosition);
 
         Utils.readToFile(settings,
-                         fileSocketManager,
+                         fileProto,
                          tempFile,
                          fileTransfer,
                          chunk,
                          true);
 
         fileTransfer.done();
-
         fileProto.done();
-        fileSocketManager.disconnect();
     }
 
     @Test
@@ -210,10 +199,7 @@ public class QueryFileTransferTest
     {
         URI dest = new URI(TEST_URI);
 
-        SocketManager fileSocketManager = commandSocketManager.newConnection();
-        Protocol fileProto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
-                                                                                     ProtocolVersion.class),
-                                                            fileSocketManager);
+        Protocol fileProto = commandProto.newProtocol();
         fileProto.mythProtoVersion();
 
         QueryFileTransfer fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
@@ -223,14 +209,12 @@ public class QueryFileTransferTest
                                                                    0L,
                                                                    dest,
                                                                    TEST_STORAGE_GROUP,
-                                                                   commandSocketManager);
+                                                                   commandProto);
 
-        Utils.writeFromFile(settings, fileSocketManager, EXPECTED_FILE, fileTransfer);
+        Utils.writeFromFile(settings, fileProto, EXPECTED_FILE, fileTransfer);
 
         fileTransfer.done();
-
         fileProto.done();
-        fileSocketManager.disconnect();
 
         FileInfo info = commandProto.queryFileExists(dest, TEST_STORAGE_GROUP);
         Assert.assertNotNull(info);

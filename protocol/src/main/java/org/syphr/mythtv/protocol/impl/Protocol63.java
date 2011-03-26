@@ -24,6 +24,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.protocol.CommandException;
+import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolException;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.QueryRecorder;
@@ -111,7 +112,7 @@ public class Protocol63 extends AbstractProtocol
                                              long timeout,
                                              URI uri,
                                              String storageGroup,
-                                             SocketManager commandSocketManager) throws IOException
+                                             Protocol commandProtocol) throws IOException
     {
         return new Command63AnnFileTransfer(host,
                                             type,
@@ -119,13 +120,30 @@ public class Protocol63 extends AbstractProtocol
                                             timeout,
                                             uri,
                                             storageGroup,
-                                            commandSocketManager).send(getSocketManager());
+                                            commandProtocol.getSocketManager()).send(getSocketManager());
     }
 
     @Override
     public void done() throws IOException
     {
-        new Command63Done().send(getSocketManager());
+        SocketManager manager = getSocketManager();
+
+        try
+        {
+            new Command63Done().send(manager);
+        }
+        finally
+        {
+            /*
+             * Once done is sent, the server will disconnect, so the current connection is
+             * unusable. To make sure things get cleaned up (such as when generating a new
+             * protocol from an existing one), disconnect is called here. It's OK if
+             * disconnect gets called more than once, but it needs to be called at least
+             * once and this guarantees that when the protocol is completed, the
+             * connection is closed.
+             */
+            manager.disconnect();
+        }
     }
 
     @Override

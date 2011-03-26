@@ -18,6 +18,7 @@ package org.syphr.mythtv.protocol;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.nio.channels.ByteChannel;
 import java.util.Date;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public interface Protocol
      * command sent to the backend after {@link #mythProtoVersion()}.<br>
      * <br>
      * Note: if a file is to be transferred,
-     * {@link #annFileTransfer(String, FileTransferType, boolean, long, URI, String, SocketManager)}
+     * {@link #annFileTransfer(String, FileTransferType, boolean, long, URI, String, Protocol)}
      * should be sent first.
      *
      * @param connectionType
@@ -110,9 +111,8 @@ public interface Protocol
      * @param storageGroup
      *            the storage group that contains (will contain) the file to be
      *            transferred
-     * @param commandSocketManager
-     *            the connection that will be used to send file transfer
-     *            commands
+     * @param commandProtocol
+     *            the protocol that will be used to send file transfer commands
      * @return a sub-protocol API that can be used to manipulate the data stream
      * @throws IOException
      *             if there is a communication or protocol error
@@ -123,7 +123,7 @@ public interface Protocol
                                              long timeout,
                                              URI uri,
                                              String storageGroup,
-                                             SocketManager commandSocketManager) throws IOException;
+                                             Protocol commandProtocol) throws IOException;
 
     /**
      * Tell the backend that this client intends to disconnect. This command should be
@@ -135,6 +135,33 @@ public interface Protocol
      * @since 63
      */
     public void done() throws IOException;
+
+    /**
+     * Retrieve a new protocol instance with a new connection using the same parameters as
+     * this instance.
+     *
+     * @return the new protocol
+     * @throws IOException
+     *             if there is an error while creating the new connection
+     */
+    public Protocol newProtocol() throws IOException;
+
+    /**
+     * Redirect this I/O channel for this protocol. Until {@link ByteChannel#close()} is
+     * called, no methods in this protocol instance can be used. This is useful for
+     * handling file transfers.
+     *
+     * @return the underlying I/O channel
+     */
+    public ByteChannel getChannel();
+
+    /**
+     * Retrieve the low-level communications manager. In most cases, it should not be
+     * necessary to access this object directly.
+     *
+     * @return the socket manager that controls communication with the backend
+     */
+    public SocketManager getSocketManager();
 
     /**
      * Allow the backend to shutdown. This releases a previous a call to

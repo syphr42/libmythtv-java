@@ -61,12 +61,12 @@ public class Utils
     }
 
     public static void readToFile(PropertiesManager<Settings> settings,
-                                  SocketManager socketManager,
+                                  Protocol transferProtocol,
                                   File file,
                                   QueryFileTransfer fileTransfer) throws IOException
     {
         readToFile(settings,
-                   socketManager,
+                   transferProtocol,
                    file,
                    fileTransfer,
                    fileTransfer.getSize(),
@@ -74,7 +74,7 @@ public class Utils
     }
 
     public static void readToFile(PropertiesManager<Settings> settings,
-                                  SocketManager socketManager,
+                                  Protocol transferProtocol,
                                   File file,
                                   QueryFileTransfer fileTransfer,
                                   long size,
@@ -88,7 +88,7 @@ public class Utils
 
             try
             {
-                ByteChannel in = socketManager.redirectChannel();
+                ByteChannel in = transferProtocol.getChannel();
 
                 try
                 {
@@ -127,7 +127,7 @@ public class Utils
     }
 
     public static void writeFromFile(PropertiesManager<Settings> settings,
-                                     SocketManager socketManager,
+                                     Protocol transferProtocol,
                                      File file,
                                      QueryFileTransfer fileTransfer) throws IOException
     {
@@ -139,7 +139,7 @@ public class Utils
 
             try
             {
-                ByteChannel out = socketManager.redirectChannel();
+                ByteChannel out = transferProtocol.getChannel();
 
                 try
                 {

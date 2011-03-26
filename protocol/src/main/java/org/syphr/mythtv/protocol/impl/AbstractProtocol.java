@@ -15,6 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import java.io.IOException;
+import java.nio.channels.ByteChannel;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -37,6 +39,33 @@ public abstract class AbstractProtocol implements Protocol
     }
 
     @Override
+    public Protocol newProtocol() throws IOException
+    {
+        SocketManager newManager = getSocketManager().newConnection();
+
+        try
+        {
+            return getClass().getConstructor(SocketManager.class).newInstance(newManager);
+        }
+        catch (Exception e)
+        {
+            throw new IllegalStateException("Unable to create new protocol instance", e);
+        }
+    }
+
+    @Override
+    public ByteChannel getChannel()
+    {
+        return getSocketManager().redirectChannel();
+    }
+
+    @Override
+    public SocketManager getSocketManager()
+    {
+        return socketManager;
+    }
+
+    @Override
     public void addBackendEventListener(BackendEventListener l)
     {
         listeners.add(l);
@@ -46,11 +75,6 @@ public abstract class AbstractProtocol implements Protocol
     public void removeBackendEventListener(BackendEventListener l)
     {
         listeners.remove(l);
-    }
-
-    protected SocketManager getSocketManager()
-    {
-        return socketManager;
     }
 
     protected List<BackendEventListener> getListeners()
