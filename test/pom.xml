@@ -93,9 +93,9 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
-            <version>1.6.1</version>
+            <version>${dep.version.slf4j}</version>
             <type>jar</type>
-            <scope>compile</scope>
+            <scope>runtime</scope>
         </dependency>
 	</dependencies>
 </project>
