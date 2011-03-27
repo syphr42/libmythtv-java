@@ -186,7 +186,7 @@ public class Protocol63Utils
             Date endTime = getDateTime(args.get(i++));
             int findId = Integer.parseInt(args.get(i++));
             String hostname = args.get(i++);
-            int sourceId = Integer.parseInt(args.get(i++));
+            long sourceId = Long.parseLong(args.get(i++));
             int cardId = Integer.parseInt(args.get(i++));
             int inputId = Integer.parseInt(args.get(i++));
             int recPriority = Integer.parseInt(args.get(i++));
@@ -288,7 +288,7 @@ public class Protocol63Utils
             int i = 0;
 
             int id = Integer.parseInt(args.get(i++));
-            int sourceId = Integer.parseInt(args.get(i++));
+            long sourceId = Long.parseLong(args.get(i++));
             String callsign = args.get(i++);
             String number = args.get(i++);
             String name = args.get(i++);
@@ -313,10 +313,10 @@ public class Protocol63Utils
         extracted.add(program.getDescription());
         extracted.add(program.getCategory());
         extracted.add(String.valueOf(channel.getId()));
-        extracted.add(String.valueOf(channel.getNumber()));
-        extracted.add(String.valueOf(channel.getCallsign()));
-        extracted.add(String.valueOf(channel.getName()));
-        extracted.add(String.valueOf(program.getFilename()));
+        extracted.add(channel.getNumber());
+        extracted.add(channel.getCallsign());
+        extracted.add(channel.getName());
+        extracted.add(valueOf(program.getFilename()));
         extracted.add(String.valueOf(program.getFileSize()));
         extracted.add(getDateTime(program.getStartTime()));
         extracted.add(getDateTime(program.getEndTime()));
@@ -380,7 +380,17 @@ public class Protocol63Utils
 
     private static String getDateTime(Date date)
     {
-        return String.valueOf(TimeUnit.MILLISECONDS.toSeconds(date.getTime()));
+        return date == null ? "" : String.valueOf(TimeUnit.MILLISECONDS.toSeconds(date.getTime()));
+    }
+
+    private static String valueOf(Object value)
+    {
+        if (value == null)
+        {
+            return "";
+        }
+
+        return value.toString();
     }
 
     public static Translator getTranslator()
