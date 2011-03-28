@@ -22,6 +22,7 @@ import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.Channel;
+import org.syphr.mythtv.protocol.data.ChannelQuery;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
 import org.syphr.mythtv.protocol.types.PictureAdjustType;
@@ -76,9 +77,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void checkChannelPrefix()
+    public ChannelQuery checkChannelPrefix(String channelNumberPrefix) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderCheckChannelPrefix(getRecorderId(), channelNumberPrefix).send(getSocketManager());
     }
 
     @Override

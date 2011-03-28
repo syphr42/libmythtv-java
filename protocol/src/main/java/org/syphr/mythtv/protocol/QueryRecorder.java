@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.syphr.mythtv.protocol.data.Channel;
+import org.syphr.mythtv.protocol.data.ChannelQuery;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
 import org.syphr.mythtv.protocol.types.PictureAdjustType;
@@ -174,8 +175,28 @@ public interface QueryRecorder
      */
     public boolean checkChannel(String channelNumber) throws IOException, CommandException;
 
-    // TODO
-    public void checkChannelPrefix() throws IOException, CommandException;
+    /**
+     * Query the backend to determine if the given channel number prefix either matches a
+     * valid channel or is a prefix to a valid channel.<br>
+     * <br>
+     * An example use case for this method is a user typing in a channel number. This
+     * method can be used to check what the user types to look for a valid channel.<br>
+     * <br>
+     * Note, this command will return {@link ChannelQuery#isValid() invalid} if the
+     * recorder is not local to the connected backend.
+     *
+     * @param channelNumberPrefix
+     *            the prefix of the desired channel number
+     * @return a query object with details about the availability of a channel matching
+     *         the given prefix
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the recorder is unknown
+     *
+     * @since 63
+     */
+    public ChannelQuery checkChannelPrefix(String channelNumberPrefix) throws IOException, CommandException;
 
     /**
      * Get a map of keyframe positions to file byte offsets for all of the
