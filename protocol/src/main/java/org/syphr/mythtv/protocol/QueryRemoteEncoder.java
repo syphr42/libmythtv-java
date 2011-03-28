@@ -144,8 +144,8 @@ public interface QueryRemoteEncoder
      *
      * @param withinSeconds
      *            the number of seconds ahead to check
-     * @return information about the busy input or <code>null</code> if the recorder will
-     *         not be busy
+     * @return a pair consisting of a boolean which will be <code>true</code> if the
+     *         recorder is/will be busy and information about the input
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
