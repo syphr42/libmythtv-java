@@ -15,6 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import org.syphr.mythtv.protocol.types.ChannelBrowseDirection;
 import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
 import org.syphr.mythtv.protocol.types.ConnectionType;
 import org.syphr.mythtv.protocol.types.EventLevel;
@@ -300,6 +301,18 @@ public class Translator63 extends AbstractTranslator
         CHANNEL_CHANGE_MAP.put(ChannelChangeDirection.SAME, "3");
     }
 
+    private static final BiMap<ChannelBrowseDirection, String> CHANNEL_BROWSE_MAP = EnumHashBiMap.create(ChannelBrowseDirection.class);
+    static
+    {
+        CHANNEL_BROWSE_MAP.put(ChannelBrowseDirection.INVALID, "-1");
+        CHANNEL_BROWSE_MAP.put(ChannelBrowseDirection.SAME, "0");
+        CHANNEL_BROWSE_MAP.put(ChannelBrowseDirection.UP, "1");
+        CHANNEL_BROWSE_MAP.put(ChannelBrowseDirection.DOWN, "2");
+        CHANNEL_BROWSE_MAP.put(ChannelBrowseDirection.LEFT, "3");
+        CHANNEL_BROWSE_MAP.put(ChannelBrowseDirection.RIGHT, "4");
+        CHANNEL_BROWSE_MAP.put(ChannelBrowseDirection.FAVORITE, "5");
+    }
+
     private static final BiMap<PictureAdjustType, String> PICTURE_ADJUST_MAP = EnumHashBiMap.create(PictureAdjustType.class);
     static
     {
@@ -385,6 +398,11 @@ public class Translator63 extends AbstractTranslator
         if (ChannelChangeDirection.class.equals(type))
         {
             return (BiMap)CHANNEL_CHANGE_MAP;
+        }
+
+        if (ChannelBrowseDirection.class.equals(type))
+        {
+            return (BiMap)CHANNEL_BROWSE_MAP;
         }
 
         if (PictureAdjustType.class.equals(type))

@@ -16,6 +16,7 @@
 package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 import org.syphr.mythtv.protocol.CommandException;
@@ -24,6 +25,7 @@ import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.ChannelQuery;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
+import org.syphr.mythtv.protocol.types.ChannelBrowseDirection;
 import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
 import org.syphr.mythtv.protocol.types.PictureAdjustType;
 
@@ -179,9 +181,14 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public void getNextProgramInfo()
+    public ProgramInfo getNextProgramInfo(Channel channel,
+                                          ChannelBrowseDirection browseDirection,
+                                          Date startTime) throws IOException, CommandException
     {
-        throw new UnsupportedOperationException();
+        return new Command63QueryRecorderGetNextProgramInfo(getRecorderId(),
+                                                            channel,
+                                                            browseDirection,
+                                                            startTime).send(getSocketManager());
     }
 
     @Override

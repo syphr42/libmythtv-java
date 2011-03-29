@@ -23,7 +23,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.protocol.data.Channel;
+import org.syphr.mythtv.protocol.data.ProgramInfo;
+import org.syphr.mythtv.protocol.data.UpcomingRecordings;
 import org.syphr.mythtv.protocol.test.Utils;
+import org.syphr.mythtv.protocol.types.ChannelBrowseDirection;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.prom.PropertiesManager;
@@ -290,6 +293,22 @@ public class QueryRecorderTest
         long mbps = kbps / 1024;
 
         LOGGER.debug(String.format("Max bitrate: %dbps / %dkbps / %dmbps", bps, kbps, mbps));
+    }
+
+    @Test
+    public void testGetNextProgramInfo() throws IOException, CommandException
+    {
+        UpcomingRecordings pending = proto.queryGetAllPending();
+        if (pending.isEmpty())
+        {
+            return;
+        }
+
+        ProgramInfo program = pending.get(0);
+        LOGGER.debug("Next program: {}",
+                     queryRecorder.getNextProgramInfo(program.getChannel(),
+                                                      ChannelBrowseDirection.RIGHT,
+                                                      program.getStartTime()));
     }
 
     @Test

@@ -27,9 +27,16 @@ public class Channel
 
     private final String xmltvId;
 
+    private final String iconPath;
+
     public Channel(int id)
     {
-        this(id, -1, null, null, null);
+        this(id, null, null, null);
+    }
+
+    public Channel(int id, String number, String callsign, String iconPath)
+    {
+        this(id, -1, number, callsign, null, null, iconPath);
     }
 
     public Channel(int id, long sourceId, String number, String callsign, String name)
@@ -39,12 +46,18 @@ public class Channel
 
     public Channel(int id, long sourceId, String number, String callsign, String name, String xmltvId)
     {
+        this(id, sourceId, number, callsign, name, xmltvId, null);
+    }
+
+    public Channel(int id, long sourceId, String number, String callsign, String name, String xmltvId, String iconPath)
+    {
         this.id = id;
         this.sourceId = sourceId;
         this.number = number;
         this.callsign = callsign;
         this.name = name;
         this.xmltvId = xmltvId;
+        this.iconPath = iconPath;
     }
 
     public int getId()
@@ -77,6 +90,11 @@ public class Channel
         return xmltvId;
     }
 
+    public String getIconPath()
+    {
+        return iconPath;
+    }
+
     @Override
     public String toString()
     {
@@ -93,6 +111,8 @@ public class Channel
         builder.append(name);
         builder.append(", xmltvId=");
         builder.append(xmltvId);
+        builder.append(", iconPath=");
+        builder.append(iconPath);
         builder.append("]");
         return builder.toString();
     }

@@ -16,11 +16,13 @@
 package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.ChannelQuery;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
+import org.syphr.mythtv.protocol.types.ChannelBrowseDirection;
 import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
 import org.syphr.mythtv.protocol.types.PictureAdjustType;
 
@@ -427,8 +429,30 @@ public interface QueryRecorder
      */
     public long getMaxBitrate() throws IOException, CommandException;
 
-    // TODO
-    public void getNextProgramInfo() throws IOException, CommandException;
+    /**
+     * Retrieve information about the program found by moving in the given direction from
+     * the given channel and start time.<br>
+     * <br>
+     * Note, this command will retrieve an empty {@link ProgramInfo} if the recorder is
+     * not local to the connected backend.
+     *
+     * @param channel
+     *            the channel from which to start
+     * @param browseDirection
+     *            the direction to move to find the next program
+     * @param startTime
+     *            the base start time
+     * @return the next program
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if this recorder is unknown
+     *
+     * @since 63
+     */
+    public ProgramInfo getNextProgramInfo(Channel channel,
+                                          ChannelBrowseDirection browseDirection,
+                                          Date startTime) throws IOException, CommandException;
 
     /**
      * Determine whether or not this recorder is currently recording.
