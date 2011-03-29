@@ -184,5 +184,39 @@ public abstract class AbstractTranslator implements Translator
         }
     }
 
+    @Override
+    public String toString(boolean value)
+    {
+        return String.valueOf(value);
+    }
+
+    @Override
+    public String toIntString(boolean value)
+    {
+        return value ? "1" : "0";
+    }
+
+    @Override
+    public boolean toBooleanFromStr(String value) throws ProtocolException
+    {
+        return Boolean.parseBoolean(value);
+    }
+
+    @Override
+    public boolean toBooleanFromInt(String value) throws ProtocolException
+    {
+        if ("0".equals(value))
+        {
+            return false;
+        }
+
+        if ("1".equals(value))
+        {
+            return true;
+        }
+
+        throw new ProtocolException("Invalid value: " + value, Direction.RECEIVE);
+    }
+
     protected abstract <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type);
 }

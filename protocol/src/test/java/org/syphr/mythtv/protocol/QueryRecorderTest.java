@@ -114,6 +114,14 @@ public class QueryRecorderTest
     }
 
     @Test
+    public void testCheckChannelPrefix() throws IOException, CommandException
+    {
+        String chanNumPrefix = "3";
+        LOGGER.debug("Channel query: {}",
+                     queryRecorder.checkChannelPrefix(chanNumPrefix));
+    }
+
+    @Test
     public void testGetColour() throws IOException, CommandException
     {
         LOGGER.debug("Colour value: {}", queryRecorder.getColour());

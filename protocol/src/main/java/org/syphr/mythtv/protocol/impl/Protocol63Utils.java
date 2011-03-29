@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.syphr.mythtv.protocol.ProtocolException;
 import org.syphr.mythtv.protocol.ProtocolException.Direction;
 import org.syphr.mythtv.protocol.data.Channel;
@@ -54,27 +55,7 @@ public class Protocol63Utils
 
     public static String combineArguments(List<String> args)
     {
-        StringBuilder builder = new StringBuilder();
-
-        for (int i = 0; i < args.size(); i++)
-        {
-            String arg = args.get(i);
-
-            if (arg != null)
-            {
-                builder.append(arg);
-            }
-
-            /*
-             * Don't append a delimiter to the end of the string.
-             */
-            if (i < args.size() - 1)
-            {
-                builder.append(DELIMITER);
-            }
-        }
-
-        return builder.toString();
+        return StringUtils.join(args, DELIMITER);
     }
 
     public static List<DriveInfo> parseDriveInfo(String value) throws ProtocolException
