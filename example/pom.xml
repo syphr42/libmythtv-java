@@ -32,11 +32,6 @@
 	<name>Example Application</name>
 	<description>This demo shows off what is capable with libmythtv-api library.</description>
 	
-	<properties>
-		<compiler.source.level>1.7</compiler.source.level>
-		<compiler.target.level>1.7</compiler.target.level>
-	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
