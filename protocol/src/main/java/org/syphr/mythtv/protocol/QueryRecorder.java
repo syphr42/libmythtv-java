@@ -577,7 +577,7 @@ public interface QueryRecorder
      * Request a new LiveTV chain to start recording.
      *
      * @param chainId
-     *            the ID of the new chain (suggest live-[host]-[start date])
+     *            the ID of the new chain (suggest live-[host]-[current datetime])
      * @param pip
      *            tell the backend whether or not this chain will be used for
      *            Picture-In-Picture
