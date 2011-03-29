@@ -63,6 +63,52 @@ public class ProgramInfo
     private final int subtitleType;
     private final int year;
 
+    public ProgramInfo(Channel channel, Date recStartTs)
+    {
+        this(channel, null, recStartTs);
+    }
+
+    public ProgramInfo(Channel channel, URI filename, Date recStartTs)
+    {
+        this(null,
+             null,
+             null,
+             null,
+             channel,
+             filename,
+             0,
+             null,
+             null,
+             0,
+             null,
+             0,
+             0,
+             0,
+             null,
+             0,
+             null,
+             0,
+             0,
+             recStartTs,
+             null,
+             0,
+             null,
+             null,
+             null,
+             null,
+             null,
+             0,
+             null,
+             null,
+             0,
+             0,
+             null,
+             0,
+             0,
+             0,
+             0);
+    }
+
     public ProgramInfo(String title,
                        String subtitle,
                        String description,
@@ -108,8 +154,8 @@ public class ProgramInfo
         this.channel = channel;
         this.filename = filename;
         this.fileSize = fileSize;
-        this.startTime = new Date(startTime.getTime());
-        this.endTime = new Date(endTime.getTime());
+        this.startTime = startTime != null ? new Date(startTime.getTime()) : null;
+        this.endTime = endTime != null ? new Date(endTime.getTime()) : null;
         this.findId = findId;
         this.hostname = hostname;
         this.cardId = cardId;
@@ -120,14 +166,14 @@ public class ProgramInfo
         this.recType = recType;
         this.dupIn = dupIn;
         this.dupMethod = dupMethod;
-        this.recStartTs = new Date(recStartTs.getTime());
-        this.recEndTs = new Date(recEndTs.getTime());
+        this.recStartTs = recStartTs != null ? new Date(recStartTs.getTime()) : null;
+        this.recEndTs = recEndTs != null ? new Date(recEndTs.getTime()) : null;
         this.programFlags = programFlags;
         this.recGroup = recGroup;
         this.outputFilters = outputFilters;
         this.seriesId = seriesId;
         this.programId = programId;
-        this.lastModified = new Date(lastModified.getTime());
+        this.lastModified = lastModified != null ? new Date(lastModified.getTime()) : null;
         this.stars = stars;
         this.airDate = airDate != null ? new Date(airDate.getTime()) : null;
         this.playGroup = playGroup;
@@ -193,12 +239,12 @@ public class ProgramInfo
 
     public Date getStartTime()
     {
-        return new Date(startTime.getTime());
+        return startTime != null ? new Date(startTime.getTime()) : null;
     }
 
     public Date getEndTime()
     {
-        return new Date(endTime.getTime());
+        return endTime != null ? new Date(endTime.getTime()) : null;
     }
 
     public int getFindId()
@@ -253,12 +299,12 @@ public class ProgramInfo
 
     public Date getRecStartTs()
     {
-        return new Date(recStartTs.getTime());
+        return recStartTs != null ? new Date(recStartTs.getTime()) : null;
     }
 
     public Date getRecEndTs()
     {
-        return new Date(recEndTs.getTime());
+        return recEndTs != null ? new Date(recEndTs.getTime()) : null;
     }
 
     public long getProgramFlags()
@@ -288,7 +334,7 @@ public class ProgramInfo
 
     public Date getLastModified()
     {
-        return new Date(lastModified.getTime());
+        return lastModified != null ? new Date(lastModified.getTime()) : null;
     }
 
     public float getStars()

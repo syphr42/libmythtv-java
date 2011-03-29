@@ -61,6 +61,12 @@ public class ProtocolException extends IOException
         return direction;
     }
 
+    @Override
+    public String toString()
+    {
+        return super.toString() + " " + getDirection();
+    }
+
     /**
      * This enum represents the network communication direction.
      *

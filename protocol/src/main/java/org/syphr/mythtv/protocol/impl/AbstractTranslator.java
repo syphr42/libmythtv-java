@@ -40,6 +40,11 @@ public abstract class AbstractTranslator implements Translator
     @Override
     public <E extends Enum<E>> String toString(E constant) throws ProtocolException
     {
+        if (constant == null)
+        {
+            return "";
+        }
+
         /*
          * Cast to String necessary to appease javac (Eclipse doesn't require it).
          */

@@ -19,25 +19,25 @@ public class Channel
 {
     private final int id;
 
-    private int sourceId;
+    private final long sourceId;
 
-    private String number;
-    private String callsign;
-    private String name;
+    private final String number;
+    private final String callsign;
+    private final String name;
 
-    private String xmltvId;
+    private final String xmltvId;
 
     public Channel(int id)
     {
         this(id, -1, null, null, null);
     }
 
-    public Channel(int id, int sourceId, String number, String callsign, String name)
+    public Channel(int id, long sourceId, String number, String callsign, String name)
     {
         this(id, sourceId, number, callsign, name, null);
     }
 
-    public Channel(int id, int sourceId, String number, String callsign, String name, String xmltvId)
+    public Channel(int id, long sourceId, String number, String callsign, String name, String xmltvId)
     {
         this.id = id;
         this.sourceId = sourceId;
@@ -52,7 +52,7 @@ public class Channel
         return id;
     }
 
-    public int getSourceId()
+    public long getSourceId()
     {
         return sourceId;
     }
@@ -103,7 +103,7 @@ public class Channel
         final int prime = 31;
         int result = 1;
         result = prime * result + id;
-        result = prime * result + sourceId;
+        result = prime * result + (int) (sourceId ^ (sourceId >>> 32));
         return result;
     }
 
