@@ -177,10 +177,12 @@ public class QueryRecorderTest
     @Test
     public void testGetChannelInfo() throws IOException, CommandException
     {
-        int chanId = 1001;
+        UpcomingRecordings pending = proto.queryGetAllPending();
+        int channelId = pending.isEmpty() ? 1001 : pending.get(0).getChannel().getId();
+
         LOGGER.debug("Info for channel ID {}: {}",
-                     chanId,
-                     queryRecorder.getChannelInfo(chanId));
+                     channelId,
+                     queryRecorder.getChannelInfo(channelId));
     }
 
     @Test
@@ -332,10 +334,12 @@ public class QueryRecorderTest
     @Test
     public void testShouldSwitchCard() throws IOException, CommandException
     {
-        int chanId = 1001;
+        UpcomingRecordings pending = proto.queryGetAllPending();
+        int channelId = pending.isEmpty() ? 1001 : pending.get(0).getChannel().getId();
+
         LOGGER.debug("Should switch card to access channel ID {}? {}",
-                     chanId,
-                     queryRecorder.shouldSwitchCard(new Channel(chanId)));
+                     channelId,
+                     queryRecorder.shouldSwitchCard(new Channel(channelId)));
     }
 
     @Test
