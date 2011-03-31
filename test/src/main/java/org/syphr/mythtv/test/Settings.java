@@ -35,6 +35,13 @@ public enum Settings implements Defaultable
     BACKEND_PROTOCOL_TIMEOUT("10000"),
     BACKEND_PROTOCOL_VERSION("SIXTY_THREE"),
 
+    DB_HOST("localhost"),
+    DB_PORT("3306"),
+    DB_INSTANCE("mythconverg"),
+    DB_SCHEMA("S_1264"),
+    DB_USER("mythtv"),
+    DB_PASSWORD("mythtv"),
+
     FRONTEND_HOST("localhost"),
 
     BUFFER_SIZE("8192"),
