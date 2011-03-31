@@ -17,7 +17,6 @@ package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -329,7 +328,7 @@ public class ProtocolTest
 
         LOGGER.debug("Conflicts? {}", upcoming.isConflicted());
         LOGGER.debug("Upcoming count: {}", upcoming.size());
-        printFirstFive(upcoming);
+        org.syphr.mythtv.test.Utils.printFirstFive(upcoming, LOGGER);
     }
 
     @Test
@@ -337,7 +336,7 @@ public class ProtocolTest
     {
         List<ProgramInfo> scheduled = proto.queryGetAllScheduled();
         LOGGER.debug("Scheduled count: {}", scheduled.size());
-        printFirstFive(scheduled);
+        org.syphr.mythtv.test.Utils.printFirstFive(scheduled, LOGGER);
     }
 
     @Test
@@ -370,7 +369,7 @@ public class ProtocolTest
 
         List<ProgramInfo> conflicted = proto.queryGetConflicting(program);
         LOGGER.debug("Conflicted count: {}", conflicted.size());
-        printFirstFive(conflicted);
+        org.syphr.mythtv.test.Utils.printFirstFive(conflicted, LOGGER);
     }
 
     @Test
@@ -378,7 +377,7 @@ public class ProtocolTest
     {
         List<ProgramInfo> expiring = proto.queryGetExpiring();
         LOGGER.debug("Expiring count: {}", expiring.size());
-        printFirstFive(expiring);
+        org.syphr.mythtv.test.Utils.printFirstFive(expiring, LOGGER);
     }
 
     @Test
@@ -469,7 +468,7 @@ public class ProtocolTest
         {
             List<ProgramInfo> list = proto.queryRecordings(category);
             LOGGER.debug("{} count: {}", category.toString(), list.size());
-            printFirstFive(list);
+            org.syphr.mythtv.test.Utils.printFirstFive(list, LOGGER);
         }
     }
 
@@ -699,27 +698,4 @@ public class ProtocolTest
 //        LOGGER.debug("Requesting full reschedule");
 //        proto.rescheduleRecordings(-1);
 //    }
-
-    /*
-     * ----------------------------------------------------------------
-     * Utility methods.
-     */
-    private <T> void printFirstFive(Iterable<T> iterable)
-    {
-        int counter = 0;
-        Iterator<T> iter = iterable.iterator();
-
-        if (!iter.hasNext())
-        {
-            return;
-        }
-
-        LOGGER.debug("(Up to) the first five:");
-
-        while (iter.hasNext() && counter < 5)
-        {
-            LOGGER.debug(iter.next().toString());
-            counter++;
-        }
-    }
 }
