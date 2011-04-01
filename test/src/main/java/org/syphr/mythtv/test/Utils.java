@@ -35,7 +35,14 @@ public class Utils
 
         while (iter.hasNext() && counter < 5)
         {
-            logger.debug(iter.next().toString());
+            T obj = iter.next();
+
+            if (obj == null)
+            {
+                continue;
+            }
+
+            logger.debug(obj.toString());
             counter++;
         }
     }
