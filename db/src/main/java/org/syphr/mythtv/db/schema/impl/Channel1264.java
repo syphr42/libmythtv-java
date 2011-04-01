@@ -19,11 +19,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.syphr.mythtv.db.schema.Channel;
 
 @Entity
@@ -31,8 +29,6 @@ import org.syphr.mythtv.db.schema.Channel;
 public class Channel1264 implements Channel
 {
     @Id
-    @GeneratedValue(generator = "assigned")
-    @GenericGenerator(name = "assigned", strategy = "assigned")
     private int chanid;
 
     @Column(nullable = false, length = 10)
