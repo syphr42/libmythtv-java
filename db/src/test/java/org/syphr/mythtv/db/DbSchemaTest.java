@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.db.schema.Channel;
+import org.syphr.mythtv.db.schema.Program;
 import org.syphr.mythtv.db.schema.TvChain;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.test.Utils;
@@ -75,6 +76,12 @@ public class DbSchemaTest
     public void testChannel()
     {
         printFirstFive(Channel.class);
+    }
+
+    @Test
+    public void testProgram()
+    {
+        printFirstFive(Program.class);
     }
 
     @Test

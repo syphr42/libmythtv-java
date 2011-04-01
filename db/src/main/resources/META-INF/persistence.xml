@@ -25,16 +25,19 @@
 		<class>org.syphr.mythtv.db.schema.Channel</class>
 		<class>org.syphr.mythtv.db.schema.impl.Channel1264</class>
 		
-		<class>org.syphr.mythtv.db.schema.Settings</class>
-		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
+		<class>org.syphr.mythtv.db.schema.Program</class>
+		<class>org.syphr.mythtv.db.schema.ProgramId</class>
+		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
+		<class>org.syphr.mythtv.db.schema.impl.ProgramId1264</class>
 		
+		<class>org.syphr.mythtv.db.schema.Settings</class>
 		<class>org.syphr.mythtv.db.schema.SettingsId</class>
+		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
 		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
 		
 		<class>org.syphr.mythtv.db.schema.TvChain</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
-		
 		<class>org.syphr.mythtv.db.schema.TvChainId</class>
+		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
 		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
 		
 		<properties>
@@ -50,16 +53,19 @@
 		<class>org.syphr.mythtv.db.schema.Channel</class>
 		<class>org.syphr.mythtv.db.schema.impl.Channel1264</class>
 		
-		<class>org.syphr.mythtv.db.schema.Settings</class>
-		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
+		<class>org.syphr.mythtv.db.schema.Program</class>
+		<class>org.syphr.mythtv.db.schema.ProgramId</class>
+		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
+		<class>org.syphr.mythtv.db.schema.impl.ProgramId1264</class>
 		
+		<class>org.syphr.mythtv.db.schema.Settings</class>
 		<class>org.syphr.mythtv.db.schema.SettingsId</class>
+		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
 		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
 		
 		<class>org.syphr.mythtv.db.schema.TvChain</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
-		
 		<class>org.syphr.mythtv.db.schema.TvChainId</class>
+		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
 		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
 		
 		<properties>
@@ -75,16 +81,19 @@
 		<class>org.syphr.mythtv.db.schema.Channel</class>
 		<class>org.syphr.mythtv.db.schema.impl.Channel1268</class>
 		
-		<class>org.syphr.mythtv.db.schema.Settings</class>
-		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
+		<class>org.syphr.mythtv.db.schema.Program</class>
+		<class>org.syphr.mythtv.db.schema.ProgramId</class>
+		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
+		<class>org.syphr.mythtv.db.schema.impl.ProgramId1264</class>
 		
+		<class>org.syphr.mythtv.db.schema.Settings</class>
 		<class>org.syphr.mythtv.db.schema.SettingsId</class>
+		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
 		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
 		
 		<class>org.syphr.mythtv.db.schema.TvChain</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
-		
 		<class>org.syphr.mythtv.db.schema.TvChainId</class>
+		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
 		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
 		
 		<properties>
