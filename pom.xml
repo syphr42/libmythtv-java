@@ -66,6 +66,7 @@
 	
 	<modules>
 	   <module>api</module>
+	   <module>db</module>
 	   <module>http</module>
 	   <module>protocol</module>
 	   
