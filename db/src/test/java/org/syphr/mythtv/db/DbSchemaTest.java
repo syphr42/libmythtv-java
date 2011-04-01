@@ -84,7 +84,7 @@ public class DbSchemaTest
 
     private <T> void printFirstFive(Class<T> entityType)
     {
-        List<T> entities = manager.createQuery("from " + entityType.getName(),
+        List<T> entities = manager.createQuery("select x from " + entityType.getName() + " as x",
                                                entityType).getResultList();
         Utils.printFirstFive(entities, logger);
     }
