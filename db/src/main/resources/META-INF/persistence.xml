@@ -25,6 +25,50 @@
 		<class>org.syphr.mythtv.db.schema.Channel</class>
 		<class>org.syphr.mythtv.db.schema.impl.Channel1264</class>
 		
+		<class>org.syphr.mythtv.db.schema.Settings</class>
+		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
+		
+		<class>org.syphr.mythtv.db.schema.SettingsId</class>
+		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
+		
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			
+			<property name="hibernate.archive.autodetection" value="none" />
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1266">
+		<description>MythTV database schema version 1266</description>
+
+		<class>org.syphr.mythtv.db.schema.Channel</class>
+		<class>org.syphr.mythtv.db.schema.impl.Channel1264</class>
+		
+		<class>org.syphr.mythtv.db.schema.Settings</class>
+		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
+		
+		<class>org.syphr.mythtv.db.schema.SettingsId</class>
+		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
+		
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			
+			<property name="hibernate.archive.autodetection" value="none" />
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1268">
+		<description>MythTV database schema version 1268</description>
+
+		<class>org.syphr.mythtv.db.schema.Channel</class>
+		<class>org.syphr.mythtv.db.schema.impl.Channel1268</class>
+		
+		<class>org.syphr.mythtv.db.schema.Settings</class>
+		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
+		
+		<class>org.syphr.mythtv.db.schema.SettingsId</class>
+		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			

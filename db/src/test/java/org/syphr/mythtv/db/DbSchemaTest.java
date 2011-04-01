@@ -76,6 +76,12 @@ public class DbSchemaTest
         printFirstFive(Channel.class);
     }
 
+    @Test
+    public void testSettings()
+    {
+        printFirstFive(org.syphr.mythtv.db.schema.Settings.class);
+    }
+
     private <T> void printFirstFive(Class<T> entityType)
     {
         List<T> entities = manager.createQuery("from " + entityType.getName(),
