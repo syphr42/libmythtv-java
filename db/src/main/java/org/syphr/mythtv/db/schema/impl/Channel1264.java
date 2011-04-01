@@ -21,6 +21,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.syphr.mythtv.db.schema.Channel;
 
@@ -97,6 +99,7 @@ public class Channel1264 implements Channel
     private int atscMinorChan;
 
     @Column(name = "last_record", nullable = false, length = 19)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastRecord;
 
     @Column(name = "default_authority", nullable = false, length = 32)
