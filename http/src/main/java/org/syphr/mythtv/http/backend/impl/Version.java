@@ -25,8 +25,8 @@ import javax.xml.stream.events.XMLEvent;
 
 public class Version
 {
-    private static final String VALUE_TAG = "value";
-    private static final String VERSION_TAG = "version";
+    private static final String TAG_STRING = "QString";
+    private static final String TAG_VERSION = "version";
 
     private static final XMLInputFactory XML_INPUT_FACTORY = XMLInputFactory.newInstance();
 
@@ -52,10 +52,10 @@ public class Version
 
             while (!(event = parser.nextEvent()).isEndDocument())
             {
-                if ((event.isStartElement() && VALUE_TAG.equals(event.asStartElement()
-                                                                     .getName()
-                                                                     .getLocalPart()))
-                    || (event.isAttribute() && VERSION_TAG.equals(((Attribute) event).getName()
+                if ((event.isStartElement() && TAG_STRING.equals(event.asStartElement()
+                                                                      .getName()
+                                                                      .getLocalPart()))
+                    || (event.isAttribute() && TAG_VERSION.equals(((Attribute) event).getName()
                                                                                      .getLocalPart())))
                 {
                     return new Version(parser.getElementText());
