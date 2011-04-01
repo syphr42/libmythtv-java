@@ -531,7 +531,7 @@ public class Channel1268 implements Channel
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Channel1264 [chanid=");
+        builder.append("Channel1268 [chanid=");
         builder.append(chanid);
         builder.append(", channum=");
         builder.append(channum);
