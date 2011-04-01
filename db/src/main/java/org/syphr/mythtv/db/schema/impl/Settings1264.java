@@ -27,6 +27,11 @@ import org.syphr.mythtv.db.schema.SettingsId;
 @Table(name = "settings")
 public class Settings1264 implements Settings
 {
+    /**
+     * Serialization ID
+     */
+    private static final long serialVersionUID = 1L;
+
     @EmbeddedId
     private SettingsId1264 id;
 

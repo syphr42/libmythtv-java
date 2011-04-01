@@ -28,6 +28,11 @@ import org.syphr.mythtv.db.schema.Channel;
 @Table(name = "channel")
 public class Channel1264 implements Channel
 {
+    /**
+     * Serialization ID
+     */
+    private static final long serialVersionUID = 1L;
+
     @Id
     private int chanid;
 
