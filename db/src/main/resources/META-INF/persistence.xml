@@ -31,6 +31,12 @@
 		<class>org.syphr.mythtv.db.schema.SettingsId</class>
 		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
 		
+		<class>org.syphr.mythtv.db.schema.TvChain</class>
+		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
+		
+		<class>org.syphr.mythtv.db.schema.TvChainId</class>
+		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			
@@ -50,6 +56,12 @@
 		<class>org.syphr.mythtv.db.schema.SettingsId</class>
 		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
 		
+		<class>org.syphr.mythtv.db.schema.TvChain</class>
+		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
+		
+		<class>org.syphr.mythtv.db.schema.TvChainId</class>
+		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			
@@ -68,6 +80,12 @@
 		
 		<class>org.syphr.mythtv.db.schema.SettingsId</class>
 		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
+		
+		<class>org.syphr.mythtv.db.schema.TvChain</class>
+		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
+		
+		<class>org.syphr.mythtv.db.schema.TvChainId</class>
+		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

@@ -16,10 +16,10 @@
 package org.syphr.mythtv.db;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 
 import org.junit.After;
 import org.junit.Before;
@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.db.schema.Channel;
+import org.syphr.mythtv.db.schema.TvChain;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.test.Utils;
 import org.syphr.prom.PropertiesManager;
@@ -82,10 +83,20 @@ public class DbSchemaTest
         printFirstFive(org.syphr.mythtv.db.schema.Settings.class);
     }
 
+    @Test
+    public void testTvChain()
+    {
+        printFirstFive(TvChain.class);
+    }
+
     private <T> void printFirstFive(Class<T> entityType)
     {
-        List<T> entities = manager.createQuery("select x from " + entityType.getName() + " as x",
-                                               entityType).getResultList();
-        Utils.printFirstFive(entities, logger);
+        logger.debug("Retrieving records from {} table", entityType.getSimpleName());
+
+        TypedQuery<T> query = manager.createQuery("select x from " + entityType.getName() + " as x",
+                                          entityType);
+        query.setMaxResults(5);
+
+        Utils.printFirstFive(query.getResultList(), logger);
     }
 }
