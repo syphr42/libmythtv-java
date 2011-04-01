@@ -28,6 +28,7 @@ public class Utils
 
         if (!iter.hasNext())
         {
+            logger.debug("No values to display.");
             return;
         }
 
@@ -35,14 +36,7 @@ public class Utils
 
         while (iter.hasNext() && counter < 5)
         {
-            T obj = iter.next();
-
-            if (obj == null)
-            {
-                continue;
-            }
-
-            logger.debug(obj.toString());
+            logger.debug(String.valueOf(iter.next()));
             counter++;
         }
     }
