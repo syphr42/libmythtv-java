@@ -22,10 +22,10 @@ import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.syphr.mythtv.db.DatabaseException;
 import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.types.ConnectionType;
 import org.syphr.mythtv.protocol.types.EventLevel;
-import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.prom.PropertiesManager;
 
@@ -34,14 +34,15 @@ public class BackendTest
     private static Backend backend;
 
     @BeforeClass
-    public static void setUpBeforeClass() throws IOException, CommandException
+    public static void setUpBeforeClass() throws IOException, CommandException, DatabaseException
     {
         PropertiesManager<Settings> settings = Settings.createSettings();
 
-        backend = new Backend(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
-                                                       ProtocolVersion.class));
+        backend = new Backend(settings.getEnumProperty(Settings.MYTH_VERSION,
+                                                       MythVersion.class));
         backend.connect(settings.getProperty(Settings.BACKEND_HOST),
                         settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_PORT),
+                        settings.getIntegerProperty(Settings.BACKEND_HTTP_PORT),
                         settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_TIMEOUT),
                         ConnectionType.MONITOR,
                         EventLevel.NONE);

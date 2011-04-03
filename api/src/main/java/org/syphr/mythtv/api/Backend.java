@@ -22,6 +22,11 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.db.DatabaseException;
+import org.syphr.mythtv.db.SchemaVersion;
+import org.syphr.mythtv.http.backend.BackendFactory;
+import org.syphr.mythtv.http.backend.ConnectionManager;
+import org.syphr.mythtv.http.backend.ContentException;
 import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolFactory;
@@ -38,26 +43,62 @@ public class Backend
     private final SocketManager socketManager;
     private final Protocol protocol;
 
-    public Backend(ProtocolVersion version)
+    private final Database database;
+
+    private ConnectionManager connMan;
+
+    public Backend(MythVersion version)
+    {
+        this(version.getProtocol(), version.getSchema());
+    }
+
+    public Backend(ProtocolVersion protocolVersion, SchemaVersion schemaVersion)
     {
         socketManager = new SocketManager();
-        protocol = ProtocolFactory.createInstance(version, socketManager);
+        protocol = ProtocolFactory.createInstance(protocolVersion, socketManager);
+
+        database = new Database(schemaVersion);
     }
 
     public void connect(String host,
-                        int port,
+                        int protocolPort,
+                        int httpPort,
                         int timeout,
                         ConnectionType connectionType,
-                        EventLevel eventLevel) throws IOException, CommandException
+                        EventLevel eventLevel) throws IOException,
+                                              CommandException,
+                                              DatabaseException
     {
-        socketManager.connect(host, port, timeout);
+        connMan = new ConnectionManager(host, httpPort);
+
+        socketManager.connect(host, protocolPort, timeout);
 
         try
         {
             protocol.mythProtoVersion();
-            protocol.ann(connectionType,
-                         InetAddress.getLocalHost().getHostName(),
-                         eventLevel);
+            protocol.ann(connectionType, InetAddress.getLocalHost()
+                                                    .getHostName(), eventLevel);
+
+            try
+            {
+                org.syphr.mythtv.http.backend.Database dbInfo = BackendFactory.getMyth(connMan)
+                                                                              .getConnectionInfo()
+                                                                              .getDatabase();
+                database.load(dbInfo.getHost(),
+                              dbInfo.getPort(),
+                              dbInfo.getName(),
+                              dbInfo.getUserName(),
+                              dbInfo.getPassword());
+            }
+            catch (ContentException e)
+            {
+                /*
+                 * If this happens, we were unable to connect to the backend via
+                 * http. This might be due to an unsupported version so try to
+                 * connect to the database via a local config file.
+                 */
+                database.load();
+            }
         }
         catch (IOException e)
         {
@@ -65,6 +106,11 @@ public class Backend
             throw e;
         }
         catch (CommandException e)
+        {
+            disconnect();
+            throw e;
+        }
+        catch (DatabaseException e)
         {
             disconnect();
             throw e;
@@ -93,6 +139,7 @@ public class Backend
 
         try
         {
+            connMan = null;
             protocol.done();
         }
         catch (IOException e)
@@ -113,6 +160,11 @@ public class Backend
         protocol.removeBackendEventListener(l);
     }
 
+    public Database getDatabase()
+    {
+        return database;
+    }
+
     public ServerInfo getInfo() throws IOException
     {
         return new ServerInfo(protocol);
@@ -126,7 +178,7 @@ public class Backend
 
         for (Integer recorderId : protocol.getFreeRecorderList())
         {
-            recorders.add(new Recorder(recorderId, protocol));
+            recorders.add(new Recorder(this, recorderId, protocol));
         }
 
         return recorders;
