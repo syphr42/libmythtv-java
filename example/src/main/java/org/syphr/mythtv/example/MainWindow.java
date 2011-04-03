@@ -32,12 +32,22 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.syphr.mythtv.api.MythVersion;
+
 public class MainWindow extends JFrame
 {
     /**
      * Seriualization ID
      */
     private static final long serialVersionUID = 1L;
+
+    private JTextField textHost;
+
+    private JTextField textPort;
+
+    private JComboBox comboVersion;
+
+    private PlayerPanel panelPlayer;
 
     private final Action actionExit = new AbstractAction()
     {
@@ -84,9 +94,58 @@ public class MainWindow extends JFrame
         }
 
         @Override
-        public void actionPerformed(ActionEvent e)
+        public void actionPerformed(ActionEvent event)
         {
-            // TODO
+            // TODO - quick debugging
+//            final Backend backend = new Backend((MythVersion)comboVersion.getSelectedItem());
+//
+//            try
+//            {
+//                System.out.println("Connecting");
+//                backend.connect(textHost.getText(),
+//                                Integer.parseInt(textPort.getText()),
+//                                Integer.parseInt(textPort.getText()) + 1,
+//                                10000,
+//                                ConnectionType.PLAYBACK,
+//                                EventLevel.NONE);
+//
+//                System.out.println("Getting free recorders");
+//                List<Recorder> recorders = backend.getFreeRecorders();
+//                if (recorders.isEmpty())
+//                {
+//                    backend.disconnect();
+//                    return;
+//                }
+//
+//
+//                System.out.println("Starting live tv");
+//                final Recorder recorder = recorders.get(0);
+//                RecordingByteChannel channel = recorder.startLiveTv(new Channel(77001));
+//                panelPlayer.start(channel);
+//
+//                Runtime.getRuntime().addShutdownHook(new Thread()
+//                {
+//                    @Override
+//                    public void run()
+//                    {
+//                        try
+//                        {
+//                            System.out.println("Stopping player and disconnecting");
+//                            panelPlayer.stop();
+//                            recorder.stopLiveTv();
+//                            backend.disconnect();
+//                        }
+//                        catch (Exception e)
+//                        {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//            }
+//            catch (Exception e)
+//            {
+//                e.printStackTrace();
+//            }
         }
     };
 
@@ -194,7 +253,7 @@ public class MainWindow extends JFrame
                                                    0,
                                                    0));
 
-        JTextField textHost = new JTextField("localhost");
+        textHost = new JTextField("localhost");
         panelConnection.add(textHost,
                             new GridBagConstraints(1,
                                                    0,
@@ -222,7 +281,7 @@ public class MainWindow extends JFrame
                                                    0,
                                                    0));
 
-        JTextField textPort = new JTextField("6543");
+        textPort = new JTextField("6543");
         panelConnection.add(textPort,
                             new GridBagConstraints(3,
                                                    0,
@@ -250,7 +309,7 @@ public class MainWindow extends JFrame
                                                    0,
                                                    0));
 
-        JComboBox comboVersion = new JComboBox(Version.values());
+        comboVersion = new JComboBox(MythVersion.values());
         panelConnection.add(comboVersion,
                             new GridBagConstraints(5,
                                                    0,
@@ -294,11 +353,8 @@ public class MainWindow extends JFrame
 
     private JPanel createPlayerPanel()
     {
-        JPanel panelPlayer = new JPanel();
-
+        panelPlayer = new PlayerPanel();
         panelPlayer.setBorder(BorderFactory.createTitledBorder("Player"));
-
-        // TODO
 
         return panelPlayer;
     }
