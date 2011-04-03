@@ -76,6 +76,13 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.syphr</groupId>
+            <artifactId>libmythtv-db</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
         
         <dependency>
             <groupId>org.syphr</groupId>

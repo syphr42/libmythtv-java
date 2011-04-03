@@ -43,13 +43,13 @@ public class ProtocolFactory
     {
         switch (version)
         {
-            case SIXTY_THREE:
+            case _63:
                 return new Protocol63(socketManager);
 
-            case SIXTY_FOUR:
+            case _64:
                 return new Protocol64(socketManager);
 
-            case SIXTY_FIVE:
+            case _65:
                 return new Protocol65(socketManager);
 
             default:
