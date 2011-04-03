@@ -29,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.db.schema.Channel;
 import org.syphr.mythtv.db.schema.Program;
+import org.syphr.mythtv.db.schema.Recorded;
 import org.syphr.mythtv.db.schema.TvChain;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.test.Utils;
@@ -82,6 +83,12 @@ public class DbSchemaTest
     public void testProgram()
     {
         printFirstFive(Program.class);
+    }
+
+    @Test
+    public void testRecorded()
+    {
+        printFirstFive(Recorded.class);
     }
 
     @Test
