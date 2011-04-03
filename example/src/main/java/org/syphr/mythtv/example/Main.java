@@ -20,19 +20,13 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        try
-        {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        setLookAndFeel();
 
         JFrame mainWindow = new MainWindow();
 
@@ -40,6 +34,27 @@ public class Main
         centerAndSize(mainWindow, 0.8f);
 
         mainWindow.setVisible(true);
+    }
+
+    private static void setLookAndFeel()
+    {
+        try
+        {
+            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    return;
+                }
+            }
+
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private static void centerAndSize(JFrame frame, float size)
