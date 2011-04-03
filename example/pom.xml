@@ -69,13 +69,40 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>javax.media</groupId>
-			<artifactId>jmf</artifactId>
-			<version>2.1.1e</version>
+			<groupId>com.googlecode.gstreamer-java</groupId>
+			<artifactId>gstreamer-java</artifactId>
+			<version>1.4</version>
 			<type>jar</type>
 			<scope>compile</scope>
+		</dependency>
+		
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${dep.version.slf4j}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>${dep.version.slf4j}</version>
+            <type>jar</type>
+            <scope>runtime</scope>
+        </dependency>
+        
+		<!--
+			This dependencies comes from the JBoss repository.
+			https://repository.jboss.org/nexus/content/repositories/releases 
+		-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>3.6.2.Final</version>
+			<type>jar</type>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 </project>

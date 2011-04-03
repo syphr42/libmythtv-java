@@ -25,17 +25,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import javax.media.ControllerEvent;
-import javax.media.ControllerListener;
-import javax.media.Manager;
-import javax.media.NoPlayerException;
-import javax.media.Player;
-import javax.media.RealizeCompleteEvent;
-import javax.media.ResourceUnavailableEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
+import org.gstreamer.Gst;
+import org.gstreamer.media.MediaPlayer;
+import org.gstreamer.media.PlayBinMediaPlayer;
+import org.gstreamer.media.event.DurationChangedEvent;
+import org.gstreamer.media.event.EndOfMediaEvent;
+import org.gstreamer.media.event.MediaEvent;
+import org.gstreamer.media.event.MediaListener;
+import org.gstreamer.media.event.PositionChangedEvent;
+import org.gstreamer.media.event.StartEvent;
+import org.gstreamer.media.event.StopEvent;
+import org.gstreamer.swing.VideoComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.api.RecordingByteChannel;
@@ -55,7 +58,7 @@ public class PlayerPanel extends JPanel
 
     private Future<Void> downloader;
 
-    private Player player;
+    private MediaPlayer player;
 
     private RecordingByteChannel channel;
 
@@ -70,7 +73,7 @@ public class PlayerPanel extends JPanel
         setLayout(new BorderLayout());
     }
 
-    public void start(RecordingByteChannel channel) throws NoPlayerException, IOException
+    public void start(RecordingByteChannel channel) throws IOException
     {
         stop();
 
@@ -81,50 +84,62 @@ public class PlayerPanel extends JPanel
 
         File file = startDownload();
 
-        player = Manager.createPlayer(file.toURI().toURL());
-        player.addControllerListener(new ControllerListener()
+        Gst.init();
+        player = new PlayBinMediaPlayer();
+        player.setURI(file.toURI());
+
+        player.addMediaListener(new MediaListener()
         {
             @Override
-            public void controllerUpdate(ControllerEvent event)
+            public void stop(StopEvent evt)
             {
-                if (event instanceof RealizeCompleteEvent)
-                {
-                    SwingUtilities.invokeLater(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            LOGGER.trace("player realized - showing video");
+                log(evt);
+            }
 
-                            removeAll();
-                            add(player.getVisualComponent(), BorderLayout.CENTER);
-                            add(player.getControlPanelComponent(), BorderLayout.SOUTH);
-                            revalidate();
-                        }
-                    });
-                }
-                else if (event instanceof ResourceUnavailableEvent)
-                {
-                    LOGGER.error("Resource unavailable: " + ((ResourceUnavailableEvent)event).getMessage());
+            @Override
+            public void start(StartEvent evt)
+            {
+                log(evt);
+            }
 
-                    try
-                    {
-                        stop();
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-                else
-                {
-                    LOGGER.trace("Received player event: {}", event);
-                }
+            @Override
+            public void positionChanged(PositionChangedEvent evt)
+            {
+                log(evt);
+            }
+
+            @Override
+            public void pause(StopEvent evt)
+            {
+                log(evt);
+            }
+
+            @Override
+            public void endOfMedia(EndOfMediaEvent evt)
+            {
+                log(evt);
+            }
+
+            @Override
+            public void durationChanged(DurationChangedEvent evt)
+            {
+                log(evt);
+            }
+
+            private void log(MediaEvent event)
+            {
+                LOGGER.trace("Received media event: {}", event);
             }
         });
 
-        LOGGER.trace("Starting video player");
-        player.start();
+        VideoComponent videoComponent = new VideoComponent();
+        player.setVideoSink(videoComponent.getElement());
+
+        removeAll();
+        add(videoComponent, BorderLayout.CENTER);
+        revalidate();
+
+        player.play();
     }
 
     public void stop() throws IOException
@@ -135,7 +150,6 @@ public class PlayerPanel extends JPanel
         if (player != null)
         {
             player.stop();
-            player.close();
             player = null;
         }
 
