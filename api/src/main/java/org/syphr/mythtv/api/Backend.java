@@ -84,7 +84,7 @@ public class Backend
                 org.syphr.mythtv.http.backend.Database dbInfo = BackendFactory.getMyth(connMan)
                                                                               .getConnectionInfo()
                                                                               .getDatabase();
-                database.load(dbInfo.getHost(),
+                database.load(normalizeDbHost(host, dbInfo.getHost()),
                               dbInfo.getPort(),
                               dbInfo.getName(),
                               dbInfo.getUserName(),
@@ -115,6 +115,16 @@ public class Backend
             disconnect();
             throw e;
         }
+    }
+
+    private String normalizeDbHost(String backendHost, String remoteDiscoveredDbHost)
+    {
+        if ("127.0.0.1".equals(remoteDiscoveredDbHost) || "localhost".equals(remoteDiscoveredDbHost))
+        {
+            return backendHost;
+        }
+
+        return remoteDiscoveredDbHost;
     }
 
     public boolean isConnected()
