@@ -100,6 +100,11 @@ public class DbUtils
 
         if (factory == null)
         {
+            if (info.port <= 0)
+            {
+                info.port = DEFAULT_PORT;
+            }
+
             Properties props = new Properties();
             props.put(PROP_URL, "jdbc:mysql://"
                                 + info.host
@@ -113,6 +118,8 @@ public class DbUtils
 
             try
             {
+                LOGGER.trace("Attempting to connect using schema version {}", version);
+
                 final EntityManagerFactory newFactory = Persistence.createEntityManagerFactory(version.getPersistenceUnitName(),
                                                                                                props);
 
@@ -173,18 +180,15 @@ public class DbUtils
                     }
                     else if (TAG_DB_PORT.equals(tagName))
                     {
-                        int port = 0;
-
                         try
                         {
-                            port = Integer.parseInt(parser.getElementText());
+                            info.port = Integer.parseInt(parser.getElementText());
                         }
                         catch (NumberFormatException e)
                         {
                             LOGGER.warn("Invalid port found in config file, using default instead", e);
+                            info.port = DEFAULT_PORT;
                         }
-
-                        info.port = port > 0 ? port : DEFAULT_PORT;
                     }
                     else if (TAG_DB_USERNAME.equals(tagName))
                     {
