@@ -29,7 +29,7 @@
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
-	<name>MythTV Frontend Control</name>
+	<name>Frontend Network Control</name>
 	<description>This library provides a Java interface to the MythTV frontend control socket.</description>
 	
 	<build>

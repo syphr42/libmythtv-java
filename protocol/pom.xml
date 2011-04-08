@@ -29,7 +29,7 @@
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
-	<name>MythTV Protocol</name>
+	<name>Protocol</name>
 	<description>This library provides a Java interface to the MythTV backend protocol.</description>
 	
 	<build>
