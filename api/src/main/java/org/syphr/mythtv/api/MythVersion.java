@@ -15,21 +15,25 @@
  */
 package org.syphr.mythtv.api;
 
+import org.syphr.mythtv.control.types.ControlVersion;
 import org.syphr.mythtv.db.SchemaVersion;
 import org.syphr.mythtv.protocol.types.ProtocolVersion;
 
 public enum MythVersion
 {
-    _0_24(ProtocolVersion._63, SchemaVersion._1264, "0.24"),
-    _0_25(ProtocolVersion._65, SchemaVersion._1270, "0.25");
+    _0_24(ProtocolVersion._63, ControlVersion._1, SchemaVersion._1264, "0.24"),
+    _0_25(ProtocolVersion._65, ControlVersion._1, SchemaVersion._1270, "0.25");
 
     private final ProtocolVersion protocol;
+    private final ControlVersion control;
     private final SchemaVersion schema;
+
     private final String display;
 
-    private MythVersion(ProtocolVersion protocol, SchemaVersion schema, String display)
+    private MythVersion(ProtocolVersion protocol, ControlVersion control, SchemaVersion schema, String display)
     {
         this.protocol = protocol;
+        this.control = control;
         this.schema = schema;
         this.display = display;
     }
@@ -37,6 +41,11 @@ public enum MythVersion
     public ProtocolVersion getProtocol()
     {
         return protocol;
+    }
+
+    public ControlVersion getControl()
+    {
+        return control;
     }
 
     public SchemaVersion getSchema()
