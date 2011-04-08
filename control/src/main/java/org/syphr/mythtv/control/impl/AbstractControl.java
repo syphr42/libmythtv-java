@@ -52,7 +52,12 @@ public abstract class AbstractControl implements Control
     }
 
     @Override
-    public SocketManager getSocketManager()
+    public boolean isConnected()
+    {
+        return socketManager.isConnected();
+    }
+
+    protected SocketManager getSocketManager()
     {
         return socketManager;
     }

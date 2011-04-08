@@ -64,7 +64,7 @@ public class SocketManager
     private ByteChannel redirect;
 
     /**
-     * Construct a new socket manager that is not connected to any backend.
+     * Construct a new socket manager that is not connected to a server.
      *
      * @param packet
      *            a packet implementation that will handle formatting outgoing messages
@@ -115,7 +115,7 @@ public class SocketManager
     }
 
     /**
-     * Connect to a backend server. This method will block until the connection completes.
+     * Connect to a server. This method will block until the connection completes.
      * If a connection is already active, this method will do nothing.
      *
      * @see #connect(InetSocketAddress, long)
@@ -136,7 +136,7 @@ public class SocketManager
     }
 
     /**
-     * Connect to a backend server. This method will block until the connection completes.
+     * Connect to a server. This method will block until the connection completes.
      * If a connection is already active, this method will do nothing.
      *
      * @see #connect(String, int, long)
@@ -227,7 +227,7 @@ public class SocketManager
 
     /**
      * Close the read and write selectors. This will prevent any further communication to
-     * the connected backend through this manager until the selectors are
+     * the connected server through this manager until the selectors are
      * {@link #openSelectors() opened} again. This should happen before
      * {@link #redirectChannel() redirecting the channel}. If any errors occur here they
      * will be logged, but not thrown.
@@ -261,7 +261,7 @@ public class SocketManager
 
     /**
      * Start the receiver thread. This thread will wait for data to arrive from the
-     * connected backend and deal with it (as either a response or an unsolicited backend
+     * connected server and deal with it (as either a response or an unsolicited
      * message). The reciever must be started before communication can proceed, but it
      * should be {@link #stopReceiver() stopped} before redirecting the channel to prevent
      * corruption.
@@ -331,7 +331,7 @@ public class SocketManager
 
     /**
      * Stop the receiver thread from pulling incoming data off the channel. Once this
-     * occurs, communication from the backend will be ignored. This must occur before
+     * occurs, communication from the server will be ignored. This must occur before
      * {@link #redirectChannel() redirecting the channel}.
      */
     private void stopReceiver()
@@ -346,7 +346,7 @@ public class SocketManager
     }
 
     /**
-     * Determine whether or not this manager has an active connection to a backend server.
+     * Determine whether or not this manager has an active connection to a server.
      *
      * @return <code>true</code> if the manager is connected; <code>false</code> otherwise
      */
@@ -426,12 +426,12 @@ public class SocketManager
 
     /**
      * Send a message over the active connection. This method will not wait for a response
-     * and should not be used with messages that will trigger a response from the backend.
+     * and should not be used with messages that will trigger a response from the server.
      *
      * @param message
      *            the message to send
      * @throws IOException
-     *             if this manager is not connected to a backend, is interrupted while
+     *             if this manager is not connected to a server, is interrupted while
      *             sending the message, or some other communication error occurs
      */
     public void send(String message) throws IOException
@@ -451,16 +451,16 @@ public class SocketManager
     }
 
     /**
-     * Send a message to the backend and wait for a response. This method will wait
+     * Send a message to the server and wait for a response. This method will wait
      * indefinitely and should not be used with messages that do not or may not cause the
-     * backend to respond.
+     * server to respond.
      *
      * @param message
      *            the message to send
-     * @return the response from the backend or <code>null</code> if the thread is
+     * @return the response from the server or <code>null</code> if the thread is
      *         interrupted
      * @throws IOException
-     *             if this manager is not connected to a backend or some other
+     *             if this manager is not connected to a server or some other
      *             communication error occurs
      */
     public String sendAndWait(String message) throws IOException
@@ -469,7 +469,7 @@ public class SocketManager
     }
 
     /**
-     * Send a message to the backend and wait for a response up to the given
+     * Send a message to the server and wait for a response up to the given
      * timeout value.
      *
      * @param message
@@ -479,10 +479,10 @@ public class SocketManager
      *            response
      * @param unit
      *            units used to interpret the <code>timeout</code> parameter
-     * @return the response from the backend or <code>null</code> if the thread
+     * @return the response from the server or <code>null</code> if the thread
      *         is interrupted or the timeout is reached
      * @throws IOException
-     *             if this manager is not connected to a backend or some other
+     *             if this manager is not connected to a server or some other
      *             communication error occurs
      */
     public String sendAndWait(String message, long timeout, TimeUnit unit) throws IOException
