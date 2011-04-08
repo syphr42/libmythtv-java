@@ -46,6 +46,12 @@ public enum Settings implements Defaultable
 
     FRONTEND_HOST("localhost"),
 
+    FRONTEND_HTTP_PORT("6544"),
+
+    FRONTEND_CONTROL_PORT("6546"),
+    FRONTEND_CONTROL_TIMEOUT("10000"),
+    FRONTEND_CONTROL_VERSION("_1"),
+
     BUFFER_SIZE("8192"),
 
     RECORDER("1");
