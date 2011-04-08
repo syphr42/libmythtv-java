@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol;
+package org.syphr.mythtv.util.exception;
 
 /**
- * This exception indicates that an error occurred while processing a protocol request.
- * This is usually caused by a condition that the backend has no way to handle - such as
- * requesting information about a recorder that does not exist.<br>
+ * This exception indicates that an error occurred while processing a request. This is
+ * usually caused by a condition that the server has no way to handle - such as requesting
+ * information about a device that does not exist.<br>
  * <br>
  * This exception will not be thrown for protocol/communication errors. See
  * {@link ProtocolException} instead.

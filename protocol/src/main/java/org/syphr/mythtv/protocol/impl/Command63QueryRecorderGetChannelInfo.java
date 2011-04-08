@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.ProtocolException;
 import org.syphr.mythtv.protocol.data.Channel;
+import org.syphr.mythtv.util.exception.ProtocolException;
 
 /* default */class Command63QueryRecorderGetChannelInfo extends AbstractCommand63QueryRecorder<Channel>
 {

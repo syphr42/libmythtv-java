@@ -20,13 +20,14 @@ import java.util.List;
 
 import javax.xml.ws.ProtocolException;
 
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.DriveInfo;
+import org.syphr.mythtv.util.socket.AbstractCommand;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 /* default */class Command63QueryFreeSpaceSummary extends AbstractCommand<DriveInfo>
 {
     @Override
-    protected String getMessage() throws org.syphr.mythtv.protocol.ProtocolException
+    protected String getMessage() throws org.syphr.mythtv.util.exception.ProtocolException
     {
         return "QUERY_FREE_SPACE_SUMMARY";
     }

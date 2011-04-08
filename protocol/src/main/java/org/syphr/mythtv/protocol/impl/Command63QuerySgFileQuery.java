@@ -19,9 +19,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
 import org.syphr.mythtv.protocol.data.FileInfo;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 
 /* default */class Command63QuerySgFileQuery extends AbstractCommand63QuerySg<FileInfo>
 {

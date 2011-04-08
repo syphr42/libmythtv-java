@@ -19,17 +19,18 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Date;
 
-import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolFactory;
+import org.syphr.mythtv.protocol.ProtocolSocketManager;
 import org.syphr.mythtv.protocol.QueryRecorder;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.RecorderLocation;
 import org.syphr.mythtv.protocol.types.ConnectionType;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
 public class LiveTvExaminer
@@ -45,7 +46,7 @@ public class LiveTvExaminer
 
         PropertiesManager<Settings> settings = Settings.createSettings();
 
-        SocketManager socketManager = new SocketManager();
+        SocketManager socketManager = new ProtocolSocketManager();
         socketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
                               settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_PORT),
                               settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_TIMEOUT));

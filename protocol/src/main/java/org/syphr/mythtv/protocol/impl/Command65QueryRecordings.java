@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.ProtocolException;
 import org.syphr.mythtv.protocol.types.RecordingCategory;
+import org.syphr.mythtv.util.exception.ProtocolException;
 
 /* default */class Command65QueryRecordings extends Command63QueryRecordings
 {

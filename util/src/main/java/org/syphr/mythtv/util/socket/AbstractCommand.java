@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.impl;
+package org.syphr.mythtv.util.socket;
 
-import org.syphr.mythtv.protocol.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException;
 
 public abstract class AbstractCommand<T> implements Command<T>
 {

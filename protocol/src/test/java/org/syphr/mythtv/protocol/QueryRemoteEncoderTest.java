@@ -25,6 +25,8 @@ import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
 public class QueryRemoteEncoderTest

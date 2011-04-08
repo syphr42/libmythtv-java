@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.ProtocolException;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.exception.ProtocolException;
 
 /* default */class Command63QueryRecorderGetFrameRate extends AbstractCommand63QueryRecorder<Float>
 {

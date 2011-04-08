@@ -17,8 +17,8 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.types.SeekOrigin;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 public class QueryFileTransfer63 extends AbstractQueryFileTransfer
 {

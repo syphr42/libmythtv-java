@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 
 /* default */class Command63QueryRecorderFillPositionMap extends AbstractCommand63QueryRecorder<Map<Long, Long>>
 {

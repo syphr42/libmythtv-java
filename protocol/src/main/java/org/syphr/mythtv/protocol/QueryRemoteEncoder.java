@@ -26,6 +26,7 @@ import org.syphr.mythtv.protocol.types.RecorderFlag;
 import org.syphr.mythtv.protocol.types.RecordingStatus;
 import org.syphr.mythtv.protocol.types.SleepStatus;
 import org.syphr.mythtv.protocol.types.TvState;
+import org.syphr.mythtv.util.exception.CommandException;
 
 /**
  * This interface is a sub-protocol to {@link Protocol} and represents the

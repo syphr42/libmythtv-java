@@ -21,12 +21,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.VideoEditInfo;
 import org.syphr.mythtv.protocol.types.VideoEditMark;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.socket.AbstractCommand;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 /* default */abstract class AbstractCommand63QueryVideoEditMarks extends AbstractCommand<List<VideoEditInfo>>
 {

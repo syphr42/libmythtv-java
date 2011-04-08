@@ -15,7 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 
 /* default */abstract class AbstractCommand63Message extends AbstractCommandOkResponse
 {

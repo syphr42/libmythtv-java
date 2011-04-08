@@ -17,8 +17,8 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.SocketManager;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 public class Protocol64 extends Protocol63
 {

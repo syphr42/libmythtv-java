@@ -23,15 +23,15 @@ import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
-public class SocketManagerTest
+public class ProtocolSocketManagerTest
 {
     private static PropertiesManager<Settings> settings;
 

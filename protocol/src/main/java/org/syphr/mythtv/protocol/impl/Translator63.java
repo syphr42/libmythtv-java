@@ -31,6 +31,7 @@ import org.syphr.mythtv.protocol.types.TunerStatusCategory;
 import org.syphr.mythtv.protocol.types.TvState;
 import org.syphr.mythtv.protocol.types.Verbose;
 import org.syphr.mythtv.protocol.types.VideoEditMark;
+import org.syphr.mythtv.util.translate.AbstractTranslator;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;

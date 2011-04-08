@@ -15,9 +15,9 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 
 /* default */class Command63QueryRecorderStopLiveTv extends AbstractCommand63QueryRecorder<Void>
 {

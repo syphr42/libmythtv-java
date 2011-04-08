@@ -15,7 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.socket.CommandUtils;
 
 /* default */class Command63QueryRecorderSetLiveRecording extends AbstractCommand63QueryRecorder<Void>
 {
@@ -39,7 +40,7 @@ import org.syphr.mythtv.protocol.ProtocolException;
     @Override
     public Void parseResponse(String response) throws ProtocolException
     {
-        ProtocolUtils.expectOk(response);
+        CommandUtils.expectOk(response);
         return null;
     }
 }

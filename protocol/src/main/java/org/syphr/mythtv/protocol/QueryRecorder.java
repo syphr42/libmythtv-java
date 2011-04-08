@@ -25,6 +25,7 @@ import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.types.ChannelBrowseDirection;
 import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
 import org.syphr.mythtv.protocol.types.PictureAdjustType;
+import org.syphr.mythtv.util.exception.CommandException;
 
 /**
  * This interface is a sub-protocol to {@link Protocol} and represents the

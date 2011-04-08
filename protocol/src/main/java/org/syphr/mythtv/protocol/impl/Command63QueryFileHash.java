@@ -18,9 +18,10 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.net.URI;
 
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.socket.AbstractCommand;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 /* default */class Command63QueryFileHash extends AbstractCommand<String>
 {

@@ -15,8 +15,9 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.ProtocolException;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.socket.CommandUtils;
 
 /* default */class Command63QueryRemoteEncoderStopRecording extends AbstractCommand63QueryRemoteEncoder<Void>
 {
@@ -34,7 +35,7 @@ import org.syphr.mythtv.protocol.ProtocolException;
     @Override
     protected Void parseResponse(String response) throws ProtocolException, CommandException
     {
-        ProtocolUtils.expectOk(response);
+        CommandUtils.expectOk(response);
         return null;
     }
 }

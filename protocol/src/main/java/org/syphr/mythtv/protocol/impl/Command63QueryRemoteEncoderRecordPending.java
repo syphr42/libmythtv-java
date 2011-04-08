@@ -18,8 +18,9 @@ package org.syphr.mythtv.protocol.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.syphr.mythtv.protocol.ProtocolException;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.socket.CommandUtils;
 
 /* default */class Command63QueryRemoteEncoderRecordPending extends AbstractCommand63QueryRemoteEncoder<Void>
 {
@@ -50,7 +51,7 @@ import org.syphr.mythtv.protocol.data.ProgramInfo;
     @Override
     protected Void parseResponse(String response) throws ProtocolException
     {
-        ProtocolUtils.expectOk(response);
+        CommandUtils.expectOk(response);
         return null;
     }
 }

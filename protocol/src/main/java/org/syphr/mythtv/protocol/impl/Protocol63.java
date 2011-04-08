@@ -23,13 +23,10 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.ProtocolException;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.DriveInfo;
 import org.syphr.mythtv.protocol.data.FileEntry;
@@ -44,13 +41,17 @@ import org.syphr.mythtv.protocol.data.RecordingsInProgress;
 import org.syphr.mythtv.protocol.data.TimeInfo;
 import org.syphr.mythtv.protocol.data.UpcomingRecordings;
 import org.syphr.mythtv.protocol.data.VideoEditInfo;
-import org.syphr.mythtv.protocol.events.BackendEventGrabber;
 import org.syphr.mythtv.protocol.events.impl.EventProtocol63;
 import org.syphr.mythtv.protocol.types.ConnectionType;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.protocol.types.FileTransferType;
 import org.syphr.mythtv.protocol.types.RecordingCategory;
 import org.syphr.mythtv.protocol.types.Verbose;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.socket.Interceptor;
+import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class Protocol63 extends AbstractProtocol
 {
@@ -60,17 +61,17 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    protected BackendEventGrabber createEventGrabber()
+    protected Interceptor createEventGrabber()
     {
-        return new BackendEventGrabber()
+        return new Interceptor()
         {
             private final EventProtocol63 eventProto = new EventProtocol63();
             private final Logger logger = LoggerFactory.getLogger(getClass());
 
             @Override
-            public boolean isBackendEvent(String value)
+            public boolean intercept(String response)
             {
-                List<String> args = Protocol63Utils.splitArguments(value);
+                List<String> args = Protocol63Utils.splitArguments(response);
 
                 if (!args.isEmpty() && "BACKEND_MESSAGE".equals(args.get(0)))
                 {

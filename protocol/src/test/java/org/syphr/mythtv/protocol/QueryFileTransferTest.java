@@ -41,6 +41,8 @@ import org.syphr.mythtv.protocol.types.FileTransferType;
 import org.syphr.mythtv.protocol.types.RecordingCategory;
 import org.syphr.mythtv.protocol.types.SeekOrigin;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
 import com.google.common.io.Files;

@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.net.URI;
 
-import org.syphr.mythtv.protocol.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException;
 
 /* default */class Command65QueryFileExists extends Command63QueryFileExists
 {

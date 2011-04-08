@@ -42,6 +42,8 @@ import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.protocol.types.FileTransferType;
 import org.syphr.mythtv.protocol.types.RecordingCategory;
 import org.syphr.mythtv.protocol.types.Verbose;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 /**
  * This interface represents the combined API of all MythTV protocols that are supported.

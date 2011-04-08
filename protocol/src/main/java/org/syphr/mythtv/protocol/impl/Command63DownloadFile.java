@@ -21,10 +21,11 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.SocketManager;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.socket.AbstractCommand;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 /* default */class Command63DownloadFile extends AbstractCommand<URI>
 {

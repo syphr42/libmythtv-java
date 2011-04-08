@@ -15,9 +15,9 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.ProtocolException;
 import org.syphr.mythtv.protocol.types.SleepStatus;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.exception.ProtocolException;
 
 /* default */class Command63QueryRemoteEncoderGetSleepStatus extends AbstractCommand63QueryRemoteEncoder<SleepStatus>
 {

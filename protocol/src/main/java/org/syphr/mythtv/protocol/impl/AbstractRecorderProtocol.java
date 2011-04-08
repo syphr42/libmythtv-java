@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.SocketManager;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 public abstract class AbstractRecorderProtocol
 {

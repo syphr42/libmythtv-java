@@ -17,8 +17,8 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.util.Set;
 
-import org.syphr.mythtv.protocol.ProtocolException;
 import org.syphr.mythtv.protocol.types.RecorderFlag;
+import org.syphr.mythtv.util.exception.ProtocolException;
 
 /* default */class Command63QueryRemoteEncoderGetFlags extends AbstractCommand63QueryRemoteEncoder<Set<RecorderFlag>>
 {

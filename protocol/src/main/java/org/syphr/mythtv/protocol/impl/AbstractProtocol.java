@@ -21,9 +21,10 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.SocketManager;
-import org.syphr.mythtv.protocol.events.BackendEventGrabber;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
+import org.syphr.mythtv.util.socket.Interceptor;
+import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public abstract class AbstractProtocol implements Protocol
 {
@@ -35,7 +36,7 @@ public abstract class AbstractProtocol implements Protocol
         this.socketManager = socketManager;
         this.listeners = new CopyOnWriteArrayList<BackendEventListener>();
 
-        socketManager.setBackendEventGrabber(createEventGrabber());
+        socketManager.setInterceptor(createEventGrabber());
     }
 
     @Override
@@ -88,7 +89,7 @@ public abstract class AbstractProtocol implements Protocol
         return getTranslator().getAllowed(type);
     }
 
-    protected abstract BackendEventGrabber createEventGrabber();
+    protected abstract Interceptor createEventGrabber();
 
     protected abstract Translator getTranslator();
 }

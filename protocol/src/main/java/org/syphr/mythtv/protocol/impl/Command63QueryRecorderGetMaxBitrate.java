@@ -17,8 +17,8 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.util.List;
 
-import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 
 /* default */class Command63QueryRecorderGetMaxBitrate extends AbstractCommand63QueryRecorder<Long>
 {

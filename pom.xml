@@ -65,12 +65,15 @@
 	</developers>
 	
 	<modules>
-	   <module>api</module>
-	   <module>db</module>
-	   <module>http</module>
-	   <module>protocol</module>
-	   
 	   <module>test</module>
+	   
+	   <module>util</module>
+	
+	   <module>protocol</module>
+	   <module>http</module>
+	   <module>db</module>
+	   
+	   <module>api</module>
 	   
 	   <module>example</module>
 	</modules>

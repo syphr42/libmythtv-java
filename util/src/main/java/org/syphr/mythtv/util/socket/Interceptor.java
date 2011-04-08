@@ -13,18 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.impl;
+package org.syphr.mythtv.util.socket;
 
-import java.io.IOException;
-
-import org.syphr.mythtv.protocol.SocketManager;
-
-/* default */abstract class AbstractCommandOkResponse extends AbstractCommand<Void>
+public interface Interceptor
 {
-    @Override
-    public Void send(SocketManager socketManager) throws IOException
-    {
-        ProtocolUtils.sendExpectOk(socketManager, getMessage());
-        return null;
-    }
+    public boolean intercept(String response);
 }

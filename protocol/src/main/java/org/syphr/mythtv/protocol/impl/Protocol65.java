@@ -19,11 +19,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.FileInfo;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.types.RecordingCategory;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class Protocol65 extends Protocol64
 {

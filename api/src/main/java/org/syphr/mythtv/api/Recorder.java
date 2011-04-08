@@ -27,13 +27,13 @@ import javax.persistence.TypedQuery;
 
 import org.syphr.mythtv.db.schema.Recorded;
 import org.syphr.mythtv.db.schema.TvChain;
-import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
 import org.syphr.mythtv.protocol.data.Channel;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.types.PictureAdjustType;
+import org.syphr.mythtv.util.exception.CommandException;
 
 public class Recorder
 {

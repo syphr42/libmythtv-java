@@ -16,9 +16,9 @@
 package org.syphr.mythtv.protocol.test;
 
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
 public class CommandRunner

@@ -20,15 +20,15 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.Pair;
-import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.data.InputInfo;
 import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.types.RecorderFlag;
 import org.syphr.mythtv.protocol.types.RecordingStatus;
 import org.syphr.mythtv.protocol.types.SleepStatus;
 import org.syphr.mythtv.protocol.types.TvState;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements QueryRemoteEncoder
 {

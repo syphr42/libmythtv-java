@@ -15,6 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import org.syphr.mythtv.util.translate.Translator;
+
 public class Protocol65Utils
 {
     private static final Translator TRANSLATOR = new Translator65();

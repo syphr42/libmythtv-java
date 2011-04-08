@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol;
+package org.syphr.mythtv.util.socket;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -34,19 +34,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.syphr.mythtv.protocol.events.BackendEventGrabber;
 
 /**
- * This class manages a connection to a backend server. It provides the necessary
- * read/write capabilities as well as the ability to take over the communications channel
- * entirely to perform bulk transfer (without protocol), such as transferring a file while
- * another manager controls the flow.
+ * This class manages a low-level network connection. It provides the necessary read/write
+ * capabilities as well as the ability to take over the communications channel entirely to
+ * perform bulk raw data transfer, such as transferring a file while another manager
+ * controls the flow.
  *
  * @author Gregory P. Moyer
  */
 public class SocketManager
 {
     private final Logger logger = LoggerFactory.getLogger(SocketManager.class);
+
+    private final Packet packet;
 
     private final BlockingQueue<String> queue;
     private final AtomicInteger skippedResponses;
@@ -58,15 +59,21 @@ public class SocketManager
 
     private Future<?> receiver;
 
-    private BackendEventGrabber backendEventGrabber;
+    private Interceptor interceptor;
 
     private ByteChannel redirect;
 
     /**
      * Construct a new socket manager that is not connected to any backend.
+     *
+     * @param packet
+     *            a packet implementation that will handle formatting outgoing messages
+     *            and parsing incoming messages
      */
-    public SocketManager()
+    public SocketManager(Packet packet)
     {
+        this.packet = packet;
+
         queue = new LinkedBlockingQueue<String>();
         skippedResponses = new AtomicInteger(0);
         receiverExecutor = Executors.newSingleThreadExecutor(new ThreadFactory()
@@ -96,15 +103,15 @@ public class SocketManager
     }
 
     /**
-     * Provide a means for backend event messages to be redirected. This defers the
-     * decision of what is considered a "backend event" and how it is handled.
+     * Provide a means for intercepting messages. This allows clients of this class to
+     * override normal behavior upon the receipt of data over the socket.
      *
-     * @param backendEventGrabber
-     *            the grabber to set
+     * @param interceptor
+     *            the interceptor to set
      */
-    public void setBackendEventGrabber(BackendEventGrabber backendEventGrabber)
+    public void setInterceptor(Interceptor interceptor)
     {
-        this.backendEventGrabber = backendEventGrabber;
+        this.interceptor = interceptor;
     }
 
     /**
@@ -282,12 +289,12 @@ public class SocketManager
 
                         readSelector.selectedKeys().clear();
 
-                        String value = Packet.read(socket);
+                        String value = packet.read(socket);
 
                         logger.trace("Received message: {}", value);
 
-                        if (backendEventGrabber != null
-                            && backendEventGrabber.isBackendEvent(value))
+                        if (interceptor != null
+                            && interceptor.intercept(value))
                         {
                             continue;
                         }
@@ -372,7 +379,7 @@ public class SocketManager
      */
     public SocketManager newConnection() throws IOException
     {
-        SocketManager newManager = new SocketManager();
+        SocketManager newManager = new SocketManager(packet);
 
         if (isConnected())
         {
@@ -438,7 +445,7 @@ public class SocketManager
 
         writeSelector.selectedKeys().clear();
 
-        Packet.write(socket, message);
+        packet.write(socket, message);
 
         logger.trace("Message sent");
     }

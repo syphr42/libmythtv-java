@@ -19,6 +19,7 @@ import org.syphr.mythtv.protocol.impl.Protocol63;
 import org.syphr.mythtv.protocol.impl.Protocol64;
 import org.syphr.mythtv.protocol.impl.Protocol65;
 import org.syphr.mythtv.protocol.types.ProtocolVersion;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 /**
  * This class acts as a bridge to the various protocol implementations.

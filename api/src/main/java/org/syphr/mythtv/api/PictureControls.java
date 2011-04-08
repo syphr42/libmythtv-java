@@ -17,7 +17,7 @@ package org.syphr.mythtv.api;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.protocol.CommandException;
+import org.syphr.mythtv.util.exception.CommandException;
 
 public interface PictureControls
 {

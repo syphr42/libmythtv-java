@@ -15,14 +15,10 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import org.apache.commons.lang3.Pair;
-import org.syphr.mythtv.protocol.ProtocolException;
-import org.syphr.mythtv.protocol.ProtocolException.Direction;
-import org.syphr.mythtv.protocol.SocketManager;
 
 /**
  * This class provides a set of common utilities that are useful for protocol
@@ -87,40 +83,6 @@ public class ProtocolUtils
     public static Pair<String, String> splitLong(long value)
     {
         return Pair.of(String.valueOf((int)(value >> 32)), String.valueOf((int)value));
-    }
-
-    /**
-     * Send a message via the given socket manager which should always receive a case
-     * insensitive "OK" as the reply.
-     *
-     * @param socketManager
-     *            the socket manager that will be used to send and receive over the
-     *            network
-     * @param message
-     *            the message to send
-     * @throws IOException
-     *             if there is a communication error or an unexpected response
-     */
-    public static void sendExpectOk(SocketManager socketManager, String message) throws IOException
-    {
-        expectOk(socketManager.sendAndWait(message));
-    }
-
-    /**
-     * Check the response for an "OK" message. Throw an exception if response is not
-     * expected.
-     *
-     * @param response
-     *            the response to check
-     * @throws ProtocolException
-     *             if the response is not the expected case-insensitive "OK"
-     */
-    public static void expectOk(String response) throws ProtocolException
-    {
-        if (!"OK".equalsIgnoreCase(response))
-        {
-            throw new ProtocolException(response, Direction.RECEIVE);
-        }
     }
 
     private ProtocolUtils()

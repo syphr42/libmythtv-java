@@ -17,9 +17,9 @@ package org.syphr.mythtv.api;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.types.PictureAdjustType;
+import org.syphr.mythtv.util.exception.CommandException;
 
 public class PictureControlsImpl implements PictureControls
 {

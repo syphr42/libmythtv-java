@@ -22,30 +22,23 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 
+import org.syphr.mythtv.util.socket.Packet;
+
 /**
  * This class represents the lowest level socket communication between the client and a
  * MythTV backend server.
  *
  * @author Gregory P. Moyer
  */
-/* default */class Packet
+/* default */class ProtocolPacket implements Packet
 {
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
     private static final int HEADER_SIZE = 8;
     private static final int PAYLOAD_BUFFER_SIZE = 8192;
 
-    /**
-     * Read the next packet from the given channel. This method may or may not block based
-     * on the channel configuration.
-     *
-     * @param in
-     *            the channel to read
-     * @return the content of the packet after it has been completely read
-     * @throws IOException
-     *             if an error occurs or this thread is interrupted
-     */
-    public static String read(ReadableByteChannel in) throws IOException
+    @Override
+    public String read(ReadableByteChannel in) throws IOException
     {
         byte[] headerBytes = new byte[HEADER_SIZE];
         ByteBuffer headerBuffer = ByteBuffer.wrap(headerBytes);
@@ -106,18 +99,8 @@ import java.nio.charset.Charset;
         return builder.toString();
     }
 
-    /**
-     * Write the given value to the specified channel. This method may or may not block
-     * based on the channel configuration.
-     *
-     * @param out
-     *            the channel to write
-     * @param data
-     *            the data to write
-     * @throws IOException
-     *             if an error occurs or this thread is interrupted
-     */
-    public static void write(WritableByteChannel out, String data) throws IOException
+    @Override
+    public void write(WritableByteChannel out, String data) throws IOException
     {
         byte[] payloadBytes = data.getBytes(UTF8);
 

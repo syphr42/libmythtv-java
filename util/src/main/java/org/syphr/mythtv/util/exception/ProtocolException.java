@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol;
+package org.syphr.mythtv.util.exception;
 
 import java.io.IOException;
 
 /**
- * This exception indicates that an unexpected response was received from the backend or
- * an attempt was made to send data to a backend that does not understand it. The likely
- * cause of this is that the backend is implementing a different version of the protocol
- * than what the client declared during the initial connection or an invalid parameter was
- * passed to a command.<br>
+ * This exception indicates that an unexpected response was received from the server or an
+ * attempt was made to send data to a server that does not understand it. The likely cause
+ * of this is that the server is implementing a different version of the protocol than
+ * what the client is using or an invalid parameter was passed to a command.<br>
  * <br>
  * This exception will not be thrown for command errors, such as requesting data for
  * something that does not exist. See {@link CommandException} instead.

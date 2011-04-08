@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.impl;
+package org.syphr.mythtv.util.socket;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.protocol.CommandException;
-import org.syphr.mythtv.protocol.SocketManager;
+import org.syphr.mythtv.util.exception.CommandException;
 
 public interface Command<T>
 {

@@ -23,22 +23,23 @@ import java.net.InetAddress;
 import java.nio.channels.ByteChannel;
 import java.nio.channels.FileChannel;
 
-import org.syphr.mythtv.protocol.CommandException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolFactory;
+import org.syphr.mythtv.protocol.ProtocolSocketManager;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
-import org.syphr.mythtv.protocol.SocketManager;
 import org.syphr.mythtv.protocol.types.ConnectionType;
 import org.syphr.mythtv.protocol.types.EventLevel;
 import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
 public class Utils
 {
     public static SocketManager connect(PropertiesManager<Settings> settings) throws IOException
     {
-        SocketManager socketManager = new SocketManager();
+        SocketManager socketManager = new ProtocolSocketManager();
         socketManager.connect(settings.getProperty(Settings.BACKEND_HOST),
                               settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_PORT),
                               settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_TIMEOUT));
