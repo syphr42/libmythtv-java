@@ -21,11 +21,11 @@ import org.syphr.mythtv.http.backend.ConnectionInfo;
 import org.syphr.mythtv.http.backend.ConnectionManager;
 import org.syphr.mythtv.http.backend.Myth;
 
-public class Myth1_0 implements Myth
+public class Myth1_02 implements Myth
 {
     private final ConnectionManager connMan;
 
-    public Myth1_0(ConnectionManager connMan)
+    public Myth1_02(ConnectionManager connMan)
     {
         this.connMan = connMan;
     }
