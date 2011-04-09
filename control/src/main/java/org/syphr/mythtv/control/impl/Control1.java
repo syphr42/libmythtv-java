@@ -71,7 +71,7 @@ public class Control1 extends AbstractControl
     }
 
     @Override
-    public void message() throws IOException
+    public void message(String text) throws IOException
     {
         throw new UnsupportedOperationException();
     }

@@ -101,8 +101,26 @@ public interface Control
 
     public void screenshot() throws IOException;
 
-    public void message() throws IOException;
+    /**
+     * Send some text to be displayed on the connected frontend.
+     *
+     * @param text
+     *            the text to send
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 2
+     */
+    public void message(String text) throws IOException;
 
+    /**
+     * Gracefully disconnect this client from the frontend.
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 1
+     */
     public void exit() throws IOException;
 
     /**

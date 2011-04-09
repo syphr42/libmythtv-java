@@ -61,4 +61,19 @@ public class ControlTest
         control.key('m');
         control.key(Key.ESCAPE);
     }
+
+    @Test
+    public void testMessage() throws IOException
+    {
+        try
+        {
+            control.message("This is a test message!");
+            control.key(Key.ENTER);
+        }
+        catch (UnsupportedOperationException e)
+        {
+            LOGGER.warn("Skipping message test since it is not supported by this control version");
+            return;
+        }
+    }
 }

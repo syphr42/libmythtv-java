@@ -16,6 +16,7 @@
 package org.syphr.mythtv.control;
 
 import org.syphr.mythtv.control.impl.Control1;
+import org.syphr.mythtv.control.impl.Control2;
 import org.syphr.mythtv.control.types.ControlVersion;
 
 /**
@@ -31,6 +32,9 @@ public class ControlFactory
         {
             case _1:
                 return new Control1();
+
+            case _2:
+                return new Control2();
 
             default:
                 throw new IllegalArgumentException("Unknown control version: " + version);

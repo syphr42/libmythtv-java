@@ -17,5 +17,6 @@ package org.syphr.mythtv.control.types;
 
 public enum ControlVersion
 {
-    _1;
+    _1,
+    _2;
 }
