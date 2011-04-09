@@ -93,6 +93,8 @@ public class Backend
             }
             catch (ContentException e)
             {
+                LOGGER.warn("Failed to determine database info from the backend, trying local config file instead", e);
+
                 /*
                  * If this happens, we were unable to connect to the backend via
                  * http. This might be due to an unsupported version so try to
