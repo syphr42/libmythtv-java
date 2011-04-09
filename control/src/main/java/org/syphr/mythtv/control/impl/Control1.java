@@ -18,6 +18,7 @@ package org.syphr.mythtv.control.impl;
 import java.io.IOException;
 
 import org.syphr.mythtv.control.types.JumpPoint;
+import org.syphr.mythtv.control.types.Key;
 import org.syphr.mythtv.util.translate.Translator;
 
 public class Control1 extends AbstractControl
@@ -31,6 +32,18 @@ public class Control1 extends AbstractControl
     public void jump(JumpPoint jumpPoint) throws IOException
     {
         new Command1Jump(jumpPoint).send(getSocketManager());
+    }
+
+    @Override
+    public void key(char c) throws IOException
+    {
+        new Command1Key(c).send(getSocketManager());
+    }
+
+    @Override
+    public void key(Key key) throws IOException
+    {
+        new Command1Key(key).send(getSocketManager());
     }
 
     @Override
@@ -55,6 +68,12 @@ public class Control1 extends AbstractControl
     public void screenshot() throws IOException
     {
         // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void message() throws IOException
+    {
+        throw new UnsupportedOperationException();
     }
 
     @Override

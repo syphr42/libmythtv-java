@@ -16,6 +16,7 @@
 package org.syphr.mythtv.control.impl;
 
 import org.syphr.mythtv.control.types.JumpPoint;
+import org.syphr.mythtv.control.types.Key;
 import org.syphr.mythtv.util.translate.AbstractTranslator;
 
 import com.google.common.collect.BiMap;
@@ -71,6 +72,51 @@ public class Translator1 extends AbstractTranslator
         JUMP_POINT_MAP.put(JumpPoint.ZONEMINDER_LIVE_VIEW, "zoneminderliveview");
     }
 
+    private static final BiMap<Key, String> KEY_MAP = EnumHashBiMap.create(Key.class);
+    static
+    {
+        KEY_MAP.put(Key.BACKSPACE, "backspace");
+        KEY_MAP.put(Key.BACKTAB, "backtab");
+        KEY_MAP.put(Key.DELETE, "delete");
+        KEY_MAP.put(Key.UP, "up");
+        KEY_MAP.put(Key.LEFT, "left");
+        KEY_MAP.put(Key.DOWN, "down");
+        KEY_MAP.put(Key.RIGHT, "right");
+        KEY_MAP.put(Key.PAGEDOWN, "pagedown");
+        KEY_MAP.put(Key.PAGEUP, "pageup");
+        KEY_MAP.put(Key.END, "end");
+        KEY_MAP.put(Key.ENTER, "enter");
+        KEY_MAP.put(Key.ESCAPE, "escape");
+        KEY_MAP.put(Key.HOME, "home");
+        KEY_MAP.put(Key.INSERT, "insert");
+        KEY_MAP.put(Key.SPACE, "space");
+        KEY_MAP.put(Key.TAB, "tab");
+        KEY_MAP.put(Key.F1, "f1");
+        KEY_MAP.put(Key.F2, "f2");
+        KEY_MAP.put(Key.F3, "f3");
+        KEY_MAP.put(Key.F4, "f4");
+        KEY_MAP.put(Key.F5, "f5");
+        KEY_MAP.put(Key.F6, "f6");
+        KEY_MAP.put(Key.F7, "f7");
+        KEY_MAP.put(Key.F8, "f8");
+        KEY_MAP.put(Key.F9, "f9");
+        KEY_MAP.put(Key.F10, "f10");
+        KEY_MAP.put(Key.F11, "f11");
+        KEY_MAP.put(Key.F12, "f12");
+        KEY_MAP.put(Key.F13, "f13");
+        KEY_MAP.put(Key.F14, "f14");
+        KEY_MAP.put(Key.F15, "f15");
+        KEY_MAP.put(Key.F16, "f16");
+        KEY_MAP.put(Key.F17, "f17");
+        KEY_MAP.put(Key.F18, "f18");
+        KEY_MAP.put(Key.F19, "f19");
+        KEY_MAP.put(Key.F20, "f20");
+        KEY_MAP.put(Key.F21, "f21");
+        KEY_MAP.put(Key.F22, "f22");
+        KEY_MAP.put(Key.F23, "f23");
+        KEY_MAP.put(Key.F24, "f24");
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type)
@@ -82,6 +128,11 @@ public class Translator1 extends AbstractTranslator
         if (JumpPoint.class.equals(type))
         {
             return (BiMap)JUMP_POINT_MAP;
+        }
+
+        if (Key.class.equals(type))
+        {
+            return (BiMap)KEY_MAP;
         }
 
         throw new IllegalArgumentException("Unknown type: " + type);

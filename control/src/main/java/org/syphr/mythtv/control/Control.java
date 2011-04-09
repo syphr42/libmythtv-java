@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.syphr.mythtv.control.types.JumpPoint;
+import org.syphr.mythtv.control.types.Key;
 
 /**
  * This interface represents the combined frontend control API of all MythTV versions that
@@ -68,6 +69,30 @@ public interface Control
      */
     public void jump(JumpPoint jumpPoint) throws IOException;
 
+    /**
+     * Send the given character to the connected frontend.
+     *
+     * @param c
+     *            the character to send
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 1
+     */
+    public void key(char c) throws IOException;
+
+    /**
+     * Send the given key press to the connected frontend.
+     *
+     * @param key
+     *            the key press to send
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 1
+     */
+    public void key(Key key) throws IOException;
+
     public void play() throws IOException;
 
     public void query() throws IOException;
@@ -75,6 +100,8 @@ public interface Control
     public void set() throws IOException;
 
     public void screenshot() throws IOException;
+
+    public void message() throws IOException;
 
     public void exit() throws IOException;
 

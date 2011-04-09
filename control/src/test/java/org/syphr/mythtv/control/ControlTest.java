@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.control.test.Utils;
 import org.syphr.mythtv.control.types.JumpPoint;
+import org.syphr.mythtv.control.types.Key;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.prom.PropertiesManager;
 
@@ -52,5 +53,12 @@ public class ControlTest
     {
         control.jump(JumpPoint.MYTH_VIDEO);
         control.jump(JumpPoint.MAIN_MENU);
+    }
+
+    @Test
+    public void testKey() throws IOException
+    {
+        control.key('m');
+        control.key(Key.ESCAPE);
     }
 }
