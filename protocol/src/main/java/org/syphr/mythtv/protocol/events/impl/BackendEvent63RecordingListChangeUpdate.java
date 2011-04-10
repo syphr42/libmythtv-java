@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.protocol.events.impl;
 
-import org.syphr.mythtv.protocol.data.ProgramInfo;
+import org.syphr.mythtv.data.ProgramInfo;
 
 public interface BackendEvent63RecordingListChangeUpdate
 {

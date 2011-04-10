@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.Pair;
-import org.syphr.mythtv.protocol.data.InputInfo;
-import org.syphr.mythtv.protocol.data.ProgramInfo;
-import org.syphr.mythtv.protocol.types.RecorderFlag;
-import org.syphr.mythtv.protocol.types.RecordingStatus;
-import org.syphr.mythtv.protocol.types.SleepStatus;
-import org.syphr.mythtv.protocol.types.TvState;
+import org.syphr.mythtv.data.InputInfo;
+import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.types.RecorderFlag;
+import org.syphr.mythtv.types.RecordingStatus;
+import org.syphr.mythtv.types.SleepStatus;
+import org.syphr.mythtv.types.TvState;
 import org.syphr.mythtv.util.exception.CommandException;
 
 /**

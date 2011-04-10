@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
+import org.syphr.mythtv.types.ChannelChangeDirection;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.CommandUtils;
 

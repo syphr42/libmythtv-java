@@ -18,8 +18,8 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.util.List;
 
-import org.syphr.mythtv.protocol.data.ProgramInfo;
-import org.syphr.mythtv.protocol.types.RecordingCategory;
+import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;

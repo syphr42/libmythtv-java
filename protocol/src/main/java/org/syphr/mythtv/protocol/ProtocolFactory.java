@@ -18,7 +18,6 @@ package org.syphr.mythtv.protocol;
 import org.syphr.mythtv.protocol.impl.Protocol63;
 import org.syphr.mythtv.protocol.impl.Protocol64;
 import org.syphr.mythtv.protocol.impl.Protocol65;
-import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.mythtv.util.socket.SocketManager;
 
 /**

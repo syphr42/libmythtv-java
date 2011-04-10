@@ -27,13 +27,13 @@ import org.syphr.mythtv.db.SchemaVersion;
 import org.syphr.mythtv.http.backend.BackendFactory;
 import org.syphr.mythtv.http.backend.ConnectionManager;
 import org.syphr.mythtv.http.backend.ContentException;
+import org.syphr.mythtv.protocol.ConnectionType;
+import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolFactory;
 import org.syphr.mythtv.protocol.ProtocolSocketManager;
+import org.syphr.mythtv.protocol.ProtocolVersion;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
-import org.syphr.mythtv.protocol.types.ConnectionType;
-import org.syphr.mythtv.protocol.types.EventLevel;
-import org.syphr.mythtv.protocol.types.ProtocolVersion;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 

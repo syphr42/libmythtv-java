@@ -19,12 +19,12 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
-import org.syphr.mythtv.protocol.data.Channel;
-import org.syphr.mythtv.protocol.data.ChannelQuery;
-import org.syphr.mythtv.protocol.data.ProgramInfo;
-import org.syphr.mythtv.protocol.types.ChannelBrowseDirection;
-import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
-import org.syphr.mythtv.protocol.types.PictureAdjustType;
+import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.ChannelQuery;
+import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.types.ChannelBrowseDirection;
+import org.syphr.mythtv.types.ChannelChangeDirection;
+import org.syphr.mythtv.types.PictureAdjustType;
 import org.syphr.mythtv.util.exception.CommandException;
 
 /**

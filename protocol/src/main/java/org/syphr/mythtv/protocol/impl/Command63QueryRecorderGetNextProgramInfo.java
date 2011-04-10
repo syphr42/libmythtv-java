@@ -19,9 +19,9 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import org.syphr.mythtv.protocol.data.Channel;
-import org.syphr.mythtv.protocol.data.ProgramInfo;
-import org.syphr.mythtv.protocol.types.ChannelBrowseDirection;
+import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.types.ChannelBrowseDirection;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 

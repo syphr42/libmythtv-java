@@ -18,8 +18,8 @@ package org.syphr.mythtv.protocol.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.syphr.mythtv.protocol.data.FileEntry;
-import org.syphr.mythtv.protocol.types.FileEntryType;
+import org.syphr.mythtv.data.FileEntry;
+import org.syphr.mythtv.types.FileEntryType;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 

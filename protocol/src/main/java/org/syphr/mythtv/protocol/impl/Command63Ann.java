@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.types.ConnectionType;
-import org.syphr.mythtv.protocol.types.EventLevel;
+import org.syphr.mythtv.protocol.ConnectionType;
+import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 

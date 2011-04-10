@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.util.List;
 
-import org.syphr.mythtv.protocol.data.ChannelQuery;
+import org.syphr.mythtv.data.ChannelQuery;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 

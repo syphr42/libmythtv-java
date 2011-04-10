@@ -18,10 +18,10 @@ package org.syphr.mythtv.api;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import org.syphr.mythtv.data.Load;
+import org.syphr.mythtv.data.MemStats;
+import org.syphr.mythtv.data.TimeInfo;
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.data.Load;
-import org.syphr.mythtv.protocol.data.MemStats;
-import org.syphr.mythtv.protocol.data.TimeInfo;
 
 public class ServerInfo
 {

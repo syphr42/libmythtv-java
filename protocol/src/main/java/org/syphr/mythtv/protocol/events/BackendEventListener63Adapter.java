@@ -20,9 +20,9 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 
-import org.syphr.mythtv.protocol.data.Channel;
-import org.syphr.mythtv.protocol.data.ProgramInfo;
-import org.syphr.mythtv.protocol.data.TunerStatus;
+import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.TunerStatus;
 
 public class BackendEventListener63Adapter implements BackendEventListener63
 {

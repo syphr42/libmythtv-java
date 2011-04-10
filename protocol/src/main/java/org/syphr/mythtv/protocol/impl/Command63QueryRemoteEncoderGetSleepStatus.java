@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.types.SleepStatus;
+import org.syphr.mythtv.types.SleepStatus;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 

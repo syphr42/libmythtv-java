@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.types.PictureAdjustType;
+import org.syphr.mythtv.types.PictureAdjustType;
 import org.syphr.mythtv.util.exception.ProtocolException;
 
 /* default */abstract class AbstractCommand63QueryRecorderChangePictureAttr extends AbstractCommand63QueryRecorderGetPictureAttr

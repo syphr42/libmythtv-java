@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.protocol.types.SeekOrigin;
+import org.syphr.mythtv.types.SeekOrigin;
 
 /**
  * This interface is a sub-protocol to {@link Protocol} and represents the

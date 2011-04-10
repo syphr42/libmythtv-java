@@ -25,16 +25,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.Pair;
-import org.syphr.mythtv.protocol.data.Channel;
-import org.syphr.mythtv.protocol.data.ProgramInfo;
-import org.syphr.mythtv.protocol.data.TunerStatus;
-import org.syphr.mythtv.protocol.data.TunerStatus.TunerData;
+import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.TunerStatus;
+import org.syphr.mythtv.data.TunerStatus.TunerData;
 import org.syphr.mythtv.protocol.events.BackendEventListener63;
 import org.syphr.mythtv.protocol.events.SystemEvent;
 import org.syphr.mythtv.protocol.events.SystemEventData;
 import org.syphr.mythtv.protocol.impl.Protocol63Utils;
 import org.syphr.mythtv.protocol.impl.ProtocolUtils;
-import org.syphr.mythtv.protocol.types.TunerStatusCategory;
+import org.syphr.mythtv.types.TunerStatusCategory;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 

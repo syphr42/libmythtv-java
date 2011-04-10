@@ -28,12 +28,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.syphr.mythtv.protocol.data.Channel;
-import org.syphr.mythtv.protocol.data.DriveInfo;
-import org.syphr.mythtv.protocol.data.ProgramInfo;
-import org.syphr.mythtv.protocol.data.UpcomingRecordings;
-import org.syphr.mythtv.protocol.types.RecordingStatus;
-import org.syphr.mythtv.protocol.types.RecordingType;
+import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.DriveInfo;
+import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.UpcomingRecordings;
+import org.syphr.mythtv.types.RecordingStatus;
+import org.syphr.mythtv.types.RecordingType;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.translate.Translator;

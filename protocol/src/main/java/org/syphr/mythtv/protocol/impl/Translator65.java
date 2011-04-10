@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.types.RecordingCategory;
+import org.syphr.mythtv.types.RecordingCategory;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;

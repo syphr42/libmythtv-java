@@ -24,8 +24,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.codec.binary.Base64;
-import org.syphr.mythtv.protocol.data.PixMap;
-import org.syphr.mythtv.protocol.data.ProgramInfo;
+import org.syphr.mythtv.data.PixMap;
+import org.syphr.mythtv.data.ProgramInfo;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;

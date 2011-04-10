@@ -41,12 +41,12 @@ import javax.swing.WindowConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.data.ProgramInfo;
 import org.syphr.mythtv.protocol.test.Utils;
-import org.syphr.mythtv.protocol.types.EventLevel;
-import org.syphr.mythtv.protocol.types.RecordingCategory;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;

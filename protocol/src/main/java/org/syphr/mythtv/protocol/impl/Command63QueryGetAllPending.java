@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.protocol.data.UpcomingRecordings;
+import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;

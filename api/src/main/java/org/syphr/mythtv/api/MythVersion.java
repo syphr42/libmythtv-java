@@ -17,7 +17,7 @@ package org.syphr.mythtv.api;
 
 import org.syphr.mythtv.control.types.ControlVersion;
 import org.syphr.mythtv.db.SchemaVersion;
-import org.syphr.mythtv.protocol.types.ProtocolVersion;
+import org.syphr.mythtv.protocol.ProtocolVersion;
 
 public enum MythVersion
 {

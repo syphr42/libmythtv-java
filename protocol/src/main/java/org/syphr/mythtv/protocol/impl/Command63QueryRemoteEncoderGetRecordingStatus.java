@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.types.RecordingStatus;
+import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.util.exception.ProtocolException;
 
 /* default */class Command63QueryRemoteEncoderGetRecordingStatus extends AbstractCommand63QueryRemoteEncoder<RecordingStatus>

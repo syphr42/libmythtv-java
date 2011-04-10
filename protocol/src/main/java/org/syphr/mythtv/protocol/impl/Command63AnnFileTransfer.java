@@ -20,7 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.syphr.mythtv.protocol.QueryFileTransfer;
-import org.syphr.mythtv.protocol.types.FileTransferType;
+import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;

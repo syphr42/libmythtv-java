@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang3.Pair;
-import org.syphr.mythtv.protocol.types.SeekOrigin;
+import org.syphr.mythtv.types.SeekOrigin;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;

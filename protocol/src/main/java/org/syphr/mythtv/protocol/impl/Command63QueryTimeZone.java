@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.syphr.mythtv.protocol.data.TimeInfo;
+import org.syphr.mythtv.data.TimeInfo;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;

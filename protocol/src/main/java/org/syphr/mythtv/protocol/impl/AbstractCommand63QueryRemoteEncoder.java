@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.protocol.types.TvState;
+import org.syphr.mythtv.types.TvState;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommand;

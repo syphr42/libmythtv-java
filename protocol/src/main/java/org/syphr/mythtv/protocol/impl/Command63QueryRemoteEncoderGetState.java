@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.types.TvState;
+import org.syphr.mythtv.types.TvState;
 import org.syphr.mythtv.util.exception.ProtocolException;
 
 /* default */class Command63QueryRemoteEncoderGetState extends AbstractCommand63QueryRemoteEncoder<TvState>

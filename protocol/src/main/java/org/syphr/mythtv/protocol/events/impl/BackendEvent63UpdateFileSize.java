@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol.events.impl;
 
 import java.util.Date;
 
-import org.syphr.mythtv.protocol.data.Channel;
+import org.syphr.mythtv.data.Channel;
 
 public interface BackendEvent63UpdateFileSize
 {

@@ -18,7 +18,7 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.util.List;
 
-import org.syphr.mythtv.protocol.data.RecorderDevice;
+import org.syphr.mythtv.data.RecorderDevice;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;

@@ -15,22 +15,22 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.protocol.types.ChannelBrowseDirection;
-import org.syphr.mythtv.protocol.types.ChannelChangeDirection;
-import org.syphr.mythtv.protocol.types.ConnectionType;
-import org.syphr.mythtv.protocol.types.EventLevel;
-import org.syphr.mythtv.protocol.types.FileTransferType;
-import org.syphr.mythtv.protocol.types.PictureAdjustType;
-import org.syphr.mythtv.protocol.types.RecorderFlag;
-import org.syphr.mythtv.protocol.types.RecordingCategory;
-import org.syphr.mythtv.protocol.types.RecordingStatus;
-import org.syphr.mythtv.protocol.types.RecordingType;
-import org.syphr.mythtv.protocol.types.SeekOrigin;
-import org.syphr.mythtv.protocol.types.SleepStatus;
-import org.syphr.mythtv.protocol.types.TunerStatusCategory;
-import org.syphr.mythtv.protocol.types.TvState;
-import org.syphr.mythtv.protocol.types.Verbose;
-import org.syphr.mythtv.protocol.types.VideoEditMark;
+import org.syphr.mythtv.protocol.ConnectionType;
+import org.syphr.mythtv.protocol.EventLevel;
+import org.syphr.mythtv.types.ChannelBrowseDirection;
+import org.syphr.mythtv.types.ChannelChangeDirection;
+import org.syphr.mythtv.types.FileTransferType;
+import org.syphr.mythtv.types.PictureAdjustType;
+import org.syphr.mythtv.types.RecorderFlag;
+import org.syphr.mythtv.types.RecordingCategory;
+import org.syphr.mythtv.types.RecordingStatus;
+import org.syphr.mythtv.types.RecordingType;
+import org.syphr.mythtv.types.SeekOrigin;
+import org.syphr.mythtv.types.SleepStatus;
+import org.syphr.mythtv.types.TunerStatusCategory;
+import org.syphr.mythtv.types.TvState;
+import org.syphr.mythtv.types.Verbose;
+import org.syphr.mythtv.types.VideoEditMark;
 import org.syphr.mythtv.util.translate.AbstractTranslator;
 
 import com.google.common.collect.BiMap;

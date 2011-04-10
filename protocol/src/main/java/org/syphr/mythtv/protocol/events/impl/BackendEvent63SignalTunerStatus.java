@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.protocol.events.impl;
 
-import org.syphr.mythtv.protocol.data.TunerStatus;
+import org.syphr.mythtv.data.TunerStatus;
 
 public interface BackendEvent63SignalTunerStatus
 {

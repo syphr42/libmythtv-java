@@ -18,7 +18,7 @@ package org.syphr.mythtv.protocol.impl;
 import java.util.List;
 
 import org.apache.commons.lang3.Pair;
-import org.syphr.mythtv.protocol.data.InputInfo;
+import org.syphr.mythtv.data.InputInfo;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;

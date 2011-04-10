@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
-import org.syphr.mythtv.protocol.data.FileInfo;
-import org.syphr.mythtv.protocol.data.ProgramInfo;
-import org.syphr.mythtv.protocol.types.RecordingCategory;
+import org.syphr.mythtv.data.FileInfo;
+import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
