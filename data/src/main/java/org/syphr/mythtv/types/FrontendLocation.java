@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.types;
 
-public enum JumpPoint
+public enum FrontendLocation
 {
     CHANNEL_PRIORITIES,
     CHANNEL_REC_PRIORITY,

@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import org.syphr.mythtv.types.JumpPoint;
+import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.translate.AbstractTranslator;
@@ -25,52 +25,52 @@ import com.google.common.collect.EnumHashBiMap;
 
 public class Translator1 extends AbstractTranslator
 {
-    private static final BiMap<JumpPoint, String> JUMP_POINT_MAP = EnumHashBiMap.create(JumpPoint.class);
+    private static final BiMap<FrontendLocation, String> JUMP_POINT_MAP = EnumHashBiMap.create(FrontendLocation.class);
     static
     {
-        JUMP_POINT_MAP.put(JumpPoint.CHANNEL_PRIORITIES, "channelpriorities");
-        JUMP_POINT_MAP.put(JumpPoint.CHANNEL_REC_PRIORITY, "channelrecpriority");
-        JUMP_POINT_MAP.put(JumpPoint.DELETE_BOX, "deletebox");
-        JUMP_POINT_MAP.put(JumpPoint.DELETE_RECORDINGS, "deleterecordings");
-        JUMP_POINT_MAP.put(JumpPoint.FLIX_BROWSE, "flixbrowse");
-        JUMP_POINT_MAP.put(JumpPoint.FLIX_HISTORY, "flixhistory");
-        JUMP_POINT_MAP.put(JumpPoint.FLIX_QUEUE, "flixqueue");
-        JUMP_POINT_MAP.put(JumpPoint.GUIDE_GRID, "guidegrid");
-        JUMP_POINT_MAP.put(JumpPoint.LIVE_TV, "livetv");
-        JUMP_POINT_MAP.put(JumpPoint.LIVE_TV_IN_GUIDE, "livetvinguide");
-        JUMP_POINT_MAP.put(JumpPoint.MAIN_MENU, "mainmenu");
-        JUMP_POINT_MAP.put(JumpPoint.MANAGE_RECORDINGS, "managerecordings");
-        JUMP_POINT_MAP.put(JumpPoint.MANUAL_BOX, "manualbox");
-        JUMP_POINT_MAP.put(JumpPoint.MANUAL_RECORDING, "manualrecording");
-        JUMP_POINT_MAP.put(JumpPoint.MUSIC_PLAYLISTS, "musicplaylists");
-        JUMP_POINT_MAP.put(JumpPoint.MYTH_GALLERY, "mythgallery");
-        JUMP_POINT_MAP.put(JumpPoint.MYTH_GAME, "mythgame");
-        JUMP_POINT_MAP.put(JumpPoint.MYTH_MOVIETIME, "mythmovietime");
-        JUMP_POINT_MAP.put(JumpPoint.MYTH_NEWS, "mythnews");
-        JUMP_POINT_MAP.put(JumpPoint.MYTH_VIDEO, "mythvideo");
-        JUMP_POINT_MAP.put(JumpPoint.MYTH_WEATHER, "mythweather");
-        JUMP_POINT_MAP.put(JumpPoint.PLAYBACK_BOX, "playbackbox");
-        JUMP_POINT_MAP.put(JumpPoint.PLAYBACK_RECORDINGS, "playbackrecordings");
-        JUMP_POINT_MAP.put(JumpPoint.PLAY_DVD, "playdvd");
-        JUMP_POINT_MAP.put(JumpPoint.PLAY_MUSIC, "playmusic");
-        JUMP_POINT_MAP.put(JumpPoint.PREVIOUS_BOX, "previousbox");
-        JUMP_POINT_MAP.put(JumpPoint.PROG_FINDER, "progfinder");
-        JUMP_POINT_MAP.put(JumpPoint.PROGRAM_FINDER, "programfinder");
-        JUMP_POINT_MAP.put(JumpPoint.PROGRAM_GUIDE, "programguide");
-        JUMP_POINT_MAP.put(JumpPoint.PROGRAM_REC_PRIORITY, "programrecpriority");
-        JUMP_POINT_MAP.put(JumpPoint.RECORDING_PRIORITIES, "recordingpriorities");
-        JUMP_POINT_MAP.put(JumpPoint.RIP_CD, "ripcd");
-        JUMP_POINT_MAP.put(JumpPoint.RIP_DVD, "ripdvd");
-        JUMP_POINT_MAP.put(JumpPoint.SNAPSHOT, "snapshot");
-        JUMP_POINT_MAP.put(JumpPoint.STATUS_BOX, "statusbox");
-        JUMP_POINT_MAP.put(JumpPoint.VIDEO_BROWSER, "videobrowser");
-        JUMP_POINT_MAP.put(JumpPoint.VIDEO_GALLERY, "videogallery");
-        JUMP_POINT_MAP.put(JumpPoint.VIDEO_LISTINGS, "videolistings");
-        JUMP_POINT_MAP.put(JumpPoint.VIDEO_MANAGER, "videomanager");
-        JUMP_POINT_MAP.put(JumpPoint.VIEW_SCHEDULED, "viewscheduled");
-        JUMP_POINT_MAP.put(JumpPoint.ZONEMINDER_CONSOLE, "zoneminderconsole");
-        JUMP_POINT_MAP.put(JumpPoint.ZONEMINDER_EVENTS, "zoneminderevents");
-        JUMP_POINT_MAP.put(JumpPoint.ZONEMINDER_LIVE_VIEW, "zoneminderliveview");
+        JUMP_POINT_MAP.put(FrontendLocation.CHANNEL_PRIORITIES, "channelpriorities");
+        JUMP_POINT_MAP.put(FrontendLocation.CHANNEL_REC_PRIORITY, "channelrecpriority");
+        JUMP_POINT_MAP.put(FrontendLocation.DELETE_BOX, "deletebox");
+        JUMP_POINT_MAP.put(FrontendLocation.DELETE_RECORDINGS, "deleterecordings");
+        JUMP_POINT_MAP.put(FrontendLocation.FLIX_BROWSE, "flixbrowse");
+        JUMP_POINT_MAP.put(FrontendLocation.FLIX_HISTORY, "flixhistory");
+        JUMP_POINT_MAP.put(FrontendLocation.FLIX_QUEUE, "flixqueue");
+        JUMP_POINT_MAP.put(FrontendLocation.GUIDE_GRID, "guidegrid");
+        JUMP_POINT_MAP.put(FrontendLocation.LIVE_TV, "livetv");
+        JUMP_POINT_MAP.put(FrontendLocation.LIVE_TV_IN_GUIDE, "livetvinguide");
+        JUMP_POINT_MAP.put(FrontendLocation.MAIN_MENU, "mainmenu");
+        JUMP_POINT_MAP.put(FrontendLocation.MANAGE_RECORDINGS, "managerecordings");
+        JUMP_POINT_MAP.put(FrontendLocation.MANUAL_BOX, "manualbox");
+        JUMP_POINT_MAP.put(FrontendLocation.MANUAL_RECORDING, "manualrecording");
+        JUMP_POINT_MAP.put(FrontendLocation.MUSIC_PLAYLISTS, "musicplaylists");
+        JUMP_POINT_MAP.put(FrontendLocation.MYTH_GALLERY, "mythgallery");
+        JUMP_POINT_MAP.put(FrontendLocation.MYTH_GAME, "mythgame");
+        JUMP_POINT_MAP.put(FrontendLocation.MYTH_MOVIETIME, "mythmovietime");
+        JUMP_POINT_MAP.put(FrontendLocation.MYTH_NEWS, "mythnews");
+        JUMP_POINT_MAP.put(FrontendLocation.MYTH_VIDEO, "mythvideo");
+        JUMP_POINT_MAP.put(FrontendLocation.MYTH_WEATHER, "mythweather");
+        JUMP_POINT_MAP.put(FrontendLocation.PLAYBACK_BOX, "playbackbox");
+        JUMP_POINT_MAP.put(FrontendLocation.PLAYBACK_RECORDINGS, "playbackrecordings");
+        JUMP_POINT_MAP.put(FrontendLocation.PLAY_DVD, "playdvd");
+        JUMP_POINT_MAP.put(FrontendLocation.PLAY_MUSIC, "playmusic");
+        JUMP_POINT_MAP.put(FrontendLocation.PREVIOUS_BOX, "previousbox");
+        JUMP_POINT_MAP.put(FrontendLocation.PROG_FINDER, "progfinder");
+        JUMP_POINT_MAP.put(FrontendLocation.PROGRAM_FINDER, "programfinder");
+        JUMP_POINT_MAP.put(FrontendLocation.PROGRAM_GUIDE, "programguide");
+        JUMP_POINT_MAP.put(FrontendLocation.PROGRAM_REC_PRIORITY, "programrecpriority");
+        JUMP_POINT_MAP.put(FrontendLocation.RECORDING_PRIORITIES, "recordingpriorities");
+        JUMP_POINT_MAP.put(FrontendLocation.RIP_CD, "ripcd");
+        JUMP_POINT_MAP.put(FrontendLocation.RIP_DVD, "ripdvd");
+        JUMP_POINT_MAP.put(FrontendLocation.SNAPSHOT, "snapshot");
+        JUMP_POINT_MAP.put(FrontendLocation.STATUS_BOX, "statusbox");
+        JUMP_POINT_MAP.put(FrontendLocation.VIDEO_BROWSER, "videobrowser");
+        JUMP_POINT_MAP.put(FrontendLocation.VIDEO_GALLERY, "videogallery");
+        JUMP_POINT_MAP.put(FrontendLocation.VIDEO_LISTINGS, "videolistings");
+        JUMP_POINT_MAP.put(FrontendLocation.VIDEO_MANAGER, "videomanager");
+        JUMP_POINT_MAP.put(FrontendLocation.VIEW_SCHEDULED, "viewscheduled");
+        JUMP_POINT_MAP.put(FrontendLocation.ZONEMINDER_CONSOLE, "zoneminderconsole");
+        JUMP_POINT_MAP.put(FrontendLocation.ZONEMINDER_EVENTS, "zoneminderevents");
+        JUMP_POINT_MAP.put(FrontendLocation.ZONEMINDER_LIVE_VIEW, "zoneminderliveview");
     }
 
     private static final BiMap<Key, String> KEY_MAP = EnumHashBiMap.create(Key.class);
@@ -198,7 +198,7 @@ public class Translator1 extends AbstractTranslator
          * Cast to raw BiMap necessary to appease javac (Eclipse doesn't require it).
          */
 
-        if (JumpPoint.class.equals(type))
+        if (FrontendLocation.class.equals(type))
         {
             return (BiMap)JUMP_POINT_MAP;
         }

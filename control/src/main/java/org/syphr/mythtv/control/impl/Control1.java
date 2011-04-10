@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import org.syphr.mythtv.types.JumpPoint;
+import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
@@ -33,7 +33,7 @@ public class Control1 extends AbstractControl
     }
 
     @Override
-    public void jump(JumpPoint jumpPoint) throws IOException
+    public void jump(FrontendLocation jumpPoint) throws IOException
     {
         new Command1Jump(jumpPoint).send(getSocketManager());
     }
@@ -135,9 +135,9 @@ public class Control1 extends AbstractControl
     }
 
     @Override
-    public void queryLocation() throws IOException
+    public FrontendLocation queryLocation() throws IOException
     {
-        // TODO Auto-generated method stub
+        return new Command1QueryLocation().send(getSocketManager());
     }
 
     @Override

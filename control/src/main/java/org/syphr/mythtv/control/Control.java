@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import org.syphr.mythtv.types.JumpPoint;
+import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
@@ -70,7 +70,7 @@ public interface Control
      *
      * @since 1
      */
-    public void jump(JumpPoint jumpPoint) throws IOException;
+    public void jump(FrontendLocation jumpPoint) throws IOException;
 
     /**
      * Send the given character to the frontend.
@@ -96,60 +96,96 @@ public interface Control
      */
     public void key(Key key) throws IOException;
 
+    // TODO
     public void playVolume(int percent) throws IOException;
 
+    // TODO
     public void playChannelUp() throws IOException;
 
+    // TODO
     public void playChannelDown() throws IOException;
 
+    // TODO
     public void playChannel(String channelNumber) throws IOException;
 
+    // TODO
     public void playChannelId(int channelId) throws IOException;
 
+    // TODO
     public void playFile(String filename) throws IOException;
 
+    // TODO
     public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException;
 
+    // TODO
     public void playSavePreview() throws IOException;
 
+    // TODO
     public void playSavePreview(String filename) throws IOException;
 
+    // TODO
     public void playSavePreview(String filename, int width, int height) throws IOException;
 
+    // TODO
     public void playSeek() throws IOException;
 
+    // TODO
     public void playSpeedPause() throws IOException;
 
+    // TODO
     public void playSpeed(float speed) throws IOException;
 
+    // TODO
     public void playStop() throws IOException;
 
-    public void queryLocation() throws IOException;
+    /**
+     * Request the current UI location of the frontend.
+     *
+     * @return the current location
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 1
+     */
+    public FrontendLocation queryLocation() throws IOException;
 
+    // TODO
     public void queryVolume() throws IOException;
 
+    // TODO
     public void queryRecordings() throws IOException;
 
+    // TODO
     public void queryRecording(int channelId, Date recStartTs) throws IOException;
 
+    // TODO
     public void queryLiveTv() throws IOException;
 
+    // TODO
     public void queryLiveTv(int channelId) throws IOException;
 
+    // TODO
     public void queryLoad() throws IOException;
 
+    // TODO
     public void queryMemStats() throws IOException;
 
+    // TODO
     public void queryTime() throws IOException;
 
+    // TODO
     public void queryUptime() throws IOException;
 
+    // TODO
     public void queryVerbose() throws IOException;
 
+    // TODO
     public void queryVersion() throws IOException;
 
+    // TODO
     public void queryChannels() throws IOException;
 
+    // TODO
     public void queryChannels(int start, int limit) throws IOException;
 
     /**
@@ -166,10 +202,13 @@ public interface Control
      */
     public void setVerbose(List<Verbose> options) throws IOException, CommandException;
 
+    // TODO
     public void screenshot() throws IOException;
 
+    // TODO
     public void screenshot(String filename) throws IOException;
 
+    // TODO
     public void screenshot(String filename, int width, int height) throws IOException;
 
     /**
@@ -199,7 +238,7 @@ public interface Control
      * control version.<br>
      * <br>
      * This is useful to know before trying a command that a certain option is
-     * valid. For example, to use {@link #jump(JumpPoint)} without the risk of
+     * valid. For example, to use {@link #jump(FrontendLocation)} without the risk of
      * sending an invalid jump point, first make sure it is in the list returned
      * from <code>getAvailableTypes(JumpPoint.class)</code>
      *

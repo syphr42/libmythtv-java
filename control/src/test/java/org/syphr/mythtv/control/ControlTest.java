@@ -18,6 +18,8 @@ package org.syphr.mythtv.control;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import junit.framework.Assert;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.control.test.Utils;
 import org.syphr.mythtv.test.Settings;
-import org.syphr.mythtv.types.JumpPoint;
+import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
@@ -54,8 +56,8 @@ public class ControlTest
     @Test
     public void testJump() throws IOException
     {
-        control.jump(JumpPoint.MYTH_VIDEO);
-        control.jump(JumpPoint.MAIN_MENU);
+        control.jump(FrontendLocation.MYTH_VIDEO);
+        control.jump(FrontendLocation.MAIN_MENU);
     }
 
     @Test
@@ -63,6 +65,14 @@ public class ControlTest
     {
         control.key('m');
         control.key(Key.ESCAPE);
+    }
+
+    @Test
+    public void testQueryLocation() throws IOException
+    {
+        FrontendLocation location = FrontendLocation.MAIN_MENU;
+        control.jump(location);
+        Assert.assertEquals(location, control.queryLocation());
     }
 
     @Test
