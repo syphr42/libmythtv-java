@@ -23,9 +23,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.control.test.Utils;
-import org.syphr.mythtv.control.types.JumpPoint;
-import org.syphr.mythtv.control.types.Key;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.types.JumpPoint;
+import org.syphr.mythtv.types.Key;
 import org.syphr.prom.PropertiesManager;
 
 public class ControlTest

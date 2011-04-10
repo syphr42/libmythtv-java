@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import org.syphr.mythtv.control.Control;
 import org.syphr.mythtv.control.ControlFactory;
-import org.syphr.mythtv.control.types.ControlVersion;
+import org.syphr.mythtv.control.ControlVersion;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.prom.PropertiesManager;
 

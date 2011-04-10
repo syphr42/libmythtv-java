@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import org.syphr.mythtv.control.types.Key;
+import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 

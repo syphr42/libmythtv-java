@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import org.syphr.mythtv.control.types.JumpPoint;
-import org.syphr.mythtv.control.types.Key;
+import org.syphr.mythtv.types.JumpPoint;
+import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.util.translate.AbstractTranslator;
 
 import com.google.common.collect.BiMap;

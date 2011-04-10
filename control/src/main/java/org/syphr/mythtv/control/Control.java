@@ -18,8 +18,8 @@ package org.syphr.mythtv.control;
 import java.io.IOException;
 import java.util.List;
 
-import org.syphr.mythtv.control.types.JumpPoint;
-import org.syphr.mythtv.control.types.Key;
+import org.syphr.mythtv.types.JumpPoint;
+import org.syphr.mythtv.types.Key;
 
 /**
  * This interface represents the combined frontend control API of all MythTV versions that

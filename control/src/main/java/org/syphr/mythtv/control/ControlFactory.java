@@ -17,7 +17,6 @@ package org.syphr.mythtv.control;
 
 import org.syphr.mythtv.control.impl.Control1;
 import org.syphr.mythtv.control.impl.Control2;
-import org.syphr.mythtv.control.types.ControlVersion;
 
 /**
  * This class acts as a bridge to the various frontend control implementations.
