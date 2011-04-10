@@ -16,10 +16,12 @@
 package org.syphr.mythtv.control;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.syphr.mythtv.types.JumpPoint;
 import org.syphr.mythtv.types.Key;
+import org.syphr.mythtv.types.Verbose;
 
 /**
  * This interface represents the combined frontend control API of all MythTV versions that
@@ -93,13 +95,69 @@ public interface Control
      */
     public void key(Key key) throws IOException;
 
-    public void play() throws IOException;
+    public void playVolume(int percent) throws IOException;
 
-    public void query() throws IOException;
+    public void playChannelUp() throws IOException;
 
-    public void set() throws IOException;
+    public void playChannelDown() throws IOException;
+
+    public void playChannel(String channelNumber) throws IOException;
+
+    public void playChannelId(int channelId) throws IOException;
+
+    public void playFile(String filename) throws IOException;
+
+    public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException;
+
+    public void playSavePreview() throws IOException;
+
+    public void playSavePreview(String filename) throws IOException;
+
+    public void playSavePreview(String filename, int width, int height) throws IOException;
+
+    public void playSeek() throws IOException;
+
+    public void playSpeedPause() throws IOException;
+
+    public void playSpeed(float speed) throws IOException;
+
+    public void playStop() throws IOException;
+
+    public void queryLocation() throws IOException;
+
+    public void queryVolume() throws IOException;
+
+    public void queryRecordings() throws IOException;
+
+    public void queryRecording(int channelId, Date recStartTs) throws IOException;
+
+    public void queryLiveTv() throws IOException;
+
+    public void queryLiveTv(int channelId) throws IOException;
+
+    public void queryLoad() throws IOException;
+
+    public void queryMemStats() throws IOException;
+
+    public void queryTime() throws IOException;
+
+    public void queryUptime() throws IOException;
+
+    public void queryVerbose() throws IOException;
+
+    public void queryVersion() throws IOException;
+
+    public void queryChannels() throws IOException;
+
+    public void queryChannels(int start, int limit) throws IOException;
+
+    public void setVerbose(List<Verbose> options) throws IOException;
 
     public void screenshot() throws IOException;
+
+    public void screenshot(String filename) throws IOException;
+
+    public void screenshot(String filename, int width, int height) throws IOException;
 
     /**
      * Send some text to be displayed on the connected frontend.
