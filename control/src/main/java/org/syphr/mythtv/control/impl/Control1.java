@@ -22,6 +22,7 @@ import java.util.List;
 import org.syphr.mythtv.types.JumpPoint;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.Verbose;
+import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.translate.Translator;
 
 public class Control1 extends AbstractControl
@@ -218,9 +219,9 @@ public class Control1 extends AbstractControl
     }
 
     @Override
-    public void setVerbose(List<Verbose> options) throws IOException
+    public void setVerbose(List<Verbose> options) throws IOException, CommandException
     {
-        // TODO Auto-generated method stub
+        new Command1SetVerbose(options).send(getSocketManager());
     }
 
     @Override

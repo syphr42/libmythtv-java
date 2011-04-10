@@ -22,6 +22,7 @@ import java.util.List;
 import org.syphr.mythtv.types.JumpPoint;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.Verbose;
+import org.syphr.mythtv.util.exception.CommandException;
 
 /**
  * This interface represents the combined frontend control API of all MythTV versions that
@@ -60,7 +61,7 @@ public interface Control
     public boolean isConnected();
 
     /**
-     * Request that the connected frontend jump to the given location in the UI.
+     * Request that the frontend jump to the given location in the UI.
      *
      * @param jumpPoint
      *            the jump target
@@ -72,7 +73,7 @@ public interface Control
     public void jump(JumpPoint jumpPoint) throws IOException;
 
     /**
-     * Send the given character to the connected frontend.
+     * Send the given character to the frontend.
      *
      * @param c
      *            the character to send
@@ -84,7 +85,7 @@ public interface Control
     public void key(char c) throws IOException;
 
     /**
-     * Send the given key press to the connected frontend.
+     * Send the given key press to the frontend.
      *
      * @param key
      *            the key press to send
@@ -151,7 +152,19 @@ public interface Control
 
     public void queryChannels(int start, int limit) throws IOException;
 
-    public void setVerbose(List<Verbose> options) throws IOException;
+    /**
+     * Change the verbose logging options on the frontend.
+     *
+     * @param options
+     *            the options to set
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is unable to set the verbose logging options
+     *
+     * @since 1
+     */
+    public void setVerbose(List<Verbose> options) throws IOException, CommandException;
 
     public void screenshot() throws IOException;
 
@@ -160,7 +173,7 @@ public interface Control
     public void screenshot(String filename, int width, int height) throws IOException;
 
     /**
-     * Send some text to be displayed on the connected frontend.
+     * Send some text to be displayed on the frontend.
      *
      * @param text
      *            the text to send

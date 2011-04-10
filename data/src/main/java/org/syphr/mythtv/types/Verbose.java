@@ -81,5 +81,7 @@ public enum Verbose
     NOT_GUI,
     NOT_SYSTEM,
     NOT_EXTRA,
-    NOT_TIMESTAMP;
+    NOT_TIMESTAMP,
+
+    DEFAULT;
 }

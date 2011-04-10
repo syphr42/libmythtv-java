@@ -16,6 +16,7 @@
 package org.syphr.mythtv.control;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -26,6 +27,8 @@ import org.syphr.mythtv.control.test.Utils;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.JumpPoint;
 import org.syphr.mythtv.types.Key;
+import org.syphr.mythtv.types.Verbose;
+import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.prom.PropertiesManager;
 
 public class ControlTest
@@ -60,6 +63,14 @@ public class ControlTest
     {
         control.key('m');
         control.key(Key.ESCAPE);
+    }
+
+    @Test
+    @SuppressWarnings("serial")
+    public void testSetVerbose() throws IOException, CommandException
+    {
+        control.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.ALL); }});
+        control.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.IMPORTANT); add(Verbose.GENERAL); }});
     }
 
     @Test
