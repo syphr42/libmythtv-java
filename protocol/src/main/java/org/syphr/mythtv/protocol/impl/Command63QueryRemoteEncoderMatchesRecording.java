@@ -18,16 +18,16 @@ package org.syphr.mythtv.protocol.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 
 /* default */class Command63QueryRemoteEncoderMatchesRecording extends AbstractCommand63QueryRemoteEncoder<Boolean>
 {
-    private final ProgramInfo program;
+    private final Program program;
 
-    public Command63QueryRemoteEncoderMatchesRecording(int recorderId, ProgramInfo program)
+    public Command63QueryRemoteEncoderMatchesRecording(int recorderId, Program program)
     {
         super(recorderId);
         this.program = program;

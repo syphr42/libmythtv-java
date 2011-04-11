@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.ChannelQuery;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
 import org.syphr.mythtv.types.ChannelChangeDirection;
@@ -127,7 +127,7 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public ProgramInfo getCurrentRecording() throws IOException, CommandException
+    public Program getCurrentRecording() throws IOException, CommandException
     {
         return new Command63QueryRecorderGetCurrentRecording(getRecorderId()).send(getSocketManager());
     }
@@ -181,7 +181,7 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public ProgramInfo getNextProgramInfo(Channel channel,
+    public Program getNextProgramInfo(Channel channel,
                                           ChannelBrowseDirection browseDirection,
                                           Date startTime) throws IOException, CommandException
     {

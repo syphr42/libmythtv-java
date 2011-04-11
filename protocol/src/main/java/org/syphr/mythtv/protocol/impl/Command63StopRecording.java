@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
@@ -27,9 +27,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
 /* default */class Command63StopRecording extends AbstractCommand<Integer>
 {
-    private final ProgramInfo program;
+    private final Program program;
 
-    public Command63StopRecording(ProgramInfo program)
+    public Command63StopRecording(Program program)
     {
         this.program = program;
     }

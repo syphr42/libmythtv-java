@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.data.DriveInfo;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.RecorderLocation;
 import org.syphr.mythtv.data.RecordingsInProgress;
 import org.syphr.mythtv.data.UpcomingRecordings;
@@ -65,14 +65,14 @@ public class ProtocolTest
     @Test
     public void testCheckRecording() throws IOException
     {
-        List<ProgramInfo> expiringPrograms = proto.queryGetExpiring();
+        List<Program> expiringPrograms = proto.queryGetExpiring();
         if (!expiringPrograms.isEmpty())
         {
             Assert.assertEquals(0,
                                 proto.checkRecording(expiringPrograms.get(0)));
         }
 
-        List<ProgramInfo> recPrograms = proto.queryRecordings(RecordingCategory.RECORDING);
+        List<Program> recPrograms = proto.queryRecordings(RecordingCategory.RECORDING);
         if (!recPrograms.isEmpty())
         {
             Assert.assertNotSame(0, proto.checkRecording(recPrograms.get(0)));
@@ -88,14 +88,14 @@ public class ProtocolTest
     @Test
     public void testFillProgramInfo() throws IOException, URISyntaxException
     {
-        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        List<Program> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (recordings.isEmpty())
         {
             return;
         }
 
-        ProgramInfo fullProgram = recordings.get(0);
-        ProgramInfo partialProgram = new ProgramInfo(fullProgram.getTitle(),
+        Program fullProgram = recordings.get(0);
+        Program partialProgram = new Program(fullProgram.getTitle(),
                                                      fullProgram.getSubtitle(),
                                                      fullProgram.getDescription(),
                                                      fullProgram.getCategory(),
@@ -133,7 +133,7 @@ public class ProtocolTest
                                                      fullProgram.getSubtitleType(),
                                                      fullProgram.getYear());
 
-        ProgramInfo fillInProgram = proto.fillProgramInfo(settings.getProperty(Settings.FRONTEND_HOST),
+        Program fillInProgram = proto.fillProgramInfo(settings.getProperty(Settings.FRONTEND_HOST),
                                                           partialProgram);
 
         LOGGER.debug("File info for "
@@ -201,13 +201,13 @@ public class ProtocolTest
     @Test
     public void testGetRecorderNum() throws IOException
     {
-        List<ProgramInfo> recording = proto.queryRecordings(RecordingCategory.RECORDING);
+        List<Program> recording = proto.queryRecordings(RecordingCategory.RECORDING);
         if (!recording.isEmpty())
         {
             Assert.assertNotNull(proto.getRecorderNum(recording.get(0)));
         }
 
-        List<ProgramInfo> expipring = proto.queryGetExpiring();
+        List<Program> expipring = proto.queryGetExpiring();
         if (!expipring.isEmpty())
         {
             Assert.assertNull(proto.getRecorderNum(expipring.get(0)));
@@ -229,13 +229,13 @@ public class ProtocolTest
     @Test
     public void testQueryBookmark() throws IOException
     {
-        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        List<Program> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (recordings.isEmpty())
         {
             return;
         }
 
-        ProgramInfo program = recordings.get(0);
+        Program program = recordings.get(0);
         LOGGER.debug("Bookmark for "
                      + program.getChannel()
                      + "/"
@@ -248,13 +248,13 @@ public class ProtocolTest
     @Test
     public void testQueryCommBreak() throws IOException
     {
-        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        List<Program> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (recordings.isEmpty())
         {
             return;
         }
 
-        ProgramInfo program = recordings.get(0);
+        Program program = recordings.get(0);
         LOGGER.debug("Commercial breaks for "
                      + program.getChannel()
                      + "/"
@@ -267,13 +267,13 @@ public class ProtocolTest
     @Test
     public void testQueryCutList() throws IOException
     {
-        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        List<Program> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (recordings.isEmpty())
         {
             return;
         }
 
-        ProgramInfo program = recordings.get(0);
+        Program program = recordings.get(0);
         LOGGER.debug("Cut list marks for "
                      + program.getChannel()
                      + "/"
@@ -286,13 +286,13 @@ public class ProtocolTest
     @Test
     public void testQueryCheckFile() throws IOException
     {
-        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        List<Program> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (recordings.isEmpty())
         {
             return;
         }
 
-        ProgramInfo program = recordings.get(0);
+        Program program = recordings.get(0);
         LOGGER.debug("URI for "
                      + program.getChannel()
                      + "/"
@@ -335,7 +335,7 @@ public class ProtocolTest
     @Test
     public void testQueryGetAllScheduled() throws IOException
     {
-        List<ProgramInfo> scheduled = proto.queryGetAllScheduled();
+        List<Program> scheduled = proto.queryGetAllScheduled();
         LOGGER.debug("Scheduled count: {}", scheduled.size());
         org.syphr.mythtv.test.Utils.printFirstFive(scheduled, LOGGER);
     }
@@ -349,10 +349,10 @@ public class ProtocolTest
             return;
         }
 
-        ProgramInfo program = null;
+        Program program = null;
         if (upcoming.isConflicted())
         {
-            for (ProgramInfo pendingProg : upcoming)
+            for (Program pendingProg : upcoming)
             {
                 if (RecordingStatus.CONFLICT.equals(pendingProg.getRecStatus()))
                 {
@@ -368,7 +368,7 @@ public class ProtocolTest
             program = upcoming.get(0);
         }
 
-        List<ProgramInfo> conflicted = proto.queryGetConflicting(program);
+        List<Program> conflicted = proto.queryGetConflicting(program);
         LOGGER.debug("Conflicted count: {}", conflicted.size());
         org.syphr.mythtv.test.Utils.printFirstFive(conflicted, LOGGER);
     }
@@ -376,7 +376,7 @@ public class ProtocolTest
     @Test
     public void testQueryGetExpiring() throws IOException
     {
-        List<ProgramInfo> expiring = proto.queryGetExpiring();
+        List<Program> expiring = proto.queryGetExpiring();
         LOGGER.debug("Expiring count: {}", expiring.size());
         org.syphr.mythtv.test.Utils.printFirstFive(expiring, LOGGER);
     }
@@ -403,7 +403,7 @@ public class ProtocolTest
     @Test
     public void testQueryIsRecording() throws IOException
     {
-        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDING);
+        List<Program> recordings = proto.queryRecordings(RecordingCategory.RECORDING);
         RecordingsInProgress inProgress = proto.queryIsRecording();
 
         LOGGER.debug(inProgress.toString());
@@ -427,13 +427,13 @@ public class ProtocolTest
     public void testQueryPixMapGetIfModified() throws IOException,
                                               CommandException
     {
-        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        List<Program> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (recordings.isEmpty())
         {
             return;
         }
 
-        ProgramInfo program = recordings.get(0);
+        Program program = recordings.get(0);
         LOGGER.debug("Pix map for "
                      + program.getChannel()
                      + "/"
@@ -447,13 +447,13 @@ public class ProtocolTest
     @Test
     public void testQueryPixMapLastModified() throws IOException
     {
-        List<ProgramInfo> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        List<Program> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (recordings.isEmpty())
         {
             return;
         }
 
-        ProgramInfo program = recordings.get(0);
+        Program program = recordings.get(0);
         LOGGER.debug("Pix map last modified for "
                      + program.getChannel()
                      + "/"
@@ -467,7 +467,7 @@ public class ProtocolTest
     {
         for (RecordingCategory category : proto.getAvailableTypes(RecordingCategory.class))
         {
-            List<ProgramInfo> list = proto.queryRecordings(category);
+            List<Program> list = proto.queryRecordings(category);
             LOGGER.debug("{} count: {}", category.toString(), list.size());
             org.syphr.mythtv.test.Utils.printFirstFive(list, LOGGER);
         }
@@ -477,13 +477,13 @@ public class ProtocolTest
     public void testQueryRecordingBasename() throws IOException,
                                             CommandException
     {
-        List<ProgramInfo> allRecordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        List<Program> allRecordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (allRecordings.isEmpty())
         {
             return;
         }
 
-        ProgramInfo program = allRecordings.get(0);
+        Program program = allRecordings.get(0);
         Assert.assertEquals(program,
                             proto.queryRecordingBasename(program.getFilename()
                                                                 .getPath()));
@@ -493,13 +493,13 @@ public class ProtocolTest
     public void testQueryRecordingTimeslot() throws IOException,
                                             CommandException
     {
-        List<ProgramInfo> allRecordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        List<Program> allRecordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (allRecordings.isEmpty())
         {
             return;
         }
 
-        ProgramInfo program = allRecordings.get(0);
+        Program program = allRecordings.get(0);
         Assert.assertEquals(program,
                             proto.queryRecordingTimeslot(program.getChannel(),
                                                          program.getRecStartTs()));
@@ -594,13 +594,13 @@ public class ProtocolTest
 //    @Test
 //    public void testDeleteRecording() throws IOException, CommandException
 //    {
-//        List<ProgramInfo> recorded = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+//        List<Program> recorded = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
 //        if (recorded.isEmpty())
 //        {
 //            return;
 //        }
 //
-//        ProgramInfo delete = recorded.get(0);
+//        Program delete = recorded.get(0);
 //        LOGGER.debug("Deleting \"{}\" : \"{}\"", delete.getTitle(), delete.getSubtitle());
 //        proto.deleteRecording(delete.getChannel(), delete.getRecStartTs(), false, false);
 //    }
@@ -608,13 +608,13 @@ public class ProtocolTest
 //    @Test
 //    public void testForgetRecording() throws IOException
 //    {
-//        List<ProgramInfo> expiring = proto.queryGetExpiring();
+//        List<Program> expiring = proto.queryGetExpiring();
 //        if (expiring.isEmpty())
 //        {
 //            return;
 //        }
 //
-//        ProgramInfo forget = expiring.get(0);
+//        Program forget = expiring.get(0);
 //        LOGGER.debug("Forgetting \"{}\" : \"{}\"", forget.getTitle(), forget.getSubtitle());
 //        proto.forgetRecording(forget);
 //    }
@@ -651,13 +651,13 @@ public class ProtocolTest
 //    @Test
 //    public void testStopRecording() throws IOException
 //    {
-//        List<ProgramInfo> recording = proto.queryRecordings(RecordingCategory.RECORDING);
+//        List<Program> recording = proto.queryRecordings(RecordingCategory.RECORDING);
 //        if (recording.isEmpty())
 //        {
 //            return;
 //        }
 //
-//        ProgramInfo stop = recording.get(0);
+//        Program stop = recording.get(0);
 //
 //        LOGGER.debug("Stopping \"{}\" : \"{}\"", stop.getTitle(), stop.getSubtitle());
 //        Assert.assertNotSame(-1, proto.stopRecording(stop));
@@ -666,13 +666,13 @@ public class ProtocolTest
 //    @Test
 //    public void testUndeleteRecording() throws IOException
 //    {
-//        List<ProgramInfo> expiring = proto.queryGetExpiring();
+//        List<Program> expiring = proto.queryGetExpiring();
 //        if (expiring.isEmpty())
 //        {
 //            return;
 //        }
 //
-//        ProgramInfo undelete = expiring.get(0);
+//        Program undelete = expiring.get(0);
 //        LOGGER.debug("Undeleting \"{}\" : \"{}\"", undelete.getTitle(), undelete.getSubtitle());
 //        Assert.assertTrue(proto.undeleteRecording(undelete));
 //    }
@@ -680,7 +680,7 @@ public class ProtocolTest
 //    @Test
 //    public void testQueryGenPixMap2() throws IOException, CommandException
 //    {
-//        List<ProgramInfo> programs = proto.queryGetExpiring();
+//        List<Program> programs = proto.queryGetExpiring();
 //        if (programs.isEmpty())
 //        {
 //            return;

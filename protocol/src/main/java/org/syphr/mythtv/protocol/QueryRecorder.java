@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.ChannelQuery;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
 import org.syphr.mythtv.types.ChannelChangeDirection;
 import org.syphr.mythtv.types.PictureAdjustType;
@@ -318,7 +318,7 @@ public interface QueryRecorder
      *
      * @since 63
      */
-    public ProgramInfo getCurrentRecording() throws IOException, CommandException;
+    public Program getCurrentRecording() throws IOException, CommandException;
 
     /**
      * Get the number of bytes written to disk for the current recording.<br>
@@ -434,7 +434,7 @@ public interface QueryRecorder
      * Retrieve information about the program found by moving in the given direction from
      * the given channel and start time.<br>
      * <br>
-     * Note, this command will retrieve an empty {@link ProgramInfo} if the recorder is
+     * Note, this command will retrieve an empty {@link Program} if the recorder is
      * not local to the connected backend.
      *
      * @param channel
@@ -451,7 +451,7 @@ public interface QueryRecorder
      *
      * @since 63
      */
-    public ProgramInfo getNextProgramInfo(Channel channel,
+    public Program getNextProgramInfo(Channel channel,
                                           ChannelBrowseDirection browseDirection,
                                           Date startTime) throws IOException, CommandException;
 

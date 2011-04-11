@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.data.InputInfo;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.RecorderFlag;
 import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.SleepStatus;
@@ -69,7 +69,7 @@ public interface QueryRemoteEncoder
      *
      * @since 63
      */
-    public ProgramInfo getCurrentRecording() throws IOException, CommandException;
+    public Program getCurrentRecording() throws IOException, CommandException;
 
     /**
      * Retrieve state information about various parts of the recorder.
@@ -170,7 +170,7 @@ public interface QueryRemoteEncoder
      *
      * @since 63
      */
-    public boolean matchesRecording(ProgramInfo program) throws IOException, CommandException;
+    public boolean matchesRecording(Program program) throws IOException, CommandException;
 
     /**
      * Inform the backend that the given program is scheduled for this recorder in the
@@ -190,7 +190,7 @@ public interface QueryRemoteEncoder
      *
      * @since 63
      */
-    public void recordPending(int secondsLeft, boolean hasLater, ProgramInfo program) throws IOException, CommandException;
+    public void recordPending(int secondsLeft, boolean hasLater, Program program) throws IOException, CommandException;
 
     /**
      * Request the given program start recording on this recorder.
@@ -206,7 +206,7 @@ public interface QueryRemoteEncoder
      *
      * @since 63
      */
-    public boolean startRecording(ProgramInfo program) throws IOException, CommandException;
+    public boolean startRecording(Program program) throws IOException, CommandException;
 
     /**
      * Request that this recorder stop recording immediately.

@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.RecordingType;
 
-public class ProgramInfo
+public class Program
 {
     private final String title;
     private final String subtitle;
@@ -63,12 +63,12 @@ public class ProgramInfo
     private final int subtitleType;
     private final int year;
 
-    public ProgramInfo(Channel channel, Date recStartTs)
+    public Program(Channel channel, Date recStartTs)
     {
         this(channel, null, recStartTs);
     }
 
-    public ProgramInfo(Channel channel, URI filename, Date recStartTs)
+    public Program(Channel channel, URI filename, Date recStartTs)
     {
         this(null,
              null,
@@ -109,7 +109,7 @@ public class ProgramInfo
              0);
     }
 
-    public ProgramInfo(String title,
+    public Program(String title,
                        String subtitle,
                        String description,
                        String category,
@@ -158,7 +158,7 @@ public class ProgramInfo
              0);
     }
 
-    public ProgramInfo(String title,
+    public Program(String title,
                        String subtitle,
                        String description,
                        String category,
@@ -276,7 +276,7 @@ public class ProgramInfo
             /*
              * This shouldn't happen.
              */
-            LoggerFactory.getLogger(ProgramInfo.class).warn(filename.getPath(), e);
+            LoggerFactory.getLogger(Program.class).warn(filename.getPath(), e);
             return null;
         }
     }
@@ -440,7 +440,7 @@ public class ProgramInfo
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("ProgramInfo [title=");
+        builder.append("Program [title=");
         builder.append(title);
         builder.append(", subtitle=");
         builder.append(subtitle);
@@ -541,11 +541,11 @@ public class ProgramInfo
         {
             return false;
         }
-        if (!(obj instanceof ProgramInfo))
+        if (!(obj instanceof Program))
         {
             return false;
         }
-        ProgramInfo other = (ProgramInfo) obj;
+        Program other = (Program) obj;
         if (channel == null)
         {
             if (other.channel != null)

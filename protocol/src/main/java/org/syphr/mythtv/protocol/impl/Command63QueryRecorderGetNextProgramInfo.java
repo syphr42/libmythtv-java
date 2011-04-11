@@ -20,12 +20,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 
-/* default */class Command63QueryRecorderGetNextProgramInfo extends AbstractCommand63QueryRecorder<ProgramInfo>
+/* default */class Command63QueryRecorderGetNextProgramInfo extends AbstractCommand63QueryRecorder<Program>
 {
     private final Channel channel;
     private final ChannelBrowseDirection browseDirection;
@@ -54,7 +54,7 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
     }
 
     @Override
-    protected ProgramInfo parseResponse(String response) throws ProtocolException
+    protected Program parseResponse(String response) throws ProtocolException
     {
         List<String> args = Protocol63Utils.splitArguments(response);
 
@@ -80,7 +80,7 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
             String seriesId = args.get(i++);
             String programId = args.get(i++);
 
-            return new ProgramInfo(title,
+            return new Program(title,
                                    subtitle,
                                    description,
                                    category,

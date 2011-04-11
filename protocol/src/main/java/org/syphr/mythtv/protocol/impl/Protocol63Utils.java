@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.DriveInfo;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.RecordingType;
@@ -111,7 +111,7 @@ public class Protocol63Utils
             args.remove(0);
             args.remove(0);
 
-            List<ProgramInfo> programs = Protocol63Utils.parseProgramInfos(args);
+            List<Program> programs = Protocol63Utils.parseProgramInfos(args);
 
             return new UpcomingRecordings(conflicted, programs);
         }
@@ -121,9 +121,9 @@ public class Protocol63Utils
         }
     }
 
-    public static List<ProgramInfo> parseProgramInfos(List<String> args) throws ProtocolException
+    public static List<Program> parseProgramInfos(List<String> args) throws ProtocolException
     {
-        List<ProgramInfo> programs = new ArrayList<ProgramInfo>();
+        List<Program> programs = new ArrayList<Program>();
         DateFormat airDateFormat = getProgramInfoAirDateFormat();
 
         int i = 0;
@@ -142,12 +142,12 @@ public class Protocol63Utils
         return programs;
     }
 
-    public static ProgramInfo parseProgramInfo(List<String> args) throws ProtocolException
+    public static Program parseProgramInfo(List<String> args) throws ProtocolException
     {
         return parseProgramInfo(args, getProgramInfoAirDateFormat());
     }
 
-    private static ProgramInfo parseProgramInfo(List<String> args,
+    private static Program parseProgramInfo(List<String> args,
                                                 DateFormat airDateFormat) throws ProtocolException
     {
         try
@@ -205,7 +205,7 @@ public class Protocol63Utils
             int subtitleType = Integer.parseInt(args.get(i++));
             int year = Integer.parseInt(args.get(i++));
 
-            return new ProgramInfo(title,
+            return new Program(title,
                                    subtitle,
                                    description,
                                    category,
@@ -284,7 +284,7 @@ public class Protocol63Utils
         }
     }
 
-    public static List<String> extractProgramInfo(ProgramInfo program) throws ProtocolException
+    public static List<String> extractProgramInfo(Program program) throws ProtocolException
     {
         List<String> extracted = new ArrayList<String>();
 

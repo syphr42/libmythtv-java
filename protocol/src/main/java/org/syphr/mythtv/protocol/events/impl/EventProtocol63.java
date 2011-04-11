@@ -26,7 +26,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.TunerStatus;
 import org.syphr.mythtv.data.TunerStatus.TunerData;
 import org.syphr.mythtv.protocol.events.BackendEventListener63;
@@ -240,7 +240,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                 }
                 else if ("UPDATE".equals(args.get(0)))
                 {
-                    final ProgramInfo program = Protocol63Utils.parseProgramInfo(message.getData());
+                    final Program program = Protocol63Utils.parseProgramInfo(message.getData());
 
                     return new EventSender<BackendEventListener63>()
                     {

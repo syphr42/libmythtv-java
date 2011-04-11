@@ -18,7 +18,7 @@ package org.syphr.mythtv.protocol.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.CommandUtils;
 
@@ -26,9 +26,9 @@ import org.syphr.mythtv.util.socket.CommandUtils;
 {
     private final int secondsLeft;
     private final boolean hasLater;
-    private final ProgramInfo program;
+    private final Program program;
 
-    public Command63QueryRemoteEncoderRecordPending(int recorderId, int secondsLeft, boolean hasLater, ProgramInfo program)
+    public Command63QueryRemoteEncoderRecordPending(int recorderId, int secondsLeft, boolean hasLater, Program program)
     {
         super(recorderId);
         this.secondsLeft = secondsLeft;

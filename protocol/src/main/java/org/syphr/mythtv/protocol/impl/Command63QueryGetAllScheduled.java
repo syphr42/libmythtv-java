@@ -18,13 +18,13 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.util.List;
 
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 
-/* default */class Command63QueryGetAllScheduled extends AbstractCommand<List<ProgramInfo>>
+/* default */class Command63QueryGetAllScheduled extends AbstractCommand<List<Program>>
 {
     @Override
     protected String getMessage() throws ProtocolException
@@ -33,7 +33,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     }
 
     @Override
-    public List<ProgramInfo> send(SocketManager socketManager) throws IOException
+    public List<Program> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.splitArguments(response);

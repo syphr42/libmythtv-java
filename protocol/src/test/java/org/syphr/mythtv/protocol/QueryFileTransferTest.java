@@ -34,7 +34,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.syphr.mythtv.data.FileInfo;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.FileTransferType;
@@ -136,7 +136,7 @@ public class QueryFileTransferTest
     @Test
     public void testReadSeekRecording() throws IOException, CommandException
     {
-        List<ProgramInfo> programs = commandProto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        List<Program> programs = commandProto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (programs.isEmpty())
         {
             return;
@@ -145,7 +145,7 @@ public class QueryFileTransferTest
         Protocol fileProto = commandProto.newProtocol();
         fileProto.mythProtoVersion();
 
-        ProgramInfo program = programs.get(0);
+        Program program = programs.get(0);
         QueryFileTransfer fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
                                                                               .getHostName(),
                                                                    FileTransferType.READ,

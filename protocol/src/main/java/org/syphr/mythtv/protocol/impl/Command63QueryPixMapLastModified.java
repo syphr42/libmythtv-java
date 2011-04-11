@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
@@ -29,9 +29,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
 /* default */class Command63QueryPixMapLastModified extends AbstractCommand<Date>
 {
-    private final ProgramInfo program;
+    private final Program program;
 
-    public Command63QueryPixMapLastModified(ProgramInfo program)
+    public Command63QueryPixMapLastModified(Program program)
     {
         this.program = program;
     }

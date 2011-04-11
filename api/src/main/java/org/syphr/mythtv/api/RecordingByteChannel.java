@@ -21,7 +21,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.ReadableByteChannel;
 
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.types.FileTransferType;
@@ -30,7 +30,7 @@ import org.syphr.mythtv.util.exception.CommandException;
 
 public class RecordingByteChannel implements ReadableByteChannel
 {
-    private final ProgramInfo program;
+    private final Program program;
 
     private final Protocol transferProtocol;
     private final QueryFileTransfer fileTransfer;
@@ -39,7 +39,7 @@ public class RecordingByteChannel implements ReadableByteChannel
     private boolean open;
 
     public RecordingByteChannel(Protocol protocol,
-                                ProgramInfo program,
+                                Program program,
                                 boolean readAhead,
                                 long timeout) throws IOException, CommandException
     {
@@ -62,7 +62,7 @@ public class RecordingByteChannel implements ReadableByteChannel
         open = true;
     }
 
-    public ProgramInfo getProgram()
+    public Program getProgram()
     {
         return program;
     }

@@ -21,12 +21,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class UpcomingRecordings implements Iterable<ProgramInfo>
+public class UpcomingRecordings implements Iterable<Program>
 {
     private final boolean conflicted;
-    private final List<ProgramInfo> programs;
+    private final List<Program> programs;
 
-    public UpcomingRecordings(boolean conflicted, List<ProgramInfo> programs)
+    public UpcomingRecordings(boolean conflicted, List<Program> programs)
     {
         this.conflicted = conflicted;
         this.programs = programs;
@@ -37,9 +37,9 @@ public class UpcomingRecordings implements Iterable<ProgramInfo>
         return conflicted;
     }
 
-    public List<ProgramInfo> getPrograms()
+    public List<Program> getPrograms()
     {
-        return new ArrayList<ProgramInfo>(programs);
+        return new ArrayList<Program>(programs);
     }
 
     public int size()
@@ -52,17 +52,17 @@ public class UpcomingRecordings implements Iterable<ProgramInfo>
         return programs.isEmpty();
     }
 
-    public boolean contains(ProgramInfo program)
+    public boolean contains(Program program)
     {
         return programs.contains(program);
     }
 
-    public boolean containsAll(Collection<ProgramInfo> c)
+    public boolean containsAll(Collection<Program> c)
     {
         return programs.containsAll(c);
     }
 
-    public ProgramInfo get(int index)
+    public Program get(int index)
     {
         return programs.get(index);
     }
@@ -78,22 +78,22 @@ public class UpcomingRecordings implements Iterable<ProgramInfo>
     }
 
     @Override
-    public Iterator<ProgramInfo> iterator()
+    public Iterator<Program> iterator()
     {
         return getPrograms().iterator();
     }
 
-    public ListIterator<ProgramInfo> listIterator()
+    public ListIterator<Program> listIterator()
     {
         return getPrograms().listIterator();
     }
 
-    public ListIterator<ProgramInfo> listIterator(int index)
+    public ListIterator<Program> listIterator(int index)
     {
         return getPrograms().listIterator(index);
     }
 
-    public List<ProgramInfo> subList(int fromIndex, int toIndex)
+    public List<Program> subList(int fromIndex, int toIndex)
     {
         return getPrograms().subList(fromIndex, toIndex);
     }

@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.Pair;
 import org.syphr.mythtv.data.InputInfo;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
 import org.syphr.mythtv.types.RecorderFlag;
 import org.syphr.mythtv.types.RecordingStatus;
@@ -44,7 +44,7 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public ProgramInfo getCurrentRecording() throws IOException, CommandException
+    public Program getCurrentRecording() throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderGetCurrentRecording(getRecorderId()).send(getSocketManager());
     }
@@ -92,19 +92,19 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public boolean matchesRecording(ProgramInfo program) throws IOException, CommandException
+    public boolean matchesRecording(Program program) throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderMatchesRecording(getRecorderId(), program).send(getSocketManager());
     }
 
     @Override
-    public void recordPending(int secondsLeft, boolean hasLater, ProgramInfo program) throws IOException, CommandException
+    public void recordPending(int secondsLeft, boolean hasLater, Program program) throws IOException, CommandException
     {
         new Command63QueryRemoteEncoderRecordPending(getRecorderId(), secondsLeft, hasLater, program).send(getSocketManager());
     }
 
     @Override
-    public boolean startRecording(ProgramInfo program) throws IOException, CommandException
+    public boolean startRecording(Program program) throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderStartRecording(getRecorderId(), program).send(getSocketManager());
     }

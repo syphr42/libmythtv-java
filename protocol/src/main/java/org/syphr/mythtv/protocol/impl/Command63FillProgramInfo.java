@@ -19,17 +19,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 
-/* default */class Command63FillProgramInfo extends AbstractCommand<ProgramInfo>
+/* default */class Command63FillProgramInfo extends AbstractCommand<Program>
 {
     private final String host;
-    private final ProgramInfo program;
+    private final Program program;
 
-    public Command63FillProgramInfo(String host, ProgramInfo program)
+    public Command63FillProgramInfo(String host, Program program)
     {
         this.host = host;
         this.program = program;
@@ -47,7 +47,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     }
 
     @Override
-    public ProgramInfo send(SocketManager socketManager) throws IOException
+    public Program send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.splitArguments(response);

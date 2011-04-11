@@ -25,7 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.syphr.mythtv.data.PixMap;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.util.exception.CommandException;
 
@@ -57,7 +57,7 @@ public class ViewerPanel extends JPanel
         add(imagePanel, BorderLayout.CENTER);
     }
 
-    public void setProgram(ProgramInfo program)
+    public void setProgram(Program program)
     {
         imagePanel.setImage(null);
 

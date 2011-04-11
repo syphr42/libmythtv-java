@@ -41,7 +41,7 @@ import javax.swing.WindowConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.test.Utils;
@@ -102,9 +102,9 @@ public class PreviewImageViewer
                                                                            isSelected,
                                                                            cellHasFocus);
 
-                if (value instanceof ProgramInfo)
+                if (value instanceof Program)
                 {
-                    ProgramInfo program = (ProgramInfo) value;
+                    Program program = (Program) value;
                     label.setText(program.getTitle()
                                   + " - "
                                   + program.getSubtitle());
@@ -129,9 +129,9 @@ public class PreviewImageViewer
 
                 Object item = e.getItem();
 
-                if (item instanceof ProgramInfo)
+                if (item instanceof Program)
                 {
-                    viewerPanel.setProgram((ProgramInfo)item);
+                    viewerPanel.setProgram((Program)item);
                 }
                 else
                 {

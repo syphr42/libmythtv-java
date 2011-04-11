@@ -26,7 +26,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.db.schema.Recorded;
 import org.syphr.mythtv.db.schema.TvChain;
 import org.syphr.mythtv.protocol.Protocol;
@@ -118,7 +118,7 @@ public class Recorder
             }
             Recorded liveTvRecorded = recordedList.get(0);
 
-            ProgramInfo program = new ProgramInfo(channel,
+            Program program = new Program(channel,
                                                   URI.create(latestChain.getHostprefix() + liveTvRecorded.getBasename()),
                                                   latestChain.getId()
                                                              .getStarttime());

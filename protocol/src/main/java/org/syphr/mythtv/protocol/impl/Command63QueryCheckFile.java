@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
@@ -30,9 +30,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
 /* default */class Command63QueryCheckFile extends AbstractCommand<URI>
 {
     private final boolean checkSlaves;
-    private final ProgramInfo program;
+    private final Program program;
 
-    public Command63QueryCheckFile(boolean checkSlaves, ProgramInfo program)
+    public Command63QueryCheckFile(boolean checkSlaves, Program program)
     {
         this.checkSlaves = checkSlaves;
         this.program = program;

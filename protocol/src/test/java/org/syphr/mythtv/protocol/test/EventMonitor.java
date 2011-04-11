@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.TunerStatus;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
@@ -191,7 +191,7 @@ public class EventMonitor
         }
 
         @Override
-        public void recordingListChangeUpdate(ProgramInfo program)
+        public void recordingListChangeUpdate(Program program)
         {
             System.out.println("Recording list change - UPDATE: " + program);
         }

@@ -20,7 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.syphr.mythtv.data.FileInfo;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
@@ -59,7 +59,7 @@ public class Protocol65 extends Protocol64
     }
 
     @Override
-    public List<ProgramInfo> queryRecordings(RecordingCategory recCategory) throws IOException
+    public List<Program> queryRecordings(RecordingCategory recCategory) throws IOException
     {
         return new Command65QueryRecordings(recCategory).send(getSocketManager());
     }

@@ -17,11 +17,11 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.util.List;
 
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.RecordingType;
 import org.syphr.mythtv.util.exception.ProtocolException;
 
-/* default */class Command63QueryRecorderGetCurrentRecording extends AbstractCommand63QueryRecorder<ProgramInfo>
+/* default */class Command63QueryRecorderGetCurrentRecording extends AbstractCommand63QueryRecorder<Program>
 {
     public Command63QueryRecorderGetCurrentRecording(int recorderId)
     {
@@ -35,11 +35,11 @@ import org.syphr.mythtv.util.exception.ProtocolException;
     }
 
     @Override
-    protected ProgramInfo parseResponse(String response) throws ProtocolException
+    protected Program parseResponse(String response) throws ProtocolException
     {
         List<String> args = Protocol63Utils.splitArguments(response);
 
-        ProgramInfo program = Protocol63Utils.parseProgramInfo(args);
+        Program program = Protocol63Utils.parseProgramInfo(args);
         if (RecordingType.NOT_RECORDING.equals(program.getRecType()))
         {
             return null;

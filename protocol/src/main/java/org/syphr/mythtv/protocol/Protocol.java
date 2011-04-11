@@ -29,7 +29,7 @@ import org.syphr.mythtv.data.FileInfo;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
 import org.syphr.mythtv.data.PixMap;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.RecorderDevice;
 import org.syphr.mythtv.data.RecorderLocation;
 import org.syphr.mythtv.data.RecordingsInProgress;
@@ -194,7 +194,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public int checkRecording(ProgramInfo program) throws IOException;
+    public int checkRecording(Program program) throws IOException;
 
     /**
      * Request that a file be deleted.
@@ -214,7 +214,7 @@ public interface Protocol
 
     /**
      * Request that a recording be deleted. To only remove a recording from the history,
-     * see {@link #forgetRecording(ProgramInfo)}.
+     * see {@link #forgetRecording(Program)}.
      *
      * @param channel
      *            the channel on which the program was recorded
@@ -296,7 +296,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public ProgramInfo fillProgramInfo(String host, ProgramInfo program) throws IOException;
+    public Program fillProgramInfo(String host, Program program) throws IOException;
 
     /**
      * Mark a recording so that it will never be considered when checking for
@@ -310,7 +310,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public void forgetRecording(ProgramInfo program) throws IOException;
+    public void forgetRecording(Program program) throws IOException;
 
     /**
      * Free a recorder that was previously locked with {@link #lockTuner(int)}.
@@ -404,7 +404,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public RecorderLocation getRecorderNum(ProgramInfo program) throws IOException;
+    public RecorderLocation getRecorderNum(Program program) throws IOException;
 
     /**
      * Request that a slave backend go to sleep. This request will have no affect on the
@@ -492,7 +492,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public URI queryCheckFile(boolean checkSlaves, ProgramInfo program) throws IOException;
+    public URI queryCheckFile(boolean checkSlaves, Program program) throws IOException;
 
     /**
      * Retrieve the list of commercial breaks found for the the recording at the
@@ -600,7 +600,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public void queryGenPixMap2(String id, ProgramInfo program) throws IOException, CommandException;
+    public void queryGenPixMap2(String id, Program program) throws IOException, CommandException;
 
     /**
      * Retrieve a list of all scheduled recordings that are coming up soon.
@@ -622,7 +622,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public List<ProgramInfo> queryGetAllScheduled() throws IOException;
+    public List<Program> queryGetAllScheduled() throws IOException;
 
     /**
      * Get a list of programs that conflict with the given program.
@@ -635,7 +635,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public List<ProgramInfo> queryGetConflicting(ProgramInfo program) throws IOException;
+    public List<Program> queryGetConflicting(Program program) throws IOException;
 
     /**
      * Retrieve a list of all recordings set to auto-expire soon.
@@ -646,7 +646,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public List<ProgramInfo> queryGetExpiring() throws IOException;
+    public List<Program> queryGetExpiring() throws IOException;
 
     /**
      * Retrieve the end date of current EPG data. This is typically about two weeks from
@@ -739,7 +739,7 @@ public interface Protocol
      */
     public PixMap queryPixMapGetIfModified(Date timestamp,
                                            int maxFileSize,
-                                           ProgramInfo program) throws IOException,
+                                           Program program) throws IOException,
                                                                CommandException;
 
     /**
@@ -755,7 +755,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public Date queryPixMapLastModified(ProgramInfo program) throws IOException;
+    public Date queryPixMapLastModified(Program program) throws IOException;
 
     /**
      * Get a sub-protocol object that provides an API to interrogate a specific
@@ -786,7 +786,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public ProgramInfo queryRecordingBasename(String basename) throws IOException, CommandException;
+    public Program queryRecordingBasename(String basename) throws IOException, CommandException;
 
     /**
      * Retrieve the program data associated with the given channel and start time.
@@ -805,7 +805,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public ProgramInfo queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException, CommandException;
+    public Program queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException, CommandException;
 
     /**
      * Retrieve a list of recordings matching the given category.
@@ -818,7 +818,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public List<ProgramInfo> queryRecordings(RecordingCategory recCategory) throws IOException;
+    public List<Program> queryRecordings(RecordingCategory recCategory) throws IOException;
 
     /**
      * Get a sub-protocol object that provides an API to interrogate a specific
@@ -1044,7 +1044,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public int stopRecording(ProgramInfo program) throws IOException;
+    public int stopRecording(Program program) throws IOException;
 
     /**
      * Request that the a program marked for future deletion be unmarked.
@@ -1058,7 +1058,7 @@ public interface Protocol
      *
      * @since 63
      */
-    public boolean undeleteRecording(ProgramInfo program) throws IOException;
+    public boolean undeleteRecording(Program program) throws IOException;
 
     /**
      * Retrieve a list of constants of the given type that are valid for this

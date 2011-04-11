@@ -30,7 +30,7 @@ import org.syphr.mythtv.data.FileInfo;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
 import org.syphr.mythtv.data.PixMap;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.RecorderDevice;
 import org.syphr.mythtv.data.RecorderLocation;
 import org.syphr.mythtv.data.RecordingsInProgress;
@@ -160,7 +160,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public int checkRecording(ProgramInfo program) throws IOException
+    public int checkRecording(Program program) throws IOException
     {
         return new Command63CheckRecording(program).send(getSocketManager());
     }
@@ -193,13 +193,13 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public ProgramInfo fillProgramInfo(String host, ProgramInfo program) throws IOException
+    public Program fillProgramInfo(String host, Program program) throws IOException
     {
         return new Command63FillProgramInfo(host, program).send(getSocketManager());
     }
 
     @Override
-    public void forgetRecording(ProgramInfo program) throws IOException
+    public void forgetRecording(Program program) throws IOException
     {
         new Command63ForgetRecording(program).send(getSocketManager());
     }
@@ -241,7 +241,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public RecorderLocation getRecorderNum(ProgramInfo program) throws IOException
+    public RecorderLocation getRecorderNum(Program program) throws IOException
     {
         return new Command63GetRecorderNum(program).send(getSocketManager());
     }
@@ -277,7 +277,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public URI queryCheckFile(boolean checkSlaves, ProgramInfo program) throws IOException
+    public URI queryCheckFile(boolean checkSlaves, Program program) throws IOException
     {
         return new Command63QueryCheckFile(checkSlaves, program).send(getSocketManager());
     }
@@ -319,7 +319,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryGenPixMap2(String id, ProgramInfo program) throws IOException, CommandException
+    public void queryGenPixMap2(String id, Program program) throws IOException, CommandException
     {
         new Command63QueryGenPixMap2(id, program).send(getSocketManager());
     }
@@ -331,19 +331,19 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public List<ProgramInfo> queryGetAllScheduled() throws IOException
+    public List<Program> queryGetAllScheduled() throws IOException
     {
         return new Command63QueryGetAllScheduled().send(getSocketManager());
     }
 
     @Override
-    public List<ProgramInfo> queryGetConflicting(ProgramInfo program) throws IOException
+    public List<Program> queryGetConflicting(Program program) throws IOException
     {
         return new Command63QueryGetConflicting(program).send(getSocketManager());
     }
 
     @Override
-    public List<ProgramInfo> queryGetExpiring() throws IOException
+    public List<Program> queryGetExpiring() throws IOException
     {
         return new Command63QueryGetExpiring().send(getSocketManager());
     }
@@ -387,14 +387,14 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public PixMap queryPixMapGetIfModified(Date timestamp,
                                          int maxFileSize,
-                                         ProgramInfo program) throws IOException,
+                                         Program program) throws IOException,
                                                              CommandException
     {
         return new Command63QueryPixMapGetIfModified(timestamp, maxFileSize, program).send(getSocketManager());
     }
 
     @Override
-    public Date queryPixMapLastModified(ProgramInfo program) throws IOException
+    public Date queryPixMapLastModified(Program program) throws IOException
     {
         return new Command63QueryPixMapLastModified(program).send(getSocketManager());
     }
@@ -406,19 +406,19 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public ProgramInfo queryRecordingBasename(String basename) throws IOException, CommandException
+    public Program queryRecordingBasename(String basename) throws IOException, CommandException
     {
         return new Command63QueryRecordingBasename(basename).send(getSocketManager());
     }
 
     @Override
-    public ProgramInfo queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException, CommandException
+    public Program queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException, CommandException
     {
         return new Command63QueryRecordingTimeslot(channel, recStartTs).send(getSocketManager());
     }
 
     @Override
-    public List<ProgramInfo> queryRecordings(RecordingCategory recCategory) throws IOException
+    public List<Program> queryRecordings(RecordingCategory recCategory) throws IOException
     {
         return new Command63QueryRecordings(recCategory).send(getSocketManager());
     }
@@ -502,13 +502,13 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public int stopRecording(ProgramInfo program) throws IOException
+    public int stopRecording(Program program) throws IOException
     {
         return new Command63StopRecording(program).send(getSocketManager());
     }
 
     @Override
-    public boolean undeleteRecording(ProgramInfo program) throws IOException
+    public boolean undeleteRecording(Program program) throws IOException
     {
         return new Command63UndeleteRecording(program).send(getSocketManager());
     }

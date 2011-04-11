@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.TunerStatus;
 
 public class BackendEventListener63Adapter implements BackendEventListener63
@@ -97,7 +97,7 @@ public class BackendEventListener63Adapter implements BackendEventListener63
     }
 
     @Override
-    public void recordingListChangeUpdate(ProgramInfo program)
+    public void recordingListChangeUpdate(Program program)
     {
         // NOOP
     }

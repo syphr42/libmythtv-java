@@ -23,7 +23,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.test.Settings;
@@ -307,7 +307,7 @@ public class QueryRecorderTest
             return;
         }
 
-        ProgramInfo program = pending.get(0);
+        Program program = pending.get(0);
         LOGGER.debug("Next program: {}",
                      queryRecorder.getNextProgramInfo(program.getChannel(),
                                                       ChannelBrowseDirection.RIGHT,

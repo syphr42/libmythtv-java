@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.codec.binary.Base64;
 import org.syphr.mythtv.data.PixMap;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
@@ -38,11 +38,11 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
     private final Date timestamp;
     private final int maxFileSize;
-    private final ProgramInfo program;
+    private final Program program;
 
     public Command63QueryPixMapGetIfModified(Date timestamp,
                                              int maxFileSize,
-                                             ProgramInfo program)
+                                             Program program)
     {
         this.timestamp = timestamp;
         this.maxFileSize = maxFileSize;

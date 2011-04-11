@@ -19,17 +19,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 
-/* default */class Command63QueryGetConflicting extends AbstractCommand<List<ProgramInfo>>
+/* default */class Command63QueryGetConflicting extends AbstractCommand<List<Program>>
 {
-    private final ProgramInfo program;
+    private final Program program;
 
-    public Command63QueryGetConflicting(ProgramInfo program)
+    public Command63QueryGetConflicting(Program program)
     {
         this.program = program;
     }
@@ -45,7 +45,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     }
 
     @Override
-    public List<ProgramInfo> send(SocketManager socketManager) throws IOException
+    public List<Program> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.splitArguments(response);

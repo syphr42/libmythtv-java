@@ -22,7 +22,7 @@ import java.util.List;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
-import org.syphr.mythtv.data.ProgramInfo;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.Verbose;
@@ -151,28 +151,28 @@ public class Control1 extends AbstractControl
     }
 
     @Override
-    public List<ProgramInfo> queryRecordings() throws IOException
+    public List<Program> queryRecordings() throws IOException
     {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public ProgramInfo queryRecording(int channelId, Date recStartTs) throws IOException
+    public Program queryRecording(int channelId, Date recStartTs) throws IOException
     {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<ProgramInfo> queryLiveTv() throws IOException
+    public List<Program> queryLiveTv() throws IOException
     {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public ProgramInfo queryLiveTv(int channelId) throws IOException
+    public Program queryLiveTv(int channelId) throws IOException
     {
         // TODO Auto-generated method stub
         return null;
