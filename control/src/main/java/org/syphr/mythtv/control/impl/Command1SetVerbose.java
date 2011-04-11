@@ -45,11 +45,6 @@ import org.syphr.mythtv.util.socket.SocketManager;
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        if (response == null)
-        {
-            throw new ProtocolException(response, Direction.RECEIVE);
-        }
-
         if (response.startsWith("OK"))
         {
             return null;
