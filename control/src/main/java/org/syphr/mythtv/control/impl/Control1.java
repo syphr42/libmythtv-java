@@ -19,6 +19,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.Load;
+import org.syphr.mythtv.data.MemStats;
+import org.syphr.mythtv.data.ProgramInfo;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.Verbose;
@@ -141,81 +145,94 @@ public class Control1 extends AbstractControl
     }
 
     @Override
-    public void queryVolume() throws IOException
+    public int queryVolume() throws IOException
     {
         // TODO Auto-generated method stub
+        return 0;
     }
 
     @Override
-    public void queryRecordings() throws IOException
+    public List<ProgramInfo> queryRecordings() throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void queryRecording(int channelId, Date recStartTs) throws IOException
+    public ProgramInfo queryRecording(int channelId, Date recStartTs) throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void queryLiveTv() throws IOException
+    public List<ProgramInfo> queryLiveTv() throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void queryLiveTv(int channelId) throws IOException
+    public ProgramInfo queryLiveTv(int channelId) throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void queryLoad() throws IOException
+    public Load queryLoad() throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void queryMemStats() throws IOException
+    public MemStats queryMemStats() throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void queryTime() throws IOException
+    public Date queryTime() throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void queryUptime() throws IOException
+    public long queryUptime() throws IOException
     {
         // TODO Auto-generated method stub
+        return 0;
     }
 
     @Override
-    public void queryVerbose() throws IOException
+    public List<Verbose> queryVerbose() throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void queryVersion() throws IOException
+    public String queryVersion() throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void queryChannels() throws IOException
+    public List<Channel> queryChannels() throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void queryChannels(int start, int limit) throws IOException
+    public List<Channel> queryChannels(int start, int limit) throws IOException
     {
         // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
