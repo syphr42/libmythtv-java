@@ -153,7 +153,16 @@ public interface Control
      */
     public FrontendLocation queryLocation() throws IOException;
 
-    // TODO
+    /**
+     * Request the current volume of the frontend as an integer percentage in the range
+     * 0-100.
+     *
+     * @return the current volume
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 1
+     */
     public int queryVolume() throws IOException;
 
     // TODO

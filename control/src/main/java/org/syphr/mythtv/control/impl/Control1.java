@@ -147,8 +147,7 @@ public class Control1 extends AbstractControl
     @Override
     public int queryVolume() throws IOException
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return new Command1QueryVolume().send(getSocketManager());
     }
 
     @Override

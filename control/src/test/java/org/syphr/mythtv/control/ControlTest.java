@@ -76,6 +76,12 @@ public class ControlTest
     }
 
     @Test
+    public void testQueryVolume() throws IOException
+    {
+        LOGGER.debug("Current volume: {}", control.queryVolume());
+    }
+
+    @Test
     @SuppressWarnings("serial")
     public void testSetVerbose() throws IOException, CommandException
     {
