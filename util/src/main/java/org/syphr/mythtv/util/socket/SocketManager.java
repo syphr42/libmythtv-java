@@ -479,7 +479,7 @@ public class SocketManager
      *            response
      * @param unit
      *            units used to interpret the <code>timeout</code> parameter
-     * @return the response from the server or <code>null</code> if the thread
+     * @return the response from the server or an empty string if the thread
      *         is interrupted or the timeout is reached
      * @throws IOException
      *             if this manager is not connected to a server or some other
