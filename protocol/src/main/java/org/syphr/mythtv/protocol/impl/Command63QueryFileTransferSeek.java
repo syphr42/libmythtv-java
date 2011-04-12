@@ -52,11 +52,11 @@ import org.syphr.mythtv.util.socket.SocketManager;
         return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
                                                         + socketNumber,
                                                 "SEEK",
-                                                splitPosition.getLeftElement(),
-                                                splitPosition.getRightElement(),
+                                                splitPosition.getLeft(),
+                                                splitPosition.getRight(),
                                                 Protocol63Utils.getTranslator().toString(origin),
-                                                splitCurPosition.getLeftElement(),
-                                                splitCurPosition.getRightElement());
+                                                splitCurPosition.getLeft(),
+                                                splitCurPosition.getRight());
     }
 
     @Override

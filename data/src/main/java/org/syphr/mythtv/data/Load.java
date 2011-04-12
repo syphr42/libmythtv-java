@@ -31,7 +31,7 @@ public class Load
 
         for (Pair<LoadCategory, Double> load : loads)
         {
-            map.put(load.getLeftElement(), load.getRightElement());
+            map.put(load.getLeft(), load.getRight());
         }
     }
 

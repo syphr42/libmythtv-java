@@ -31,7 +31,7 @@ public class MemStats
 
         for (Pair<MemStatCategory, Integer> memStat : memStats)
         {
-            map.put(memStat.getLeftElement(), memStat.getRightElement());
+            map.put(memStat.getLeft(), memStat.getRight());
         }
     }
 

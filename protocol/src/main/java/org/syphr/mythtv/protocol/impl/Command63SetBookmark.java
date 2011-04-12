@@ -52,9 +52,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
         builder.append(' ');
 
         Pair<String, String> ints = ProtocolUtils.splitLong(location);
-        builder.append(ints.getLeftElement());
+        builder.append(ints.getLeft());
         builder.append(' ');
-        builder.append(ints.getRightElement());
+        builder.append(ints.getRight());
 
         return builder.toString();
     }

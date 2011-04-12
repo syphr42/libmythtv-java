@@ -29,7 +29,7 @@ public class ProtocolUtilsTest
 
         Pair<String, String> split = ProtocolUtils.splitLong(value);
         Assert.assertEquals(value,
-                            ProtocolUtils.combineInts(split.getLeftElement(),
-                                                      split.getRightElement()));
+                            ProtocolUtils.combineInts(split.getLeft(),
+                                                      split.getRight()));
     }
 }

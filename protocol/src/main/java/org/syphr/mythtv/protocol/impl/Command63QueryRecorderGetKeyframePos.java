@@ -38,8 +38,8 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
         Pair<String, String> ints = ProtocolUtils.splitLong(desiredPosition);
 
         return Protocol63Utils.combineArguments("GET_KEYFRAME_POS",
-                                                ints.getLeftElement(),
-                                                ints.getRightElement());
+                                                ints.getLeft(),
+                                                ints.getRight());
     }
 
     @Override

@@ -68,7 +68,7 @@ public class Recorder
 
     public boolean isBusyWithin(int duration, TimeUnit unit) throws IOException, CommandException
     {
-        return queryRemoteEncoder.isBusy((int)unit.toSeconds(duration)).getLeftElement();
+        return queryRemoteEncoder.isBusy((int)unit.toSeconds(duration)).getLeft();
     }
 
     public RecordingByteChannel startLiveTv(Channel channel) throws IOException,
