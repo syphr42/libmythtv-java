@@ -33,11 +33,11 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.translate.DateUtils;
 import org.syphr.mythtv.util.translate.Translator;
 
-public class Control1Utils
+public class ControlUtils0_24
 {
     private static final Pattern PROGRAM_PATTERN = Pattern.compile("^(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+([^-]+)(\\s+-\"(.*)\")?$");
 
-    private static final Translator TRANSLATOR = new Translator1();
+    private static final Translator TRANSLATOR = new Translator0_24();
 
     public static List<Program> parsePrograms(String value) throws IOException
     {

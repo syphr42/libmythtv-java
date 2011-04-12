@@ -37,7 +37,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return "set verbose " + Control1Utils.getTranslator().toString(options, ",");
+        return "set verbose " + ControlUtils0_24.getTranslator().toString(options, ",");
     }
 
     @Override

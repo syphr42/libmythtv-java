@@ -31,6 +31,6 @@ import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return "jump " + Control1Utils.getTranslator().toString(jumpPoint);
+        return "jump " + ControlUtils0_24.getTranslator().toString(jumpPoint);
     }
 }

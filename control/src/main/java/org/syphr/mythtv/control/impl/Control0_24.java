@@ -29,9 +29,9 @@ import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.translate.Translator;
 
-public class Control1 extends AbstractControl
+public class Control0_24 extends AbstractControl
 {
-    public Control1()
+    public Control0_24()
     {
         super(new ControlSocketManager());
     }
@@ -273,6 +273,6 @@ public class Control1 extends AbstractControl
     @Override
     protected Translator getTranslator()
     {
-        return Control1Utils.getTranslator();
+        return ControlUtils0_24.getTranslator();
     }
 }

@@ -21,8 +21,8 @@ import org.syphr.mythtv.protocol.ProtocolVersion;
 
 public enum MythVersion
 {
-    _0_24(ProtocolVersion._63, ControlVersion._1, SchemaVersion._1264, "0.24"),
-    _0_25(ProtocolVersion._65, ControlVersion._2, SchemaVersion._1271, "0.25");
+    _0_24(ProtocolVersion._63, ControlVersion._0_24, SchemaVersion._1264, "0.24"),
+    _0_25(ProtocolVersion._65, ControlVersion._0_25, SchemaVersion._1271, "0.25");
 
     private final ProtocolVersion protocol;
     private final ControlVersion control;

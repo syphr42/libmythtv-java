@@ -54,6 +54,6 @@ import org.syphr.mythtv.util.socket.SocketManager;
             socketManager.send("help");
         }
 
-        return Control1Utils.parsePrograms(response);
+        return ControlUtils0_24.parsePrograms(response);
     }
 }

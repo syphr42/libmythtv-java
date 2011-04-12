@@ -34,7 +34,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public FrontendLocation send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        return Control1Utils.getTranslator().toEnum(response,
+        return ControlUtils0_24.getTranslator().toEnum(response,
                                                     FrontendLocation.class);
     }
 }

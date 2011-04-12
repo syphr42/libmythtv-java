@@ -17,7 +17,7 @@ package org.syphr.mythtv.control.impl;
 
 import java.io.IOException;
 
-public class Control2 extends Control1
+public class Control0_25 extends Control0_24
 {
     @Override
     public void message(String text) throws IOException

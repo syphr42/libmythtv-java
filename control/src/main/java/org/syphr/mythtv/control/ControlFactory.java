@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.control;
 
-import org.syphr.mythtv.control.impl.Control1;
-import org.syphr.mythtv.control.impl.Control2;
+import org.syphr.mythtv.control.impl.Control0_24;
+import org.syphr.mythtv.control.impl.Control0_25;
 
 /**
  * This class acts as a bridge to the various frontend control implementations.
@@ -29,11 +29,11 @@ public class ControlFactory
     {
         switch (version)
         {
-            case _1:
-                return new Control1();
+            case _0_24:
+                return new Control0_24();
 
-            case _2:
-                return new Control2();
+            case _0_25:
+                return new Control0_25();
 
             default:
                 throw new IllegalArgumentException("Unknown control version: " + version);

@@ -23,7 +23,7 @@ import org.syphr.mythtv.util.translate.AbstractTranslator;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
 
-public class Translator1 extends AbstractTranslator
+public class Translator0_24 extends AbstractTranslator
 {
     private static final BiMap<FrontendLocation, String> JUMP_POINT_MAP = EnumHashBiMap.create(FrontendLocation.class);
     static

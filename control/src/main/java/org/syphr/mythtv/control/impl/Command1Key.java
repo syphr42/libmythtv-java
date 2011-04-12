@@ -41,22 +41,22 @@ import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 
         if (key != null)
         {
-            keyCode = Control1Utils.getTranslator().toString(key);
+            keyCode = ControlUtils0_24.getTranslator().toString(key);
         }
         else
         {
             switch (c)
             {
                 case ' ':
-                    keyCode = Control1Utils.getTranslator().toString(Key.SPACE);
+                    keyCode = ControlUtils0_24.getTranslator().toString(Key.SPACE);
                     break;
 
                 case '\t':
-                    keyCode = Control1Utils.getTranslator().toString(Key.TAB);
+                    keyCode = ControlUtils0_24.getTranslator().toString(Key.TAB);
                     break;
 
                 case '\n':
-                    keyCode = Control1Utils.getTranslator().toString(Key.ENTER);
+                    keyCode = ControlUtils0_24.getTranslator().toString(Key.ENTER);
                     break;
 
                 default:
