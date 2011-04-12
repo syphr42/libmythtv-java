@@ -25,7 +25,9 @@ public enum SchemaVersion
 
     _1268(1268),
     _1269(_1268),
-    _1270(_1268);
+    _1270(_1268),
+
+    _1271(1271);
 
     private final int value;
 

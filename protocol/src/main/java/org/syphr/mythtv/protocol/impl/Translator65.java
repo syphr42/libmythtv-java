@@ -16,12 +16,43 @@
 package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.types.RecordingCategory;
+import org.syphr.mythtv.types.RecordingStatus;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
 
 public class Translator65 extends Translator63
 {
+    private static final BiMap<RecordingStatus, String> REC_STATUS_MAP = EnumHashBiMap.create(RecordingStatus.class);
+    static
+    {
+        REC_STATUS_MAP.put(RecordingStatus.MISSED_FUTURE, "-11");
+        REC_STATUS_MAP.put(RecordingStatus.TUNING, "-10");
+        REC_STATUS_MAP.put(RecordingStatus.FAILED, "-9");
+        REC_STATUS_MAP.put(RecordingStatus.TUNER_BUSY, "-8");
+        REC_STATUS_MAP.put(RecordingStatus.LOW_DISK_SPACE, "-7");
+        REC_STATUS_MAP.put(RecordingStatus.CANCELLED, "-6");
+        REC_STATUS_MAP.put(RecordingStatus.MISSED, "-5");
+        REC_STATUS_MAP.put(RecordingStatus.ABORTED, "-4");
+        REC_STATUS_MAP.put(RecordingStatus.RECORDED, "-3");
+        REC_STATUS_MAP.put(RecordingStatus.RECORDING, "-2");
+        REC_STATUS_MAP.put(RecordingStatus.WILL_RECORD, "-1");
+        REC_STATUS_MAP.put(RecordingStatus.UNKNOWN, "0");
+        REC_STATUS_MAP.put(RecordingStatus.DONT_RECORD, "1");
+        REC_STATUS_MAP.put(RecordingStatus.PREVIOUS_RECORDING, "2");
+        REC_STATUS_MAP.put(RecordingStatus.CURRENT_RECORDING, "3");
+        REC_STATUS_MAP.put(RecordingStatus.EARLIER_SHOWING, "4");
+        REC_STATUS_MAP.put(RecordingStatus.TOO_MANY_RECORDINGS, "5");
+        REC_STATUS_MAP.put(RecordingStatus.NOT_LISTED, "6");
+        REC_STATUS_MAP.put(RecordingStatus.CONFLICT, "7");
+        REC_STATUS_MAP.put(RecordingStatus.LATER_SHOWING, "8");
+        REC_STATUS_MAP.put(RecordingStatus.REPEAT, "9");
+        REC_STATUS_MAP.put(RecordingStatus.INACTIVE, "10");
+        REC_STATUS_MAP.put(RecordingStatus.NEVER_RECORD, "11");
+        REC_STATUS_MAP.put(RecordingStatus.OFFLINE, "12");
+        REC_STATUS_MAP.put(RecordingStatus.OTHER_SHOWING, "13");
+    }
+
     private static final BiMap<RecordingCategory, String> REC_CATEGORY_MAP = EnumHashBiMap.create(RecordingCategory.class);
     static
     {
@@ -38,6 +69,10 @@ public class Translator65 extends Translator63
         /*
          * Cast to raw BiMap necessary to appease javac (Eclipse doesn't require it).
          */
+        if (RecordingStatus.class.equals(type))
+        {
+            return (BiMap)REC_STATUS_MAP;
+        }
 
         if (RecordingCategory.class.equals(type))
         {
