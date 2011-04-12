@@ -22,6 +22,6 @@ public class Control0_25 extends Control0_24
     @Override
     public void message(String text) throws IOException
     {
-        new Command2Message(text).send(getSocketManager());
+        new Command0_25Message(text).send(getSocketManager());
     }
 }

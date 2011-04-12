@@ -39,19 +39,19 @@ public class Control0_24 extends AbstractControl
     @Override
     public void jump(FrontendLocation jumpPoint) throws IOException
     {
-        new Command1Jump(jumpPoint).send(getSocketManager());
+        new Command0_24Jump(jumpPoint).send(getSocketManager());
     }
 
     @Override
     public void key(char c) throws IOException
     {
-        new Command1Key(c).send(getSocketManager());
+        new Command0_24Key(c).send(getSocketManager());
     }
 
     @Override
     public void key(Key key) throws IOException
     {
-        new Command1Key(key).send(getSocketManager());
+        new Command0_24Key(key).send(getSocketManager());
     }
 
     @Override
@@ -141,19 +141,19 @@ public class Control0_24 extends AbstractControl
     @Override
     public FrontendLocation queryLocation() throws IOException
     {
-        return new Command1QueryLocation().send(getSocketManager());
+        return new Command0_24QueryLocation().send(getSocketManager());
     }
 
     @Override
     public int queryVolume() throws IOException
     {
-        return new Command1QueryVolume().send(getSocketManager());
+        return new Command0_24QueryVolume().send(getSocketManager());
     }
 
     @Override
     public List<Program> queryRecordings() throws IOException
     {
-        return new Command1QueryRecordings().send(getSocketManager());
+        return new Command0_24QueryRecordings().send(getSocketManager());
     }
 
     @Override
@@ -236,7 +236,7 @@ public class Control0_24 extends AbstractControl
     @Override
     public void setVerbose(List<Verbose> options) throws IOException, CommandException
     {
-        new Command1SetVerbose(options).send(getSocketManager());
+        new Command0_24SetVerbose(options).send(getSocketManager());
     }
 
     @Override
@@ -266,13 +266,13 @@ public class Control0_24 extends AbstractControl
     @Override
     public void exit() throws IOException
     {
-        new Command1Exit().send(getSocketManager());
+        new Command0_24Exit().send(getSocketManager());
         super.exit();
     }
 
     @Override
     protected Translator getTranslator()
     {
-        return ControlUtils0_24.getTranslator();
+        return Control0_24Utils.getTranslator();
     }
 }

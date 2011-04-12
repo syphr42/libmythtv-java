@@ -15,22 +15,31 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import org.syphr.mythtv.types.FrontendLocation;
+import java.io.IOException;
+
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.socket.AbstractCommand;
+import org.syphr.mythtv.util.socket.SocketManager;
 
-/* default */class Command1Jump extends AbstractCommandOkResponse
+/* default */class Command0_24QueryVolume extends AbstractCommand<Integer>
 {
-    private final FrontendLocation jumpPoint;
-
-    public Command1Jump(FrontendLocation jumpPoint)
-    {
-        this.jumpPoint = jumpPoint;
-    }
-
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return "jump " + ControlUtils0_24.getTranslator().toString(jumpPoint);
+        return "query volume";
+    }
+
+    @Override
+    public Integer send(SocketManager socketManager) throws IOException
+    {
+        String response = socketManager.sendAndWait(getMessage());
+
+        if (response.indexOf('%') < 0)
+        {
+            throw new ProtocolException(response, Direction.RECEIVE);
+        }
+
+        return Integer.parseInt(response.substring(0, response.length() - 1));
     }
 }

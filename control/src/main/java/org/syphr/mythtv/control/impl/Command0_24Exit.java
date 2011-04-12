@@ -15,21 +15,24 @@
  */
 package org.syphr.mythtv.control.impl;
 
+import java.io.IOException;
+
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
+import org.syphr.mythtv.util.socket.AbstractCommand;
+import org.syphr.mythtv.util.socket.SocketManager;
 
-/* default */class Command2Message extends AbstractCommandOkResponse
+/* default */class Command0_24Exit extends AbstractCommand<Void>
 {
-    private final String text;
-
-    public Command2Message(String text)
-    {
-        this.text = text;
-    }
-
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return "message " + text;
+        return "exit";
+    }
+
+    @Override
+    public Void send(SocketManager socketManager) throws IOException
+    {
+        socketManager.send(getMessage());
+        return null;
     }
 }

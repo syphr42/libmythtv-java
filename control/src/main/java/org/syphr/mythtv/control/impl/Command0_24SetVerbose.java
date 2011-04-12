@@ -25,11 +25,11 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 
-/* default */class Command1SetVerbose extends AbstractCommand<Void>
+/* default */class Command0_24SetVerbose extends AbstractCommand<Void>
 {
     private final List<Verbose> options;
 
-    public Command1SetVerbose(List<Verbose> options)
+    public Command0_24SetVerbose(List<Verbose> options)
     {
         this.options = options;
     }
@@ -37,7 +37,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return "set verbose " + ControlUtils0_24.getTranslator().toString(options, ",");
+        return "set verbose " + Control0_24Utils.getTranslator().toString(options, ",");
     }
 
     @Override

@@ -15,31 +15,21 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import java.io.IOException;
-
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
-import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 
-/* default */class Command1QueryVolume extends AbstractCommand<Integer>
+/* default */class Command0_25Message extends AbstractCommandOkResponse
 {
-    @Override
-    protected String getMessage() throws ProtocolException
+    private final String text;
+
+    public Command0_25Message(String text)
     {
-        return "query volume";
+        this.text = text;
     }
 
     @Override
-    public Integer send(SocketManager socketManager) throws IOException
+    protected String getMessage() throws ProtocolException
     {
-        String response = socketManager.sendAndWait(getMessage());
-
-        if (response.indexOf('%') < 0)
-        {
-            throw new ProtocolException(response, Direction.RECEIVE);
-        }
-
-        return Integer.parseInt(response.substring(0, response.length() - 1));
+        return "message " + text;
     }
 }

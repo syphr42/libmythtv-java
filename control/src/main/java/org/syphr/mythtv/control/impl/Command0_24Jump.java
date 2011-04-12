@@ -15,26 +15,22 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import java.io.IOException;
-
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommand;
-import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 
-/* default */class Command1QueryLocation extends AbstractCommand<FrontendLocation>
+/* default */class Command0_24Jump extends AbstractCommandOkResponse
 {
-    @Override
-    protected String getMessage() throws ProtocolException
+    private final FrontendLocation jumpPoint;
+
+    public Command0_24Jump(FrontendLocation jumpPoint)
     {
-        return "query location";
+        this.jumpPoint = jumpPoint;
     }
 
     @Override
-    public FrontendLocation send(SocketManager socketManager) throws IOException
+    protected String getMessage() throws ProtocolException
     {
-        String response = socketManager.sendAndWait(getMessage());
-        return ControlUtils0_24.getTranslator().toEnum(response,
-                                                    FrontendLocation.class);
+        return "jump " + Control0_24Utils.getTranslator().toString(jumpPoint);
     }
 }

@@ -33,7 +33,7 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.translate.DateUtils;
 import org.syphr.mythtv.util.translate.Translator;
 
-public class ControlUtils0_24
+public class Control0_24Utils
 {
     private static final Pattern PROGRAM_PATTERN = Pattern.compile("^(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+([^-]+)(\\s+-\"(.*)\")?$");
 

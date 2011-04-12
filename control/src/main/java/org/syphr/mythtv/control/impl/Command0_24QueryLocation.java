@@ -17,22 +17,24 @@ package org.syphr.mythtv.control.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 
-/* default */class Command1Exit extends AbstractCommand<Void>
+/* default */class Command0_24QueryLocation extends AbstractCommand<FrontendLocation>
 {
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return "exit";
+        return "query location";
     }
 
     @Override
-    public Void send(SocketManager socketManager) throws IOException
+    public FrontendLocation send(SocketManager socketManager) throws IOException
     {
-        socketManager.send(getMessage());
-        return null;
+        String response = socketManager.sendAndWait(getMessage());
+        return Control0_24Utils.getTranslator().toEnum(response,
+                                                    FrontendLocation.class);
     }
 }

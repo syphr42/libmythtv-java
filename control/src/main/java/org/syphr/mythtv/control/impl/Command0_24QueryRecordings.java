@@ -24,7 +24,7 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 
-/* default */class Command1QueryRecordings extends AbstractCommand<List<Program>>
+/* default */class Command0_24QueryRecordings extends AbstractCommand<List<Program>>
 {
     @Override
     protected String getMessage() throws ProtocolException
@@ -54,6 +54,6 @@ import org.syphr.mythtv.util.socket.SocketManager;
             socketManager.send("help");
         }
 
-        return ControlUtils0_24.parsePrograms(response);
+        return Control0_24Utils.parsePrograms(response);
     }
 }
