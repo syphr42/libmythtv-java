@@ -82,6 +82,13 @@ public class ControlTest
     }
 
     @Test
+    public void testQueryRecordings() throws IOException
+    {
+        org.syphr.mythtv.test.Utils.printFirstFive(control.queryRecordings(),
+                                                   LOGGER);
+    }
+
+    @Test
     @SuppressWarnings("serial")
     public void testSetVerbose() throws IOException, CommandException
     {

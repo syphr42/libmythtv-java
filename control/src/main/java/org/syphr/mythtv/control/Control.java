@@ -165,7 +165,15 @@ public interface Control
      */
     public int queryVolume() throws IOException;
 
-    // TODO
+    /**
+     * Request a list of available recordings.
+     *
+     * @return the recordings
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 1
+     */
     public List<Program> queryRecordings() throws IOException;
 
     // TODO

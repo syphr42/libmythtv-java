@@ -15,8 +15,6 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import org.apache.commons.lang3.Pair;
 
@@ -28,26 +26,6 @@ import org.apache.commons.lang3.Pair;
  */
 public class ProtocolUtils
 {
-    /**
-     * Retrieve the common ISO date format.
-     *
-     * @return the date format
-     */
-    public static DateFormat getIsoDateFormat()
-    {
-        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    }
-
-    /**
-     * Retrieve MySQL's standard date format.
-     *
-     * @return the date format
-     */
-    public static DateFormat getMySqlDateFormat()
-    {
-        return new SimpleDateFormat("yyyyMMddHHmmss");
-    }
-
     /**
      * Combine two numbers that represent the high and low bits of a 64-bit number.
      *

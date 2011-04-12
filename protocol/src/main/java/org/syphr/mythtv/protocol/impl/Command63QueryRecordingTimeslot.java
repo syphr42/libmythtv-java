@@ -26,6 +26,7 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.DateUtils;
 
 /* default */class Command63QueryRecordingTimeslot extends AbstractCommand<Program>
 {
@@ -45,7 +46,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
         builder.append("QUERY_RECORDING TIMESLOT ");
         builder.append(channel.getId());
         builder.append(' ');
-        builder.append(ProtocolUtils.getMySqlDateFormat().format(recStartTs));
+        builder.append(DateUtils.getMySqlDateFormat().format(recStartTs));
 
         return builder.toString();
     }

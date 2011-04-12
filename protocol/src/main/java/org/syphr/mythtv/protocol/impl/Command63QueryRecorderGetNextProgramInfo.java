@@ -24,6 +24,7 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.DateUtils;
 
 /* default */class Command63QueryRecorderGetNextProgramInfo extends AbstractCommand63QueryRecorder<Program>
 {
@@ -50,7 +51,7 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
                                                 channel.getNumber(),
                                                 String.valueOf(channel.getId()),
                                                 Protocol63Utils.getTranslator().toString(browseDirection),
-                                                ProtocolUtils.getIsoDateFormat().format(startTime));
+                                                DateUtils.getIsoDateFormat().format(startTime));
     }
 
     @Override
@@ -87,10 +88,10 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
                                    new Channel(channelId, channelname, callsign, iconPath),
                                    " ".equals(nextStartTime)
                                            ? null
-                                           : ProtocolUtils.getIsoDateFormat().parse(nextStartTime),
+                                           : DateUtils.getIsoDateFormat().parse(nextStartTime),
                                    " ".equals(nextEndTime)
                                            ? null
-                                           : ProtocolUtils.getIsoDateFormat().parse(nextEndTime),
+                                           : DateUtils.getIsoDateFormat().parse(nextEndTime),
                                    seriesId,
                                    programId);
         }

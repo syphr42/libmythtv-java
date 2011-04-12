@@ -33,10 +33,10 @@ import org.syphr.mythtv.protocol.events.BackendEventListener63;
 import org.syphr.mythtv.protocol.events.SystemEvent;
 import org.syphr.mythtv.protocol.events.SystemEventData;
 import org.syphr.mythtv.protocol.impl.Protocol63Utils;
-import org.syphr.mythtv.protocol.impl.ProtocolUtils;
 import org.syphr.mythtv.types.TunerStatusCategory;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.DateUtils;
 
 public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener63>
 {
@@ -69,7 +69,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
             {
                 final String[] chanIdTimestamp = message.getArgs().get(0).split("_");
                 final Channel channel = new Channel(Integer.parseInt(chanIdTimestamp[0]));
-                final Date startTime = ProtocolUtils.getIsoDateFormat().parse(chanIdTimestamp[1]);
+                final Date startTime = DateUtils.getIsoDateFormat().parse(chanIdTimestamp[1]);
 
                 return new EventSender<BackendEventListener63>()
                 {
@@ -149,7 +149,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                     throw new ProtocolException(message.toString(), Direction.RECEIVE);
                 }
 
-                DateFormat isoFormat = ProtocolUtils.getIsoDateFormat();
+                DateFormat isoFormat = DateUtils.getIsoDateFormat();
 
                 final String[] chanIdTimestamp = message.getData().get(1).split("_");
                 final Channel channel = new Channel(Integer.parseInt(chanIdTimestamp[0]));
@@ -209,7 +209,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
             else if ("MASTER_UPDATE_PROG_INFO".equals(command))
             {
                 final Channel channel = new Channel(Integer.parseInt(message.getArgs().get(0)));
-                final Date startTime = ProtocolUtils.getIsoDateFormat().parse(message.getArgs().get(1));
+                final Date startTime = DateUtils.getIsoDateFormat().parse(message.getArgs().get(1));
 
                 return new EventSender<BackendEventListener63>()
                 {
@@ -227,7 +227,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                 if ("ADD".equals(args.get(0)))
                 {
                     final Channel channel = new Channel(Integer.parseInt(args.get(1)));
-                    final Date startTime = ProtocolUtils.getIsoDateFormat().parse(args.get(2));
+                    final Date startTime = DateUtils.getIsoDateFormat().parse(args.get(2));
 
                     return new EventSender<BackendEventListener63>()
                     {
@@ -254,7 +254,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                 else if ("DELETE".equals(args.get(0)))
                 {
                     final Channel channel = new Channel(Integer.parseInt(args.get(1)));
-                    final Date startTime = ProtocolUtils.getIsoDateFormat().parse(args.get(2));
+                    final Date startTime = DateUtils.getIsoDateFormat().parse(args.get(2));
 
                     return new EventSender<BackendEventListener63>()
                     {
@@ -334,7 +334,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                 final SystemEvent event = SystemEvent.valueOf(args.get(0));
                 final Map<SystemEventData, String> dataMap = new HashMap<SystemEventData, String>();
 
-                DateFormat startTimeFormat = ProtocolUtils.getIsoDateFormat();
+                DateFormat startTimeFormat = DateUtils.getIsoDateFormat();
 
                 for (int i = 1; i < args.size(); i += 2)
                 {
@@ -387,7 +387,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                 }
 
                 final Channel channel = new Channel(Integer.parseInt(args.get(0)));
-                final Date startTime = ProtocolUtils.getIsoDateFormat().parse(args.get(1));
+                final Date startTime = DateUtils.getIsoDateFormat().parse(args.get(1));
                 final long size = Long.parseLong(args.get(2));
 
                 return new EventSender<BackendEventListener63>()

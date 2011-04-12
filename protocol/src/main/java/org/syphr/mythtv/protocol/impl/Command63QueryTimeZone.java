@@ -26,6 +26,7 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.DateUtils;
 
 /* default */class Command63QueryTimeZone extends AbstractCommand<TimeInfo>
 {
@@ -49,7 +50,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
         try
         {
             TimeZone tz = TimeZone.getTimeZone(args.get(0));
-            Date dateTime = ProtocolUtils.getIsoDateFormat().parse(args.get(2));
+            Date dateTime = DateUtils.getIsoDateFormat().parse(args.get(2));
 
             return new TimeInfo(dateTime, tz);
         }

@@ -153,8 +153,7 @@ public class Control1 extends AbstractControl
     @Override
     public List<Program> queryRecordings() throws IOException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return new Command1QueryRecordings().send(getSocketManager());
     }
 
     @Override
