@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.syphr.mythtv.data.InputInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.RecorderFlag;

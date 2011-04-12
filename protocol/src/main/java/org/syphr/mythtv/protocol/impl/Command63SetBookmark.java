@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;

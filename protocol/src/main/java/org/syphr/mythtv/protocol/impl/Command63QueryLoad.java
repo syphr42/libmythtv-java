@@ -18,7 +18,7 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.lang3.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.types.LoadCategory;
 import org.syphr.mythtv.util.exception.ProtocolException;

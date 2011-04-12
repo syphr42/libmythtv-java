@@ -18,7 +18,7 @@ package org.syphr.mythtv.data;
 import java.util.EnumMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.syphr.mythtv.types.MemStatCategory;
 
 public class MemStats

@@ -16,7 +16,7 @@
 package org.syphr.mythtv.protocol.impl;
 
 
-import org.apache.commons.lang3.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * This class provides a set of common utilities that are useful for protocol

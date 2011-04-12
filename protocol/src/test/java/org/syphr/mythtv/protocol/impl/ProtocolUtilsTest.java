@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol.impl;
 
 import junit.framework.Assert;
 
-import org.apache.commons.lang3.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
 public class ProtocolUtilsTest
