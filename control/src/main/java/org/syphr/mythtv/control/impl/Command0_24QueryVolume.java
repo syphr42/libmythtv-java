@@ -40,6 +40,13 @@ import org.syphr.mythtv.util.socket.SocketManager;
             throw new ProtocolException(response, Direction.RECEIVE);
         }
 
-        return Integer.parseInt(response.substring(0, response.length() - 1));
+        try
+        {
+            return Integer.parseInt(response.substring(0, response.length() - 1));
+        }
+        catch (NumberFormatException e)
+        {
+            throw new ProtocolException(response, Direction.RECEIVE, e);
+        }
     }
 }
