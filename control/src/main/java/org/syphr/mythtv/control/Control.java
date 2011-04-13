@@ -194,7 +194,16 @@ public interface Control
     // TODO
     public Date queryTime() throws IOException;
 
-    // TODO
+    /**
+     * Determine the up time, in seconds, of the frontend machine.
+     *
+     * @return the number of seconds the frontend has been up or <code>-1</code> if the up
+     *         time could not be determined
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
     public long queryUptime() throws IOException;
 
     // TODO

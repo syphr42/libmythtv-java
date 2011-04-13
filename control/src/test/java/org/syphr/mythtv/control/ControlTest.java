@@ -91,6 +91,12 @@ public class ControlTest
     }
 
     @Test
+    public void testQueryUptime() throws IOException
+    {
+        LOGGER.debug("Uptime: {} secs", control.queryUptime());
+    }
+
+    @Test
     public void testQueryChannels() throws IOException
     {
         List<Channel> allChannels = control.queryChannels();

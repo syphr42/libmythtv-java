@@ -201,8 +201,7 @@ public class Control0_24 extends AbstractControl
     @Override
     public long queryUptime() throws IOException
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return new Command0_24QueryUptime().send(getSocketManager());
     }
 
     @Override
