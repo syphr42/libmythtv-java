@@ -187,8 +187,7 @@ public class Control0_24 extends AbstractControl
     @Override
     public MemStats queryMemStats() throws IOException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return new Command0_24QueryMemStats().send(getSocketManager());
     }
 
     @Override

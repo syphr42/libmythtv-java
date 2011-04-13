@@ -188,7 +188,15 @@ public interface Control
     // TODO
     public Load queryLoad() throws IOException;
 
-    // TODO
+    /**
+     * Retrieve memory statistics of the frontend machine.
+     *
+     * @return data representing the current memory usage of the frontend machine
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
     public MemStats queryMemStats() throws IOException;
 
     // TODO
