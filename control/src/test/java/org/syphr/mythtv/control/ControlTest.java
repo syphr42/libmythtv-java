@@ -17,6 +17,7 @@ package org.syphr.mythtv.control;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -26,6 +27,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.control.test.Utils;
+import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
@@ -91,8 +93,20 @@ public class ControlTest
     @Test
     public void testQueryChannels() throws IOException
     {
-        org.syphr.mythtv.test.Utils.printFirstFive(control.queryChannels(),
-                                                   LOGGER);
+        List<Channel> allChannels = control.queryChannels();
+
+        if (allChannels.isEmpty())
+        {
+            /*
+             * Can't test any further if there are no channels.
+             */
+            return;
+        }
+
+        int thirdListSize = allChannels.size() / 3;
+        List<Channel> middleThirdChannels = control.queryChannels(thirdListSize, thirdListSize);
+
+        Assert.assertTrue(allChannels.containsAll(middleThirdChannels));
     }
 
     @Test

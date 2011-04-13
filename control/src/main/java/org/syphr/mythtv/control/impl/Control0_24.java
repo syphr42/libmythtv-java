@@ -228,8 +228,7 @@ public class Control0_24 extends AbstractControl
     @Override
     public List<Channel> queryChannels(int start, int limit) throws IOException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return new Command0_24QueryChannels(start, limit).send(getSocketManager());
     }
 
     @Override

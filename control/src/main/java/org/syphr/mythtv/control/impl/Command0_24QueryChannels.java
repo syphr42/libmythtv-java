@@ -25,10 +25,31 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
 /* default */class Command0_24QueryChannels extends AbstractCommand<List<Channel>>
 {
+    private final int start;
+    private final int limit;
+
+    public Command0_24QueryChannels()
+    {
+        this(-1, -1);
+    }
+
+    public Command0_24QueryChannels(int start, int limit)
+    {
+        this.start = start;
+        this.limit = limit;
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return "query channels";
+        String message = "query channels";
+
+        if (limit >= 0)
+        {
+            message += " " + start + " " + limit;
+        }
+
+        return message;
     }
 
     @Override

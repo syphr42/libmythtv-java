@@ -204,9 +204,10 @@ public interface Control
     public String queryVersion() throws IOException;
 
     /**
-     * Retrieve a list of visible channels available to this frontend. Note that
-     * the resulting channel objects are not completely filled in. They consist
-     * of an ID, and callsign, and a name.
+     * Retrieve a list of visible channels available to this frontend.<br>
+     * <br>
+     * Note that the resulting channel objects are not completely filled in.
+     * They consist of an ID, and callsign, and a name.
      *
      * @return the list of visible channels
      * @throws IOException
@@ -216,7 +217,26 @@ public interface Control
      */
     public List<Channel> queryChannels() throws IOException;
 
-    // TODO
+    /**
+     * Retrieve a list of visible channels available to this frontend within the
+     * given bounds.<br>
+     * <br>
+     * Note that the resulting channel objects are not completely filled in.
+     * They consist of an ID, and callsign, and a name.
+     *
+     * @param start
+     *            the starting position in the total list of channels for the
+     *            desired sublist
+     * @param limit
+     *            the number of channels to return, beginning with the channel
+     *            at the start index
+     *
+     * @return the list of visible channels
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
     public List<Channel> queryChannels(int start, int limit) throws IOException;
 
     /**
