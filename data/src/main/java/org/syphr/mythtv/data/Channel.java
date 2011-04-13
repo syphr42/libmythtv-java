@@ -39,6 +39,11 @@ public class Channel
         this(id, -1, number, callsign, null, null, iconPath);
     }
 
+    public Channel(int id, String callsign, String name)
+    {
+        this(id, -1, null, callsign, name);
+    }
+
     public Channel(int id, long sourceId, String number, String callsign, String name)
     {
         this(id, sourceId, number, callsign, name, null);

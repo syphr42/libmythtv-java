@@ -37,6 +37,8 @@ public class Control0_24Utils
 {
     private static final Pattern PROGRAM_PATTERN = Pattern.compile("^(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+([^-]+)(\\s+-\"(.*)\")?$");
 
+    private static final Pattern CHANNEL_PATTERN = Pattern.compile("^\\d+:(\\d+)\\s+(\\d+)\\s+\"(.*)\"\\s+\"(.*)\"$");
+
     private static final Translator TRANSLATOR = new Translator0_24();
 
     public static List<Program> parsePrograms(String value) throws IOException
@@ -79,6 +81,56 @@ public class Control0_24Utils
         }
 
         return programs;
+    }
+
+    public static List<Channel> parseChannels(String value) throws IOException
+    {
+        List<Channel> channels = new ArrayList<Channel>();
+
+        BufferedReader reader = new BufferedReader(new StringReader(value));
+
+        boolean checkedCount = false;
+        String line = null;
+        while ((line = reader.readLine()) != null)
+        {
+            Matcher matcher = CHANNEL_PATTERN.matcher(line);
+            if (!matcher.find())
+            {
+                throw new ProtocolException(value, Direction.RECEIVE);
+            }
+
+            try
+            {
+                /*
+                 * The first time through the loop, check to make sure the count
+                 * is above 0. If there are no channels, the server will send
+                 * back a line that matches the regular expression, but contains
+                 * an invalid channel.
+                 */
+                if (!checkedCount)
+                {
+                    int count = Integer.parseInt(matcher.group(1));
+                    if (count == 0)
+                    {
+                        break;
+                    }
+
+                    checkedCount = true;
+                }
+
+                int channelId = Integer.parseInt(matcher.group(2));
+                String callsign = matcher.group(3);
+                String channelName = matcher.group(4);
+
+                channels.add(new Channel(channelId, callsign, channelName));
+            }
+            catch (NumberFormatException e)
+            {
+                throw new ProtocolException(value, Direction.RECEIVE);
+            }
+        }
+
+        return channels;
     }
 
     public static Translator getTranslator()

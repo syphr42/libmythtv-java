@@ -72,7 +72,7 @@ public interface Control
      * @throws IOException
      *             if there is a communication or protocol error
      *
-     * @since 1
+     * @since 0.24
      */
     public void jump(FrontendLocation jumpPoint) throws IOException;
 
@@ -84,7 +84,7 @@ public interface Control
      * @throws IOException
      *             if there is a communication or protocol error
      *
-     * @since 1
+     * @since 0.24
      */
     public void key(char c) throws IOException;
 
@@ -96,7 +96,7 @@ public interface Control
      * @throws IOException
      *             if there is a communication or protocol error
      *
-     * @since 1
+     * @since 0.24
      */
     public void key(Key key) throws IOException;
 
@@ -149,7 +149,7 @@ public interface Control
      * @throws IOException
      *             if there is a communication or protocol error
      *
-     * @since 1
+     * @since 0.24
      */
     public FrontendLocation queryLocation() throws IOException;
 
@@ -161,7 +161,7 @@ public interface Control
      * @throws IOException
      *             if there is a communication or protocol error
      *
-     * @since 1
+     * @since 0.24
      */
     public int queryVolume() throws IOException;
 
@@ -172,7 +172,7 @@ public interface Control
      * @throws IOException
      *             if there is a communication or protocol error
      *
-     * @since 1
+     * @since 0.24
      */
     public List<Program> queryRecordings() throws IOException;
 
@@ -203,7 +203,17 @@ public interface Control
     // TODO
     public String queryVersion() throws IOException;
 
-    // TODO
+    /**
+     * Retrieve a list of visible channels available to this frontend. Note that
+     * the resulting channel objects are not completely filled in. They consist
+     * of an ID, and callsign, and a name.
+     *
+     * @return the list of visible channels
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
     public List<Channel> queryChannels() throws IOException;
 
     // TODO
@@ -219,7 +229,7 @@ public interface Control
      * @throws CommandException
      *             if the frontend is unable to set the verbose logging options
      *
-     * @since 1
+     * @since 0.24
      */
     public void setVerbose(List<Verbose> options) throws IOException, CommandException;
 
@@ -240,7 +250,7 @@ public interface Control
      * @throws IOException
      *             if there is a communication or protocol error
      *
-     * @since 2
+     * @since 0.25
      */
     public void message(String text) throws IOException;
 
@@ -250,7 +260,7 @@ public interface Control
      * @throws IOException
      *             if there is a communication or protocol error
      *
-     * @since 1
+     * @since 0.24
      */
     public void exit() throws IOException;
 
