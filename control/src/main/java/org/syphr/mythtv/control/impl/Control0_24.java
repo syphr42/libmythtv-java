@@ -171,8 +171,7 @@ public class Control0_24 extends AbstractControl
     @Override
     public Program queryLiveTv(int channelId) throws IOException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return new Command0_24QueryLiveTvChannel(channelId).send(getSocketManager());
     }
 
     @Override

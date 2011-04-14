@@ -124,6 +124,30 @@ public class ControlTest
     }
 
     @Test
+    public void testQueryLiveTvChannel() throws IOException
+    {
+        List<Program> livetv = control.queryLiveTv();
+
+        if (livetv.isEmpty())
+        {
+            LOGGER.warn("Skipping query livetv test since there are no listings");
+            return;
+        }
+
+        Program request = livetv.get(livetv.size() - 1);
+        Program response = control.queryLiveTv(request.getChannel().getId());
+
+        Assert.assertEquals(request, response);
+    }
+
+    @Test
+    public void testQueryLiveTvChannelDoesNotExist() throws IOException
+    {
+        Program program = control.queryLiveTv(Integer.MAX_VALUE);
+        Assert.assertNull(program);
+    }
+
+    @Test
     public void testQueryLoad() throws IOException
     {
         LOGGER.debug(control.queryLoad().toString());

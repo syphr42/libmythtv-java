@@ -204,7 +204,19 @@ public interface Control
      */
     public List<Program> queryLiveTv() throws IOException;
 
-    // TODO
+    /**
+     * Request the program that is in the guide data for the current date/time on the
+     * given channel.
+     *
+     * @param channelId
+     *            the ID of the channel to check
+     *
+     * @return the program, if it exists; <code>null</code> otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
     public Program queryLiveTv(int channelId) throws IOException;
 
     /**
