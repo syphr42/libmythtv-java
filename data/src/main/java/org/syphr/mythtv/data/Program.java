@@ -155,6 +155,23 @@ public class Program
 
     public Program(String title,
                    String subtitle,
+                   Channel channel,
+                   Date startTime,
+                   Date endTime)
+    {
+        this(title,
+             subtitle,
+             null,
+             null,
+             channel,
+             startTime,
+             endTime,
+             null,
+             null);
+    }
+
+    public Program(String title,
+                   String subtitle,
                    String description,
                    String category,
                    Channel channel,

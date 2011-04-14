@@ -18,7 +18,6 @@ package org.syphr.mythtv.control.impl;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.socket.AbstractCommand;
@@ -48,26 +47,9 @@ import org.syphr.mythtv.util.translate.DateUtils;
     @Override
     public Program send(SocketManager socketManager) throws IOException
     {
-        /*
-         * Using a timeout here to avoid a bug in MythTV where having no
-         * recordings causes the network control to not respond.
-         */
-        String response = socketManager.sendAndWait(getMessage(), 5, TimeUnit.SECONDS);
+        String response = Control0_24Utils.getResponseMaybeNothing(socketManager, getMessage());
+        List<Program> list = Control0_24Utils.parseRecordings(response);
 
-        /*
-         * If there aren't any recordings (therefore the timeout was hit in the
-         * previous send-and-wait), then the socket manager will be expecting
-         * the next message that arrives to be an orphan connected to this
-         * command that didn't come back in time. To get things back in sync, a
-         * throwaway command will be sent (the help command) so that messages
-         * get back in sync.
-         */
-        if (response.isEmpty())
-        {
-            socketManager.send("help");
-        }
-
-        List<Program> list = Control0_24Utils.parsePrograms(response);
         return list.isEmpty() ? null : list.get(0);
     }
 }

@@ -192,7 +192,16 @@ public interface Control
      */
     public Program queryRecording(int channelId, Date recStartTs) throws IOException;
 
-    // TODO
+    /**
+     * Request a list of all programs in the available guide data for the
+     * current timeslot.
+     *
+     * @return the programs
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
     public List<Program> queryLiveTv() throws IOException;
 
     // TODO

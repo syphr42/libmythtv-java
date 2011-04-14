@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,18 +31,21 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.DateUtils;
 import org.syphr.mythtv.util.translate.Translator;
 
 public class Control0_24Utils
 {
-    private static final Pattern PROGRAM_PATTERN = Pattern.compile("^(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+([^-]+)(\\s+-\"(.*)\")?$");
+    private static final Pattern RECORDING_PATTERN = Pattern.compile("^(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+(.+?)(\\s+-\"(.*)\")?$");
+
+    private static final Pattern LIVE_TV_PATTERN = Pattern.compile("^\\s*(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+(.+?)(\\s+-\"(.*)\")?$");
 
     private static final Pattern CHANNEL_PATTERN = Pattern.compile("^\\d+:(\\d+)\\s+(\\d+)\\s+\"(.*)\"\\s+\"(.*)\"$");
 
     private static final Translator TRANSLATOR = new Translator0_24();
 
-    public static List<Program> parsePrograms(String value) throws IOException
+    public static List<Program> parseRecordings(String value) throws IOException
     {
         if (value.isEmpty())
         {
@@ -55,7 +59,7 @@ public class Control0_24Utils
         String line = null;
         while ((line = reader.readLine()) != null)
         {
-            Matcher matcher = PROGRAM_PATTERN.matcher(line);
+            Matcher matcher = RECORDING_PATTERN.matcher(line);
             if (!matcher.find())
             {
                 throw new ProtocolException(value, Direction.RECEIVE);
@@ -69,6 +73,49 @@ public class Control0_24Utils
                 String subtitle = matcher.groupCount() == 5 ? matcher.group(5) : null;
 
                 programs.add(new Program(title, subtitle, new Channel(channelId), recStartTs));
+            }
+            catch (NumberFormatException e)
+            {
+                throw new ProtocolException(value, Direction.RECEIVE);
+            }
+            catch (ParseException e)
+            {
+                throw new ProtocolException(value, Direction.RECEIVE);
+            }
+        }
+
+        return programs;
+    }
+
+    public static List<Program> parseLiveTv(String value) throws IOException
+    {
+        if (value.isEmpty())
+        {
+            return Collections.emptyList();
+        }
+
+        List<Program> programs = new ArrayList<Program>();
+
+        BufferedReader reader = new BufferedReader(new StringReader(value));
+
+        String line = null;
+        while ((line = reader.readLine()) != null)
+        {
+            Matcher matcher = LIVE_TV_PATTERN.matcher(line);
+            if (!matcher.find())
+            {
+                throw new ProtocolException(value, Direction.RECEIVE);
+            }
+
+            try
+            {
+                int channelId = Integer.parseInt(matcher.group(1));
+                Date startTime = DateUtils.getIsoDateFormat().parse(matcher.group(2));
+                Date endTime = DateUtils.getIsoDateFormat().parse(matcher.group(3));
+                String title = matcher.group(4);
+                String subtitle = matcher.groupCount() == 6 ? matcher.group(6) : null;
+
+                programs.add(new Program(title, subtitle, new Channel(channelId), startTime, endTime));
             }
             catch (NumberFormatException e)
             {
@@ -131,6 +178,31 @@ public class Control0_24Utils
         }
 
         return channels;
+    }
+
+    public static String getResponseMaybeNothing(SocketManager socketManager, String message) throws IOException
+    {
+        /*
+         * Using a timeout here to avoid a bug in MythTV where some commands
+         * generate no output on the server which causes the network control to
+         * not respond with any data.
+         */
+        String response = socketManager.sendAndWait(message, 5, TimeUnit.SECONDS);
+
+        /*
+         * If there is no response (therefore the timeout was hit in the
+         * previous send-and-wait), then the socket manager will be expecting
+         * the next message that arrives to be an orphan connected to this
+         * command that didn't come back in time. To get things back in sync, a
+         * throwaway command will be sent (the help command) so that messages
+         * get back in sync.
+         */
+        if (response.isEmpty())
+        {
+            socketManager.send("help");
+        }
+
+        return response;
     }
 
     public static Translator getTranslator()

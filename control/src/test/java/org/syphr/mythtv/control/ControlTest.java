@@ -117,6 +117,13 @@ public class ControlTest
     }
 
     @Test
+    public void testQueryLiveTv() throws IOException
+    {
+        org.syphr.mythtv.test.Utils.printFirstFive(control.queryLiveTv(),
+                                                   LOGGER);
+    }
+
+    @Test
     public void testQueryLoad() throws IOException
     {
         LOGGER.debug(control.queryLoad().toString());

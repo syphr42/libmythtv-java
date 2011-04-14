@@ -22,18 +22,18 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 
-/* default */class Command0_24QueryRecordings extends AbstractCommand<List<Program>>
+/* default */class Command0_24QueryLiveTv extends AbstractCommand<List<Program>>
 {
     @Override
     protected String getMessage()
     {
-        return "query recordings";
+        return "query livetv";
     }
 
     @Override
     public List<Program> send(SocketManager socketManager) throws IOException
     {
         String response = Control0_24Utils.getResponseMaybeNothing(socketManager, getMessage());
-        return Control0_24Utils.parseRecordings(response);
+        return Control0_24Utils.parseLiveTv(response);
     }
 }
