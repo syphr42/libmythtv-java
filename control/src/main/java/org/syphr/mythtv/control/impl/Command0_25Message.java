@@ -15,7 +15,6 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 
 /* default */class Command0_25Message extends AbstractCommandOkResponse
@@ -28,7 +27,7 @@ import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
     }
 
     @Override
-    protected String getMessage() throws ProtocolException
+    protected String getMessage()
     {
         return "message " + text;
     }

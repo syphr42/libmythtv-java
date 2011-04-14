@@ -20,14 +20,13 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.data.Program;
-import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 
 /* default */class Command0_24QueryRecordings extends AbstractCommand<List<Program>>
 {
     @Override
-    protected String getMessage() throws ProtocolException
+    protected String getMessage()
     {
         return "query recordings";
     }

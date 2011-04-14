@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 
@@ -40,7 +39,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     }
 
     @Override
-    protected String getMessage() throws ProtocolException
+    protected String getMessage()
     {
         String message = "query channels";
 

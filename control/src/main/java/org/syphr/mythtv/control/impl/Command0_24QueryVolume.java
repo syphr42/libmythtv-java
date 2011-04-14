@@ -25,7 +25,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
 /* default */class Command0_24QueryVolume extends AbstractCommand<Integer>
 {
     @Override
-    protected String getMessage() throws ProtocolException
+    protected String getMessage()
     {
         return "query volume";
     }

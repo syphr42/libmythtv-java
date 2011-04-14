@@ -28,7 +28,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
 /* default */class Command0_24QueryLoad extends AbstractCommand<Load>
 {
     @Override
-    protected String getMessage() throws ProtocolException
+    protected String getMessage()
     {
         return "query load";
     }

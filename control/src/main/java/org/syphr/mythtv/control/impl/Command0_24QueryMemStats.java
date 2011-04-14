@@ -28,7 +28,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
 /* default */class Command0_24QueryMemStats extends AbstractCommand<MemStats>
 {
     @Override
-    protected String getMessage() throws ProtocolException
+    protected String getMessage()
     {
         return "query memstats";
     }
