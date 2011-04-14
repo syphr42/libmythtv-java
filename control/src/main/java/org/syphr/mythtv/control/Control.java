@@ -176,7 +176,20 @@ public interface Control
      */
     public List<Program> queryRecordings() throws IOException;
 
-    // TODO
+    /**
+     * Request details about a specific recording.
+     *
+     * @param channelId
+     *            the ID of the channel corresponding to the desired recording
+     * @param recStartTs
+     *            the actual start time of the desired recording
+     *
+     * @return the recording, if it exists; <code>null</code> otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
     public Program queryRecording(int channelId, Date recStartTs) throws IOException;
 
     // TODO

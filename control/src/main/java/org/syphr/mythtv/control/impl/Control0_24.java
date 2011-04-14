@@ -159,8 +159,7 @@ public class Control0_24 extends AbstractControl
     @Override
     public Program queryRecording(int channelId, Date recStartTs) throws IOException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return new Command0_24QueryRecording(channelId, recStartTs).send(getSocketManager());
     }
 
     @Override

@@ -17,6 +17,7 @@ package org.syphr.mythtv.control;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -28,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.control.test.Utils;
 import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
@@ -88,6 +90,30 @@ public class ControlTest
     {
         org.syphr.mythtv.test.Utils.printFirstFive(control.queryRecordings(),
                                                    LOGGER);
+    }
+
+    @Test
+    public void testQueryRecording() throws IOException
+    {
+        List<Program> recordings = control.queryRecordings();
+
+        if (recordings.isEmpty())
+        {
+            LOGGER.warn("Skipping query recording test since there are no recordings");
+            return;
+        }
+
+        Program request = recordings.get(recordings.size() - 1);
+        Program response = control.queryRecording(request.getChannel().getId(), request.getRecStartTs());
+
+        Assert.assertEquals(request, response);
+    }
+
+    @Test
+    public void testQueryRecordingDoesNotExist() throws IOException
+    {
+        Program program = control.queryRecording(Integer.MAX_VALUE, new Date(0));
+        Assert.assertNull(program);
     }
 
     @Test
