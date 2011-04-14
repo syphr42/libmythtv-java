@@ -47,7 +47,7 @@ import org.syphr.mythtv.util.translate.DateUtils;
     @Override
     public Program send(SocketManager socketManager) throws IOException
     {
-        String response = Control0_24Utils.getResponseMaybeNothing(socketManager, getMessage());
+        String response = Control0_24Utils.getResponseMaybe(socketManager, getMessage());
         List<Program> list = Control0_24Utils.parseRecordings(response);
 
         return list.isEmpty() ? null : list.get(0);

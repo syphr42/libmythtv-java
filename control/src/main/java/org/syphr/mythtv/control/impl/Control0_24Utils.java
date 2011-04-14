@@ -180,13 +180,22 @@ public class Control0_24Utils
         return channels;
     }
 
-    public static String getResponseMaybeNothing(SocketManager socketManager, String message) throws IOException
+    /**
+     * Send a message and wait for a short period for a response. If no response comes in
+     * that time, it is assumed that there will be no response from the frontend. This is
+     * useful for commands that get a response when there is data available and silence
+     * otherwise.
+     *
+     * @param socketManager
+     *            the socket manager to use for communicating with the frontend
+     * @param message
+     *            the message to send
+     * @return the response if there was one; otherwise an empty string
+     * @throws IOException
+     *             if there is a communication or protocol error
+     */
+    public static String getResponseMaybe(SocketManager socketManager, String message) throws IOException
     {
-        /*
-         * Using a timeout here to avoid a bug in MythTV where some commands
-         * generate no output on the server which causes the network control to
-         * not respond with any data.
-         */
         String response = socketManager.sendAndWait(message, 5, TimeUnit.SECONDS);
 
         /*
@@ -194,8 +203,7 @@ public class Control0_24Utils
          * previous send-and-wait), then the socket manager will be expecting
          * the next message that arrives to be an orphan connected to this
          * command that didn't come back in time. To get things back in sync, a
-         * throwaway command will be sent (the help command) so that messages
-         * get back in sync.
+         * throwaway command (help) will be sent.
          */
         if (response.isEmpty())
         {

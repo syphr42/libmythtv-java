@@ -33,7 +33,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     @Override
     public List<Program> send(SocketManager socketManager) throws IOException
     {
-        String response = Control0_24Utils.getResponseMaybeNothing(socketManager, getMessage());
+        String response = Control0_24Utils.getResponseMaybe(socketManager, getMessage());
         return Control0_24Utils.parseLiveTv(response);
     }
 }
