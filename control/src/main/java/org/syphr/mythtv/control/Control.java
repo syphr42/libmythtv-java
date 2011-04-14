@@ -185,7 +185,15 @@ public interface Control
     // TODO
     public Program queryLiveTv(int channelId) throws IOException;
 
-    // TODO
+    /**
+     * Retrieve the load factor of the frontend machine.
+     *
+     * @return data representing the load factor over time of the frontend machine
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
     public Load queryLoad() throws IOException;
 
     /**

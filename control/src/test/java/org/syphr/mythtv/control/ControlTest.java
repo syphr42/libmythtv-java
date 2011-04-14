@@ -91,6 +91,12 @@ public class ControlTest
     }
 
     @Test
+    public void testQueryLoad() throws IOException
+    {
+        LOGGER.debug(control.queryLoad().toString());
+    }
+
+    @Test
     public void testQueryMemStats() throws IOException
     {
         LOGGER.debug(control.queryMemStats().toString());
