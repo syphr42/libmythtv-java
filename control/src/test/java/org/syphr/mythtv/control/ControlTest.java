@@ -160,6 +160,12 @@ public class ControlTest
     }
 
     @Test
+    public void testQueryTime() throws IOException
+    {
+        LOGGER.debug("Frontend time: {}", control.queryTime());
+    }
+
+    @Test
     public void testQueryUptime() throws IOException
     {
         LOGGER.debug("Uptime: {} secs", control.queryUptime());

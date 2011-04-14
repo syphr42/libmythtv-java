@@ -241,7 +241,15 @@ public interface Control
      */
     public MemStats queryMemStats() throws IOException;
 
-    // TODO
+    /**
+     * Retrieve the current date/time on the frontend machine.
+     *
+     * @return the date/time
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
     public Date queryTime() throws IOException;
 
     /**

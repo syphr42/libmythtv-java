@@ -189,8 +189,7 @@ public class Control0_24 extends AbstractControl
     @Override
     public Date queryTime() throws IOException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return new Command0_24QueryTime().send(getSocketManager());
     }
 
     @Override
