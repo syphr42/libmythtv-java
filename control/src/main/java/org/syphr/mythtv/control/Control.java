@@ -18,6 +18,7 @@ package org.syphr.mythtv.control;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
@@ -264,8 +265,16 @@ public interface Control
      */
     public long queryUptime() throws IOException;
 
-    // TODO
-    public List<Verbose> queryVerbose() throws IOException;
+    /**
+     * Retrieve the set of verbose options that are currently enabled on the frontend.
+     *
+     * @return the current verbose options
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
+    public Set<Verbose> queryVerbose() throws IOException;
 
     // TODO
     public String queryVersion() throws IOException;

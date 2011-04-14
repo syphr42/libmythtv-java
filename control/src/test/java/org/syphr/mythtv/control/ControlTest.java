@@ -172,6 +172,12 @@ public class ControlTest
     }
 
     @Test
+    public void testQueryVerbose() throws IOException
+    {
+        LOGGER.debug("Verbose options: {}", control.queryVerbose());
+    }
+
+    @Test
     public void testQueryChannels() throws IOException
     {
         List<Channel> allChannels = control.queryChannels();

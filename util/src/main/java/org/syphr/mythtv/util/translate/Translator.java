@@ -37,6 +37,8 @@ public interface Translator
 
     public <E extends Enum<E>> E toEnum(String value, Class<E> type) throws ProtocolException;
 
+    public <E extends Enum<E>> Set<E> toEnums(String value, String delimiter, Class<E> type) throws ProtocolException;
+
     public <E extends Enum<E>> Set<E> toEnums(String value, Class<E> type) throws ProtocolException;
 
     public boolean toBooleanFromInt(String value) throws ProtocolException;

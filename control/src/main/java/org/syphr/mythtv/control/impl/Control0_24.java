@@ -18,6 +18,7 @@ package org.syphr.mythtv.control.impl;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
@@ -199,10 +200,9 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public List<Verbose> queryVerbose() throws IOException
+    public Set<Verbose> queryVerbose() throws IOException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return new Command0_24QueryVerbose().send(getSocketManager());
     }
 
     @Override

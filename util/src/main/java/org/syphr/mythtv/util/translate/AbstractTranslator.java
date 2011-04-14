@@ -48,7 +48,7 @@ public abstract class AbstractTranslator implements Translator
         /*
          * Cast to String necessary to appease javac (Eclipse doesn't require it).
          */
-        return (String)translate(constant, getMap(constant.getClass()), Direction.RECEIVE);
+        return (String)translate(constant, getMap(constant.getClass()), Direction.SEND);
     }
 
     @SuppressWarnings("unchecked")
@@ -61,7 +61,7 @@ public abstract class AbstractTranslator implements Translator
         }
 
         E firstElement = constants.iterator().next();
-        return translateMultiple(constants, getMap(firstElement.getClass()));
+        return toStringBitmask(constants, getMap(firstElement.getClass()));
     }
 
     @SuppressWarnings("unchecked")
@@ -75,19 +75,34 @@ public abstract class AbstractTranslator implements Translator
         }
 
         E firstElement = constants.iterator().next();
-        return translateMultiple(constants, delimiter, getMap(firstElement.getClass()));
+        return toString(constants, delimiter, getMap(firstElement.getClass()));
     }
 
     @Override
     public <E extends Enum<E>> E toEnum(String value, Class<E> type) throws ProtocolException
     {
-        return translate(value, getMap(type).inverse(), Direction.SEND);
+        return translate(value, getMap(type).inverse(), Direction.RECEIVE);
+    }
+
+    @Override
+    public <E extends Enum<E>> Set<E> toEnums(String value, String delimiter, Class<E> type) throws ProtocolException
+    {
+        Set<E> set = new HashSet<E>();
+
+        BiMap<String, E> map = getMap(type).inverse();
+
+        for (String enumStr : value.split(delimiter))
+        {
+            set.add(translate(enumStr, map, Direction.RECEIVE));
+        }
+
+        return set;
     }
 
     @Override
     public <E extends Enum<E>> Set<E> toEnums(String value, Class<E> type) throws ProtocolException
     {
-        return translateMultiple(value, getMap(type).inverse());
+        return toEnumsBitmask(value, getMap(type).inverse());
     }
 
     private <V, T> T translate(V value, Map<V, T> map, Direction direction) throws ProtocolException
@@ -101,7 +116,7 @@ public abstract class AbstractTranslator implements Translator
         return translated;
     }
 
-    private <T> String translateMultiple(Collection<T> values, Map<T, String> map) throws ProtocolException
+    private <T> String toStringBitmask(Collection<T> values, Map<T, String> map) throws ProtocolException
     {
         try
         {
@@ -123,13 +138,11 @@ public abstract class AbstractTranslator implements Translator
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException("Invalid values: " + values, Direction.RECEIVE, e);
+            throw new ProtocolException("Invalid values: " + values, Direction.SEND, e);
         }
     }
 
-    private <T> String translateMultiple(Collection<T> values,
-                                         String delimiter,
-                                         Map<T, String> map) throws ProtocolException
+    private <T> String toString(Collection<T> values, String delimiter, Map<T, String> map) throws ProtocolException
     {
         StringBuilder builder = new StringBuilder();
 
@@ -158,7 +171,7 @@ public abstract class AbstractTranslator implements Translator
         return builder.toString();
     }
 
-    private <T> Set<T> translateMultiple(String value, Map<String, T> map) throws ProtocolException
+    private <T> Set<T> toEnumsBitmask(String value, Map<String, T> map) throws ProtocolException
     {
         try
         {
