@@ -71,6 +71,13 @@ public class ControlTest
         control.key(Key.ESCAPE);
     }
 
+    @Test(expected = CommandException.class)
+    public void testPlayChannelIdNotAllowed() throws IOException, CommandException
+    {
+        control.jump(FrontendLocation.MAIN_MENU);
+        control.playChannelId(Integer.MAX_VALUE);
+    }
+
     @Test
     public void testQueryLocation() throws IOException
     {

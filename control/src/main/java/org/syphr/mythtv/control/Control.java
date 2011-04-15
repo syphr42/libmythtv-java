@@ -104,46 +104,78 @@ public interface Control
     public void key(Key key) throws IOException;
 
     // TODO
-    public void playVolume(int percent) throws IOException;
+    public void playVolume(int percent) throws IOException, CommandException;
 
     // TODO
-    public void playChannelUp() throws IOException;
+    public void playChannelUp() throws IOException, CommandException;
 
     // TODO
-    public void playChannelDown() throws IOException;
+    public void playChannelDown() throws IOException, CommandException;
 
     // TODO
-    public void playChannel(String channelNumber) throws IOException;
+    public void playChannel(String channelNumber) throws IOException, CommandException;
+
+    /**
+     * Request that the frontend switch to live TV at the specified channel.
+     * This command will only work when the frontend is already in
+     * {@link FrontendLocation#PLAYBACK}.<br>
+     * <br>
+     * Note that this command will return immediately, but there is no guarantee
+     * of when playback will start or if it will start successfully. Use
+     * {@link #queryPlaybackInfo()} or {@link #queryLocation()} to check.
+     *
+     * @param channelId
+     *            the ID of the channel to start playing
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
+    public void playChannelId(int channelId) throws IOException, CommandException;
 
     // TODO
-    public void playChannelId(int channelId) throws IOException;
+    public void playFile(String filename) throws IOException, CommandException;
 
     // TODO
-    public void playFile(String filename) throws IOException;
+    public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException, CommandException;
 
     // TODO
-    public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException;
+    public void playSavePreview() throws IOException, CommandException;
 
     // TODO
-    public void playSavePreview() throws IOException;
+    public void playSavePreview(String filename) throws IOException, CommandException;
 
     // TODO
-    public void playSavePreview(String filename) throws IOException;
+    public void playSavePreview(String filename, int width, int height) throws IOException, CommandException;
 
     // TODO
-    public void playSavePreview(String filename, int width, int height) throws IOException;
+    public void playSeek() throws IOException, CommandException;
 
     // TODO
-    public void playSeek() throws IOException;
+    public void playSpeedPause() throws IOException, CommandException;
 
     // TODO
-    public void playSpeedPause() throws IOException;
+    public void playSpeed(float speed) throws IOException, CommandException;
 
-    // TODO
-    public void playSpeed(float speed) throws IOException;
-
-    // TODO
-    public void playStop() throws IOException;
+    /**
+     * Request that the frontend stop playing the video that is currently
+     * playing. This command will only work when the frontend is already in
+     * {@link FrontendLocation#PLAYBACK}.<br>
+     * <br>
+     * Note that this command will return immediately, but there is no guarantee
+     * of when playback will stop or if it will stop successfully. Use
+     * {@link #queryPlaybackInfo()} or {@link #queryLocation()} to check.
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
+    public void playStop() throws IOException, CommandException;
 
     /**
      * Request the current UI location of the frontend.
