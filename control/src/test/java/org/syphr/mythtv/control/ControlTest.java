@@ -178,6 +178,12 @@ public class ControlTest
     }
 
     @Test
+    public void testQueryVersion() throws IOException
+    {
+        LOGGER.debug(control.queryVersion().toString());
+    }
+
+    @Test
     public void testQueryChannels() throws IOException
     {
         List<Channel> allChannels = control.queryChannels();

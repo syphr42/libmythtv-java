@@ -24,6 +24,7 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
 import org.syphr.mythtv.data.Program;
+import org.syphr.mythtv.data.VersionInfo;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.Verbose;
@@ -206,10 +207,9 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public String queryVersion() throws IOException
+    public VersionInfo queryVersion() throws IOException
     {
-        // TODO Auto-generated method stub
-        return null;
+        return new Command0_24QueryVersion().send(getSocketManager());
     }
 
     @Override

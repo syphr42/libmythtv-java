@@ -24,6 +24,7 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
 import org.syphr.mythtv.data.Program;
+import org.syphr.mythtv.data.VersionInfo;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.Verbose;
@@ -276,8 +277,17 @@ public interface Control
      */
     public Set<Verbose> queryVerbose() throws IOException;
 
-    // TODO
-    public String queryVersion() throws IOException;
+    /**
+     * Retrieve information about the version of MythTV and related software
+     * running on the frontend.
+     *
+     * @return version information
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
+    public VersionInfo queryVersion() throws IOException;
 
     /**
      * Retrieve a list of visible channels available to this frontend.<br>
