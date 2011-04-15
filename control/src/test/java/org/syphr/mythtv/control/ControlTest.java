@@ -80,6 +80,13 @@ public class ControlTest
     }
 
     @Test
+    public void testQueryPlaybackInfoNotPlaying() throws IOException
+    {
+        control.jump(FrontendLocation.MAIN_MENU);
+        Assert.assertNull(control.queryPlaybackInfo());
+    }
+
+    @Test
     public void testQueryVolume() throws IOException
     {
         LOGGER.debug("Current volume: {}", control.queryVolume());

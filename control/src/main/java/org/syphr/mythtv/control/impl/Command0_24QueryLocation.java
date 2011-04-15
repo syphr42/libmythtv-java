@@ -33,7 +33,13 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public FrontendLocation send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
+
+        if (response.startsWith("Playback"))
+        {
+            return FrontendLocation.PLAYBACK;
+        }
+
         return Control0_24Utils.getTranslator().toEnum(response,
-                                                    FrontendLocation.class);
+                                                       FrontendLocation.class);
     }
 }

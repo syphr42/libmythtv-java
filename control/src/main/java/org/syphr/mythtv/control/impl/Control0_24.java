@@ -23,6 +23,7 @@ import java.util.Set;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
+import org.syphr.mythtv.data.PlaybackInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.VersionInfo;
 import org.syphr.mythtv.types.FrontendLocation;
@@ -144,6 +145,12 @@ public class Control0_24 extends AbstractControl
     public FrontendLocation queryLocation() throws IOException
     {
         return new Command0_24QueryLocation().send(getSocketManager());
+    }
+
+    @Override
+    public PlaybackInfo queryPlaybackInfo() throws IOException
+    {
+        return new Command0_24QueryPlaybackInfo().send(getSocketManager());
     }
 
     @Override

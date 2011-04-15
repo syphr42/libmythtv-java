@@ -23,6 +23,7 @@ import java.util.Set;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
+import org.syphr.mythtv.data.PlaybackInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.VersionInfo;
 import org.syphr.mythtv.types.FrontendLocation;
@@ -154,6 +155,22 @@ public interface Control
      * @since 0.24
      */
     public FrontendLocation queryLocation() throws IOException;
+
+    /**
+     * Request information about the video that is currently playing on the
+     * frontend. This is only useful when {@link #queryLocation()} returns
+     * {@link FrontendLocation#PLAYBACK}.
+     *
+     * @see #queryLocation()
+     *
+     * @return playback information if the frontend is currently playing video;
+     *         <code>null</code> otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.24
+     */
+    public PlaybackInfo queryPlaybackInfo() throws IOException;
 
     /**
      * Request the current volume of the frontend as an integer percentage in the range
