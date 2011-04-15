@@ -50,7 +50,7 @@ public enum Settings implements Defaultable
 
     FRONTEND_CONTROL_PORT("6546"),
     FRONTEND_CONTROL_TIMEOUT("10000"),
-    FRONTEND_CONTROL_VERSION("_1"),
+    FRONTEND_CONTROL_VERSION("_0_24"),
 
     BUFFER_SIZE("8192"),
 
