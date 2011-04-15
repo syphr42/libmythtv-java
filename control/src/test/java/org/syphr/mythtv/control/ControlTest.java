@@ -49,6 +49,11 @@ public class ControlTest
     {
         settings = Settings.createSettings();
         control = Utils.connect(settings);
+
+        /*
+         * Make sure the tests start at the main menu.
+         */
+        control.jump(FrontendLocation.MAIN_MENU);
     }
 
     @AfterClass
@@ -74,22 +79,24 @@ public class ControlTest
     @Test(expected = CommandException.class)
     public void testPlayChannelIdNotAllowed() throws IOException, CommandException
     {
-        control.jump(FrontendLocation.MAIN_MENU);
         control.playChannelId(Integer.MAX_VALUE);
+    }
+
+    @Test(expected = CommandException.class)
+    public void testPlayStopNotAllowed() throws IOException, CommandException
+    {
+        control.playStop();
     }
 
     @Test
     public void testQueryLocation() throws IOException
     {
-        FrontendLocation location = FrontendLocation.MAIN_MENU;
-        control.jump(location);
-        Assert.assertEquals(location, control.queryLocation());
+        Assert.assertEquals(FrontendLocation.MAIN_MENU, control.queryLocation());
     }
 
     @Test
     public void testQueryPlaybackInfoNotPlaying() throws IOException
     {
-        control.jump(FrontendLocation.MAIN_MENU);
         Assert.assertNull(control.queryPlaybackInfo());
     }
 
