@@ -87,11 +87,16 @@ public class ControlPlayChannelTest
         // TODO
     }
 
-    @Test
-    public void testPlayChannel()
-    {
-        // TODO
-    }
+    /*
+     * This test is commented out because there is no way to retrieve a valid channel
+     * number through the frontend control socket.
+     */
+//    @Test
+//    public void testPlayChannel() throws IOException, CommandException
+//    {
+//        control.playChannel("1001");
+//        waitFiveSeconds("change channels (by number)");
+//    }
 
     @Test
     public void testPlayChannelId() throws IOException, CommandException
@@ -104,7 +109,7 @@ public class ControlPlayChannelTest
         }
 
         Channel channel = channels.get(0);
-        control.playChannelId(channel.getId());
+        control.playChannel(channel.getId());
 
         waitFiveSeconds("change channels");
     }

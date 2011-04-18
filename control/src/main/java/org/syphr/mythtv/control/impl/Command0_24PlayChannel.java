@@ -15,18 +15,35 @@
  */
 package org.syphr.mythtv.control.impl;
 
-/* default */class Command0_24PlayChannelId extends AbstractCommand0_24Play
+/* default */class Command0_24PlayChannel extends AbstractCommand0_24Play
 {
-    private final int channelId;
+    private int id;
+    private String number;
 
-    public Command0_24PlayChannelId(int channelId)
+    public Command0_24PlayChannel(int id)
     {
-        this.channelId = channelId;
+        this.id = id;
+    }
+
+    public Command0_24PlayChannel(String number)
+    {
+        this.number = number;
     }
 
     @Override
     protected String getMessage()
     {
-        return "play chanid " + channelId;
+        String message = "play ";
+
+        if (number != null)
+        {
+            message += "channel " + number;
+        }
+        else
+        {
+            message += "chanid " + id;
+        }
+
+        return message;
     }
 }

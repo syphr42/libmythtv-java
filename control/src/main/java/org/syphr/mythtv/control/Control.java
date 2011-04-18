@@ -127,17 +127,38 @@ public interface Control
     // TODO
     public void playChannelDown() throws IOException, CommandException;
 
-    // TODO
-    public void playChannel(String channelNumber) throws IOException, CommandException;
-
     /**
-     * Request that the frontend switch to live TV at the specified channel.
+     * Request that the frontend change live TV to the specified channel.
      * This command will only work when the frontend is already in
      * {@link FrontendLocation#PLAYBACK}.<br>
      * <br>
      * Note that this command will return immediately, but there is no guarantee
      * of when playback will start or if it will start successfully. Use
      * {@link #queryPlaybackInfo()} or {@link #queryLocation()} to check.
+     *
+     * @see #playChannel(int)
+     *
+     * @param channelNumber
+     *            the number of the channel to start playing
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
+    public void playChannel(String channelNumber) throws IOException, CommandException;
+
+    /**
+     * Request that the frontend change live TV to the specified channel.
+     * This command will only work when the frontend is already in
+     * {@link FrontendLocation#PLAYBACK}.<br>
+     * <br>
+     * Note that this command will return immediately, but there is no guarantee
+     * of when playback will start or if it will start successfully. Use
+     * {@link #queryPlaybackInfo()} or {@link #queryLocation()} to check.
+     *
+     * @see #playChannel(String)
      *
      * @param channelId
      *            the ID of the channel to start playing
@@ -148,7 +169,7 @@ public interface Control
      *
      * @since 0.24
      */
-    public void playChannelId(int channelId) throws IOException, CommandException;
+    public void playChannel(int channelId) throws IOException, CommandException;
 
     // TODO
     public void playFile(String filename) throws IOException, CommandException;
