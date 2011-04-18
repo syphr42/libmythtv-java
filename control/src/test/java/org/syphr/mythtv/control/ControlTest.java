@@ -33,6 +33,7 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
+import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.prom.PropertiesManager;
@@ -92,6 +93,18 @@ public class ControlTest
     public void testPlayChannelIdNotAllowed() throws IOException, CommandException
     {
         control.playChannel(Integer.MAX_VALUE);
+    }
+
+    @Test(expected = CommandException.class)
+    public void testPlaySeekTargetNotAllowed() throws IOException, CommandException
+    {
+        control.playSeek(SeekTarget.BEGINNING);
+    }
+
+    @Test(expected = CommandException.class)
+    public void testPlaySeekTimeNotAllowed() throws IOException, CommandException
+    {
+        control.playSeek(0, 0, 0);
     }
 
     @Test(expected = CommandException.class)

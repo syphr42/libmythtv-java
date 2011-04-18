@@ -28,6 +28,7 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.VersionInfo;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
+import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
 
@@ -186,8 +187,49 @@ public interface Control
     // TODO
     public void playSavePreview(String filename, int width, int height) throws IOException, CommandException;
 
-    // TODO
-    public void playSeek() throws IOException, CommandException;
+    /**
+     * Request that the frontend seek to the given location in the video that is currently
+     * playing. This command will only work when the frontend is already in
+     * {@link FrontendLocation#PLAYBACK}.<br>
+     * <br>
+     * Note that this command will return immediately, but there is no guarantee of when
+     * the seek will occur or if it will happen successfully. Use
+     * {@link #queryPlaybackInfo()} to check.
+     *
+     * @param target
+     *            the target location to seek
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
+    public void playSeek(SeekTarget target) throws IOException, CommandException;
+
+    /**
+     * Request that the frontend seek to the given location in the video that is currently
+     * playing. This command will only work when the frontend is already in
+     * {@link FrontendLocation#PLAYBACK}.<br>
+     * <br>
+     * Note that this command will return immediately, but there is no guarantee of when
+     * the seek will occur or if it will happen successfully. Use
+     * {@link #queryPlaybackInfo()} to check.
+     *
+     * @param hour
+     *            the hour to seek
+     * @param minute
+     *            the minute to seek
+     * @param second
+     *            the second to seek
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
+    public void playSeek(int hour, int minute, int second) throws IOException, CommandException;
 
     // TODO
     public void playSpeedPause() throws IOException, CommandException;

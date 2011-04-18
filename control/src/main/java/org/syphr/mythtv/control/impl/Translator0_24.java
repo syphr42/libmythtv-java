@@ -18,6 +18,7 @@ package org.syphr.mythtv.control.impl;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.PlaybackType;
+import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.translate.AbstractTranslator;
 
@@ -200,6 +201,14 @@ public class Translator0_24 extends AbstractTranslator
         PLAYBACK_TYPE_MAP.put(PlaybackType.VIDEO, "Video");
     }
 
+    private static final BiMap<SeekTarget, String> SEEK_TARGET_MAP = EnumHashBiMap.create(SeekTarget.class);
+    static
+    {
+        SEEK_TARGET_MAP.put(SeekTarget.BEGINNING, "beginning");
+        SEEK_TARGET_MAP.put(SeekTarget.FORWARD, "forward");
+        SEEK_TARGET_MAP.put(SeekTarget.BACKWARD, "backward");
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type)
@@ -226,6 +235,11 @@ public class Translator0_24 extends AbstractTranslator
         if (PlaybackType.class.equals(type))
         {
             return (BiMap)PLAYBACK_TYPE_MAP;
+        }
+
+        if (SeekTarget.class.equals(type))
+        {
+            return (BiMap)SEEK_TARGET_MAP;
         }
 
         throw new IllegalArgumentException("Unknown type: " + type);

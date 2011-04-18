@@ -28,6 +28,7 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.VersionInfo;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
+import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.translate.Translator;
@@ -118,9 +119,15 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playSeek() throws IOException
+    public void playSeek(SeekTarget target) throws IOException, CommandException
     {
-        // TODO Auto-generated method stub
+        new Command0_24PlaySeek(target).send(getSocketManager());
+    }
+
+    @Override
+    public void playSeek(int hour, int minute, int second) throws IOException, CommandException
+    {
+        new Command0_24PlaySeek(hour, minute, second).send(getSocketManager());
     }
 
     @Override

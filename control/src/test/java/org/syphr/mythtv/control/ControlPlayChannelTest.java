@@ -30,6 +30,7 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.PlaybackInfo;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.FrontendLocation;
+import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.prom.PropertiesManager;
 
@@ -130,6 +131,23 @@ public class ControlPlayChannelTest
     public void testPlaySavePreviewFilenameDimensions()
     {
         // TODO
+    }
+
+    @Test
+    public void testPlaySeekNamed() throws IOException, CommandException
+    {
+        for (SeekTarget target : SeekTarget.values())
+        {
+            control.playSeek(target);
+            waitFiveSeconds("seek to " + target);
+        }
+    }
+
+    @Test
+    public void testPlaySeekTime() throws IOException, CommandException
+    {
+        control.playSeek(0, 0, 10);
+        waitFiveSeconds("seek to 10 seconds past the start");
     }
 
     @Test
