@@ -77,6 +77,12 @@ public class ControlTest
     }
 
     @Test(expected = CommandException.class)
+    public void testPlayChannelUpNotAllowed() throws IOException, CommandException
+    {
+        control.playChannelUp();
+    }
+
+    @Test(expected = CommandException.class)
     public void testPlayChannelIdNotAllowed() throws IOException, CommandException
     {
         control.playChannelId(Integer.MAX_VALUE);

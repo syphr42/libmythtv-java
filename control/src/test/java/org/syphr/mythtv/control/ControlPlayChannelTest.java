@@ -48,14 +48,7 @@ public class ControlPlayChannelTest
 
         control.jump(FrontendLocation.LIVE_TV);
 
-        try
-        {
-            Thread.sleep(5000);
-        }
-        catch (InterruptedException e)
-        {
-            LOGGER.warn("Interrupted while waiting for frontend to start playing live TV", e);
-        }
+        waitFiveSeconds("start live TV");
 
         PlaybackInfo pbInfo = control.queryPlaybackInfo();
         if (pbInfo == null)
@@ -82,9 +75,10 @@ public class ControlPlayChannelTest
     }
 
     @Test
-    public void testPlayChannelUp()
+    public void testPlayChannelUp() throws IOException, CommandException
     {
-        // TODO
+        control.playChannelUp();
+        waitFiveSeconds("channel up");
     }
 
     @Test
@@ -112,14 +106,7 @@ public class ControlPlayChannelTest
         Channel channel = channels.get(0);
         control.playChannelId(channel.getId());
 
-        try
-        {
-            Thread.sleep(5000);
-        }
-        catch (InterruptedException e)
-        {
-            LOGGER.warn("Interrupted while waiting for frontend to change channels", e);
-        }
+        waitFiveSeconds("change channels");
     }
 
     @Test
@@ -144,5 +131,17 @@ public class ControlPlayChannelTest
     public void testPlaySpeedPause()
     {
         // TODO
+    }
+
+    private static void waitFiveSeconds(String message)
+    {
+        try
+        {
+            Thread.sleep(5000);
+        }
+        catch (InterruptedException e)
+        {
+            LOGGER.warn("Interrupted while waiting for frontend to " + message, e);
+        }
     }
 }
