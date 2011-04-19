@@ -48,8 +48,7 @@ public class ControlPlayChannelTest
         control = Utils.connect(settings);
 
         control.jump(FrontendLocation.LIVE_TV);
-
-        waitFiveSeconds("start live TV");
+        waitSeconds(8, "start live TV");
 
         PlaybackInfo pbInfo = control.queryPlaybackInfo();
         if (pbInfo == null)
@@ -65,6 +64,8 @@ public class ControlPlayChannelTest
     public static void tearDownAfterClass() throws IOException, CommandException
     {
         control.playStop();
+        waitSeconds(5, "stop playing");
+
         control.jump(FrontendLocation.MAIN_MENU);
         control.exit();
     }
@@ -78,9 +79,11 @@ public class ControlPlayChannelTest
          */
 
         control.playVolume(50);
+        waitSeconds(2, "set volume to 50%");
         Assert.assertEquals(50, control.queryVolume());
 
         control.playVolume(25);
+        waitSeconds(2, "set volume to 25%");
         Assert.assertEquals(25, control.queryVolume());
     }
 
@@ -88,26 +91,28 @@ public class ControlPlayChannelTest
     public void testPlayVolumeTooLow() throws IOException, CommandException
     {
         control.playVolume(-1);
+        waitSeconds(2, "set volume to -1%");
     }
 
     @Test(expected = CommandException.class)
     public void testPlayVolumeTooHigh() throws IOException, CommandException
     {
         control.playVolume(101);
+        waitSeconds(2, "set volume to 101%");
     }
 
     @Test
     public void testPlayChannelUp() throws IOException, CommandException
     {
         control.playChannelUp();
-        waitFiveSeconds("channel up");
+        waitSeconds(8, "channel up");
     }
 
     @Test
     public void testPlayChannelDown() throws IOException, CommandException
     {
         control.playChannelDown();
-        waitFiveSeconds("channel down");
+        waitSeconds(8, "channel down");
     }
 
     /*
@@ -134,7 +139,7 @@ public class ControlPlayChannelTest
         Channel channel = channels.get(0);
         control.playChannel(channel.getId());
 
-        waitFiveSeconds("change channels");
+        waitSeconds(8, "change channels");
     }
 
     @Test
@@ -161,7 +166,7 @@ public class ControlPlayChannelTest
         for (SeekTarget target : SeekTarget.values())
         {
             control.playSeek(target);
-            waitFiveSeconds("seek to " + target);
+            waitSeconds(8, "seek to " + target);
         }
     }
 
@@ -169,7 +174,7 @@ public class ControlPlayChannelTest
     public void testPlaySeekTime() throws IOException, CommandException
     {
         control.playSeek(0, 0, 10);
-        waitFiveSeconds("seek to 10 seconds past the start");
+        waitSeconds(8, "seek to 10 seconds past the start");
     }
 
     @Test
@@ -178,11 +183,11 @@ public class ControlPlayChannelTest
         // TODO
     }
 
-    private static void waitFiveSeconds(String message)
+    private static void waitSeconds(int seconds, String message)
     {
         try
         {
-            Thread.sleep(5000);
+            Thread.sleep(seconds * 1000);
         }
         catch (InterruptedException e)
         {
