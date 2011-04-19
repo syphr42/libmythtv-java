@@ -17,6 +17,8 @@ package org.syphr.mythtv.control.impl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.control.Control;
 import org.syphr.mythtv.util.socket.Interceptor;
@@ -26,6 +28,8 @@ import org.syphr.mythtv.util.translate.Translator;
 public abstract class AbstractControl implements Control
 {
     private final SocketManager socketManager;
+
+    private volatile CountDownLatch connectionLatch;
 
     public AbstractControl(SocketManager socketManager)
     {
@@ -40,7 +44,17 @@ public abstract class AbstractControl implements Control
             @Override
             public boolean intercept(String response)
             {
-                return response.startsWith("MythFrontend Network Control");
+                if (response.startsWith("MythFrontend Network Control"))
+                {
+                    /*
+                     * Signal the connecting thread that the banner has been
+                     * received.
+                     */
+                    connectionLatch.countDown();
+                    return true;
+                }
+
+                return false;
             }
         };
     }
@@ -48,7 +62,24 @@ public abstract class AbstractControl implements Control
     @Override
     public void connect(String host, int port, long timeout) throws IOException
     {
+        connectionLatch = new CountDownLatch(1);
         socketManager.connect(host, port, timeout);
+
+        /*
+         * Wait for the initial banner to be sent from the server signaling the
+         * connection is complete.
+         */
+        try
+        {
+            if (!connectionLatch.await(timeout, TimeUnit.MILLISECONDS))
+            {
+                throw new IOException("Connection timed out");
+            }
+        }
+        catch (InterruptedException e)
+        {
+            throw new IOException("Connection interrupted");
+        }
     }
 
     @Override
