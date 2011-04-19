@@ -119,9 +119,9 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playSpeed(float speed) throws IOException
+    public void playSpeed(float speed) throws IOException, CommandException
     {
-        // TODO Auto-generated method stub
+        new Command0_24PlaySpeed(speed).send(getSocketManager());
     }
 
     @Override

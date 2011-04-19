@@ -120,6 +120,12 @@ public class ControlTest
     }
 
     @Test(expected = CommandException.class)
+    public void testPlaySpeedNotAllowed() throws IOException, CommandException
+    {
+        control.playSpeed(0);
+    }
+
+    @Test(expected = CommandException.class)
     public void testPlayStopNotAllowed() throws IOException, CommandException
     {
         control.playStop();

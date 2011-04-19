@@ -179,9 +179,31 @@ public class ControlPlayChannelTest
     }
 
     @Test
-    public void testPlaySpeedPause()
+    public void testPlaySpeedPause() throws IOException, CommandException
     {
-        // TODO
+        control.playSpeed(0);
+        waitSeconds(10, "pause");
+    }
+
+    @Test
+    public void testPlaySpeedFast() throws IOException, CommandException
+    {
+        control.playSpeed(1.5f);
+        waitSeconds(10, "play at 1.5x speed");
+    }
+
+    @Test
+    public void testPlaySpeedBack() throws IOException, CommandException
+    {
+        control.playSpeed(-0.5f);
+        waitSeconds(10, "play at -0.5x speed");
+    }
+
+    @Test
+    public void testPlaySpeedNormal() throws IOException, CommandException
+    {
+        control.playSpeed(1.0f);
+        waitSeconds(10, "play at normal speed");
     }
 
     private static void waitSeconds(int seconds, String message)
