@@ -211,12 +211,6 @@ public interface Control
     public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException, CommandException;
 
     // TODO
-    public void playSavePreview() throws IOException, CommandException;
-
-    // TODO
-    public void playSavePreview(String filename) throws IOException, CommandException;
-
-    // TODO
     public void playSavePreview(String filename, int width, int height) throws IOException, CommandException;
 
     /**
@@ -262,9 +256,6 @@ public interface Control
      * @since 0.24
      */
     public void playSeek(int hour, int minute, int second) throws IOException, CommandException;
-
-    // TODO
-    public void playSpeedPause() throws IOException, CommandException;
 
     // TODO
     public void playSpeed(float speed) throws IOException, CommandException;
@@ -497,12 +488,6 @@ public interface Control
      * @since 0.24
      */
     public void setVerbose(List<Verbose> options) throws IOException, CommandException;
-
-    // TODO
-    public void screenshot() throws IOException;
-
-    // TODO
-    public void screenshot(String filename) throws IOException;
 
     // TODO
     public void screenshot(String filename, int width, int height) throws IOException;

@@ -101,18 +101,6 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playSavePreview() throws IOException
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void playSavePreview(String filename) throws IOException
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
     public void playSavePreview(String filename, int width, int height) throws IOException
     {
         // TODO Auto-generated method stub
@@ -128,12 +116,6 @@ public class Control0_24 extends AbstractControl
     public void playSeek(int hour, int minute, int second) throws IOException, CommandException
     {
         new Command0_24PlaySeek(hour, minute, second).send(getSocketManager());
-    }
-
-    @Override
-    public void playSpeedPause() throws IOException
-    {
-        // TODO Auto-generated method stub
     }
 
     @Override
@@ -242,18 +224,6 @@ public class Control0_24 extends AbstractControl
     public void setVerbose(List<Verbose> options) throws IOException, CommandException
     {
         new Command0_24SetVerbose(options).send(getSocketManager());
-    }
-
-    @Override
-    public void screenshot() throws IOException
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void screenshot(String filename) throws IOException
-    {
-        // TODO Auto-generated method stub
     }
 
     @Override
