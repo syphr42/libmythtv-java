@@ -71,9 +71,9 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playChannelDown() throws IOException
+    public void playChannelDown() throws IOException, CommandException
     {
-        // TODO Auto-generated method stub
+        new Command0_24PlayChannelDown().send(getSocketManager());
     }
 
     @Override

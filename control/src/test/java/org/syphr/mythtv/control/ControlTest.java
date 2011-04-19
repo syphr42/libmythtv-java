@@ -90,6 +90,12 @@ public class ControlTest
     }
 
     @Test(expected = CommandException.class)
+    public void testPlayChannelDownNotAllowed() throws IOException, CommandException
+    {
+        control.playChannelDown();
+    }
+
+    @Test(expected = CommandException.class)
     public void testPlayChannelNumberNotAllowed() throws IOException, CommandException
     {
         control.playChannel("10000000");

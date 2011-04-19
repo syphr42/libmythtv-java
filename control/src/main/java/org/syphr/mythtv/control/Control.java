@@ -142,7 +142,22 @@ public interface Control
      */
     public void playChannelUp() throws IOException, CommandException;
 
-    // TODO
+    /**
+     * Request that the frontend move live TV to the next lower channel. This
+     * command will only work when the frontend is already in
+     * {@link FrontendLocation#PLAYBACK}.<br>
+     * <br>
+     * Note that this command will return immediately, but there is no guarantee
+     * of when playback will start or if it will start successfully. Use
+     * {@link #queryPlaybackInfo()} to check.
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
     public void playChannelDown() throws IOException, CommandException;
 
     /**

@@ -104,9 +104,10 @@ public class ControlPlayChannelTest
     }
 
     @Test
-    public void testPlayChannelDown()
+    public void testPlayChannelDown() throws IOException, CommandException
     {
-        // TODO
+        control.playChannelDown();
+        waitFiveSeconds("channel down");
     }
 
     /*
