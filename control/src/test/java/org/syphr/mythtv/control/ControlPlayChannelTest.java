@@ -70,9 +70,30 @@ public class ControlPlayChannelTest
     }
 
     @Test
-    public void testPlayVolume()
+    public void testPlayVolume() throws IOException, CommandException
     {
-        // TODO
+        /*
+         * Set and check the volume twice to avoid false positives due to the test machine
+         * always having the same volume.
+         */
+
+        control.playVolume(50);
+        Assert.assertEquals(50, control.queryVolume());
+
+        control.playVolume(25);
+        Assert.assertEquals(25, control.queryVolume());
+    }
+
+    @Test(expected = CommandException.class)
+    public void testPlayVolumeTooLow() throws IOException, CommandException
+    {
+        control.playVolume(-1);
+    }
+
+    @Test(expected = CommandException.class)
+    public void testPlayVolumeTooHigh() throws IOException, CommandException
+    {
+        control.playVolume(101);
     }
 
     @Test

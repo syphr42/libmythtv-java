@@ -78,6 +78,12 @@ public class ControlTest
     }
 
     @Test(expected = CommandException.class)
+    public void testPlayVolumeNotAllowed() throws IOException, CommandException
+    {
+        control.playVolume(10);
+    }
+
+    @Test(expected = CommandException.class)
     public void testPlayChannelUpNotAllowed() throws IOException, CommandException
     {
         control.playChannelUp();

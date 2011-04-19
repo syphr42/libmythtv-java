@@ -104,7 +104,24 @@ public interface Control
      */
     public void key(Key key) throws IOException;
 
-    // TODO
+    /**
+     * Request that the frontend set the volume to the given percentage. This command will
+     * only work when the frontend is already in {@link FrontendLocation#PLAYBACK}.<br>
+     * <br>
+     * Note that this command will return immediately, but there is no guarantee of when
+     * the volume will be set or if it will be set successfully. Use
+     * {@link #queryVolume()} to check.
+     *
+     * @param percent
+     *            the desired volume level as a percent (valid values are 0 - 100
+     *            inclusive)
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
     public void playVolume(int percent) throws IOException, CommandException;
 
     /**

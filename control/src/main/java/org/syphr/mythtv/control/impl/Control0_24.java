@@ -59,9 +59,9 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playVolume(int percent) throws IOException
+    public void playVolume(int percent) throws IOException, CommandException
     {
-        // TODO Auto-generated method stub
+        new Command0_24PlayVolume(percent).send(getSocketManager());
     }
 
     @Override
