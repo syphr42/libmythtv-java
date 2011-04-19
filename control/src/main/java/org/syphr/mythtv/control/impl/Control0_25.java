@@ -17,8 +17,41 @@ package org.syphr.mythtv.control.impl;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.util.exception.CommandException;
+
 public class Control0_25 extends Control0_24
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Control0_25.class);
+
+    @Override
+    public void screenshot() throws IOException, CommandException
+    {
+        screenshot(0, 0);
+    }
+
+    @Override
+    public void screenshot(int width, int height) throws IOException, CommandException
+    {
+        new Command0_25Screenshot(width, height).send(getSocketManager());
+    }
+
+    @Override
+    public void screenshot(String filename) throws IOException, CommandException
+    {
+        LOGGER.warn("The screen shot method no longer accepts a filename argument, it will be ignored");
+        screenshot();
+    }
+
+    @Override
+    public void screenshot(String filename, int width, int height) throws IOException,
+                                                                  CommandException
+    {
+        LOGGER.warn("The screen shot method no longer accepts a filename argument, it will be ignored");
+        screenshot(width, height);
+    }
+
     @Override
     public void message(String text) throws IOException
     {

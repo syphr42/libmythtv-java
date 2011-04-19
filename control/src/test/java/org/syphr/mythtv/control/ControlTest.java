@@ -269,6 +269,12 @@ public class ControlTest
     }
 
     @Test
+    public void testScreenshotDefaults() throws IOException, CommandException
+    {
+        control.screenshot();
+    }
+
+    @Test
     public void testMessage() throws IOException
     {
         try

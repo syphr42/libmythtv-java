@@ -489,8 +489,76 @@ public interface Control
      */
     public void setVerbose(List<Verbose> options) throws IOException, CommandException;
 
-    // TODO
-    public void screenshot(String filename, int width, int height) throws IOException;
+    /**
+     * Request that the frontend record a screenshot of its current state.
+     *
+     * @see #screenshot(String)
+     * @see #screenshot(String, int, int)
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is unable to set the verbose logging options
+     *
+     * @since 0.24
+     */
+    public void screenshot() throws IOException, CommandException;
+
+    /**
+     * Request that the frontend record a screenshot of its current state.
+     *
+     * @see #screenshot()
+     *
+     * @param width
+     *            the width, in pixels, of the screenshot
+     * @param height
+     *            the height, in pixels, of the screenshot
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is unable to set the verbose logging options
+     *
+     * @since 0.25
+     */
+    public void screenshot(int width, int height) throws IOException, CommandException;
+
+    /**
+     * Request that the frontend record a screenshot of its current state.
+     *
+     * @see #screenshot()
+     * @see #screenshot(String, int, int)
+     *
+     * @param filename
+     *            the filename on the frontend machine where the screenshot will be stored
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is unable to set the verbose logging options
+     *
+     * @since 0.24
+     */
+    public void screenshot(String filename) throws IOException, CommandException;
+
+    /**
+     * Request that the frontend record a screenshot of its current state.
+     *
+     * @see #screenshot()
+     * @see #screenshot(String)
+     *
+     * @param filename
+     *            the filename on the frontend machine where the screenshot will be stored
+     * @param width
+     *            the width, in pixels, of the screenshot
+     * @param height
+     *            the height, in pixels, of the screenshot
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is unable to set the verbose logging options
+     *
+     * @since 0.24
+     */
+    public void screenshot(String filename, int width, int height) throws IOException, CommandException;
 
     /**
      * Send some text to be displayed on the frontend.

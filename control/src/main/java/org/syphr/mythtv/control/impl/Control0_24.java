@@ -227,9 +227,27 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void screenshot(String filename, int width, int height) throws IOException
+    public void screenshot() throws IOException, CommandException
     {
-        // TODO Auto-generated method stub
+        screenshot(null);
+    }
+
+    @Override
+    public void screenshot(int width, int height) throws IOException, CommandException
+    {
+       throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void screenshot(String filename) throws IOException, CommandException
+    {
+        screenshot(filename, 0, 0);
+    }
+
+    @Override
+    public void screenshot(String filename, int width, int height) throws IOException, CommandException
+    {
+        new Command0_24Screenshot(filename, width, height).send(getSocketManager());
     }
 
     @Override
