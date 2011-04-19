@@ -153,7 +153,7 @@ public class SocketManager
     {
         if (isConnected())
         {
-            return;
+            disconnect();
         }
 
         logger.info("Connecting to {}:{}", addr.getHostName(), addr.getPort());
