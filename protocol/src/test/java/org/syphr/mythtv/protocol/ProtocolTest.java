@@ -428,20 +428,26 @@ public class ProtocolTest
                                               CommandException
     {
         List<Program> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
-        if (recordings.isEmpty())
+        for (Program recording : recordings)
         {
-            return;
-        }
+            /*
+             * Live TV will not have pix maps and will generate an exception
+             * here.
+             */
+            if ("LiveTV".equals(recording.getStorageGroup()))
+            {
+                continue;
+            }
 
-        Program program = recordings.get(0);
-        LOGGER.debug("Pix map for "
-                     + program.getChannel()
-                     + "/"
-                     + program.getStartTime()
-                     + ": "
-                     + proto.queryPixMapGetIfModified(null,
-                                                      Integer.MAX_VALUE,
-                                                      program));
+            LOGGER.debug("Pix map for "
+                         + recording.getChannel()
+                         + "/"
+                         + recording.getStartTime()
+                         + ": "
+                         + proto.queryPixMapGetIfModified(null,
+                                                          Integer.MAX_VALUE,
+                                                          recording));
+        }
     }
 
     @Test
