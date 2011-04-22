@@ -207,7 +207,27 @@ public interface Control
     // TODO
     public void playFile(String filename) throws IOException, CommandException;
 
-    // TODO
+    /**
+     * Request that the frontend play back the given recording. This command will only
+     * work when the frontend is already in {@link FrontendLocation#PLAYBACK}.<br>
+     * <br>
+     * Note that this command will return immediately, but there is no guarantee of when
+     * playback will start or if it will start successfully. Use
+     * {@link #queryPlaybackInfo()} or {@link #queryLocation()} to check.
+     *
+     * @param channelId
+     *            the ID of the channel that was recorded
+     * @param recStartTs
+     *            the actual recording start time (when the program was recorded)
+     * @param <code>true</code> for the recording to resume from a bookmark (if there is
+     *        one); <code>false</code> to start from the beginning
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
     public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException, CommandException;
 
     // TODO

@@ -95,9 +95,9 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException
+    public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException, CommandException
     {
-        // TODO Auto-generated method stub
+        new Command0_24PlayProgram(channelId, recStartTs, resume).send(getSocketManager());
     }
 
     @Override

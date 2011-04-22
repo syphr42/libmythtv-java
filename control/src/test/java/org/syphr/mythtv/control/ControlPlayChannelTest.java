@@ -37,7 +37,7 @@ import org.syphr.prom.PropertiesManager;
 
 public class ControlPlayChannelTest
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ControlPlayChannelTest.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(ControlPlayChannelTest.class);
 
     private static PropertiesManager<Settings> settings;
     private static Control control;
@@ -49,7 +49,7 @@ public class ControlPlayChannelTest
         control = Utils.connect(settings);
 
         control.jump(FrontendLocation.LIVE_TV);
-        waitSeconds(10, "start live TV");
+        Utils.waitSeconds(10, "start live TV");
 
         PlaybackInfo pbInfo = control.queryPlaybackInfo();
         if (pbInfo == null)
@@ -65,7 +65,7 @@ public class ControlPlayChannelTest
     public static void tearDownAfterClass() throws IOException, CommandException
     {
         control.playStop();
-        waitSeconds(5, "stop playing");
+        Utils.waitSeconds(5, "stop playing");
 
         control.jump(FrontendLocation.MAIN_MENU);
         control.exit();
@@ -75,35 +75,35 @@ public class ControlPlayChannelTest
     public void testPlayVolume() throws IOException, CommandException
     {
         control.playVolume(50);
-        waitSeconds(2, "set volume to 50%");
+        Utils.waitSeconds(2, "set volume to 50%");
     }
 
     @Test(expected = ProtocolException.class)
     public void testPlayVolumeTooLow() throws IOException, CommandException
     {
         control.playVolume(-1);
-        waitSeconds(2, "set volume to -1%");
+        Utils.waitSeconds(2, "set volume to -1%");
     }
 
     @Test(expected = ProtocolException.class)
     public void testPlayVolumeTooHigh() throws IOException, CommandException
     {
         control.playVolume(101);
-        waitSeconds(2, "set volume to 101%");
+        Utils.waitSeconds(2, "set volume to 101%");
     }
 
     @Test
     public void testPlayChannelUp() throws IOException, CommandException
     {
         control.playChannelUp();
-        waitSeconds(10, "channel up");
+        Utils.waitSeconds(10, "channel up");
     }
 
     @Test
     public void testPlayChannelDown() throws IOException, CommandException
     {
         control.playChannelDown();
-        waitSeconds(10, "channel down");
+        Utils.waitSeconds(10, "channel down");
     }
 
     /*
@@ -130,7 +130,7 @@ public class ControlPlayChannelTest
         Channel channel = channels.get(0);
         control.playChannel(channel.getId());
 
-        waitSeconds(10, "change channels");
+        Utils.waitSeconds(10, "change channels");
     }
 
     @Test
@@ -157,7 +157,7 @@ public class ControlPlayChannelTest
         for (SeekTarget target : SeekTarget.values())
         {
             control.playSeek(target);
-            waitSeconds(10, "seek to " + target);
+            Utils.waitSeconds(10, "seek to " + target);
         }
     }
 
@@ -165,46 +165,34 @@ public class ControlPlayChannelTest
     public void testPlaySeekTime() throws IOException, CommandException
     {
         control.playSeek(0, 0, 10);
-        waitSeconds(10, "seek to 10 seconds past the start");
+        Utils.waitSeconds(10, "seek to 10 seconds past the start");
     }
 
     @Test
     public void testPlaySpeedPause() throws IOException, CommandException
     {
         control.playSpeed(0);
-        waitSeconds(10, "pause");
+        Utils.waitSeconds(10, "pause");
     }
 
     @Test
     public void testPlaySpeedFast() throws IOException, CommandException
     {
         control.playSpeed(1.5f);
-        waitSeconds(10, "play at 1.5x speed");
+        Utils.waitSeconds(10, "play at 1.5x speed");
     }
 
     @Test
     public void testPlaySpeedBack() throws IOException, CommandException
     {
         control.playSpeed(-0.5f);
-        waitSeconds(10, "play at -0.5x speed");
+        Utils.waitSeconds(10, "play at -0.5x speed");
     }
 
     @Test
     public void testPlaySpeedNormal() throws IOException, CommandException
     {
         control.playSpeed(1.0f);
-        waitSeconds(10, "play at normal speed");
-    }
-
-    private static void waitSeconds(int seconds, String message)
-    {
-        try
-        {
-            Thread.sleep(seconds * 1000);
-        }
-        catch (InterruptedException e)
-        {
-            LOGGER.warn("Interrupted while waiting for frontend to " + message, e);
-        }
+        Utils.waitSeconds(10, "play at normal speed");
     }
 }

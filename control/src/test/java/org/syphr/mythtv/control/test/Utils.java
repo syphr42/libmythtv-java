@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import org.syphr.mythtv.control.Control;
 import org.syphr.mythtv.control.ControlFactory;
+import org.syphr.mythtv.control.ControlPlayChannelTest;
 import org.syphr.mythtv.control.ControlVersion;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.prom.PropertiesManager;
@@ -35,5 +36,17 @@ public class Utils
                         settings.getIntegerProperty(Settings.FRONTEND_CONTROL_TIMEOUT));
 
         return control;
+    }
+
+    public static void waitSeconds(int seconds, String message)
+    {
+        try
+        {
+            Thread.sleep(seconds * 1000);
+        }
+        catch (InterruptedException e)
+        {
+            ControlPlayChannelTest.LOGGER.warn("Interrupted while waiting for frontend to " + message, e);
+        }
     }
 }
