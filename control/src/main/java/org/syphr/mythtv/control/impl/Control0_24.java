@@ -101,9 +101,21 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playSavePreview(String filename, int width, int height) throws IOException
+    public void playSavePreview() throws IOException, CommandException
     {
-        // TODO Auto-generated method stub
+        playSavePreview(null);
+    }
+
+    @Override
+    public void playSavePreview(String filename) throws IOException, CommandException
+    {
+        playSavePreview(filename, 0, 0);
+    }
+
+    @Override
+    public void playSavePreview(String filename, int width, int height) throws IOException, CommandException
+    {
+        new Command0_24PlaySavePreview(filename, width, height).send(getSocketManager());
     }
 
     @Override

@@ -134,21 +134,21 @@ public class ControlPlayChannelTest
     }
 
     @Test
-    public void testPlaySavePreview()
+    public void testPlaySavePreview() throws IOException, CommandException
     {
-        // TODO
+        control.playSavePreview();
     }
 
     @Test
-    public void testPlaySavePreviewFilename()
+    public void testPlaySavePreviewFilename() throws IOException, CommandException
     {
-        // TODO
+        control.playSavePreview("/tmp/preview-test-default-size.png");
     }
 
     @Test
-    public void testPlaySavePreviewFilenameDimensions()
+    public void testPlaySavePreviewFilenameSize() throws IOException, CommandException
     {
-        // TODO
+        control.playSavePreview("/tmp/preview-test-1280x720.png", 1280, 720);
     }
 
     @Test

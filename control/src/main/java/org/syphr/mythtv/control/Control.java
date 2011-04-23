@@ -230,7 +230,65 @@ public interface Control
      */
     public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException, CommandException;
 
-    // TODO
+    /**
+     * Request that the frontend create a preview image based on what is
+     * currently playing. This command will only work when the frontend is in
+     * {@link FrontendLocation#PLAYBACK}.
+     *
+     * @see #playSavePreview(String)
+     * @see #playSavePreview(String, int, int)
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
+    public void playSavePreview() throws IOException, CommandException;
+
+    /**
+     * Request that the frontend create a preview image based on what is
+     * currently playing. This command will only work when the frontend is in
+     * {@link FrontendLocation#PLAYBACK}.
+     *
+     * @see #playSavePreview()
+     * @see #playSavePreview(String, int, int)
+     *
+     * @param filename
+     *            the filename on the frontend machine where the preview image
+     *            will be stored
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
+    public void playSavePreview(String filename) throws IOException, CommandException;
+
+    /**
+     * Request that the frontend create a preview image based on what is
+     * currently playing. This command will only work when the frontend is in
+     * {@link FrontendLocation#PLAYBACK}.
+     *
+     * @see #playSavePreview()
+     * @see #playSavePreview(String)
+     *
+     * @param filename
+     *            the filename on the frontend machine where the preview image
+     *            will be stored
+     * @param width
+     *            the width, in pixels, of the preview image
+     * @param height
+     *            the height, in pixels, of the preview image
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend is not currently playing video
+     *
+     * @since 0.24
+     */
     public void playSavePreview(String filename, int width, int height) throws IOException, CommandException;
 
     /**

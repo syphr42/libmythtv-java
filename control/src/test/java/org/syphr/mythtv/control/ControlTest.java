@@ -108,6 +108,30 @@ public class ControlTest
     }
 
     @Test(expected = CommandException.class)
+    public void testPlayProgramNotAllowed() throws IOException, CommandException
+    {
+        control.playProgram(Integer.MAX_VALUE, new Date(0), false);
+    }
+
+    @Test(expected = CommandException.class)
+    public void testPlaySavePreviewNotAllowed() throws IOException, CommandException
+    {
+        control.playSavePreview();
+    }
+
+    @Test(expected = CommandException.class)
+    public void testPlaySavePreviewFilenameNotAllowed() throws IOException, CommandException
+    {
+        control.playSavePreview("/tmp/preview-not-allowed-outside-playback.png");
+    }
+
+    @Test(expected = CommandException.class)
+    public void testPlaySavePreviewFilenameSizeNotAllowed() throws IOException, CommandException
+    {
+        control.playSavePreview("/tmp/preview-not-allowed-outside-playback.png", 1280, 720);
+    }
+
+    @Test(expected = CommandException.class)
     public void testPlaySeekTargetNotAllowed() throws IOException, CommandException
     {
         control.playSeek(SeekTarget.BEGINNING);
@@ -134,6 +158,7 @@ public class ControlTest
     @Test
     public void testQueryLocation() throws IOException
     {
+        control.jump(FrontendLocation.MAIN_MENU);
         Assert.assertEquals(FrontendLocation.MAIN_MENU, control.queryLocation());
     }
 
