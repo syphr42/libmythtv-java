@@ -107,6 +107,17 @@ public class ControlTest
         control.playChannel(Integer.MAX_VALUE);
     }
 
+    /*
+     * This test is commented out because there is no way to retrieve a valid
+     * myth:// URI or local filename through the frontend control socket.
+     */
+//    @Test
+//    public void testPlayFile() throws IOException, CommandException
+//    {
+//        control.playFile("/tmp/test-file.mpg");
+//        Utils.waitSeconds(10, "play file");
+//    }
+
     @Test
     public void testPlayProgram() throws IOException, CommandException
     {

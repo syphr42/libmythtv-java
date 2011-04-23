@@ -204,7 +204,24 @@ public interface Control
      */
     public void playChannel(int channelId) throws IOException, CommandException;
 
-    // TODO
+    /**
+     * Request that the frontend play back the given file.<br>
+     * <br>
+     * Note that this command will return immediately, but there is no guarantee
+     * of when playback will start or if it will start successfully. Use
+     * {@link #queryPlaybackInfo()} or {@link #queryLocation()} to check.
+     *
+     * @param filename
+     *            the absolute path to the file (local to the frontend) or a
+     *            <code>myth://</code> URI to play back
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the frontend was unable to initiate play back of the
+     *             requested file
+     *
+     * @since 0.24
+     */
     public void playFile(String filename) throws IOException, CommandException;
 
     /**

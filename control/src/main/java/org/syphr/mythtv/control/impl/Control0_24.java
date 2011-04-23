@@ -89,9 +89,9 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playFile(String filename) throws IOException
+    public void playFile(String filename) throws IOException, CommandException
     {
-        // TODO Auto-generated method stub
+        new Command0_24PlayFile(filename).send(getSocketManager());
     }
 
     @Override
