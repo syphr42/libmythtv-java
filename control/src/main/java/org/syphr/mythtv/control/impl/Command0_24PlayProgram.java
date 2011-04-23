@@ -15,11 +15,17 @@
  */
 package org.syphr.mythtv.control.impl;
 
+import java.io.IOException;
 import java.util.Date;
 
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.socket.AbstractCommand;
+import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.DateUtils;
 
-/* default */class Command0_24PlayProgram extends AbstractCommand0_24Play
+/* default */class Command0_24PlayProgram extends AbstractCommand<Void>
 {
     private final int channelId;
     private final Date recStartTs;
@@ -37,5 +43,27 @@ import org.syphr.mythtv.util.translate.DateUtils;
     {
         return "play program " + channelId + " " + DateUtils.getIsoDateFormat().format(recStartTs)
                + " " + Control0_24Utils.getTranslator().toString(resume);
+    }
+
+    @Override
+    public Void send(SocketManager socketManager) throws IOException,
+                                                 CommandException
+    {
+        String response = socketManager.sendAndWait(getMessage());
+
+        if ("OK".equals(response))
+        {
+            return null;
+        }
+
+        if (response.startsWith("ERROR: "))
+        {
+            /*
+             * Strip off the "ERROR: " part and give back the message.
+             */
+            throw new CommandException(response.substring(7, response.length()));
+        }
+
+        throw new ProtocolException(response, Direction.RECEIVE);
     }
 }

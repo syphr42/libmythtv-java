@@ -208,8 +208,7 @@ public interface Control
     public void playFile(String filename) throws IOException, CommandException;
 
     /**
-     * Request that the frontend play back the given recording. This command will only
-     * work when the frontend is already in {@link FrontendLocation#PLAYBACK}.<br>
+     * Request that the frontend play back the given recording.<br>
      * <br>
      * Note that this command will return immediately, but there is no guarantee of when
      * playback will start or if it will start successfully. Use
@@ -224,7 +223,7 @@ public interface Control
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
-     *             if the frontend is not currently playing video
+     *             if the requested program is not found
      *
      * @since 0.24
      */

@@ -107,8 +107,25 @@ public class ControlTest
         control.playChannel(Integer.MAX_VALUE);
     }
 
+    @Test
+    public void testPlayProgram() throws IOException, CommandException
+    {
+        List<Program> recordings = control.queryRecordings();
+        if (recordings.isEmpty())
+        {
+            LOGGER.warn("Skipping play program test because no recordings were found");
+            return;
+        }
+
+        Program recording = recordings.get(0);
+        control.playProgram(recording.getChannel().getId(), recording.getRecStartTs(), false);
+        Utils.waitSeconds(10, "play program");
+
+        control.jump(FrontendLocation.MAIN_MENU);
+    }
+
     @Test(expected = CommandException.class)
-    public void testPlayProgramNotAllowed() throws IOException, CommandException
+    public void testPlayProgramNotFound() throws IOException, CommandException
     {
         control.playProgram(Integer.MAX_VALUE, new Date(0), false);
     }
