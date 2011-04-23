@@ -27,6 +27,10 @@ package org.syphr.mythtv.control.impl;
     @Override
     protected String getMessage()
     {
-        return "play speed " + speed + "x";
+        /*
+         * Make sure that a speed of 0.0 is sent as "0" since the former is
+         * misinterpreted by the frontend.
+         */
+        return "play speed " + (speed == 0 ? "0" : speed) + "x";
     }
 }
