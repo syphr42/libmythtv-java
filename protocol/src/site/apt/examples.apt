@@ -6,7 +6,7 @@ Direct Myth Protocol Access
   SocketManager socketManager = new SocketManager();
   socketManager.connect("localhost", 6543, 10000);
 
-  Protocol proto = ProtocolFactory.createInstance(ProtocolVersion.SIXTY_THREE, 
+  Protocol proto = ProtocolFactory.createInstance(ProtocolVersion._63, 
                                                   socketManager);
                                                   
   proto.mythProtoVersion();
@@ -29,7 +29,7 @@ Backend Events
   SocketManager socketManager = new SocketManager();
   socketManager.connect("localhost", 6543, 10000);
 
-  Protocol proto = ProtocolFactory.createInstance(ProtocolVersion.SIXTY_THREE),
+  Protocol proto = ProtocolFactory.createInstance(ProtocolVersion._63),
                                                   socketManager);
                                                   
   proto.addBackendEventListener(new BackendEventListener63()

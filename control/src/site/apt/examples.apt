@@ -1,0 +1,16 @@
+Basic Frontend Control
+
+  Create a connection to a MythTV frontend, play live TV, print the relevant 
+  play back information, and then stop.
+
++------------------------------------------------------
+  Control control = ControlFactory.createInstance(ControlVersion._0_24);
+  control.connect("localhost", 6546, 10000);
+                                                  
+  control.jump(FrontendLocation.LIVE_TV);
+  System.out.println(control.queryPlaybackInfo());
+  
+  control.playStop();
+  
+  control.exit();
++------------------------------------------------------
