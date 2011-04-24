@@ -19,12 +19,21 @@ import org.syphr.mythtv.control.impl.Control0_24;
 import org.syphr.mythtv.control.impl.Control0_25;
 
 /**
- * This class acts as a bridge to the various frontend control implementations.
+ * This class acts as a bridge to the various frontend network control
+ * implementations.
  *
  * @author Gregory P. Moyer
  */
 public class ControlFactory
 {
+    /**
+     * Create a new instance of the frontend network control for the desired
+     * version.
+     *
+     * @param version
+     *            the desired network control version
+     * @return a new network control instance
+     */
     public static Control createInstance(ControlVersion version)
     {
         switch (version)

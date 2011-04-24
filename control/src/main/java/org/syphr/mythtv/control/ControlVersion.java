@@ -15,6 +15,13 @@
  */
 package org.syphr.mythtv.control;
 
+/**
+ * This enum represents the implemented versions of the frontend network
+ * control. These versions coincide with versions of MythTV since the network
+ * control has no defined version scheme.
+ *
+ * @author Gregory P. Moyer
+ */
 public enum ControlVersion
 {
     _0_24,
