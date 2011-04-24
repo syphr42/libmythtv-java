@@ -33,6 +33,8 @@ import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.data.FileInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.protocol.test.Utils;
@@ -49,6 +51,8 @@ import com.google.common.io.Resources;
 
 public class QueryFileTransferTest
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(QueryFileTransferTest.class);
+
     private static final File LOCAL_TEMP = new File("target/testing");
 
     private static final String TEST_URL = "http://www.syphr.org";
@@ -137,23 +141,41 @@ public class QueryFileTransferTest
     public void testReadSeekRecording() throws IOException, CommandException
     {
         List<Program> programs = commandProto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
-        if (programs.isEmpty())
-        {
-            return;
-        }
 
         Protocol fileProto = commandProto.newProtocol();
         fileProto.mythProtoVersion();
 
-        Program program = programs.get(0);
-        QueryFileTransfer fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
-                                                                              .getHostName(),
-                                                                   FileTransferType.READ,
-                                                                   false,
-                                                                   0L,
-                                                                   program.getBasename(),
-                                                                   program.getStorageGroup(),
-                                                                   commandProto);
+        Program targetProgram = null;
+        QueryFileTransfer fileTransfer = null;
+        for (Program program : programs)
+        {
+            fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
+                                                                .getHostName(),
+                                                     FileTransferType.READ,
+                                                     false,
+                                                     0L,
+                                                     program.getBasename(),
+                                                     program.getStorageGroup(),
+                                                     commandProto);
+
+            if (fileTransfer.getSize() > 0)
+            {
+                targetProgram = program;
+                break;
+            }
+            else
+            {
+                fileTransfer.done();
+            }
+        }
+
+        if (targetProgram == null)
+        {
+            fileProto.done();
+
+            LOGGER.warn("Skipping read/seek test because a recording with a non-zero length could not be found");
+            return;
+        }
 
         Assert.assertTrue(fileTransfer.isOpen());
 
@@ -172,7 +194,7 @@ public class QueryFileTransferTest
                         + "B)");
         }
 
-        File tempFile = new File(LOCAL_TEMP, program.getBasename().toString());
+        File tempFile = new File(LOCAL_TEMP, targetProgram.getBasename().toString());
 
         Utils.readToFile(settings,
                          fileProto,
