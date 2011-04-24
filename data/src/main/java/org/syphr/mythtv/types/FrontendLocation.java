@@ -61,5 +61,10 @@ public enum FrontendLocation
     ZONEMINDER_EVENTS,
     ZONEMINDER_LIVE_VIEW,
 
+    /**
+     * The playback location is special in that it is not valid as a jump
+     * target, but it is the declared location whenever the frontend is playing
+     * back video.
+     */
     PLAYBACK;
 }

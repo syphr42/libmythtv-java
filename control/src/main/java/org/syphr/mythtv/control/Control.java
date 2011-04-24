@@ -392,6 +392,8 @@ public interface Control
      */
     public void playStop() throws IOException, CommandException;
 
+    // TODO add play music methods for 0.25
+
     /**
      * Request the current UI location of the frontend.
      *
