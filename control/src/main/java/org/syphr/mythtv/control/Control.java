@@ -16,6 +16,7 @@
 package org.syphr.mythtv.control;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -392,7 +393,101 @@ public interface Control
      */
     public void playStop() throws IOException, CommandException;
 
-    // TODO add play music methods for 0.25
+    /**
+     * TODO
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.25
+     */
+    public void playMusicPlay() throws IOException;
+
+    /**
+     * TODO
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.25
+     */
+    public void playMusicPause() throws IOException;
+
+    /**
+     * TODO
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.25
+     */
+    public void playMusicStop() throws IOException;
+
+    /**
+     * TODO
+     *
+     * @param percent TODO
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.25
+     */
+    public void playMusicSetvolume(int percent) throws IOException;
+
+    /**
+     * Request the current volume of the frontend as an integer percentage in
+     * the range 0-100.
+     *
+     * @return the current volume
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.25
+     */
+    public int playMusicGetvolume() throws IOException;
+
+    /**
+     * TODO
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.25
+     */
+    public void playMusicGetmeta() throws IOException;
+
+    /**
+     * TODO
+     *
+     * @param filename TODO
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.25
+     */
+    public void playMusicFile(String filename) throws IOException;
+
+    /**
+     * TODO
+     *
+     * @param track TODO
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.25
+     */
+    public void playMusicTrack(int track) throws IOException;
+
+    /**
+     * TODO
+     *
+     * @param url TODO
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 0.25
+     */
+    public void playMusicUrl(URL url) throws IOException;
 
     /**
      * Request the current UI location of the frontend.

@@ -16,6 +16,7 @@
 package org.syphr.mythtv.control.impl;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -140,6 +141,60 @@ public class Control0_24 extends AbstractControl
     public void playStop() throws IOException, CommandException
     {
         new Command0_24PlayStop().send(getSocketManager());
+    }
+
+    @Override
+    public void playMusicPlay() throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void playMusicPause() throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void playMusicStop() throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void playMusicSetvolume(int percent) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int playMusicGetvolume() throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void playMusicGetmeta() throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void playMusicFile(String filename) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void playMusicTrack(int track) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void playMusicUrl(URL url) throws IOException
+    {
+        throw new UnsupportedOperationException();
     }
 
     @Override

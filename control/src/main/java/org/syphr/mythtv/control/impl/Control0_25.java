@@ -16,6 +16,7 @@
 package org.syphr.mythtv.control.impl;
 
 import java.io.IOException;
+import java.net.URL;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,61 @@ import org.syphr.mythtv.util.exception.CommandException;
 public class Control0_25 extends Control0_24
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(Control0_25.class);
+
+    @Override
+    public void playMusicPlay() throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void playMusicPause() throws IOException
+    {
+        // TODO
+    }
+
+    @Override
+    public void playMusicStop() throws IOException
+    {
+        // TODO
+    }
+
+    @Override
+    public void playMusicSetvolume(int percent) throws IOException
+    {
+        // TODO
+    }
+
+    @Override
+    public int playMusicGetvolume() throws IOException
+    {
+        // TODO
+        return 0;
+    }
+
+    @Override
+    public void playMusicGetmeta() throws IOException
+    {
+        // TODO
+    }
+
+    @Override
+    public void playMusicFile(String filename) throws IOException
+    {
+        // TODO
+    }
+
+    @Override
+    public void playMusicTrack(int track) throws IOException
+    {
+        // TODO
+    }
+
+    @Override
+    public void playMusicUrl(URL url) throws IOException
+    {
+        // TODO
+    }
 
     @Override
     public void screenshot() throws IOException, CommandException
