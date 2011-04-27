@@ -432,7 +432,7 @@ public interface Control
      *
      * @since 0.25
      */
-    public void playMusicSetvolume(int percent) throws IOException;
+    public void playMusicSetVolume(int percent) throws IOException;
 
     /**
      * Request the current volume of the frontend as an integer percentage in
@@ -444,7 +444,7 @@ public interface Control
      *
      * @since 0.25
      */
-    public int playMusicGetvolume() throws IOException;
+    public int playMusicGetVolume() throws IOException;
 
     /**
      * TODO
@@ -454,7 +454,7 @@ public interface Control
      *
      * @since 0.25
      */
-    public void playMusicGetmeta() throws IOException;
+    public void playMusicGetMeta() throws IOException;
 
     /**
      * TODO

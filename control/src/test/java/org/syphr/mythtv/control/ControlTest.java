@@ -206,21 +206,21 @@ public class ControlTest
     }
 
     @Test
-    public void testPlayMusicSetvolume(int percent) throws IOException
+    public void testPlayMusicSetVolume(int percent) throws IOException
     {
         // TODO
         LOGGER.warn("play music setvolume test not implemented");
     }
 
     @Test
-    public void testPlayMusicGetvolume() throws IOException
+    public void testPlayMusicGetVolume() throws IOException
     {
         // TODO
         LOGGER.warn("play music getvolume test not implemented");
     }
 
     @Test
-    public void testPlayMusicGetmeta() throws IOException
+    public void testPlayMusicGetMeta() throws IOException
     {
         // TODO
         LOGGER.warn("play music getmeta test not implemented");

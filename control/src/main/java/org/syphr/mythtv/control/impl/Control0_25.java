@@ -45,20 +45,20 @@ public class Control0_25 extends Control0_24
     }
 
     @Override
-    public void playMusicSetvolume(int percent) throws IOException
+    public void playMusicSetVolume(int percent) throws IOException
     {
         // TODO
     }
 
     @Override
-    public int playMusicGetvolume() throws IOException
+    public int playMusicGetVolume() throws IOException
     {
         // TODO
         return 0;
     }
 
     @Override
-    public void playMusicGetmeta() throws IOException
+    public void playMusicGetMeta() throws IOException
     {
         // TODO
     }

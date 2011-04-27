@@ -162,19 +162,19 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playMusicSetvolume(int percent) throws IOException
+    public void playMusicSetVolume(int percent) throws IOException
     {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public int playMusicGetvolume() throws IOException
+    public int playMusicGetVolume() throws IOException
     {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void playMusicGetmeta() throws IOException
+    public void playMusicGetMeta() throws IOException
     {
         throw new UnsupportedOperationException();
     }
