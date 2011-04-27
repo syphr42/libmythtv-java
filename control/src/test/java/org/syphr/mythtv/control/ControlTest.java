@@ -206,7 +206,7 @@ public class ControlTest
     }
 
     @Test
-    public void testPlayMusicSetVolume(int percent) throws IOException
+    public void testPlayMusicSetVolume() throws IOException
     {
         // TODO
         LOGGER.warn("play music setvolume test not implemented");
