@@ -16,7 +16,6 @@
 package org.syphr.mythtv.control;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -227,21 +226,21 @@ public class ControlTest
     }
 
     @Test
-    public void testPlayMusicFile(String filename) throws IOException
+    public void testPlayMusicFile() throws IOException
     {
         // TODO
         LOGGER.warn("play music file test not implemented");
     }
 
     @Test
-    public void testPlayMusicTrack(int track) throws IOException
+    public void testPlayMusicTrack() throws IOException
     {
         // TODO
         LOGGER.warn("play music track test not implemented");
     }
 
     @Test
-    public void testPlayMusicUrl(URL url) throws IOException
+    public void testPlayMusicUrl() throws IOException
     {
         // TODO
         LOGGER.warn("play music url test not implemented");
