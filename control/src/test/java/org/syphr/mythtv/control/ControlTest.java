@@ -16,6 +16,7 @@
 package org.syphr.mythtv.control;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -181,6 +182,69 @@ public class ControlTest
     public void testPlayStopNotAllowed() throws IOException, CommandException
     {
         control.playStop();
+    }
+
+    @Test
+    public void testPlayMusicPlay() throws IOException
+    {
+        // TODO
+        LOGGER.warn("play music play test not implemented");
+    }
+
+    @Test
+    public void testPlayMusicPause() throws IOException
+    {
+        // TODO
+        LOGGER.warn("play music pause test not implemented");
+    }
+
+    @Test
+    public void testPlayMusicStop() throws IOException
+    {
+        // TODO
+        LOGGER.warn("play music stop test not implemented");
+    }
+
+    @Test
+    public void testPlayMusicSetvolume(int percent) throws IOException
+    {
+        // TODO
+        LOGGER.warn("play music setvolume test not implemented");
+    }
+
+    @Test
+    public void testPlayMusicGetvolume() throws IOException
+    {
+        // TODO
+        LOGGER.warn("play music getvolume test not implemented");
+    }
+
+    @Test
+    public void testPlayMusicGetmeta() throws IOException
+    {
+        // TODO
+        LOGGER.warn("play music getmeta test not implemented");
+    }
+
+    @Test
+    public void testPlayMusicFile(String filename) throws IOException
+    {
+        // TODO
+        LOGGER.warn("play music file test not implemented");
+    }
+
+    @Test
+    public void testPlayMusicTrack(int track) throws IOException
+    {
+        // TODO
+        LOGGER.warn("play music track test not implemented");
+    }
+
+    @Test
+    public void testPlayMusicUrl(URL url) throws IOException
+    {
+        // TODO
+        LOGGER.warn("play music url test not implemented");
     }
 
     @Test
