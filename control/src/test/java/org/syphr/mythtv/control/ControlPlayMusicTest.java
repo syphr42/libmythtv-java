@@ -29,6 +29,7 @@ import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.prom.PropertiesManager;
 
 public class ControlPlayMusicTest
@@ -37,6 +38,8 @@ public class ControlPlayMusicTest
 
     private static PropertiesManager<Settings> settings;
     private static Control control;
+
+    private static boolean notSupported;
 
     @BeforeClass
     public static void setUpBeforeClass() throws IOException
@@ -52,13 +55,27 @@ public class ControlPlayMusicTest
             Assert.fail("Frontend failed to start music player");
             return;
         }
+
+        try
+        {
+            control.playMusicPlay();
+        }
+        catch (UnsupportedOperationException e)
+        {
+            LOGGER.warn("Skipping music tests since it is not supported by this control version");
+            notSupported = true;
+            return;
+        }
     }
 
     @AfterClass
     public static void tearDownAfterClass() throws IOException, CommandException
     {
-        control.playMusicStop();
-        Utils.waitSeconds(5, "stop playing music");
+        if (!notSupported)
+        {
+            control.playMusicStop();
+            Utils.waitSeconds(5, "stop playing music");
+        }
 
         control.jump(FrontendLocation.MAIN_MENU);
         control.exit();
@@ -67,6 +84,11 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicPause() throws IOException, CommandException
     {
+        if (notSupported)
+        {
+            return;
+        }
+
         control.playMusicPause();
         Utils.waitSeconds(2, "pause music");
     }
@@ -74,6 +96,11 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicPlay() throws IOException, CommandException
     {
+        if (notSupported)
+        {
+            return;
+        }
+
         control.playMusicPlay();
         Utils.waitSeconds(5, "play music");
     }
@@ -81,6 +108,11 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicSetVolume() throws IOException, CommandException
     {
+        if (notSupported)
+        {
+            return;
+        }
+
         control.playMusicSetVolume(50);
         Utils.waitSeconds(2, "set music volume to 50%");
     }
@@ -88,6 +120,11 @@ public class ControlPlayMusicTest
     @Test(expected = ProtocolException.class)
     public void testPlayVolumeTooLow() throws IOException, CommandException
     {
+        if (notSupported)
+        {
+            throw new ProtocolException("not supported", Direction.SEND);
+        }
+
         control.playMusicSetVolume(-1);
         Utils.waitSeconds(2, "set music volume to -1%");
     }
@@ -95,6 +132,11 @@ public class ControlPlayMusicTest
     @Test(expected = ProtocolException.class)
     public void testPlayVolumeTooHigh() throws IOException, CommandException
     {
+        if (notSupported)
+        {
+            throw new ProtocolException("not supported", Direction.SEND);
+        }
+
         control.playMusicSetVolume(101);
         Utils.waitSeconds(2, "set music volume to 101%");
     }
@@ -102,30 +144,55 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicGetVolume() throws IOException, CommandException
     {
+        if (notSupported)
+        {
+            return;
+        }
+
         LOGGER.debug("Volume: {}", control.playMusicGetVolume());
     }
 
     @Test
     public void testPlayMusicGetMeta() throws IOException, CommandException
     {
+        if (notSupported)
+        {
+            return;
+        }
+
         LOGGER.debug("Metadata: {}", control.playMusicGetMeta());
     }
 
     @Test
     public void testPlayMusicFile() throws IOException, CommandException
     {
+        if (notSupported)
+        {
+            return;
+        }
+
         // TODO
     }
 
     @Test
     public void testPlayMusicTrack() throws IOException, CommandException
     {
+        if (notSupported)
+        {
+            return;
+        }
+
         // TODO
     }
 
     @Test
     public void testPlayMusicUrl() throws IOException, CommandException
     {
+        if (notSupported)
+        {
+            return;
+        }
+
         // TODO
     }
 }
