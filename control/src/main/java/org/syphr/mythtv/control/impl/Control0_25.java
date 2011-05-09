@@ -20,6 +20,7 @@ import java.net.URL;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.data.MusicInfo;
 import org.syphr.mythtv.util.exception.CommandException;
 
 public class Control0_25 extends Control0_24
@@ -29,38 +30,37 @@ public class Control0_25 extends Control0_24
     @Override
     public void playMusicPlay() throws IOException
     {
-        throw new UnsupportedOperationException();
+        new Command0_25PlayMusicPlay().send(getSocketManager());
     }
 
     @Override
     public void playMusicPause() throws IOException
     {
-        // TODO
+        new Command0_25PlayMusicPause().send(getSocketManager());
     }
 
     @Override
     public void playMusicStop() throws IOException
     {
-        // TODO
+        new Command0_25PlayMusicStop().send(getSocketManager());
     }
 
     @Override
     public void playMusicSetVolume(int percent) throws IOException
     {
-        // TODO
+        new Command0_25PlayMusicSetVolume(percent).send(getSocketManager());
     }
 
     @Override
     public int playMusicGetVolume() throws IOException
     {
-        // TODO
-        return 0;
+        return new Command0_25PlayMusicGetVolume().send(getSocketManager());
     }
 
     @Override
-    public void playMusicGetMeta() throws IOException
+    public MusicInfo playMusicGetMeta() throws IOException
     {
-        // TODO
+        return new Command0_25PlayMusicGetMeta().send(getSocketManager());
     }
 
     @Override

@@ -24,6 +24,7 @@ import java.util.Set;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
+import org.syphr.mythtv.data.MusicInfo;
 import org.syphr.mythtv.data.PlaybackInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.VersionInfo;
@@ -174,7 +175,7 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playMusicGetMeta() throws IOException
+    public MusicInfo playMusicGetMeta() throws IOException
     {
         throw new UnsupportedOperationException();
     }

@@ -24,6 +24,7 @@ import java.util.Set;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
+import org.syphr.mythtv.data.MusicInfo;
 import org.syphr.mythtv.data.PlaybackInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.VersionInfo;
@@ -394,7 +395,8 @@ public interface Control
     public void playStop() throws IOException, CommandException;
 
     /**
-     * TODO
+     * Request that the frontend start playing music. This command will only
+     * work when the frontend is already in {@link FrontendLocation#PLAY_MUSIC}.
      *
      * @throws IOException
      *             if there is a communication or protocol error
@@ -404,7 +406,8 @@ public interface Control
     public void playMusicPlay() throws IOException;
 
     /**
-     * TODO
+     * Request that the frontend pause music playback. This command will only
+     * work when the frontend is already in {@link FrontendLocation#PLAY_MUSIC}.
      *
      * @throws IOException
      *             if there is a communication or protocol error
@@ -414,7 +417,8 @@ public interface Control
     public void playMusicPause() throws IOException;
 
     /**
-     * TODO
+     * Request that the frontend stop music playback. This command will only
+     * work when the frontend is already in {@link FrontendLocation#PLAY_MUSIC}.
      *
      * @throws IOException
      *             if there is a communication or protocol error
@@ -424,9 +428,17 @@ public interface Control
     public void playMusicStop() throws IOException;
 
     /**
-     * TODO
+     * Request that the frontend set the volume to the given percentage. This
+     * command will only work when the frontend is already in
+     * {@link FrontendLocation#PLAY_MUSIC}.<br>
+     * <br>
+     * Note that this command will return immediately, but there is no guarantee
+     * of when the volume will be set or if it will be set successfully. Use
+     * {@link #playMusicGetVolume()} to check.
      *
-     * @param percent TODO
+     * @param percent
+     *            the desired volume level as a percent (valid values are 0 -
+     *            100 inclusive)
      * @throws IOException
      *             if there is a communication or protocol error
      *
@@ -436,7 +448,9 @@ public interface Control
 
     /**
      * Request the current volume of the frontend as an integer percentage in
-     * the range 0-100.
+     * the range 0-100. This
+     * command will only work when the frontend is already in
+     * {@link FrontendLocation#PLAY_MUSIC}
      *
      * @return the current volume
      * @throws IOException
@@ -447,14 +461,17 @@ public interface Control
     public int playMusicGetVolume() throws IOException;
 
     /**
-     * TODO
+     * Request metadata about the currently playing track. This command will
+     * only work when the frontend is already in
+     * {@link FrontendLocation#PLAY_MUSIC}
      *
+     * @return the relevant metadata
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 0.25
      */
-    public void playMusicGetMeta() throws IOException;
+    public MusicInfo playMusicGetMeta() throws IOException;
 
     /**
      * TODO
