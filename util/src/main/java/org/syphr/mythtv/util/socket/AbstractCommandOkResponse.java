@@ -17,7 +17,6 @@ package org.syphr.mythtv.util.socket;
 
 import java.io.IOException;
 
-
 public abstract class AbstractCommandOkResponse extends AbstractCommand<Void>
 {
     @Override
