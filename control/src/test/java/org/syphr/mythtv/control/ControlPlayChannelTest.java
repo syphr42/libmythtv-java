@@ -65,7 +65,7 @@ public class ControlPlayChannelTest
     public static void tearDownAfterClass() throws IOException, CommandException
     {
         control.playStop();
-        Utils.waitSeconds(5, "stop playing");
+        Utils.waitSeconds(5, "stop playing video");
 
         control.jump(FrontendLocation.MAIN_MENU);
         control.exit();
