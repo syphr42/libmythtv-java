@@ -17,7 +17,7 @@
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 	<body>
-		<section name="MythTV Java API">
+		<section name="Java Access to MythTV">
 			<p>libmythtv-java is an API to access the MythTV ecosystem. It provides a low-level backend protocol implementation that is easily extensible as MythTV development continues. In the future, this library will also provide higher-level APIs for interacting with all elements of MythTV.</p> 
 			<p><a href="http://mythtv.org">MythTV</a> is an open source DVR system that provides a distributed client/server model for recording and watching TV as well as a full media environment for movies, music, and games.</p>
 			<p><b>Please note that this project and its author are not in any way affiliated with the MythTV project and are in no way endorsed by that project or its authors.</b></p>
