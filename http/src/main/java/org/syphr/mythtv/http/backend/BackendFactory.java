@@ -51,14 +51,14 @@ public class BackendFactory
 
         try
         {
-            String mainAppPath = type.getSimpleName();
-            version = Version.parse(connMan.getXml(mainAppPath, "version"));
+            String mainAppName = type.getSimpleName();
+            version = Version.parse(connMan.getXml(mainAppName, "version"));
             Class<T> clazz = (Class) Class.forName("org.syphr.mythtv.http.backend.impl."
                                                    + type.getSimpleName()
                                                    + version.getValue()
                                                             .replace('.', '_'));
 
-            return clazz.getConstructor(ConnectionManager.class).newInstance(connMan.extend(URI.create(mainAppPath)));
+            return clazz.getConstructor(ConnectionManager.class).newInstance(connMan.extend(URI.create("/" + mainAppName)));
         }
         catch (IllegalArgumentException e)
         {

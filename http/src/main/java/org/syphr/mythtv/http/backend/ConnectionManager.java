@@ -18,14 +18,14 @@ package org.syphr.mythtv.http.backend;
 import java.net.URI;
 
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
 
+import org.apache.wink.client.ClientRuntimeException;
+import org.apache.wink.client.ClientWebException;
+import org.apache.wink.client.Resource;
+import org.apache.wink.client.RestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
-import com.sun.jersey.api.client.WebResource;
 
 /**
  * This class manages HTTP requests to the backend with a convenient API to retrieve data
@@ -39,7 +39,7 @@ public class ConnectionManager
 
     private final URI base;
 
-    private final Client client;
+    private final RestClient client;
 
     public ConnectionManager(String host, int port)
     {
@@ -48,10 +48,10 @@ public class ConnectionManager
 
     public ConnectionManager(URI base)
     {
-        this(base, Client.create());
+        this(base, new RestClient());
     }
 
-    private ConnectionManager(URI base, Client client)
+    private ConnectionManager(URI base, RestClient client)
     {
         this.base = base;
         this.client = client;
@@ -86,69 +86,71 @@ public class ConnectionManager
     // TODO need to take arguments
     public String getXml(String... paths) throws ContentException
     {
-        WebResource wr = getWebResource(paths);
-        logger.trace("Requesting XML from URI: {}", wr.getURI());
+        Resource resource = getResource(paths);
+        logger.trace("Requesting XML from URI: {}", resource.getUriBuilder().build());
 
-        return getData(MediaType.APPLICATION_XML_TYPE, wr);
+        return getData(MediaType.APPLICATION_XML_TYPE, resource);
     }
 
     // TODO need to take arguments
     public String getJson(String... paths) throws ContentException
     {
-        WebResource wr = getWebResource(paths);
-        logger.trace("Requesting JSON from URI: {}", wr.getURI());
+        Resource resource = getResource(paths);
+        logger.trace("Requesting JSON from URI: {}", resource.getUriBuilder().build());
 
-        return getData(MediaType.APPLICATION_JSON_TYPE, wr);
+        return getData(MediaType.APPLICATION_JSON_TYPE, resource);
     }
 
     public void put(String data, String... paths) throws ContentException
     {
-        WebResource wr = getWebResource(paths);
-
-        // TODO encode data into uri or as payload
-
-        logger.trace("Posting to URI: {} :: {}", wr.getURI(), data);
-
-        try
-        {
-            wr.post();
-        }
-        catch (UniformInterfaceException e)
-        {
-            throw new ContentException(e.getMessage(), e);
-        }
-        catch (ClientHandlerException e)
-        {
-            throw new ContentException(e.getMessage(), e);
-        }
+//        Resource wr = getWebResource(paths);
+//
+//        // TODO encode data into uri or as payload
+//
+//        logger.trace("Posting to URI: {} :: {}", wr.getUriBuilder().build(), data);
+//
+//        try
+//        {
+//            wr.post();
+//        }
+//        catch (ClientWebException e)
+//        {
+//            throw new ContentException(e.getMessage(), e);
+//        }
+//        catch (ClientRuntimeException e)
+//        {
+//            throw new ContentException(e.getMessage(), e);
+//        }
     }
 
-    private WebResource getWebResource(String... paths)
+    private Resource getResource(String... paths)
     {
-        WebResource wr = client.resource(base);
+        Resource resource = client.resource(base);
+        UriBuilder uriBuilder = resource.getUriBuilder();
+
         for (String path : paths)
         {
-            wr = wr.path(path);
+            uriBuilder.path(path);
         }
 
-        return wr;
+        return resource;
     }
 
-    private String getData(MediaType mediaType, WebResource wr) throws ContentException
+    private String getData(MediaType mediaType, Resource resource) throws ContentException
     {
         try
         {
-            String data = wr.accept(mediaType).get(String.class);
+            String data = resource.accept(mediaType).get(String.class);
 
             logger.trace("Received response: {}", data);
 
             return data;
         }
-        catch (UniformInterfaceException e)
+        catch (ClientWebException e)
         {
             throw new ContentException(e.getMessage(), e);
         }
-        catch (ClientHandlerException e)
+        catch (ClientRuntimeException e)
         {
             throw new ContentException(e.getMessage(), e);
         }
