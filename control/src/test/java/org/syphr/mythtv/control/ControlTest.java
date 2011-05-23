@@ -55,6 +55,7 @@ public class ControlTest
          * Make sure the tests start at the main menu.
          */
         control.jump(FrontendLocation.MAIN_MENU);
+        Utils.waitSeconds(2, "jump to the main menu");
     }
 
     @AfterClass
@@ -67,14 +68,18 @@ public class ControlTest
     public void testJump() throws IOException
     {
         control.jump(FrontendLocation.MYTH_VIDEO);
+        Utils.waitSeconds(2, "jump to myth video");
         control.jump(FrontendLocation.MAIN_MENU);
+        Utils.waitSeconds(2, "jump to the main menu");
     }
 
     @Test
     public void testKey() throws IOException
     {
         control.key('m');
+        Utils.waitSeconds(1, "show the context menu");
         control.key(Key.ESCAPE);
+        Utils.waitSeconds(1, "escape the context menu");
     }
 
     @Test(expected = CommandException.class)
@@ -133,6 +138,7 @@ public class ControlTest
         Utils.waitSeconds(10, "play program");
 
         control.jump(FrontendLocation.MAIN_MENU);
+        Utils.waitSeconds(2, "jump to the main menu");
     }
 
     @Test(expected = CommandException.class)
