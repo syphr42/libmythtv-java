@@ -80,6 +80,8 @@ public abstract class AbstractControl implements Control
         {
             throw new IOException("Connection interrupted");
         }
+
+        socketManager.setDefaultTimeout(timeout, TimeUnit.MILLISECONDS);
     }
 
     @Override
