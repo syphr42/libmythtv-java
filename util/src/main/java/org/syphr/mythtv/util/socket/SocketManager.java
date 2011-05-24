@@ -63,6 +63,8 @@ public class SocketManager
 
     private ByteChannel redirect;
 
+    private long defaultTimeout;
+
     /**
      * Construct a new socket manager that is not connected to a server.
      *
@@ -112,6 +114,33 @@ public class SocketManager
     public void setInterceptor(Interceptor interceptor)
     {
         this.interceptor = interceptor;
+    }
+
+    /**
+     * Set the default timeout when waiting for a response from the server. A
+     * value of <code>0</code> indicates no timeout (default).
+     *
+     * @param time
+     *            the new default timeout value
+     * @param unit
+     *            the units of the given value
+     */
+    public void setDefaultTimeout(long time, TimeUnit unit)
+    {
+        this.defaultTimeout = unit.toMillis(time);
+    }
+
+    /**
+     * Retrieve the current default timeout for waiting for a response from the
+     * server. A value of <code>0</code> indicates no timeout (default).
+     *
+     * @param unit
+     *            the units to provide
+     * @return the current default timeout in the given units
+     */
+    public long getDefaultTimeout(TimeUnit unit)
+    {
+        return unit.convert(defaultTimeout, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -451,21 +480,22 @@ public class SocketManager
     }
 
     /**
-     * Send a message to the server and wait for a response. This method will wait
-     * indefinitely and should not be used with messages that do not or may not cause the
-     * server to respond.
+     * Send a message to the server and wait for a response. This method will
+     * wait according to the {@link #getDefaultTimeout(TimeUnit) default
+     * timeout}, which may be indefinitely (the default) and should not be used
+     * with messages that do not or may not cause the server to respond.
      *
      * @param message
      *            the message to send
-     * @return the response from the server or <code>null</code> if the thread is
-     *         interrupted
+     * @return the response from the server or an empty string if the thread is
+     *         interrupted or the timeout is reached
      * @throws IOException
      *             if this manager is not connected to a server or some other
      *             communication error occurs
      */
     public String sendAndWait(String message) throws IOException
     {
-        return sendAndWait(message, 0, null);
+        return sendAndWait(message, defaultTimeout, TimeUnit.MILLISECONDS);
     }
 
     /**
