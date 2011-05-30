@@ -18,9 +18,9 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.util.List;
 
-import javax.xml.ws.ProtocolException;
-
 import org.syphr.mythtv.data.DriveInfo;
+import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 
@@ -40,7 +40,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
         if (args.size() != 4)
         {
-            throw new ProtocolException(response);
+            throw new ProtocolException(response, Direction.RECEIVE);
         }
 
         try
@@ -59,7 +59,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
         }
         catch (NumberFormatException e)
         {
-            throw new ProtocolException(response, e);
+            throw new ProtocolException(response, Direction.RECEIVE, e);
         }
     }
 }
