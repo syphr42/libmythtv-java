@@ -40,18 +40,33 @@ import org.syphr.mythtv.util.socket.SocketManager;
         this.location = location;
     }
 
+    protected Channel getChannel()
+    {
+        return channel;
+    }
+
+    protected Date getRecStartTs()
+    {
+        return recStartTs;
+    }
+
+    protected long getLocation()
+    {
+        return location;
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {
         StringBuilder builder = new StringBuilder();
         builder.append("SET_BOOKMARK");
         builder.append(' ');
-        builder.append(channel.getId());
+        builder.append(getChannel().getId());
         builder.append(' ');
-        builder.append(TimeUnit.MILLISECONDS.toSeconds(recStartTs.getTime()));
+        builder.append(TimeUnit.MILLISECONDS.toSeconds(getRecStartTs().getTime()));
         builder.append(' ');
 
-        Pair<String, String> ints = ProtocolUtils.splitLong(location);
+        Pair<String, String> ints = ProtocolUtils.splitLong(getLocation());
         builder.append(ints.getLeft());
         builder.append(' ');
         builder.append(ints.getRight());

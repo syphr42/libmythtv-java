@@ -15,41 +15,27 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.lang3.tuple.Pair;
-import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.socket.AbstractCommand;
+import org.syphr.mythtv.util.socket.SocketManager;
 
-/* default */class Command63QueryRecorderGetKeyframePos extends AbstractCommand63QueryRecorder<Long>
+/* default */class Command66QueryFreeSpaceSummary extends AbstractCommand<DriveInfo>
 {
-    private final long desiredPosition;
-
-    public Command63QueryRecorderGetKeyframePos(int recorderId, long desiredPosition)
+    @Override
+    protected String getMessage() throws org.syphr.mythtv.util.exception.ProtocolException
     {
-        super(recorderId);
-        this.desiredPosition = desiredPosition;
-    }
-
-    protected long getDesiredPosition()
-    {
-        return desiredPosition;
+        return "QUERY_FREE_SPACE_SUMMARY";
     }
 
     @Override
-    protected String getSubCommand() throws ProtocolException
+    public DriveInfo send(SocketManager socketManager) throws IOException
     {
-        Pair<String, String> ints = ProtocolUtils.splitLong(getDesiredPosition());
-
-        return Protocol63Utils.combineArguments("GET_KEYFRAME_POS",
-                                                ints.getLeft(),
-                                                ints.getRight());
-    }
-
-    @Override
-    public Long parseResponse(String response) throws ProtocolException, CommandException
-    {
+        String response = socketManager.sendAndWait(getMessage());
         List<String> args = Protocol63Utils.splitArguments(response);
 
         if (args.size() != 2)
@@ -57,14 +43,19 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
             throw new ProtocolException(response, Direction.RECEIVE);
         }
 
-        if ("-1".equals(args.get(0)))
-        {
-            throw new CommandException("Unable to determine the keyframe position");
-        }
-
         try
         {
-            return ProtocolUtils.combineInts(args.get(0), args.get(1));
+            long totalSpace = Long.parseLong(args.get(0));
+            long usedSpace = Long.parseLong(args.get(1));
+
+            return new DriveInfo(null,
+                                 null,
+                                 false,
+                                 -1,
+                                 -1,
+                                 -1,
+                                 totalSpace,
+                                 usedSpace);
         }
         catch (NumberFormatException e)
         {

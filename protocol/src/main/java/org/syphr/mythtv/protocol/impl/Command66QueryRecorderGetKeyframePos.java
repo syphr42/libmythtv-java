@@ -15,56 +15,35 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.util.List;
-
-import org.apache.commons.lang3.tuple.Pair;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 
-/* default */class Command63QueryRecorderGetKeyframePos extends AbstractCommand63QueryRecorder<Long>
+/* default */class Command66QueryRecorderGetKeyframePos extends Command63QueryRecorderGetKeyframePos
 {
-    private final long desiredPosition;
-
-    public Command63QueryRecorderGetKeyframePos(int recorderId, long desiredPosition)
+    public Command66QueryRecorderGetKeyframePos(int recorderId, long desiredPosition)
     {
-        super(recorderId);
-        this.desiredPosition = desiredPosition;
-    }
-
-    protected long getDesiredPosition()
-    {
-        return desiredPosition;
+        super(recorderId, desiredPosition);
     }
 
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        Pair<String, String> ints = ProtocolUtils.splitLong(getDesiredPosition());
-
         return Protocol63Utils.combineArguments("GET_KEYFRAME_POS",
-                                                ints.getLeft(),
-                                                ints.getRight());
+                                                String.valueOf(getDesiredPosition()));
     }
 
     @Override
     public Long parseResponse(String response) throws ProtocolException, CommandException
     {
-        List<String> args = Protocol63Utils.splitArguments(response);
-
-        if (args.size() != 2)
-        {
-            throw new ProtocolException(response, Direction.RECEIVE);
-        }
-
-        if ("-1".equals(args.get(0)))
+        if ("-1".equals(response))
         {
             throw new CommandException("Unable to determine the keyframe position");
         }
 
         try
         {
-            return ProtocolUtils.combineInts(args.get(0), args.get(1));
+            return Long.parseLong(response);
         }
         catch (NumberFormatException e)
         {

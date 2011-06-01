@@ -13,12 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol;
+package org.syphr.mythtv.protocol.impl;
 
-public enum ProtocolVersion
+import java.io.IOException;
+
+import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
+
+public class QueryRemoteEncoder66 extends QueryRemoteEncoder63
 {
-    _63,
-    _64,
-    _65,
-    _66
+    public QueryRemoteEncoder66(int recorderId, SocketManager socketManager)
+    {
+        super(recorderId, socketManager);
+    }
+
+    @Override
+    public long getMaxBitrate() throws IOException, CommandException
+    {
+        return new Command66QueryRemoteEncoderGetMaxBitrate(getRecorderId()).send(getSocketManager());
+    }
 }

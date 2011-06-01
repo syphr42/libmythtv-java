@@ -13,12 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol;
+package org.syphr.mythtv.protocol.impl;
 
-public enum ProtocolVersion
+import java.io.IOException;
+import java.util.List;
+
+import org.syphr.mythtv.data.DriveInfo;
+import org.syphr.mythtv.util.socket.SocketManager;
+
+/* default */class Command66QueryFreeSpace extends Command63QueryFreeSpace
 {
-    _63,
-    _64,
-    _65,
-    _66
+    @Override
+    public List<DriveInfo> send(SocketManager socketManager) throws IOException
+    {
+        String response = socketManager.sendAndWait(getMessage());
+        return Protocol66Utils.parseDriveInfo(response);
+    }
 }

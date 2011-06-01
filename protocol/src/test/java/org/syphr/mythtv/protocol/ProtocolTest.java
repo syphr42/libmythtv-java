@@ -323,6 +323,18 @@ public class ProtocolTest
     }
 
     @Test
+    public void testQueryGenPixMap2() throws IOException, CommandException
+    {
+        List<Program> programs = proto.queryGetExpiring();
+        if (programs.isEmpty())
+        {
+            return;
+        }
+
+        proto.queryGenPixMap2(getClass().getName(), programs.get(0));
+    }
+
+    @Test
     public void testQueryGetAllPending() throws IOException
     {
         UpcomingRecordings upcoming = proto.queryGetAllPending();
@@ -681,18 +693,6 @@ public class ProtocolTest
 //        Program undelete = expiring.get(0);
 //        LOGGER.debug("Undeleting \"{}\" : \"{}\"", undelete.getTitle(), undelete.getSubtitle());
 //        Assert.assertTrue(proto.undeleteRecording(undelete));
-//    }
-//
-//    @Test
-//    public void testQueryGenPixMap2() throws IOException, CommandException
-//    {
-//        List<Program> programs = proto.queryGetExpiring();
-//        if (programs.isEmpty())
-//        {
-//            return;
-//        }
-//
-//        proto.queryGenPixMap2(getClass().getName(), programs.get(0));
 //    }
 //
 //    @Test
