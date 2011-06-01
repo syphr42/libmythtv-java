@@ -18,31 +18,13 @@ package org.syphr.mythtv.db;
 public enum SchemaVersion
 {
     _1264(1264),
-    _1265(_1264),
-
-    _1266(1266),
-    _1267(_1266),
-
-    _1268(1268),
-    _1269(_1268),
-    _1270(_1268),
-
-    _1271(1271),
-
-    _1272(1272),
-
-    _1273(1273);
+    _1275(1275);
 
     private final int value;
 
     private SchemaVersion(int value)
     {
         this.value = value;
-    }
-
-    private SchemaVersion(SchemaVersion version)
-    {
-        this.value = version.getValue();
     }
 
     public int getValue()

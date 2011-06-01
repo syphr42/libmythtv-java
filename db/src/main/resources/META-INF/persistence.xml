@@ -20,7 +20,7 @@
 	version="2.0">
 
 	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1264">
-		<description>MythTV database schema version 1264</description>
+		<description>MythTV database schema version for 0.24</description>
 
 		<class>org.syphr.mythtv.db.schema.impl.Channel1264</class>
 		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
@@ -36,31 +36,12 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			
 			<property name="hibernate.archive.autodetection" value="none" />
+			<property name="openjpa.RuntimeUnenhancedClasses" value="supported" />
 		</properties>
 	</persistence-unit>
 	
-	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1266">
-		<description>MythTV database schema version 1266</description>
-
-		<class>org.syphr.mythtv.db.schema.impl.Channel1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.ProgramId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Recorded1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.RecordedId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
-		
-		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			
-			<property name="hibernate.archive.autodetection" value="none" />
-		</properties>
-	</persistence-unit>
-	
-	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1268">
-		<description>MythTV database schema version 1268</description>
+	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1275">
+		<description>MythTV database schema version 0.25</description>
 
 		<class>org.syphr.mythtv.db.schema.impl.Channel1268</class>
 		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
@@ -76,66 +57,7 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			
 			<property name="hibernate.archive.autodetection" value="none" />
-		</properties>
-	</persistence-unit>
-	
-	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1271">
-		<description>MythTV database schema version 1271</description>
-
-		<class>org.syphr.mythtv.db.schema.impl.Channel1268</class>
-		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.ProgramId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Recorded1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.RecordedId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
-		
-		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			
-			<property name="hibernate.archive.autodetection" value="none" />
-		</properties>
-	</persistence-unit>
-	
-	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1272">
-		<description>MythTV database schema version 1272</description>
-
-		<class>org.syphr.mythtv.db.schema.impl.Channel1268</class>
-		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.ProgramId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Recorded1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.RecordedId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
-		
-		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			
-			<property name="hibernate.archive.autodetection" value="none" />
-		</properties>
-	</persistence-unit>
-	
-	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1273">
-		<description>MythTV database schema version 1273</description>
-
-		<class>org.syphr.mythtv.db.schema.impl.Channel1268</class>
-		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.ProgramId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Recorded1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.RecordedId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
-		
-		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			
-			<property name="hibernate.archive.autodetection" value="none" />
+			<property name="openjpa.RuntimeUnenhancedClasses" value="supported" />
 		</properties>
 	</persistence-unit>
 </persistence>
