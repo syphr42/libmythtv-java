@@ -182,11 +182,18 @@ public class ControlPlayChannelTest
         Utils.waitSeconds(10, "play at 1.5x speed");
     }
 
-    @Test
-    public void testPlaySpeedBack() throws IOException, CommandException
+    @Test(expected = ProtocolException.class)
+    public void testPlaySpeedBackInvalid() throws IOException, CommandException
     {
         control.playSpeed(-0.5f);
         Utils.waitSeconds(10, "play at -0.5x speed");
+    }
+
+    @Test
+    public void testPlaySpeedBack() throws IOException, CommandException
+    {
+        control.playSpeed(-3.0f);
+        Utils.waitSeconds(10, "play at -3.0x speed");
     }
 
     @Test

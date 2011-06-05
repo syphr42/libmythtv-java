@@ -357,16 +357,18 @@ public interface Control
     public void playSeek(int hour, int minute, int second) throws IOException, CommandException;
 
     /**
-     * Request that the frontend change playback speed. This command will only work when
-     * the frontend is already in {@link FrontendLocation#PLAYBACK}.<br>
+     * Request that the frontend change playback speed. This command will only
+     * work when the frontend is already in {@link FrontendLocation#PLAYBACK}.<br>
      * <br>
-     * Note that this command will return immediately, but there is no guarantee of when
-     * the seek will occur or if it will happen successfully. Use
+     * Note that this command will return immediately, but there is no guarantee
+     * of when the seek will occur or if it will happen successfully. Use
      * {@link #queryPlaybackInfo()} to check.
      *
      * @param speed
-     *            the desired playback speed where <code>0</code> is paused and
-     *            <code>1<code> is normal
+     *            the desired playback speed where <code>0</code> is paused,
+     *            <code>1<code> is normal, positive is forward, and negative is
+     *            rewind; positive values can be integers or decimals, but
+     *            negative values must be integers
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
