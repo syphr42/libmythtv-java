@@ -142,13 +142,15 @@ public class QueryFileTransferTest
     {
         List<Program> programs = commandProto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
 
-        Protocol fileProto = commandProto.newProtocol();
-        fileProto.mythProtoVersion();
-
-        Program targetProgram = null;
+        Protocol fileProto = null;
         QueryFileTransfer fileTransfer = null;
+        Program targetProgram = null;
+
         for (Program program : programs)
         {
+            fileProto = commandProto.newProtocol();
+            fileProto.mythProtoVersion();
+
             fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
                                                                 .getHostName(),
                                                      FileTransferType.READ,
@@ -166,13 +168,12 @@ public class QueryFileTransferTest
             else
             {
                 fileTransfer.done();
+                fileProto.done();
             }
         }
 
         if (targetProgram == null)
         {
-            fileProto.done();
-
             LOGGER.warn("Skipping read/seek test because a recording with a non-zero length could not be found");
             return;
         }

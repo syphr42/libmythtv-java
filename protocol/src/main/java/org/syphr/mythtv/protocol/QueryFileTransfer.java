@@ -42,7 +42,14 @@ public interface QueryFileTransfer
     public boolean isOpen() throws IOException;
 
     /**
-     * Inform the backend that the client has finished with this file transfer.
+     * Inform the backend that the client has finished with this file transfer.<br>
+     * <br>
+     * After sending this command, {@link Protocol#done()} should be sent and
+     * this connection should be closed. Reusing the same connection after
+     * issuing a done command (such as attempting to
+     * {@link Protocol#annFileTransfer(String, org.syphr.mythtv.types.FileTransferType, boolean, long, java.net.URI, String, Protocol)
+     * announce a new file transfer}) will not throw an error, but it will not
+     * function correctly. MythTV requires a new connection in this instance.
      *
      * @throws IOException
      *             if there is a communication or protocol error
