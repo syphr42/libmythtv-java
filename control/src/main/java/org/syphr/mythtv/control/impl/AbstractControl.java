@@ -101,11 +101,5 @@ public abstract class AbstractControl implements Control
         return getTranslator().getAllowed(type);
     }
 
-    @Override
-    public void exit() throws IOException
-    {
-        socketManager.disconnect();
-    }
-
     protected abstract Translator getTranslator();
 }

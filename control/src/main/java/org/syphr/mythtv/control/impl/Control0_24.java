@@ -33,6 +33,7 @@ import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 
 public class Control0_24 extends AbstractControl
@@ -327,8 +328,19 @@ public class Control0_24 extends AbstractControl
     @Override
     public void exit() throws IOException
     {
-        new Command0_24Exit().send(getSocketManager());
-        super.exit();
+        SocketManager socketManager = getSocketManager();
+
+        try
+        {
+            new Command0_24Exit().send(socketManager);
+        }
+        finally
+        {
+            /*
+             * Make sure the connection is closed after an exit command.
+             */
+            socketManager.disconnect();
+        }
     }
 
     @Override
