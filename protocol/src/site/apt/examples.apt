@@ -18,7 +18,6 @@ Direct Myth Protocol Access
   System.out.println("Backend time: " + timeInfo.getDateTime());
   
   proto.done();
-  socketManager.disconnect();
 +------------------------------------------------------
 
 Backend Events
@@ -48,23 +47,16 @@ Backend Events
   System.out.println("Hit [ENTER] to quit.");
   System.out.println();
 
+  proto.mythProtoVersion();
+  proto.ann(ConnectionType.MONITOR, InetAddress.getLocalHost().getHostName(), level);
+  
   try
   {
-        proto.mythProtoVersion();
-        proto.ann(ConnectionType.MONITOR, InetAddress.getLocalHost().getHostName(), level);
-    
-        try
-        {
-            BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-            input.readLine();
-        }
-        finally
-        {
-            proto.done();
-        }
+      BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+      input.readLine();
   }
   finally
   {
-        socketManager.disconnect();
+      proto.done();
   }
 +------------------------------------------------------
