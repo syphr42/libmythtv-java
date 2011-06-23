@@ -476,9 +476,12 @@ public interface Control
     public MusicInfo playMusicGetMeta() throws IOException;
 
     /**
-     * TODO
+     * Request that the frontend start playing the given file. This command will
+     * only work when the frontend is already in
+     * {@link FrontendLocation#PLAY_MUSIC}.
      *
-     * @param filename TODO
+     * @param filename
+     *            the name of the file to play
      * @throws IOException
      *             if there is a communication or protocol error
      *
@@ -487,9 +490,12 @@ public interface Control
     public void playMusicFile(String filename) throws IOException;
 
     /**
-     * TODO
+     * Request that the frontend start playing the given track. This command
+     * will only work when the frontend is already in
+     * {@link FrontendLocation#PLAY_MUSIC}.
      *
-     * @param track TODO
+     * @param track
+     *            the track number to play
      * @throws IOException
      *             if there is a communication or protocol error
      *
@@ -498,9 +504,12 @@ public interface Control
     public void playMusicTrack(int track) throws IOException;
 
     /**
-     * TODO
+     * Request that the frontend start streaming music from the given URL. This
+     * command will only work when the frontend is already in
+     * {@link FrontendLocation#PLAY_MUSIC}.
      *
-     * @param url TODO
+     * @param url
+     *            the URL of the music stream to play
      * @throws IOException
      *             if there is a communication or protocol error
      *
