@@ -16,6 +16,7 @@
 package org.syphr.mythtv.control;
 
 import java.io.IOException;
+import java.net.URL;
 
 import junit.framework.Assert;
 
@@ -39,7 +40,7 @@ public class ControlPlayMusicTest
     private static PropertiesManager<Settings> settings;
     private static Control control;
 
-    private static boolean notSupported;
+    private static boolean supported = true;
 
     @BeforeClass
     public static void setUpBeforeClass() throws IOException
@@ -63,7 +64,7 @@ public class ControlPlayMusicTest
         catch (UnsupportedOperationException e)
         {
             LOGGER.warn("Skipping music tests since it is not supported by this control version");
-            notSupported = true;
+            supported = false;
             return;
         }
     }
@@ -71,7 +72,7 @@ public class ControlPlayMusicTest
     @AfterClass
     public static void tearDownAfterClass() throws IOException, CommandException
     {
-        if (!notSupported)
+        if (supported)
         {
             control.playMusicStop();
             Utils.waitSeconds(5, "stop playing music");
@@ -84,7 +85,7 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicPause() throws IOException, CommandException
     {
-        if (notSupported)
+        if (!supported)
         {
             return;
         }
@@ -96,7 +97,7 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicPlay() throws IOException, CommandException
     {
-        if (notSupported)
+        if (!supported)
         {
             return;
         }
@@ -108,7 +109,7 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicSetVolume() throws IOException, CommandException
     {
-        if (notSupported)
+        if (!supported)
         {
             return;
         }
@@ -120,7 +121,7 @@ public class ControlPlayMusicTest
     @Test(expected = ProtocolException.class)
     public void testPlayVolumeTooLow() throws IOException, CommandException
     {
-        if (notSupported)
+        if (!supported)
         {
             throw new ProtocolException("not supported", Direction.SEND);
         }
@@ -132,7 +133,7 @@ public class ControlPlayMusicTest
     @Test(expected = ProtocolException.class)
     public void testPlayVolumeTooHigh() throws IOException, CommandException
     {
-        if (notSupported)
+        if (!supported)
         {
             throw new ProtocolException("not supported", Direction.SEND);
         }
@@ -144,7 +145,7 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicGetVolume() throws IOException, CommandException
     {
-        if (notSupported)
+        if (!supported)
         {
             return;
         }
@@ -155,7 +156,7 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicGetMeta() throws IOException, CommandException
     {
-        if (notSupported)
+        if (!supported)
         {
             return;
         }
@@ -166,33 +167,36 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicFile() throws IOException, CommandException
     {
-        if (notSupported)
+        if (!supported)
         {
             return;
         }
 
-        // TODO
+        control.playMusicFile("/var/lib/mythtv/music/test with spaces.mp3");
+        Utils.waitSeconds(5, "play music file");
     }
 
     @Test
     public void testPlayMusicTrack() throws IOException, CommandException
     {
-        if (notSupported)
+        if (!supported)
         {
             return;
         }
 
-        // TODO
+        control.playMusicTrack(1);
+        Utils.waitSeconds(5, "play music track");
     }
 
     @Test
     public void testPlayMusicUrl() throws IOException, CommandException
     {
-        if (notSupported)
+        if (!supported)
         {
             return;
         }
 
-        // TODO
+        control.playMusicUrl(new URL("http://scfire-mtc-aa05.stream.aol.com:80/stream/1010"));
+        Utils.waitSeconds(5, "play music url");
     }
 }

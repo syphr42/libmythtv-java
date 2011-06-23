@@ -66,19 +66,19 @@ public class Control0_25 extends Control0_24
     @Override
     public void playMusicFile(String filename) throws IOException
     {
-        // TODO
+        new Command0_25PlayMusicFile(filename).send(getSocketManager());
     }
 
     @Override
     public void playMusicTrack(int track) throws IOException
     {
-        // TODO
+        new Command0_25PlayMusicTrack(track).send(getSocketManager());
     }
 
     @Override
     public void playMusicUrl(URL url) throws IOException
     {
-        // TODO
+        new Command0_25PlayMusicUrl(url).send(getSocketManager());
     }
 
     @Override
