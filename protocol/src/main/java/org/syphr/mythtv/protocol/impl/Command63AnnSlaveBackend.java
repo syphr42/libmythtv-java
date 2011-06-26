@@ -16,17 +16,22 @@
 package org.syphr.mythtv.protocol.impl;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 
 /* default */class Command63AnnSlaveBackend extends AbstractCommandOkResponse
 {
     private final InetAddress address;
+    private final Program[] recordings;
 
-    public Command63AnnSlaveBackend(InetAddress address)
+    public Command63AnnSlaveBackend(InetAddress address, Program... recordings)
     {
         this.address = address;
+        this.recordings = recordings;
     }
 
     @Override
@@ -38,6 +43,14 @@ import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
         builder.append(' ');
         builder.append(address.getHostAddress());
 
-        return builder.toString();
+        List<String> args = new ArrayList<String>();
+        args.add(builder.toString());
+
+        for (Program recording : recordings)
+        {
+            args.addAll(Protocol63Utils.extractProgramInfo(recording));
+        }
+
+        return Protocol63Utils.combineArguments(args);
     }
 }

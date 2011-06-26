@@ -108,9 +108,9 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void annSlaveBackend(InetAddress address) throws IOException
+    public void annSlaveBackend(InetAddress address, Program... recordings) throws IOException
     {
-        new Command63AnnSlaveBackend(address).send(getSocketManager());
+        new Command63AnnSlaveBackend(address, recordings).send(getSocketManager());
 
     }
 

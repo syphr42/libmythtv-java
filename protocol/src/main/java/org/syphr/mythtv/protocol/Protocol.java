@@ -97,12 +97,14 @@ public interface Protocol
      *
      * @param address
      *            the address of this host
+     * @param programs
+     *            all recordings that are managed by this slave backend
      * @throws IOException
      *             if there is a communication or protocol error
      *
      * @since 63
      */
-    public void annSlaveBackend(InetAddress address) throws IOException;
+    public void annSlaveBackend(InetAddress address, Program... recordings) throws IOException;
 
     /**
      * Announce this connection to the backend with the intention of

@@ -17,12 +17,15 @@ package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
@@ -53,9 +56,16 @@ public class SlaveBackendTest
     }
 
     @Test
-    public void testAnnSlaveBackend() throws IOException
+    public void testAnnSlaveBackend() throws IOException, CommandException
     {
+        Protocol infoProto = proto.newProtocol();
+        infoProto.mythProtoVersion();
+        infoProto.ann(ConnectionType.MONITOR, settings.getProperty(Settings.BACKEND_SLAVE_HOST), EventLevel.NONE);
+        List<Program> recordings = infoProto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+        infoProto.done();
+
+
         String slaveHost = settings.getProperty(Settings.BACKEND_SLAVE_HOST);
-        proto.annSlaveBackend(InetAddress.getByName(slaveHost));
+        proto.annSlaveBackend(InetAddress.getByName(slaveHost), recordings.toArray(new Program[recordings.size()]));
     }
 }
