@@ -20,6 +20,8 @@ import java.net.URISyntaxException;
 import java.util.Date;
 
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.types.RecordingDupIn;
+import org.syphr.mythtv.types.RecordingDupMethod;
 import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.RecordingType;
 
@@ -42,8 +44,8 @@ public class Program
     private final RecordingStatus recStatus;
     private final int recordId;
     private final RecordingType recType;
-    private final int dupIn;
-    private final int dupMethod;
+    private final RecordingDupIn dupIn;
+    private final RecordingDupMethod dupMethod;
     private final Date recStartTs;
     private final Date recEndTs;
     private final long programFlags;
@@ -87,8 +89,8 @@ public class Program
              null,
              0,
              null,
-             0,
-             0,
+             null,
+             null,
              recStartTs,
              null,
              0,
@@ -131,8 +133,8 @@ public class Program
              null,
              0,
              null,
-             0,
-             0,
+             null,
+             null,
              recStartTs,
              null,
              0,
@@ -197,8 +199,8 @@ public class Program
              null,
              0,
              null,
-             0,
-             0,
+             null,
+             null,
              null,
              null,
              0,
@@ -236,8 +238,8 @@ public class Program
                        RecordingStatus recStatus,
                        int recordId,
                        RecordingType recType,
-                       int dupIn,
-                       int dupMethod,
+                       RecordingDupIn dupIn,
+                       RecordingDupMethod dupMethod,
                        Date recStartTs,
                        Date recEndTs,
                        long programFlags,
@@ -397,12 +399,12 @@ public class Program
         return recType;
     }
 
-    public int getDupIn()
+    public RecordingDupIn getDupIn()
     {
         return dupIn;
     }
 
-    public int getDupMethod()
+    public RecordingDupMethod getDupMethod()
     {
         return dupMethod;
     }

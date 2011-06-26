@@ -23,6 +23,9 @@ import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.PictureAdjustType;
 import org.syphr.mythtv.types.RecorderFlag;
 import org.syphr.mythtv.types.RecordingCategory;
+import org.syphr.mythtv.types.RecordingDupIn;
+import org.syphr.mythtv.types.RecordingDupMethod;
+import org.syphr.mythtv.types.RecordingSearchType;
 import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.RecordingType;
 import org.syphr.mythtv.types.SeekOrigin;
@@ -323,6 +326,41 @@ public class Translator63 extends AbstractTranslator
         PICTURE_ADJUST_MAP.put(PictureAdjustType.RECORDING, "3");
     }
 
+    private static final BiMap<RecordingDupIn, String> REC_DUP_IN_MAP = EnumHashBiMap.create(RecordingDupIn.class);
+    static
+    {
+        REC_DUP_IN_MAP.put(RecordingDupIn.NOT_AVAILABLE, "0");
+        REC_DUP_IN_MAP.put(RecordingDupIn.RECORDED, "1");
+        REC_DUP_IN_MAP.put(RecordingDupIn.OLD_RECORDED, "2");
+        REC_DUP_IN_MAP.put(RecordingDupIn.ALL, "15");
+        REC_DUP_IN_MAP.put(RecordingDupIn.NEW_EPISODE, "16");
+        REC_DUP_IN_MAP.put(RecordingDupIn.EXCLUDE_REPEATS, "32");
+        REC_DUP_IN_MAP.put(RecordingDupIn.EXCLUDE_GENERIC, "64");
+        REC_DUP_IN_MAP.put(RecordingDupIn.FIRST_NEW, "128");
+    }
+
+    private static final BiMap<RecordingDupMethod, String> REC_DUP_METHOD_MAP = EnumHashBiMap.create(RecordingDupMethod.class);
+    static
+    {
+        REC_DUP_METHOD_MAP.put(RecordingDupMethod.NOT_AVAILABLE, "0");
+        REC_DUP_METHOD_MAP.put(RecordingDupMethod.NONE, "1");
+        REC_DUP_METHOD_MAP.put(RecordingDupMethod.SUBTITLE, "2");
+        REC_DUP_METHOD_MAP.put(RecordingDupMethod.DESCRIPTION, "4");
+        REC_DUP_METHOD_MAP.put(RecordingDupMethod.SUBTITLE_AND_DESCRIPTION, "6");
+        REC_DUP_METHOD_MAP.put(RecordingDupMethod.SUBTITLE_THEN_DESCRIPTION, "8");
+    }
+
+    private static final BiMap<RecordingSearchType, String> REC_SEARCH_TYPE_MAP = EnumHashBiMap.create(RecordingSearchType.class);
+    static
+    {
+        REC_SEARCH_TYPE_MAP.put(RecordingSearchType.NONE, "1");
+        REC_SEARCH_TYPE_MAP.put(RecordingSearchType.POWER, "2");
+        REC_SEARCH_TYPE_MAP.put(RecordingSearchType.TITLE, "3");
+        REC_SEARCH_TYPE_MAP.put(RecordingSearchType.KEYWORD, "4");
+        REC_SEARCH_TYPE_MAP.put(RecordingSearchType.PEOPLE, "5");
+        REC_SEARCH_TYPE_MAP.put(RecordingSearchType.MANUAL, "6");
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type)
@@ -409,6 +447,21 @@ public class Translator63 extends AbstractTranslator
         if (PictureAdjustType.class.equals(type))
         {
             return (BiMap)PICTURE_ADJUST_MAP;
+        }
+
+        if (RecordingDupIn.class.equals(type))
+        {
+            return (BiMap)REC_DUP_IN_MAP;
+        }
+
+        if (RecordingDupMethod.class.equals(type))
+        {
+            return (BiMap)REC_DUP_METHOD_MAP;
+        }
+
+        if (RecordingSearchType.class.equals(type))
+        {
+            return (BiMap)REC_SEARCH_TYPE_MAP;
         }
 
         throw new IllegalArgumentException("Unknown type: " + type);

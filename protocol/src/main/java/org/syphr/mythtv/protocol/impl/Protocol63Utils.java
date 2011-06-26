@@ -32,6 +32,8 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.UpcomingRecordings;
+import org.syphr.mythtv.types.RecordingDupIn;
+import org.syphr.mythtv.types.RecordingDupMethod;
 import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.RecordingType;
 import org.syphr.mythtv.util.exception.ProtocolException;
@@ -175,8 +177,8 @@ public class Protocol63Utils
             RecordingStatus recStatus = TRANSLATOR.toEnum(args.get(i++), RecordingStatus.class);
             int recordId = Integer.parseInt(args.get(i++));
             RecordingType recType = TRANSLATOR.toEnum(args.get(i++), RecordingType.class);
-            int dupIn = Integer.parseInt(args.get(i++));
-            int dupMethod = Integer.parseInt(args.get(i++));
+            RecordingDupIn dupIn = TRANSLATOR.toEnum(args.get(i++), RecordingDupIn.class);
+            RecordingDupMethod dupMethod = TRANSLATOR.toEnum(args.get(i++), RecordingDupMethod.class);
             Date recStartTs = getDateTime(args.get(i++));
             Date recEndTs = getDateTime(args.get(i++));
             long programFlags = Long.parseLong(args.get(i++));
@@ -206,42 +208,46 @@ public class Protocol63Utils
             int year = Integer.parseInt(args.get(i++));
 
             return new Program(title,
-                                   subtitle,
-                                   description,
-                                   category,
-                                   new Channel(chanId, sourceId, chanNum, callsign, chanName),
-                                   filename,
-                                   fileSize,
-                                   startTime,
-                                   endTime,
-                                   findId,
-                                   hostname,
-                                   cardId,
-                                   inputId,
-                                   recPriority,
-                                   recStatus,
-                                   recordId,
-                                   recType,
-                                   dupIn,
-                                   dupMethod,
-                                   recStartTs,
-                                   recEndTs,
-                                   programFlags,
-                                   recGroup,
-                                   outputFilters,
-                                   seriesId,
-                                   programId,
-                                   lastModified,
-                                   stars,
-                                   airDate,
-                                   playGroup,
-                                   recPriority2,
-                                   parentId,
-                                   storageGroup,
-                                   audioProps,
-                                   videoProps,
-                                   subtitleType,
-                                   year);
+                               subtitle,
+                               description,
+                               category,
+                               new Channel(chanId,
+                                           sourceId,
+                                           chanNum,
+                                           callsign,
+                                           chanName),
+                               filename,
+                               fileSize,
+                               startTime,
+                               endTime,
+                               findId,
+                               hostname,
+                               cardId,
+                               inputId,
+                               recPriority,
+                               recStatus,
+                               recordId,
+                               recType,
+                               dupIn,
+                               dupMethod,
+                               recStartTs,
+                               recEndTs,
+                               programFlags,
+                               recGroup,
+                               outputFilters,
+                               seriesId,
+                               programId,
+                               lastModified,
+                               stars,
+                               airDate,
+                               playGroup,
+                               recPriority2,
+                               parentId,
+                               storageGroup,
+                               audioProps,
+                               videoProps,
+                               subtitleType,
+                               year);
         }
         catch (NumberFormatException e)
         {
