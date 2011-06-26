@@ -16,6 +16,7 @@
 package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
 import java.nio.channels.ByteChannel;
@@ -67,7 +68,7 @@ public interface Protocol
     public void mythProtoVersion() throws IOException, CommandException;
 
     /**
-     * Announce this connection to the backend. This should be the second
+     * Announce this connection to the backend. This should be the first
      * command sent to the backend after {@link #mythProtoVersion()}.<br>
      * <br>
      * Note: if a file is to be transferred,
@@ -90,8 +91,22 @@ public interface Protocol
                     EventLevel level) throws IOException;
 
     /**
+     * Announce this connection to the backend as a slave backend. This should
+     * be the first command sent to the backend after
+     * {@link #mythProtoVersion()}.
+     *
+     * @param address
+     *            the address of this host
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public void annSlaveBackend(InetAddress address) throws IOException;
+
+    /**
      * Announce this connection to the backend with the intention of
-     * transferring a file (read or write). This should be the second command
+     * transferring a file (read or write). This should be the first command
      * sent to the backend after {@link #mythProtoVersion()}.<br>
      * <br>
      * If a file transfer is not needed, use

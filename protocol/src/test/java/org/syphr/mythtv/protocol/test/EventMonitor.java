@@ -182,6 +182,12 @@ public class EventMonitor
         }
 
         @Override
+        public void recordingListChangeNone()
+        {
+            System.out.println("Recording list change - EMPTY");
+        }
+
+        @Override
         public void recordingListChangeAdd(Channel channel, Date startTime)
         {
             System.out.println("Recording list change - ADD: "

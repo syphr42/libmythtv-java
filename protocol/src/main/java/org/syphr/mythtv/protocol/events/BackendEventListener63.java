@@ -24,6 +24,7 @@ import org.syphr.mythtv.protocol.events.impl.BackendEvent63GeneratedPixmap;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63LiveTvChainUpdate;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63LiveTvWatch;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63MasterUpdateProgInfo;
+import org.syphr.mythtv.protocol.events.impl.BackendEvent63RecordingListChangeNone;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63RecordingListChangeAdd;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63RecordingListChangeDelete;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63RecordingListChangeUpdate;
@@ -44,6 +45,7 @@ public interface BackendEventListener63 extends BackendEventListener,
                                        BackendEvent63LiveTvChainUpdate,
                                        BackendEvent63LiveTvWatch,
                                        BackendEvent63MasterUpdateProgInfo,
+                                       BackendEvent63RecordingListChangeNone,
                                        BackendEvent63RecordingListChangeAdd,
                                        BackendEvent63RecordingListChangeUpdate,
                                        BackendEvent63RecordingListChangeDelete,

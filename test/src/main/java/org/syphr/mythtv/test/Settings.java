@@ -30,6 +30,7 @@ public enum Settings implements Defaultable
     MYTH_VERSION("_0_24"),
 
     BACKEND_HOST("localhost"),
+    BACKEND_SLAVE_HOST("localhost"),
 
     BACKEND_HTTP_PORT("6544"),
 

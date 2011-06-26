@@ -91,6 +91,12 @@ public class BackendEventListener63Adapter implements BackendEventListener63
     }
 
     @Override
+    public void recordingListChangeNone()
+    {
+        // NOOP
+    }
+
+    @Override
     public void recordingListChangeAdd(Channel channel, Date startTime)
     {
         // NOOP

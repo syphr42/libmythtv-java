@@ -16,6 +16,7 @@
 package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
 import java.util.Date;
@@ -104,6 +105,13 @@ public class Protocol63 extends AbstractProtocol
     public void ann(ConnectionType connectionType, String host, EventLevel level) throws IOException
     {
         new Command63Ann(connectionType, host, level).send(getSocketManager());
+    }
+
+    @Override
+    public void annSlaveBackend(InetAddress address) throws IOException
+    {
+        new Command63AnnSlaveBackend(address).send(getSocketManager());
+
     }
 
     @Override

@@ -224,7 +224,18 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
             {
                 List<String> args = message.getArgs();
 
-                if ("ADD".equals(args.get(0)))
+                if (args.isEmpty())
+                {
+                    return new EventSender<BackendEventListener63>()
+                    {
+                        @Override
+                        public void sendEvent(BackendEventListener63 l)
+                        {
+                            l.recordingListChangeNone();
+                        }
+                    };
+                }
+                else if ("ADD".equals(args.get(0)))
                 {
                     final Channel channel = new Channel(Integer.parseInt(args.get(1)));
                     final Date startTime = DateUtils.getIsoDateFormat().parse(args.get(2));
