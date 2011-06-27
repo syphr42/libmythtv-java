@@ -15,6 +15,9 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
@@ -361,109 +364,40 @@ public class Translator63 extends AbstractTranslator
         REC_SEARCH_TYPE_MAP.put(RecordingSearchType.MANUAL, "6");
     }
 
+    @SuppressWarnings("rawtypes")
+    private static final Map<Class<? extends Enum>, BiMap<? extends Enum, String>> MAPS = new HashMap<Class<? extends Enum>, BiMap<? extends Enum, String>>();
+    static
+    {
+        MAPS.put(RecordingStatus.class, REC_STATUS_MAP);
+        MAPS.put(ConnectionType.class, CONN_TYPE_MAP);
+        MAPS.put(EventLevel.class, EVENT_LEVEL_MAP);
+        MAPS.put(RecordingCategory.class, REC_CATEGORY_MAP);
+        MAPS.put(RecordingType.class, REC_TYPE_MAP);
+        MAPS.put(TunerStatusCategory.class, TUNER_STATUS_CATEGORY_MAP);
+        MAPS.put(FileTransferType.class, FILE_TRANSFER_TYPE_MAP);
+        MAPS.put(VideoEditMark.class, VIDEO_EDIT_MARK_MAP);
+        MAPS.put(TvState.class, TV_STATE_MAP);
+        MAPS.put(SeekOrigin.class, SEEK_ORIGIN_MAP);
+        MAPS.put(SleepStatus.class, SLEEP_STATUS_MAP);
+        MAPS.put(RecorderFlag.class, REC_FLAG_MAP);
+        MAPS.put(Verbose.class, LOG_OPTION_MAP);
+        MAPS.put(ChannelChangeDirection.class, CHANNEL_CHANGE_MAP);
+        MAPS.put(ChannelBrowseDirection.class, CHANNEL_BROWSE_MAP);
+        MAPS.put(PictureAdjustType.class, PICTURE_ADJUST_MAP);
+        MAPS.put(RecordingDupIn.class, REC_DUP_IN_MAP);
+        MAPS.put(RecordingDupMethod.class, REC_DUP_METHOD_MAP);
+        MAPS.put(RecordingSearchType.class, REC_SEARCH_TYPE_MAP);
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type)
     {
-        /*
-         * Cast to raw BiMap necessary to appease javac (Eclipse doesn't require it).
-         */
-
-        if (RecordingStatus.class.equals(type))
+        if (!MAPS.containsKey(type))
         {
-            return (BiMap)REC_STATUS_MAP;
+            throw new IllegalArgumentException("Unknown type: " + type);
         }
 
-        if (ConnectionType.class.equals(type))
-        {
-            return (BiMap)CONN_TYPE_MAP;
-        }
-
-        if (EventLevel.class.equals(type))
-        {
-            return (BiMap)EVENT_LEVEL_MAP;
-        }
-
-        if (RecordingCategory.class.equals(type))
-        {
-            return (BiMap)REC_CATEGORY_MAP;
-        }
-
-        if (RecordingType.class.equals(type))
-        {
-            return (BiMap)REC_TYPE_MAP;
-        }
-
-        if (TunerStatusCategory.class.equals(type))
-        {
-            return (BiMap)TUNER_STATUS_CATEGORY_MAP;
-        }
-
-        if (FileTransferType.class.equals(type))
-        {
-            return (BiMap)FILE_TRANSFER_TYPE_MAP;
-        }
-
-        if (VideoEditMark.class.equals(type))
-        {
-            return (BiMap)VIDEO_EDIT_MARK_MAP;
-        }
-
-        if (TvState.class.equals(type))
-        {
-            return (BiMap)TV_STATE_MAP;
-        }
-
-        if (SeekOrigin.class.equals(type))
-        {
-            return (BiMap)SEEK_ORIGIN_MAP;
-        }
-
-        if (SleepStatus.class.equals(type))
-        {
-            return (BiMap)SLEEP_STATUS_MAP;
-        }
-
-        if (RecorderFlag.class.equals(type))
-        {
-            return (BiMap)REC_FLAG_MAP;
-        }
-
-        if (Verbose.class.equals(type))
-        {
-            return (BiMap)LOG_OPTION_MAP;
-        }
-
-        if (ChannelChangeDirection.class.equals(type))
-        {
-            return (BiMap)CHANNEL_CHANGE_MAP;
-        }
-
-        if (ChannelBrowseDirection.class.equals(type))
-        {
-            return (BiMap)CHANNEL_BROWSE_MAP;
-        }
-
-        if (PictureAdjustType.class.equals(type))
-        {
-            return (BiMap)PICTURE_ADJUST_MAP;
-        }
-
-        if (RecordingDupIn.class.equals(type))
-        {
-            return (BiMap)REC_DUP_IN_MAP;
-        }
-
-        if (RecordingDupMethod.class.equals(type))
-        {
-            return (BiMap)REC_DUP_METHOD_MAP;
-        }
-
-        if (RecordingSearchType.class.equals(type))
-        {
-            return (BiMap)REC_SEARCH_TYPE_MAP;
-        }
-
-        throw new IllegalArgumentException("Unknown type: " + type);
+        return (BiMap)MAPS.get(type);
     }
 }

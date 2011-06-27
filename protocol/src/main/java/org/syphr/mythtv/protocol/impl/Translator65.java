@@ -15,6 +15,9 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.types.RecordingStatus;
 
@@ -62,23 +65,23 @@ public class Translator65 extends Translator63
         REC_CATEGORY_MAP.put(RecordingCategory.RECORDED_DESCENDING, "Descending");
     }
 
+    @SuppressWarnings("rawtypes")
+    private static final Map<Class<? extends Enum>, BiMap<? extends Enum, String>> MAPS = new HashMap<Class<? extends Enum>, BiMap<? extends Enum, String>>();
+    static
+    {
+        MAPS.put(RecordingStatus.class, REC_STATUS_MAP);
+        MAPS.put(RecordingCategory.class, REC_CATEGORY_MAP);
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type)
     {
-        /*
-         * Cast to raw BiMap necessary to appease javac (Eclipse doesn't require it).
-         */
-        if (RecordingStatus.class.equals(type))
+        if (!MAPS.containsKey(type))
         {
-            return (BiMap)REC_STATUS_MAP;
+            return super.getMap(type);
         }
 
-        if (RecordingCategory.class.equals(type))
-        {
-            return (BiMap)REC_CATEGORY_MAP;
-        }
-
-        return super.getMap(type);
+        return (BiMap)MAPS.get(type);
     }
 }
