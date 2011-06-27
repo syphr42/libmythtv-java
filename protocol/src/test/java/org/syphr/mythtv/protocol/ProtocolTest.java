@@ -17,6 +17,7 @@ package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -35,6 +36,7 @@ import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.types.RecordingStatus;
+import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
@@ -224,6 +226,20 @@ public class ProtocolTest
     public void testMessageClearSettingsCache() throws IOException
     {
         proto.messageClearSettingsCache();
+    }
+
+    @Test
+    public void testMessageResetIdleTime() throws IOException
+    {
+        proto.messageResetIdleTime();
+    }
+
+    @Test
+    @SuppressWarnings("serial")
+    public void testSetVerbose() throws IOException, CommandException
+    {
+        proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.ALL); }});
+        proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.IMPORTANT); add(Verbose.GENERAL); add(Verbose.NETWORK); }});
     }
 
     @Test

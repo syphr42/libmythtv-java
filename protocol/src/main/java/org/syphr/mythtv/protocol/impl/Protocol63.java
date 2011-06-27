@@ -273,6 +273,12 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
+    public void messageResetIdleTime() throws IOException
+    {
+        new Command63MessageResetIdleTime().send(getSocketManager());
+    }
+
+    @Override
     public void messageSetVerbose(List<Verbose> options) throws IOException, CommandException
     {
         new Command63MessageSetVerbose(options).send(getSocketManager());

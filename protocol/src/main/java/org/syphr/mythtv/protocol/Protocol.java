@@ -464,6 +464,18 @@ public interface Protocol
     public void messageClearSettingsCache() throws IOException;
 
     /**
+     * Request that the backend reset the idle period used to determine when the
+     * machine will automatically shutdown. After this message is received, the
+     * clock will start over.
+     *
+     * @throws IOException
+     *             if there is a communication or protocol error
+     *
+     * @since 63
+     */
+    public void messageResetIdleTime() throws IOException;
+
+    /**
      * Change the verbose logging options on the backend.
      *
      * @param options
