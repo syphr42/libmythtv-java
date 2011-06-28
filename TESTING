@@ -14,13 +14,13 @@ Test Settings
 ================
 
 The test cases provided here use a properties file that is, by default,
-located at src/test/resources/settings.properties for each individual 
-module. This location can be overridden by setting the environment 
-variable LIBMYTHTV_JAVA_TEST_SETTINGS or passing the system property
-libmythtv.java.test.settings to the JVM (via -D). If this file is 
-missing or does not have all possible settings defined, default values 
-will come from the test module in the enum located at
-src/main/java/org/syphr/mythtv/test/Settings.java.
+located at ${user.home}/.libmythtv-java/settings.properties for each 
+individual module. This location can be overridden by setting the 
+environment variable LIBMYTHTV_JAVA_TEST_SETTINGS or passing the system 
+property libmythtv.java.test.settings to the JVM (via -D). If this file 
+is missing or does not have all possible settings defined, default 
+values will come from the test module in the enum located at
+test/src/main/java/org/syphr/mythtv/test/Settings.java.
 
 
 
@@ -32,4 +32,4 @@ is defined. Some custom logging settings are loaded by default by the
 Settings enum used in the test cases. To override these settings, use 
 the JVM argument -Djava.util.logging.config.file=/path/to/properties. 
 The default config is located in the test module at 
-src/main/resources/org/syphr/mythtv/test/logging.properties.
+test/src/main/resources/org/syphr/mythtv/test/logging.properties.

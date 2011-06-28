@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.LogManager;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.syphr.prom.Defaultable;
 import org.syphr.prom.PropertiesManager;
 import org.syphr.prom.PropertiesManagers;
@@ -65,7 +66,7 @@ public enum Settings implements Defaultable
 
     private static final String SETTINGS_SYS_PROP = "libmythtv.java.test.settings";
 
-    private static final String DEFAULT_SETTINGS_FILE = "src/test/resources/settings.properties";
+    private static final File DEFAULT_SETTINGS_FILE = new File(SystemUtils.getUserHome(), ".libmythtv-java/settings.properties");
 
     static
     {
@@ -118,17 +119,16 @@ public enum Settings implements Defaultable
 
     public static PropertiesManager<Settings> createSettings() throws IOException
     {
-        String settingsFile = System.getenv(SETTINGS_ENV_VAR);
-        if (settingsFile == null)
+        String settingsStr = System.getenv(SETTINGS_ENV_VAR);
+        if (settingsStr == null)
         {
-            settingsFile = System.getProperty(SETTINGS_SYS_PROP);
-        }
-        if (settingsFile == null)
-        {
-            settingsFile = DEFAULT_SETTINGS_FILE;
+            settingsStr = System.getProperty(SETTINGS_SYS_PROP);
         }
 
-        PropertiesManager<Settings> settings = PropertiesManagers.newManager(new File(settingsFile),
+        File settingsFile = settingsStr == null
+                ? DEFAULT_SETTINGS_FILE
+                : new File(settingsStr);
+        PropertiesManager<Settings> settings = PropertiesManagers.newManager(settingsFile,
                                                                              Settings.class);
         settings.load();
 
