@@ -30,6 +30,7 @@ import org.syphr.mythtv.protocol.QueryRemoteEncoder;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class Protocol66 extends Protocol65
 {
@@ -41,7 +42,7 @@ public class Protocol66 extends Protocol65
     @Override
     public void mythProtoVersion() throws IOException, CommandException
     {
-        new Command63MythProtoVersion()
+        new Command63MythProtoVersion(getTranslator(), getParser())
         {
             @Override
             protected String getVersion()
@@ -66,7 +67,9 @@ public class Protocol66 extends Protocol65
                                              String storageGroup,
                                              Protocol commandProtocol) throws IOException
     {
-        return new Command66AnnFileTransfer(host,
+        return new Command66AnnFileTransfer(getTranslator(),
+                                            getParser(),
+                                            host,
                                             type,
                                             readAhead,
                                             timeout,
@@ -78,43 +81,58 @@ public class Protocol66 extends Protocol65
     @Override
     public long queryBookmark(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command66QueryBookmark(channel, recStartTs).send(getSocketManager());
+        return new Command66QueryBookmark(getTranslator(),
+                                          getParser(),
+                                          channel,
+                                          recStartTs).send(getSocketManager());
     }
 
     @Override
     public List<VideoEditInfo> queryCommBreak(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command66QueryCommBreak(channel, recStartTs).send(getSocketManager());
+        return new Command66QueryCommBreak(getTranslator(),
+                                           getParser(),
+                                           channel,
+                                           recStartTs).send(getSocketManager());
     }
 
     @Override
     public List<VideoEditInfo> queryCutList(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command66QueryCutList(channel, recStartTs).send(getSocketManager());
+        return new Command66QueryCutList(getTranslator(),
+                                         getParser(),
+                                         channel,
+                                         recStartTs).send(getSocketManager());
     }
 
     @Override
     public List<DriveInfo> queryFreeSpace() throws IOException
     {
-        return new Command66QueryFreeSpace().send(getSocketManager());
+        return new Command66QueryFreeSpace(getTranslator(), getParser()).send(getSocketManager());
     }
 
     @Override
     public DriveInfo queryFreeSpaceSummary() throws IOException
     {
-        return new Command66QueryFreeSpaceSummary().send(getSocketManager());
+        return new Command66QueryFreeSpaceSummary(getTranslator(), getParser()).send(getSocketManager());
     }
 
     @Override
     public QueryRecorder queryRecorder(int recorderId)
     {
-        return new QueryRecorder66(recorderId, getSocketManager());
+        return new QueryRecorder66(getTranslator(),
+                                   getParser(),
+                                   recorderId,
+                                   getSocketManager());
     }
 
     @Override
     public QueryRemoteEncoder queryRemoteEncoder(int recorderId)
     {
-        return new QueryRemoteEncoder66(recorderId, getSocketManager());
+        return new QueryRemoteEncoder66(getTranslator(),
+                                        getParser(),
+                                        recorderId,
+                                        getSocketManager());
     }
 
     @Override
@@ -122,5 +140,11 @@ public class Protocol66 extends Protocol65
                                                                                CommandException
     {
         return new Command66SetBookmark(channel, recStartTs, location).send(getSocketManager());
+    }
+
+    @Override
+    protected Parser createParser(Translator translator)
+    {
+        return new Parser66(translator);
     }
 }

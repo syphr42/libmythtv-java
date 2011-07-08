@@ -31,6 +31,9 @@ public abstract class AbstractProtocol implements Protocol
     private final SocketManager socketManager;
     private final List<BackendEventListener> listeners;
 
+    private volatile Translator translator;
+    private volatile Parser parser;
+
     public AbstractProtocol(SocketManager socketManager)
     {
         this.socketManager = socketManager;
@@ -89,7 +92,41 @@ public abstract class AbstractProtocol implements Protocol
         return getTranslator().getAllowed(type);
     }
 
-    protected abstract Interceptor createEventGrabber();
+    protected Translator getTranslator()
+    {
+        if (translator == null)
+        {
+            synchronized (this)
+            {
+                if (translator == null)
+                {
+                    translator = createTranslator();
+                }
+            }
+        }
 
-    protected abstract Translator getTranslator();
+        return translator;
+    }
+
+    protected Parser getParser()
+    {
+        if (parser == null)
+        {
+            synchronized (this)
+            {
+                if (parser == null)
+                {
+                    parser = createParser(getTranslator());
+                }
+            }
+        }
+
+        return parser;
+    }
+
+    protected abstract Translator createTranslator();
+
+    protected abstract Parser createParser(Translator translator);
+
+    protected abstract Interceptor createEventGrabber();
 }

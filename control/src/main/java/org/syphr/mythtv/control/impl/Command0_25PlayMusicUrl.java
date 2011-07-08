@@ -19,7 +19,6 @@ import java.net.URL;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 
 /* default */class Command0_25PlayMusicUrl extends AbstractCommandOkResponse
 {

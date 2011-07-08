@@ -22,24 +22,27 @@ import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63MessageSetVerbose extends AbstractCommand<Void>
+/* default */class Command63MessageSetVerbose extends AbstractProtocolCommand<Void>
 {
     private final List<Verbose> options;
 
-    public Command63MessageSetVerbose(List<Verbose> options)
+    public Command63MessageSetVerbose(Translator translator, Parser parser, List<Verbose> options)
     {
+        super(translator, parser);
+
         this.options = options;
     }
 
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("MESSAGE",
-                                                "SET_VERBOSE "
-                                                        + Protocol63Utils.getTranslator().toString(options, ","));
+        return getParser().combineArguments("MESSAGE",
+                                            "SET_VERBOSE "
+                                                    + getTranslator().toString(options,
+                                                                               ","));
     }
 
     @Override

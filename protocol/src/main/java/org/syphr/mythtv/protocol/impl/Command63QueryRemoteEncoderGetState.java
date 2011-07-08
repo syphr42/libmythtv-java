@@ -17,12 +17,13 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.types.TvState;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderGetState extends AbstractCommand63QueryRemoteEncoder<TvState>
 {
-    public Command63QueryRemoteEncoderGetState(int recorderId)
+    public Command63QueryRemoteEncoderGetState(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override
@@ -34,6 +35,6 @@ import org.syphr.mythtv.util.exception.ProtocolException;
     @Override
     protected TvState parseResponse(String response) throws ProtocolException
     {
-        return Protocol63Utils.getTranslator().toEnum(response, TvState.class);
+        return getTranslator().toEnum(response, TvState.class);
     }
 }

@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.util.socket;
+package org.syphr.mythtv.control.impl;
 
 import java.io.IOException;
+
+import org.syphr.mythtv.util.socket.AbstractCommand;
+import org.syphr.mythtv.util.socket.CommandUtils;
+import org.syphr.mythtv.util.socket.SocketManager;
 
 public abstract class AbstractCommandOkResponse extends AbstractCommand<Void>
 {

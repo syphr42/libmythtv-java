@@ -16,14 +16,19 @@
 package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */abstract class AbstractCommand63Message extends AbstractCommandOkResponse
 {
+    public AbstractCommand63Message(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("MESSAGE", getSubCommand());
+        return getParser().combineArguments("MESSAGE", getSubCommand());
     }
 
     protected abstract String getSubCommand() throws ProtocolException;

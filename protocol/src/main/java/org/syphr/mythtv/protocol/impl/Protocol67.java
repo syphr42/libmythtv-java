@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class Protocol67 extends Protocol66
 {
@@ -30,7 +31,7 @@ public class Protocol67 extends Protocol66
     @Override
     public void mythProtoVersion() throws IOException, CommandException
     {
-        new Command63MythProtoVersion()
+        new Command63MythProtoVersion(getTranslator(), getParser())
         {
             @Override
             protected String getVersion()
@@ -44,5 +45,11 @@ public class Protocol67 extends Protocol66
                 return "0G0G0G0";
             }
         }.send(getSocketManager());
+    }
+
+    @Override
+    protected Parser createParser(Translator translator)
+    {
+        return new Parser67(translator);
     }
 }

@@ -19,15 +19,10 @@ import java.io.File;
 import java.net.URI;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.data.Program;
@@ -40,28 +35,15 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.translate.Translator;
 
-public class Protocol63Utils
+public class Parser63 extends AbstractParser
 {
-    private static final String DELIMITER = "[]:[]";
-
-    private static final Translator TRANSLATOR = new Translator63();
-
-    public static List<String> splitArguments(String value)
+    public Parser63(Translator translator)
     {
-        return new ArrayList<String>(Arrays.asList(value.split(Pattern.quote(DELIMITER))));
+        super(translator);
     }
 
-    public static String combineArguments(String... args)
-    {
-        return combineArguments(new ArrayList<String>(Arrays.asList(args)));
-    }
-
-    public static String combineArguments(List<String> args)
-    {
-        return StringUtils.join(args, DELIMITER);
-    }
-
-    public static List<DriveInfo> parseDriveInfo(String value) throws ProtocolException
+    @Override
+    public List<DriveInfo> parseDriveInfo(String value) throws ProtocolException
     {
         List<DriveInfo> drives = new ArrayList<DriveInfo>();
 
@@ -77,8 +59,10 @@ public class Protocol63Utils
                 long driveNumber = Long.parseLong(args.get(i++));
                 long storageGroupId = Long.parseLong(args.get(i++));
                 long blockSize = Long.parseLong(args.get(i++));
-                long totalSpace = ProtocolUtils.combineInts(args.get(i++), args.get(i++));
-                long usedSpace = ProtocolUtils.combineInts(args.get(i++), args.get(i++));
+                long totalSpace = ProtocolUtils.combineInts(args.get(i++),
+                                                            args.get(i++));
+                long usedSpace = ProtocolUtils.combineInts(args.get(i++),
+                                                           args.get(i++));
 
                 drives.add(new DriveInfo(hostname,
                                          driveRoot,
@@ -98,9 +82,10 @@ public class Protocol63Utils
         return drives;
     }
 
-    public static UpcomingRecordings parseUpcomingRecordings(String value) throws ProtocolException
+    @Override
+    public UpcomingRecordings parseUpcomingRecordings(String value) throws ProtocolException
     {
-        List<String> args = Protocol63Utils.splitArguments(value);
+        List<String> args = splitArguments(value);
 
         try
         {
@@ -113,7 +98,7 @@ public class Protocol63Utils
             args.remove(0);
             args.remove(0);
 
-            List<Program> programs = Protocol63Utils.parseProgramInfos(args);
+            List<Program> programs = parseProgramInfos(args);
 
             return new UpcomingRecordings(conflicted, programs);
         }
@@ -123,7 +108,8 @@ public class Protocol63Utils
         }
     }
 
-    public static List<Program> parseProgramInfos(List<String> args) throws ProtocolException
+    @Override
+    public List<Program> parseProgramInfos(List<String> args) throws ProtocolException
     {
         List<Program> programs = new ArrayList<Program>();
         DateFormat airDateFormat = getProgramInfoAirDateFormat();
@@ -133,24 +119,32 @@ public class Protocol63Utils
         {
             try
             {
-                programs.add(parseProgramInfo(args.subList(i, i += 41), airDateFormat));
+                programs.add(parseProgramInfo(args.subList(i, i += getProgramInfoArgsCount()),
+                                              airDateFormat));
             }
             catch (IndexOutOfBoundsException e)
             {
-                throw new ProtocolException(args.toString(), Direction.RECEIVE, e);
+                throw new ProtocolException(args.toString(),
+                                            Direction.RECEIVE,
+                                            e);
             }
         }
 
         return programs;
     }
 
-    public static Program parseProgramInfo(List<String> args) throws ProtocolException
+    protected int getProgramInfoArgsCount()
+    {
+        return 41;
+    }
+
+    @Override
+    public Program parseProgramInfo(List<String> args) throws ProtocolException
     {
         return parseProgramInfo(args, getProgramInfoAirDateFormat());
     }
 
-    private static Program parseProgramInfo(List<String> args,
-                                                DateFormat airDateFormat) throws ProtocolException
+    protected Program parseProgramInfo(List<String> args, DateFormat airDateFormat) throws ProtocolException
     {
         try
         {
@@ -174,11 +168,15 @@ public class Protocol63Utils
             int cardId = Integer.parseInt(args.get(i++));
             int inputId = Integer.parseInt(args.get(i++));
             int recPriority = Integer.parseInt(args.get(i++));
-            RecordingStatus recStatus = TRANSLATOR.toEnum(args.get(i++), RecordingStatus.class);
+            RecordingStatus recStatus = getTranslator().toEnum(args.get(i++),
+                                                               RecordingStatus.class);
             int recordId = Integer.parseInt(args.get(i++));
-            RecordingType recType = TRANSLATOR.toEnum(args.get(i++), RecordingType.class);
-            RecordingDupIn dupIn = TRANSLATOR.toEnum(args.get(i++), RecordingDupIn.class);
-            RecordingDupMethod dupMethod = TRANSLATOR.toEnum(args.get(i++), RecordingDupMethod.class);
+            RecordingType recType = getTranslator().toEnum(args.get(i++),
+                                                           RecordingType.class);
+            RecordingDupIn dupIn = getTranslator().toEnum(args.get(i++),
+                                                          RecordingDupIn.class);
+            RecordingDupMethod dupMethod = getTranslator().toEnum(args.get(i++),
+                                                                  RecordingDupMethod.class);
             Date recStartTs = getDateTime(args.get(i++));
             Date recEndTs = getDateTime(args.get(i++));
             long programFlags = Long.parseLong(args.get(i++));
@@ -263,7 +261,8 @@ public class Protocol63Utils
         }
     }
 
-    public static Channel parseChannel(String value) throws ProtocolException
+    @Override
+    public Channel parseChannel(String value) throws ProtocolException
     {
         List<String> args = splitArguments(value);
         if (args.size() != 6)
@@ -290,7 +289,8 @@ public class Protocol63Utils
         }
     }
 
-    public static List<String> extractProgramInfo(Program program) throws ProtocolException
+    @Override
+    public List<String> extractProgramInfo(Program program) throws ProtocolException
     {
         List<String> extracted = new ArrayList<String>();
 
@@ -314,9 +314,9 @@ public class Protocol63Utils
         extracted.add(String.valueOf(program.getCardId()));
         extracted.add(String.valueOf(program.getInputId()));
         extracted.add(String.valueOf(program.getRecPriority()));
-        extracted.add(TRANSLATOR.toString(program.getRecStatus()));
+        extracted.add(getTranslator().toString(program.getRecStatus()));
         extracted.add(String.valueOf(program.getRecordId()));
-        extracted.add(TRANSLATOR.toString(program.getRecType()));
+        extracted.add(getTranslator().toString(program.getRecType()));
         extracted.add(String.valueOf(program.getDupIn()));
         extracted.add(String.valueOf(program.getDupMethod()));
         extracted.add(getDateTime(program.getRecStartTs()));
@@ -343,7 +343,8 @@ public class Protocol63Utils
         return extracted;
     }
 
-    public static List<String> extractChannel(Channel channel)
+    @Override
+    public List<String> extractChannel(Channel channel)
     {
         List<String> extracted = new ArrayList<String>();
 
@@ -354,35 +355,5 @@ public class Protocol63Utils
         extracted.add(channel.getName());
 
         return extracted;
-    }
-
-    private static DateFormat getProgramInfoAirDateFormat()
-    {
-        return new SimpleDateFormat("yyyy-MM-dd");
-    }
-
-    private static Date getDateTime(String seconds)
-    {
-        return new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(seconds)));
-    }
-
-    private static String getDateTime(Date date)
-    {
-        return date == null ? "" : String.valueOf(TimeUnit.MILLISECONDS.toSeconds(date.getTime()));
-    }
-
-    private static String valueOf(Object value)
-    {
-        if (value == null)
-        {
-            return "";
-        }
-
-        return value.toString();
-    }
-
-    public static Translator getTranslator()
-    {
-        return TRANSLATOR;
     }
 }

@@ -20,16 +20,18 @@ import java.net.URI;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63DeleteFile extends AbstractCommand<Boolean>
+/* default */class Command63DeleteFile extends AbstractProtocolCommand<Boolean>
 {
     private final URI filename;
     private final String storageGroup;
 
-    public Command63DeleteFile(URI filename, String storageGroup)
+    public Command63DeleteFile(Translator translator, Parser parser, URI filename, String storageGroup)
     {
+        super(translator, parser);
+
         this.filename = filename;
         this.storageGroup = storageGroup;
     }
@@ -37,9 +39,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("DELETE_FILE",
-                                                filename.getPath(),
-                                                storageGroup);
+        return getParser().combineArguments("DELETE_FILE",
+                                            filename.getPath(),
+                                            storageGroup);
     }
 
     @Override

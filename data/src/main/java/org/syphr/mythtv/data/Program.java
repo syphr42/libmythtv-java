@@ -30,6 +30,8 @@ public class Program
     private final String title;
     private final String subtitle;
     private final String description;
+    private final int season;
+    private final int episode;
     private final String category;
     private final Channel channel;
     private final URI filename;
@@ -53,6 +55,7 @@ public class Program
     private final String outputFilters;
     private final String seriesId;
     private final String programId;
+    private final String inetref;
     private final Date lastModified;
     private final float stars;
     private final Date airDate;
@@ -222,51 +225,138 @@ public class Program
     }
 
     public Program(String title,
-                       String subtitle,
-                       String description,
-                       String category,
-                       Channel channel,
-                       URI filename,
-                       long fileSize,
-                       Date startTime,
-                       Date endTime,
-                       int findId,
-                       String hostname,
-                       int cardId,
-                       int inputId,
-                       int recPriority,
-                       RecordingStatus recStatus,
-                       int recordId,
-                       RecordingType recType,
-                       RecordingDupIn dupIn,
-                       RecordingDupMethod dupMethod,
-                       Date recStartTs,
-                       Date recEndTs,
-                       long programFlags,
-                       String recGroup,
-                       String outputFilters,
-                       String seriesId,
-                       String programId,
-                       Date lastModified,
-                       float stars,
-                       Date airDate,
-                       String playGroup,
-                       int recPriority2,
-                       int parentId,
-                       String storageGroup,
-                       int audioProps,
-                       int videoProps,
-                       int subtitleType,
-                       int year)
+                   String subtitle,
+                   String description,
+                   String category,
+                   Channel channel,
+                   URI filename,
+                   long fileSize,
+                   Date startTime,
+                   Date endTime,
+                   int findId,
+                   String hostname,
+                   int cardId,
+                   int inputId,
+                   int recPriority,
+                   RecordingStatus recStatus,
+                   int recordId,
+                   RecordingType recType,
+                   RecordingDupIn dupIn,
+                   RecordingDupMethod dupMethod,
+                   Date recStartTs,
+                   Date recEndTs,
+                   long programFlags,
+                   String recGroup,
+                   String outputFilters,
+                   String seriesId,
+                   String programId,
+                   Date lastModified,
+                   float stars,
+                   Date airDate,
+                   String playGroup,
+                   int recPriority2,
+                   int parentId,
+                   String storageGroup,
+                   int audioProps,
+                   int videoProps,
+                   int subtitleType,
+                   int year)
+    {
+        this(title,
+             subtitle,
+             description,
+             0,
+             0,
+             category,
+             channel,
+             filename,
+             fileSize,
+             startTime,
+             endTime,
+             findId,
+             hostname,
+             cardId,
+             inputId,
+             recPriority,
+             recStatus,
+             recordId,
+             recType,
+             dupIn,
+             dupMethod,
+             recStartTs,
+             recEndTs,
+             programFlags,
+             recGroup,
+             outputFilters,
+             seriesId,
+             programId,
+             null,
+             lastModified,
+             stars,
+             airDate,
+             playGroup,
+             recPriority2,
+             parentId,
+             storageGroup,
+             audioProps,
+             videoProps,
+             subtitleType,
+             year);
+    }
+
+    public Program(String title,
+                   String subtitle,
+                   String description,
+                   int season,
+                   int episode,
+                   String category,
+                   Channel channel,
+                   URI filename,
+                   long fileSize,
+                   Date startTime,
+                   Date endTime,
+                   int findId,
+                   String hostname,
+                   int cardId,
+                   int inputId,
+                   int recPriority,
+                   RecordingStatus recStatus,
+                   int recordId,
+                   RecordingType recType,
+                   RecordingDupIn dupIn,
+                   RecordingDupMethod dupMethod,
+                   Date recStartTs,
+                   Date recEndTs,
+                   long programFlags,
+                   String recGroup,
+                   String outputFilters,
+                   String seriesId,
+                   String programId,
+                   String inetref,
+                   Date lastModified,
+                   float stars,
+                   Date airDate,
+                   String playGroup,
+                   int recPriority2,
+                   int parentId,
+                   String storageGroup,
+                   int audioProps,
+                   int videoProps,
+                   int subtitleType,
+                   int year)
     {
         this.title = title;
         this.subtitle = subtitle;
         this.description = description;
+        this.season = season;
+        this.episode = episode;
         this.category = category;
         this.channel = channel;
         this.filename = filename;
         this.fileSize = fileSize;
-        this.startTime = startTime != null ? new Date(startTime.getTime()) : null;
+        this.startTime = startTime != null
+                ? new Date(startTime.getTime())
+                : null;
         this.endTime = endTime != null ? new Date(endTime.getTime()) : null;
         this.findId = findId;
         this.hostname = hostname;
@@ -278,14 +368,19 @@ public class Program
         this.recType = recType;
         this.dupIn = dupIn;
         this.dupMethod = dupMethod;
-        this.recStartTs = recStartTs != null ? new Date(recStartTs.getTime()) : null;
+        this.recStartTs = recStartTs != null
+                ? new Date(recStartTs.getTime())
+                : null;
         this.recEndTs = recEndTs != null ? new Date(recEndTs.getTime()) : null;
         this.programFlags = programFlags;
         this.recGroup = recGroup;
         this.outputFilters = outputFilters;
         this.seriesId = seriesId;
         this.programId = programId;
-        this.lastModified = lastModified != null ? new Date(lastModified.getTime()) : null;
+        this.inetref = inetref;
+        this.lastModified = lastModified != null
+                ? new Date(lastModified.getTime())
+                : null;
         this.stars = stars;
         this.airDate = airDate != null ? new Date(airDate.getTime()) : null;
         this.playGroup = playGroup;
@@ -311,6 +406,16 @@ public class Program
     public String getDescription()
     {
         return description;
+    }
+
+    public int getSeason()
+    {
+        return season;
+    }
+
+    public int getEpisode()
+    {
+        return episode;
     }
 
     public String getCategory()
@@ -442,6 +547,11 @@ public class Program
     public String getProgramId()
     {
         return programId;
+    }
+
+    public String getInetref()
+    {
+        return inetref;
     }
 
     public Date getLastModified()

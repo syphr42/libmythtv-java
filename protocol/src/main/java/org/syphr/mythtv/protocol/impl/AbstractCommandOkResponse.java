@@ -15,20 +15,23 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.types.RecordingCategory;
-import org.syphr.mythtv.util.exception.ProtocolException;
+import java.io.IOException;
 
-/* default */class Command65QueryRecordings extends Command63QueryRecordings
+import org.syphr.mythtv.util.socket.CommandUtils;
+import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
+
+public abstract class AbstractCommandOkResponse extends AbstractProtocolCommand<Void>
 {
-    public Command65QueryRecordings(RecordingCategory recCategory)
+    public AbstractCommandOkResponse(Translator translator, Parser parser)
     {
-        super(recCategory);
+        super(translator, parser);
     }
 
     @Override
-    protected String getMessage() throws ProtocolException
+    public Void send(SocketManager socketManager) throws IOException
     {
-        return "QUERY_RECORDINGS "
-               + Protocol65Utils.getTranslator().toString(getRecCategory());
+        CommandUtils.sendExpectOk(socketManager, getMessage());
+        return null;
     }
 }

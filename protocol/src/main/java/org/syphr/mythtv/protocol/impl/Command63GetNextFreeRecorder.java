@@ -21,23 +21,25 @@ import java.util.List;
 import org.syphr.mythtv.data.RecorderLocation;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63GetNextFreeRecorder extends AbstractCommand<RecorderLocation>
+/* default */class Command63GetNextFreeRecorder extends AbstractProtocolCommand<RecorderLocation>
 {
     private final RecorderLocation from;
 
-    public Command63GetNextFreeRecorder(RecorderLocation from)
+    public Command63GetNextFreeRecorder(Translator translator, Parser parser, RecorderLocation from)
     {
+        super(translator, parser);
+
         this.from = from;
     }
 
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("GET_NEXT_FREE_RECORDER",
-                                                String.valueOf(from.getId()));
+        return getParser().combineArguments("GET_NEXT_FREE_RECORDER",
+                                            String.valueOf(from.getId()));
     }
 
     @Override
@@ -45,7 +47,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.size() != 3)
         {
             throw new ProtocolException(response, Direction.RECEIVE);

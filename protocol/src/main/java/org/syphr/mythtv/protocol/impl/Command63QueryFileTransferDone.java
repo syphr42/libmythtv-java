@@ -16,21 +16,24 @@
 package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryFileTransferDone extends AbstractCommandOkResponse
 {
     private final int socketNumber;
 
-    public Command63QueryFileTransferDone(int socketNumber)
+    public Command63QueryFileTransferDone(Translator translator, Parser parser, int socketNumber)
     {
+        super(translator, parser);
+
         this.socketNumber = socketNumber;
     }
 
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
-                                                + socketNumber, "DONE");
+        return getParser().combineArguments("QUERY_FILETRANSFER "
+                                                    + socketNumber,
+                                            "DONE");
     }
 }

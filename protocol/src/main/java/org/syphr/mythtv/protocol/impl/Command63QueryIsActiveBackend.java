@@ -18,23 +18,24 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryIsActiveBackend extends AbstractCommand<Boolean>
+/* default */class Command63QueryIsActiveBackend extends AbstractProtocolCommand<Boolean>
 {
     private final String hostname;
 
-    public Command63QueryIsActiveBackend(String hostname)
+    public Command63QueryIsActiveBackend(Translator translator, Parser parser, String hostname)
     {
+        super(translator, parser);
+
         this.hostname = hostname;
     }
 
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("QUERY_IS_ACTIVE_BACKEND",
-                                                hostname);
+        return getParser().combineArguments("QUERY_IS_ACTIVE_BACKEND", hostname);
     }
 
     @Override

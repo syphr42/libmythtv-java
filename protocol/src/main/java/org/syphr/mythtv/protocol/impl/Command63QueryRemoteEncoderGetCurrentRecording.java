@@ -20,12 +20,13 @@ import java.util.List;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.RecordingType;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderGetCurrentRecording extends AbstractCommand63QueryRemoteEncoder<Program>
 {
-    public Command63QueryRemoteEncoderGetCurrentRecording(int recorderId)
+    public Command63QueryRemoteEncoderGetCurrentRecording(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override
@@ -37,9 +38,9 @@ import org.syphr.mythtv.util.exception.ProtocolException;
     @Override
     protected Program parseResponse(String response) throws ProtocolException
     {
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
-        Program program = Protocol63Utils.parseProgramInfo(args);
+        Program program = getParser().parseProgramInfo(args);
         if (RecordingType.NOT_RECORDING.equals(program.getRecType()))
         {
             return null;

@@ -21,11 +21,16 @@ import java.util.List;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63GetFreeRecorderList extends AbstractCommand<List<Integer>>
+/* default */class Command63GetFreeRecorderList extends AbstractProtocolCommand<List<Integer>>
 {
+    public Command63GetFreeRecorderList(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {
@@ -44,7 +49,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
             return freeRecorders;
         }
 
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         try
         {
             for (String arg : args)

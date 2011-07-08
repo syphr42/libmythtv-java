@@ -23,16 +23,18 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryGenPixMap2 extends AbstractCommand<Void>
+/* default */class Command63QueryGenPixMap2 extends AbstractProtocolCommand<Void>
 {
     private final String id;
     private final Program program;
 
-    public Command63QueryGenPixMap2(String id, Program program)
+    public Command63QueryGenPixMap2(Translator translator, Parser parser, String id, Program program)
     {
+        super(translator, parser);
+
         this.id = id;
         this.program = program;
     }
@@ -43,16 +45,16 @@ import org.syphr.mythtv.util.socket.SocketManager;
         List<String> messageList = new ArrayList<String>();
         messageList.add("QUERY_GENPIXMAP2");
         messageList.add(id);
-        messageList.addAll(Protocol63Utils.extractProgramInfo(program));
+        messageList.addAll(getParser().extractProgramInfo(program));
 
-        return Protocol63Utils.combineArguments(messageList);
+        return getParser().combineArguments(messageList);
     }
 
     @Override
     public Void send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() == 1 && "OK".equals(args.get(0)))
         {

@@ -19,12 +19,13 @@ import java.util.List;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderGetMaxBitrate extends AbstractCommand63QueryRecorder<Long>
 {
-    public Command63QueryRecorderGetMaxBitrate(int recorderId)
+    public Command63QueryRecorderGetMaxBitrate(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override
@@ -36,7 +37,7 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
     @Override
     protected Long parseResponse(String response) throws ProtocolException
     {
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() != 2)
         {

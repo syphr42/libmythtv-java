@@ -17,12 +17,15 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command66QueryRecorderGetMaxBitrate extends Command63QueryRecorderGetMaxBitrate
 {
-    public Command66QueryRecorderGetMaxBitrate(int recorderId)
+    public Command66QueryRecorderGetMaxBitrate(Translator translator,
+                                               Parser parser,
+                                               int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override

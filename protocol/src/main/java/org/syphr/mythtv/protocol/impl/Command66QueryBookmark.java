@@ -22,12 +22,16 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command66QueryBookmark extends Command63QueryBookmark
 {
-    public Command66QueryBookmark(Channel channel, Date recStartTs)
+    public Command66QueryBookmark(Translator translator,
+                                  Parser parser,
+                                  Channel channel,
+                                  Date recStartTs)
     {
-        super(channel, recStartTs);
+        super(translator, parser, channel, recStartTs);
     }
 
     @Override

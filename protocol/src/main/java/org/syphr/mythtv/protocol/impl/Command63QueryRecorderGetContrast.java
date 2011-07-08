@@ -16,12 +16,13 @@
 package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderGetContrast extends AbstractCommand63QueryRecorderGetPictureAttr
 {
-    public Command63QueryRecorderGetContrast(int recorderId)
+    public Command63QueryRecorderGetContrast(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override

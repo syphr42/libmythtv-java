@@ -17,11 +17,8 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 
 import org.syphr.mythtv.data.FileInfo;
-import org.syphr.mythtv.data.Program;
-import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
@@ -36,7 +33,7 @@ public class Protocol65 extends Protocol64
     @Override
     public void mythProtoVersion() throws IOException, CommandException
     {
-        new Command63MythProtoVersion()
+        new Command63MythProtoVersion(getTranslator(), getParser())
         {
             @Override
             protected String getVersion()
@@ -55,18 +52,15 @@ public class Protocol65 extends Protocol64
     @Override
     public FileInfo queryFileExists(URI filename, String storageGroup) throws IOException
     {
-        return new Command65QueryFileExists(filename, storageGroup).send(getSocketManager());
+        return new Command65QueryFileExists(getTranslator(),
+                                            getParser(),
+                                            filename,
+                                            storageGroup).send(getSocketManager());
     }
 
     @Override
-    public List<Program> queryRecordings(RecordingCategory recCategory) throws IOException
+    protected Translator createTranslator()
     {
-        return new Command65QueryRecordings(recCategory).send(getSocketManager());
-    }
-
-    @Override
-    protected Translator getTranslator()
-    {
-        return Protocol65Utils.getTranslator();
+        return new Translator65();
     }
 }

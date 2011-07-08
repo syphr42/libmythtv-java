@@ -18,23 +18,27 @@ package org.syphr.mythtv.protocol.impl;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderToggleChannelFavorite extends AbstractCommand63QueryRecorder<Void>
 {
     private final String channelGroup;
 
-    public Command63QueryRecorderToggleChannelFavorite(int recorderId,
+    public Command63QueryRecorderToggleChannelFavorite(Translator translator,
+                                                       Parser parser,
+                                                       int recorderId,
                                                        String channelGroup)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
+
         this.channelGroup = channelGroup;
     }
 
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("TOGGLE_CHANNEL_FAVORITE",
-                                                channelGroup);
+        return getParser().combineArguments("TOGGLE_CHANNEL_FAVORITE",
+                                            channelGroup);
     }
 
     @Override

@@ -18,12 +18,13 @@ package org.syphr.mythtv.protocol.impl;
 import org.syphr.mythtv.types.SleepStatus;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderGetSleepStatus extends AbstractCommand63QueryRemoteEncoder<SleepStatus>
 {
-    public Command63QueryRemoteEncoderGetSleepStatus(int recorderId)
+    public Command63QueryRemoteEncoderGetSleepStatus(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override
@@ -35,6 +36,6 @@ import org.syphr.mythtv.util.exception.ProtocolException;
     @Override
     protected SleepStatus parseResponse(String response) throws ProtocolException, CommandException
     {
-        return Protocol63Utils.getTranslator().toEnum(response, SleepStatus.class);
+        return getTranslator().toEnum(response, SleepStatus.class);
     }
 }

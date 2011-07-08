@@ -24,21 +24,25 @@ import java.util.List;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63DownloadFile extends AbstractCommand<URI>
+/* default */class Command63DownloadFile extends AbstractProtocolCommand<URI>
 {
     private final URL url;
     private final String storageGroup;
     private final URI filename;
     private final boolean now;
 
-    public Command63DownloadFile(URL url,
+    public Command63DownloadFile(Translator translator,
+                                 Parser parser,
+                                 URL url,
                                  String storageGroup,
                                  URI filename,
                                  boolean now)
     {
+        super(translator, parser);
+
         this.url = url;
         this.storageGroup = storageGroup;
         this.filename = filename;
@@ -49,10 +53,10 @@ import org.syphr.mythtv.util.socket.SocketManager;
     protected String getMessage() throws ProtocolException
     {
         String command = now ? "DOWNLOAD_FILE_NOW" : "DOWNLOAD_FILE";
-        return Protocol63Utils.combineArguments(command,
-                                                url.toString(),
-                                                storageGroup,
-                                                filename.getPath());
+        return getParser().combineArguments(command,
+                                            url.toString(),
+                                            storageGroup,
+                                            filename.getPath());
     }
 
     @Override
@@ -65,7 +69,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
             throw new CommandException("Error occurred while attempting download");
         }
 
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.size() != 2 || !"OK".equals(args.get(0)))
         {
             throw new ProtocolException(response, Direction.RECEIVE);

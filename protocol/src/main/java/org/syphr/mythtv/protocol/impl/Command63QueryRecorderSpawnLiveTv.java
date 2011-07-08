@@ -19,6 +19,7 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderSpawnLiveTv extends AbstractCommand63QueryRecorder<Void>
 {
@@ -26,12 +27,14 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
     private final boolean pip;
     private final Channel startChannel;
 
-    public Command63QueryRecorderSpawnLiveTv(int recorderId,
+    public Command63QueryRecorderSpawnLiveTv(Translator translator,
+                                             Parser parser,
+                                             int recorderId,
                                              String chainId,
                                              boolean pip,
                                              Channel startChannel)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
 
         this.chainId = chainId;
         this.pip = pip;
@@ -41,10 +44,10 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("SPAWN_LIVETV",
-                                                chainId,
-                                                pip ? "1" : "0",
-                                                startChannel.getNumber());
+        return getParser().combineArguments("SPAWN_LIVETV",
+                                            chainId,
+                                            pip ? "1" : "0",
+                                            startChannel.getNumber());
     }
 
     @Override

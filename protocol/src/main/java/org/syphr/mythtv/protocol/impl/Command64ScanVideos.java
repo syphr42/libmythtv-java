@@ -16,9 +16,15 @@
 package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
+import org.syphr.mythtv.util.translate.Translator;
+
 /* default */class Command64ScanVideos extends AbstractCommandOkResponse
 {
+    public Command64ScanVideos(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {

@@ -21,11 +21,16 @@ import java.util.List;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryGetAllScheduled extends AbstractCommand<List<Program>>
+/* default */class Command63QueryGetAllScheduled extends AbstractProtocolCommand<List<Program>>
 {
+    public Command63QueryGetAllScheduled(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {
@@ -36,7 +41,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public List<Program> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.isEmpty())
         {
@@ -44,6 +49,6 @@ import org.syphr.mythtv.util.socket.SocketManager;
         }
 
         args.remove(0);
-        return Protocol63Utils.parseProgramInfos(args);
+        return getParser().parseProgramInfos(args);
     }
 }

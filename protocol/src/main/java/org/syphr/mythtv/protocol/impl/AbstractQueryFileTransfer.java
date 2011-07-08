@@ -17,21 +17,40 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public abstract class AbstractQueryFileTransfer implements QueryFileTransfer
 {
+    private final Translator translator;
+    private final Parser parser;
     private final int socketNumber;
     private final long size;
     private final SocketManager socketManager;
 
-    public AbstractQueryFileTransfer(int socketNumber, long size, SocketManager socketManager)
+    public AbstractQueryFileTransfer(Translator translator,
+                                     Parser parser,
+                                     int socketNumber,
+                                     long size,
+                                     SocketManager socketManager)
     {
+        this.translator = translator;
+        this.parser = parser;
         this.socketNumber = socketNumber;
         this.size = size;
         this.socketManager = socketManager;
     }
 
-    public int getSocketNumber()
+    protected Translator getTranslator()
+    {
+        return translator;
+    }
+
+    protected Parser getParser()
+    {
+        return parser;
+    }
+
+    protected int getSocketNumber()
     {
         return socketNumber;
     }

@@ -21,11 +21,16 @@ import java.util.List;
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryFreeSpaceSummary extends AbstractCommand<DriveInfo>
+/* default */class Command63QueryFreeSpaceSummary extends AbstractProtocolCommand<DriveInfo>
 {
+    public Command63QueryFreeSpaceSummary(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getMessage() throws org.syphr.mythtv.util.exception.ProtocolException
     {
@@ -36,7 +41,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public DriveInfo send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() != 4)
         {

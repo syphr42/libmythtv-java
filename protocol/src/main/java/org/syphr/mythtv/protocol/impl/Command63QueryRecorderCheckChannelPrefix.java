@@ -20,14 +20,19 @@ import java.util.List;
 import org.syphr.mythtv.data.ChannelQuery;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderCheckChannelPrefix extends AbstractCommand63QueryRecorder<ChannelQuery>
 {
     private final String channelNumberPrefix;
 
-    public Command63QueryRecorderCheckChannelPrefix(int recorderId, String channelNumberPrefix)
+    public Command63QueryRecorderCheckChannelPrefix(Translator translator,
+                                                    Parser parser,
+                                                    int recorderId,
+                                                    String channelNumberPrefix)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
+
         this.channelNumberPrefix = channelNumberPrefix;
     }
 
@@ -39,13 +44,13 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("CHECK_CHANNEL_PREFIX", getChannelNumberPrefix());
+        return getParser().combineArguments("CHECK_CHANNEL_PREFIX", getChannelNumberPrefix());
     }
 
     @Override
     public ChannelQuery parseResponse(String response) throws ProtocolException
     {
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() != 4)
         {
@@ -61,9 +66,9 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
         try
         {
             return new ChannelQuery(getChannelNumberPrefix(),
-                                    Protocol63Utils.getTranslator().toBooleanFromInt(args.get(0)),
+                                    getTranslator().toBooleanFromInt(args.get(0)),
                                     Integer.parseInt(args.get(1)),
-                                    Protocol63Utils.getTranslator().toBooleanFromInt(args.get(2)),
+                                    getTranslator().toBooleanFromInt(args.get(2)),
                                     spacer);
         }
         catch (NumberFormatException e)

@@ -22,14 +22,16 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderStartRecording extends AbstractCommand63QueryRemoteEncoder<Boolean>
 {
     private final Program program;
 
-    public Command63QueryRemoteEncoderStartRecording(int recorderId, Program program)
+    public Command63QueryRemoteEncoderStartRecording(Translator translator, Parser parser, int recorderId, Program program)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
+
         this.program = program;
     }
 
@@ -38,9 +40,9 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
     {
         List<String> args = new ArrayList<String>();
         args.add("START_RECORDING");
-        args.addAll(Protocol63Utils.extractProgramInfo(program));
+        args.addAll(getParser().extractProgramInfo(program));
 
-        return Protocol63Utils.combineArguments(args);
+        return getParser().combineArguments(args);
     }
 
     @Override

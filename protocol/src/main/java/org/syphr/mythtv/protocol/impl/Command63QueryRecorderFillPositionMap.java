@@ -23,15 +23,20 @@ import java.util.TreeMap;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderFillPositionMap extends AbstractCommand63QueryRecorder<Map<Long, Long>>
 {
     private final long start;
     private final long end;
 
-    public Command63QueryRecorderFillPositionMap(int recorderId, long start, long end)
+    public Command63QueryRecorderFillPositionMap(Translator translator,
+                                                 Parser parser,
+                                                 int recorderId,
+                                                 long start,
+                                                 long end)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
 
         this.start = start;
         this.end = end;
@@ -40,9 +45,9 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("FILL_POSITION_MAP",
-                                                String.valueOf(start),
-                                                String.valueOf(end));
+        return getParser().combineArguments("FILL_POSITION_MAP",
+                                            String.valueOf(start),
+                                            String.valueOf(end));
     }
 
     @Override
@@ -61,7 +66,7 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
         Map<Long, Long> positionMap = new TreeMap<Long, Long>();
         int i = 0;
 
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         try
         {

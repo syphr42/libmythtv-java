@@ -19,23 +19,26 @@ import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryFileTransferIsOpen extends AbstractCommand<Boolean>
+/* default */class Command63QueryFileTransferIsOpen extends AbstractProtocolCommand<Boolean>
 {
     private final int socketNumber;
 
-    public Command63QueryFileTransferIsOpen(int socketNumber)
+    public Command63QueryFileTransferIsOpen(Translator translator, Parser parser, int socketNumber)
     {
+        super(translator, parser);
+
         this.socketNumber = socketNumber;
     }
 
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
-                                                + socketNumber, "IS_OPEN");
+        return getParser().combineArguments("QUERY_FILETRANSFER "
+                                                    + socketNumber,
+                                            "IS_OPEN");
     }
 
     @Override

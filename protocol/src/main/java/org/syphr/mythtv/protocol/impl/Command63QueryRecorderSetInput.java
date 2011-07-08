@@ -17,21 +17,23 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderSetInput extends AbstractCommand63QueryRecorder<String>
 {
     private final String input;
 
-    public Command63QueryRecorderSetInput(int recorderId, String input)
+    public Command63QueryRecorderSetInput(Translator translator, Parser parser, int recorderId, String input)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
+
         this.input = input;
     }
 
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("SET_INPUT", input);
+        return getParser().combineArguments("SET_INPUT", input);
     }
 
     @Override

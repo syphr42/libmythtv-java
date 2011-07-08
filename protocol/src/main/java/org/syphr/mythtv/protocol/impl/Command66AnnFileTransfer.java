@@ -24,10 +24,13 @@ import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command66AnnFileTransfer extends Command63AnnFileTransfer
 {
-    public Command66AnnFileTransfer(String host,
+    public Command66AnnFileTransfer(Translator translator,
+                                    Parser parser,
+                                    String host,
                                     FileTransferType type,
                                     boolean readAhead,
                                     long timeout,
@@ -35,7 +38,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
                                     String storageGroup,
                                     SocketManager commandSocketManager)
     {
-        super(host,
+        super(translator,
+              parser,
+              host,
               type,
               readAhead,
               timeout,
@@ -48,7 +53,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public QueryFileTransfer send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.size() != 3)
         {
             throw new ProtocolException(response, Direction.RECEIVE);
@@ -64,7 +69,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
             int socketNumber = Integer.parseInt(args.get(1));
             long size = Long.parseLong(args.get(2));
 
-            return new QueryFileTransfer66(socketNumber,
+            return new QueryFileTransfer66(getTranslator(),
+                                           getParser(),
+                                           socketNumber,
                                            size,
                                            getCommandSocketManager());
         }

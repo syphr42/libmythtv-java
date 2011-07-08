@@ -15,8 +15,15 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import org.syphr.mythtv.util.translate.Translator;
+
 /* default */class Command63MessageResetIdleTime extends AbstractCommand63Message
 {
+    public Command63MessageResetIdleTime(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getSubCommand()
     {

@@ -25,6 +25,7 @@ import org.syphr.mythtv.types.ChannelBrowseDirection;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.translate.DateUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderGetNextProgramInfo extends AbstractCommand63QueryRecorder<Program>
 {
@@ -32,12 +33,14 @@ import org.syphr.mythtv.util.translate.DateUtils;
     private final ChannelBrowseDirection browseDirection;
     private final Date startTime;
 
-    public Command63QueryRecorderGetNextProgramInfo(int recorderId,
-                                                         Channel channel,
-                                                         ChannelBrowseDirection browseDirection,
-                                                         Date startTime)
+    public Command63QueryRecorderGetNextProgramInfo(Translator translator,
+                                                    Parser parser,
+                                                    int recorderId,
+                                                    Channel channel,
+                                                    ChannelBrowseDirection browseDirection,
+                                                    Date startTime)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
 
         this.channel = channel;
         this.browseDirection = browseDirection;
@@ -47,17 +50,18 @@ import org.syphr.mythtv.util.translate.DateUtils;
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("GET_NEXT_PROGRAM_INFO",
-                                                channel.getNumber(),
-                                                String.valueOf(channel.getId()),
-                                                Protocol63Utils.getTranslator().toString(browseDirection),
-                                                DateUtils.getIsoDateFormat().format(startTime));
+        return getParser().combineArguments("GET_NEXT_PROGRAM_INFO",
+                                            channel.getNumber(),
+                                            String.valueOf(channel.getId()),
+                                            getTranslator().toString(browseDirection),
+                                            DateUtils.getIsoDateFormat()
+                                                     .format(startTime));
     }
 
     @Override
     protected Program parseResponse(String response) throws ProtocolException
     {
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() != 12)
         {

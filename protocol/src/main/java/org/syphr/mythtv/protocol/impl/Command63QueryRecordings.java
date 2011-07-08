@@ -22,15 +22,17 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryRecordings extends AbstractCommand<List<Program>>
+/* default */class Command63QueryRecordings extends AbstractProtocolCommand<List<Program>>
 {
     private final RecordingCategory recCategory;
 
-    public Command63QueryRecordings(RecordingCategory recCategory)
+    public Command63QueryRecordings(Translator translator, Parser parser, RecordingCategory recCategory)
     {
+        super(translator, parser);
+
         this.recCategory = recCategory;
     }
 
@@ -43,14 +45,14 @@ import org.syphr.mythtv.util.socket.SocketManager;
     protected String getMessage() throws ProtocolException
     {
         return "QUERY_RECORDINGS "
-               + Protocol63Utils.getTranslator().toString(getRecCategory());
+               + getTranslator().toString(getRecCategory());
     }
 
     @Override
     public List<Program> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.isEmpty())
         {
@@ -58,6 +60,6 @@ import org.syphr.mythtv.util.socket.SocketManager;
         }
 
         args.remove(0);
-        return Protocol63Utils.parseProgramInfos(args);
+        return getParser().parseProgramInfos(args);
     }
 }

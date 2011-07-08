@@ -22,12 +22,17 @@ import java.util.concurrent.TimeUnit;
 import org.syphr.mythtv.data.FileInfo;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QuerySgFileQuery extends AbstractCommand63QuerySg<FileInfo>
 {
-    public Command63QuerySgFileQuery(String host, String storageGroup, String path)
+    public Command63QuerySgFileQuery(Translator translator,
+                                     Parser parser,
+                                     String host,
+                                     String storageGroup,
+                                     String path)
     {
-        super(host, storageGroup, path);
+        super(translator, parser, host, storageGroup, path);
     }
 
     @Override

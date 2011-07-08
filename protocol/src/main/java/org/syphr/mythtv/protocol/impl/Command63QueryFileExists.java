@@ -24,16 +24,18 @@ import java.util.concurrent.TimeUnit;
 import org.syphr.mythtv.data.FileInfo;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryFileExists extends AbstractCommand<FileInfo>
+/* default */class Command63QueryFileExists extends AbstractProtocolCommand<FileInfo>
 {
     private final URI filename;
     private final String storageGroup;
 
-    public Command63QueryFileExists(URI filename, String storageGroup)
+    public Command63QueryFileExists(Translator translator, Parser parser, URI filename, String storageGroup)
     {
+        super(translator, parser);
+
         this.filename = filename;
         this.storageGroup = storageGroup;
     }
@@ -51,9 +53,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("QUERY_FILE_EXISTS",
-                                                getFilename().getPath(),
-                                                getStorageGroup());
+        return getParser().combineArguments("QUERY_FILE_EXISTS",
+                                            getFilename().getPath(),
+                                            getStorageGroup());
     }
 
     @Override
@@ -65,7 +67,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
             return null;
         }
 
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.size() < 2 || !"1".equals(args.get(0)))
         {
             throw new ProtocolException(response, Direction.RECEIVE);

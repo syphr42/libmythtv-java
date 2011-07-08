@@ -17,12 +17,13 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.CommandUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderPause extends AbstractCommand63QueryRecorder<Void>
 {
-    public Command63QueryRecorderPause(int recorderId)
+    public Command63QueryRecorderPause(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override

@@ -21,26 +21,29 @@ import org.syphr.mythtv.types.SeekOrigin;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command66QueryFileTransferSeek extends Command63QueryFileTransferSeek
 {
-    public Command66QueryFileTransferSeek(int socketNumber,
+    public Command66QueryFileTransferSeek(Translator translator,
+                                          Parser parser,
+                                          int socketNumber,
                                           long position,
                                           SeekOrigin origin,
                                           long curPosition)
     {
-        super(socketNumber, position, origin, curPosition);
+        super(translator, parser, socketNumber, position, origin, curPosition);
     }
 
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
-                                                        + getSocketNumber(),
-                                                "SEEK",
-                                                String.valueOf(getPosition()),
-                                                Protocol63Utils.getTranslator().toString(getOrigin()),
-                                                String.valueOf(getCurPosition()));
+        return getParser().combineArguments("QUERY_FILETRANSFER "
+                                                    + getSocketNumber(),
+                                            "SEEK",
+                                            String.valueOf(getPosition()),
+                                            getTranslator().toString(getOrigin()),
+                                            String.valueOf(getCurPosition()));
     }
 
     @Override

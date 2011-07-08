@@ -23,16 +23,21 @@ import java.util.concurrent.TimeUnit;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryBookmark extends AbstractCommand<Long>
+/* default */class Command63QueryBookmark extends AbstractProtocolCommand<Long>
 {
     private final Channel channel;
     private final Date recStartTs;
 
-    public Command63QueryBookmark(Channel channel, Date recStartTs)
+    public Command63QueryBookmark(Translator translator,
+                                  Parser parser,
+                                  Channel channel,
+                                  Date recStartTs)
     {
+        super(translator, parser);
+
         this.channel = channel;
         this.recStartTs = recStartTs;
     }
@@ -54,7 +59,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public Long send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.size() != 2)
         {
             throw new ProtocolException(response, Direction.RECEIVE);

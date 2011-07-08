@@ -23,10 +23,10 @@ import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63AnnFileTransfer extends AbstractCommand<QueryFileTransfer>
+/* default */class Command63AnnFileTransfer extends AbstractProtocolCommand<QueryFileTransfer>
 {
     private final String host;
     private final FileTransferType type;
@@ -36,7 +36,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
     private final String storageGroup;
     private final SocketManager commandSocketManager;
 
-    public Command63AnnFileTransfer(String host,
+    public Command63AnnFileTransfer(Translator translator,
+                                    Parser parser,
+                                    String host,
                                     FileTransferType type,
                                     boolean readAhead,
                                     long timeout,
@@ -44,6 +46,8 @@ import org.syphr.mythtv.util.socket.SocketManager;
                                     String storageGroup,
                                     SocketManager commandSocketManager)
     {
+        super(translator, parser);
+
         this.host = host;
         this.type = type;
         this.readAhead = readAhead;
@@ -95,7 +99,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
         builder.append("ANN FileTransfer ");
         builder.append(getHost());
         builder.append(' ');
-        builder.append(Protocol63Utils.getTranslator().toString(getType()));
+        builder.append(getTranslator().toString(getType()));
         builder.append(' ');
         builder.append(isReadAhead() ? 1 : 0);
 
@@ -105,16 +109,16 @@ import org.syphr.mythtv.util.socket.SocketManager;
             builder.append(getTimeout());
         }
 
-        return Protocol63Utils.combineArguments(builder.toString(),
-                                                getUri().toString(),
-                                                getStorageGroup());
+        return getParser().combineArguments(builder.toString(),
+                                            getUri().toString(),
+                                            getStorageGroup());
     }
 
     @Override
     public QueryFileTransfer send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.size() != 4)
         {
             throw new ProtocolException(response, Direction.RECEIVE);
@@ -130,7 +134,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
             int socketNumber = Integer.parseInt(args.get(1));
             long size = ProtocolUtils.combineInts(args.get(2), args.get(3));
 
-            return new QueryFileTransfer63(socketNumber,
+            return new QueryFileTransfer63(getTranslator(),
+                                           getParser(),
+                                           socketNumber,
                                            size,
                                            getCommandSocketManager());
         }

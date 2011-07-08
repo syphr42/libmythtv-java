@@ -22,23 +22,25 @@ import org.syphr.mythtv.data.RecorderLocation;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63GetRecorderFromNum extends AbstractCommand<RecorderLocation>
+/* default */class Command63GetRecorderFromNum extends AbstractProtocolCommand<RecorderLocation>
 {
     private final int recorderId;
 
-    public Command63GetRecorderFromNum(int recorderId)
+    public Command63GetRecorderFromNum(Translator translator, Parser parser, int recorderId)
     {
+        super(translator, parser);
+
         this.recorderId = recorderId;
     }
 
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("GET_RECORDER_FROM_NUM",
-                                                String.valueOf(recorderId));
+        return getParser().combineArguments("GET_RECORDER_FROM_NUM",
+                                            String.valueOf(recorderId));
     }
 
     @Override
@@ -46,7 +48,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.size() != 2)
         {
             throw new ProtocolException(response, Direction.RECEIVE);

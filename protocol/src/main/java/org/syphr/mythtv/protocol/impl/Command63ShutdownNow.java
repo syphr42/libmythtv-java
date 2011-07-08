@@ -18,22 +18,24 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63ShutdownNow extends AbstractCommand<Void>
+/* default */class Command63ShutdownNow extends AbstractProtocolCommand<Void>
 {
     private final String command;
 
-    public Command63ShutdownNow(String command)
+    public Command63ShutdownNow(Translator translator, Parser parser, String command)
     {
+        super(translator, parser);
+
         this.command = command;
     }
 
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("SHUTDOWN_NOW", command);
+        return getParser().combineArguments("SHUTDOWN_NOW", command);
     }
 
     @Override

@@ -22,12 +22,17 @@ import org.syphr.mythtv.data.FileEntry;
 import org.syphr.mythtv.types.FileEntryType;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QuerySgGetFileList extends AbstractCommand63QuerySg<List<FileEntry>>
 {
-    public Command63QuerySgGetFileList(String host, String storageGroup, String path)
+    public Command63QuerySgGetFileList(Translator translator,
+                                       Parser parser,
+                                       String host,
+                                       String storageGroup,
+                                       String path)
     {
-        super(host, storageGroup, path);
+        super(translator, parser, host, storageGroup, path);
     }
 
     @Override

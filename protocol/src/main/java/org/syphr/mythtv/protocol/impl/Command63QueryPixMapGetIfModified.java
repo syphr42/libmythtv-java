@@ -29,10 +29,10 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryPixMapGetIfModified extends AbstractCommand<PixMap>
+/* default */class Command63QueryPixMapGetIfModified extends AbstractProtocolCommand<PixMap>
 {
     private static final Pattern BAD_RESPONSE_PATTERN = Pattern.compile("\\d: (.*)");
 
@@ -40,10 +40,14 @@ import org.syphr.mythtv.util.socket.SocketManager;
     private final int maxFileSize;
     private final Program program;
 
-    public Command63QueryPixMapGetIfModified(Date timestamp,
+    public Command63QueryPixMapGetIfModified(Translator translator,
+                                             Parser parser,
+                                             Date timestamp,
                                              int maxFileSize,
                                              Program program)
     {
+        super(translator, parser);
+
         this.timestamp = timestamp;
         this.maxFileSize = maxFileSize;
         this.program = program;
@@ -58,9 +62,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
                 ? "-1"
                 : String.valueOf(TimeUnit.MILLISECONDS.toSeconds(timestamp.getTime())));
         messageList.add(String.valueOf(maxFileSize));
-        messageList.addAll(Protocol63Utils.extractProgramInfo(program));
+        messageList.addAll(getParser().extractProgramInfo(program));
 
-        return Protocol63Utils.combineArguments(messageList);
+        return getParser().combineArguments(messageList);
     }
 
     @Override
@@ -68,7 +72,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
                                                    CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() == 0)
         {

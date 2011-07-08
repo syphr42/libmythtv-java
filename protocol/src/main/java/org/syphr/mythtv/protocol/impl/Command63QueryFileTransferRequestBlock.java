@@ -19,16 +19,21 @@ import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryFileTransferRequestBlock extends AbstractCommand<Long>
+/* default */class Command63QueryFileTransferRequestBlock extends AbstractProtocolCommand<Long>
 {
     private final int socketNumber;
     private final long bytes;
 
-    public Command63QueryFileTransferRequestBlock(int socketNumber, long bytes)
+    public Command63QueryFileTransferRequestBlock(Translator translator,
+                                                  Parser parser,
+                                                  int socketNumber,
+                                                  long bytes)
     {
+        super(translator, parser);
+
         this.socketNumber = socketNumber;
         this.bytes = bytes;
     }
@@ -36,10 +41,10 @@ import org.syphr.mythtv.util.socket.SocketManager;
     @Override
     public String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
-                                                        + socketNumber,
-                                                "REQUEST_BLOCK",
-                                                String.valueOf(bytes));
+        return getParser().combineArguments("QUERY_FILETRANSFER "
+                                                    + socketNumber,
+                                            "REQUEST_BLOCK",
+                                            String.valueOf(bytes));
     }
 
     @Override

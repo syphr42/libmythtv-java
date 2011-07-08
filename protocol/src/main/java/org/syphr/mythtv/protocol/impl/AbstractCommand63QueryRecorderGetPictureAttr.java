@@ -17,12 +17,15 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */abstract class AbstractCommand63QueryRecorderGetPictureAttr extends AbstractCommand63QueryRecorder<Integer>
 {
-    public AbstractCommand63QueryRecorderGetPictureAttr(int recorderId)
+    public AbstractCommand63QueryRecorderGetPictureAttr(Translator translator,
+                                                        Parser parser,
+                                                        int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override

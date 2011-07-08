@@ -18,12 +18,13 @@ package org.syphr.mythtv.protocol.impl;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command66QueryRecorderGetFramesWritten extends Command63QueryRecorderGetFramesWritten
 {
-    public Command66QueryRecorderGetFramesWritten(int recorderId)
+    public Command66QueryRecorderGetFramesWritten(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override

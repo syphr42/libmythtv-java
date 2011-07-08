@@ -17,15 +17,20 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.types.PictureAdjustType;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */abstract class AbstractCommand63QueryRecorderChangePictureAttr extends AbstractCommand63QueryRecorderGetPictureAttr
 {
     private final PictureAdjustType type;
     private final boolean increment;
 
-    public AbstractCommand63QueryRecorderChangePictureAttr(int recorderId, PictureAdjustType type, boolean increment)
+    public AbstractCommand63QueryRecorderChangePictureAttr(Translator translator,
+                                                           Parser parser,
+                                                           int recorderId,
+                                                           PictureAdjustType type,
+                                                           boolean increment)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
 
         this.type = type;
         this.increment = increment;
@@ -34,9 +39,9 @@ import org.syphr.mythtv.util.exception.ProtocolException;
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments(getSubCommandName(),
-                                                Protocol63Utils.getTranslator().toString(type),
-                                                increment ? "1" : "0");
+        return getParser().combineArguments(getSubCommandName(),
+                                            getTranslator().toString(type),
+                                            increment ? "1" : "0");
     }
 
     protected abstract String getSubCommandName();

@@ -19,17 +19,23 @@ import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class QueryRemoteEncoder66 extends QueryRemoteEncoder63
 {
-    public QueryRemoteEncoder66(int recorderId, SocketManager socketManager)
+    public QueryRemoteEncoder66(Translator translator,
+                                Parser parser,
+                                int recorderId,
+                                SocketManager socketManager)
     {
-        super(recorderId, socketManager);
+        super(translator, parser, recorderId, socketManager);
     }
 
     @Override
     public long getMaxBitrate() throws IOException, CommandException
     {
-        return new Command66QueryRemoteEncoderGetMaxBitrate(getRecorderId()).send(getSocketManager());
+        return new Command66QueryRemoteEncoderGetMaxBitrate(getTranslator(),
+                                                            getParser(),
+                                                            getRecorderId()).send(getSocketManager());
     }
 }

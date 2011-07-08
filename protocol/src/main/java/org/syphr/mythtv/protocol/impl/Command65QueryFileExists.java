@@ -18,24 +18,28 @@ package org.syphr.mythtv.protocol.impl;
 import java.net.URI;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command65QueryFileExists extends Command63QueryFileExists
 {
-    public Command65QueryFileExists(URI filename, String storageGroup)
+    public Command65QueryFileExists(Translator translator,
+                                    Parser parser,
+                                    URI filename,
+                                    String storageGroup)
     {
-        super(filename, storageGroup);
+        super(translator, parser, filename, storageGroup);
     }
 
     @Override
     protected String getMessage() throws ProtocolException
     {
-        String message = Protocol63Utils.combineArguments("QUERY_FILE_EXISTS",
-                                                          getFilename().getPath());
+        String message = getParser().combineArguments("QUERY_FILE_EXISTS",
+                                                      getFilename().getPath());
 
         String storageGroup = getStorageGroup();
         if (storageGroup != null)
         {
-            message = Protocol63Utils.combineArguments(message, storageGroup);
+            message = getParser().combineArguments(message, storageGroup);
         }
 
         return message;

@@ -22,15 +22,17 @@ import org.syphr.mythtv.data.RecorderDevice;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63LockTuner extends AbstractCommand<RecorderDevice>
+/* default */class Command63LockTuner extends AbstractProtocolCommand<RecorderDevice>
 {
     private final int recorderId;
 
-    public Command63LockTuner(int recorderId)
+    public Command63LockTuner(Translator translator, Parser parser, int recorderId)
     {
+        super(translator, parser);
+
         this.recorderId = recorderId;
     }
 
@@ -53,7 +55,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public RecorderDevice send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.isEmpty())
         {
             throw new ProtocolException(response, Direction.RECEIVE);

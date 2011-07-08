@@ -16,16 +16,34 @@
 package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public abstract class AbstractRecorderProtocol
 {
+    private final Translator translator;
+    private final Parser parser;
     private final int recorderId;
     private final SocketManager socketManager;
 
-    public AbstractRecorderProtocol(int recorderId, SocketManager socketManager)
+    public AbstractRecorderProtocol(Translator translator,
+                                    Parser parser,
+                                    int recorderId,
+                                    SocketManager socketManager)
     {
+        this.translator = translator;
+        this.parser = parser;
         this.recorderId = recorderId;
         this.socketManager = socketManager;
+    }
+
+    protected Translator getTranslator()
+    {
+        return translator;
+    }
+
+    protected Parser getParser()
+    {
+        return parser;
     }
 
     protected int getRecorderId()

@@ -16,12 +16,17 @@
 package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.types.PictureAdjustType;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderChangeContrast extends AbstractCommand63QueryRecorderChangePictureAttr
 {
-    public Command63QueryRecorderChangeContrast(int recorderId, PictureAdjustType type, boolean increment)
+    public Command63QueryRecorderChangeContrast(Translator translator,
+                                                Parser parser,
+                                                int recorderId,
+                                                PictureAdjustType type,
+                                                boolean increment)
     {
-        super(recorderId, type, increment);
+        super(translator, parser, recorderId, type, increment);
     }
 
     @Override

@@ -21,16 +21,21 @@ import java.util.List;
 
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63FillProgramInfo extends AbstractCommand<Program>
+/* default */class Command63FillProgramInfo extends AbstractProtocolCommand<Program>
 {
     private final String host;
     private final Program program;
 
-    public Command63FillProgramInfo(String host, Program program)
+    public Command63FillProgramInfo(Translator translator,
+                                    Parser parser,
+                                    String host,
+                                    Program program)
     {
+        super(translator, parser);
+
         this.host = host;
         this.program = program;
     }
@@ -41,17 +46,17 @@ import org.syphr.mythtv.util.socket.SocketManager;
         List<String> args = new ArrayList<String>();
         args.add("FILL_PROGRAM_INFO");
         args.add(host);
-        args.addAll(Protocol63Utils.extractProgramInfo(program));
+        args.addAll(getParser().extractProgramInfo(program));
 
-        return Protocol63Utils.combineArguments(args);
+        return getParser().combineArguments(args);
     }
 
     @Override
     public Program send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
-        return Protocol63Utils.parseProgramInfo(args);
+        return getParser().parseProgramInfo(args);
     }
 }

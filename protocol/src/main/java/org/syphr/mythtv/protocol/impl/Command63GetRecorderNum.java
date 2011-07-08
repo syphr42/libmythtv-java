@@ -23,15 +23,17 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.RecorderLocation;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63GetRecorderNum extends AbstractCommand<RecorderLocation>
+/* default */class Command63GetRecorderNum extends AbstractProtocolCommand<RecorderLocation>
 {
     private final Program program;
 
-    public Command63GetRecorderNum(Program program)
+    public Command63GetRecorderNum(Translator translator, Parser parser, Program program)
     {
+        super(translator, parser);
+
         this.program = program;
     }
 
@@ -40,9 +42,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
     {
         List<String> args = new ArrayList<String>();
         args.add("GET_RECORDER_NUM");
-        args.addAll(Protocol63Utils.extractProgramInfo(program));
+        args.addAll(getParser().extractProgramInfo(program));
 
-        return Protocol63Utils.combineArguments(args);
+        return getParser().combineArguments(args);
     }
 
     @Override
@@ -50,7 +52,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.size() != 3)
         {
             throw new ProtocolException(response, Direction.RECEIVE);

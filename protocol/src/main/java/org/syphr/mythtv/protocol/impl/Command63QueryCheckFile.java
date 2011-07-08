@@ -24,16 +24,21 @@ import java.util.List;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryCheckFile extends AbstractCommand<URI>
+/* default */class Command63QueryCheckFile extends AbstractProtocolCommand<URI>
 {
     private final boolean checkSlaves;
     private final Program program;
 
-    public Command63QueryCheckFile(boolean checkSlaves, Program program)
+    public Command63QueryCheckFile(Translator translator,
+                                   Parser parser,
+                                   boolean checkSlaves,
+                                   Program program)
     {
+        super(translator, parser);
+
         this.checkSlaves = checkSlaves;
         this.program = program;
     }
@@ -44,16 +49,16 @@ import org.syphr.mythtv.util.socket.SocketManager;
         List<String> messageList = new ArrayList<String>();
         messageList.add("QUERY_CHECKFILE");
         messageList.add(checkSlaves ? "1" : "0");
-        messageList.addAll(Protocol63Utils.extractProgramInfo(program));
+        messageList.addAll(getParser().extractProgramInfo(program));
 
-        return Protocol63Utils.combineArguments(messageList);
+        return getParser().combineArguments(messageList);
     }
 
     @Override
     public URI send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.size() != 2)
         {
             throw new ProtocolException(response, Direction.RECEIVE);

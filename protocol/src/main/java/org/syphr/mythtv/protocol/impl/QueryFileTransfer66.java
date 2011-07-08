@@ -19,19 +19,27 @@ import java.io.IOException;
 
 import org.syphr.mythtv.types.SeekOrigin;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class QueryFileTransfer66 extends QueryFileTransfer63
 {
-    public QueryFileTransfer66(int socketNumber,
+    public QueryFileTransfer66(Translator translator,
+                               Parser parser,
+                               int socketNumber,
                                long size,
                                SocketManager socketManager)
     {
-        super(socketNumber, size, socketManager);
+        super(translator, parser, socketNumber, size, socketManager);
     }
 
     @Override
     public long seek(long position, SeekOrigin origin, long curPosition) throws IOException
     {
-        return new Command66QueryFileTransferSeek(getSocketNumber(), position, origin, curPosition).send(getSocketManager());
+        return new Command66QueryFileTransferSeek(getTranslator(),
+                                                  getParser(),
+                                                  getSocketNumber(),
+                                                  position,
+                                                  origin,
+                                                  curPosition).send(getSocketManager());
     }
 }

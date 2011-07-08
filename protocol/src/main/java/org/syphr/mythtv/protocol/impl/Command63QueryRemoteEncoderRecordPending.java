@@ -21,6 +21,7 @@ import java.util.List;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.CommandUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderRecordPending extends AbstractCommand63QueryRemoteEncoder<Void>
 {
@@ -28,9 +29,15 @@ import org.syphr.mythtv.util.socket.CommandUtils;
     private final boolean hasLater;
     private final Program program;
 
-    public Command63QueryRemoteEncoderRecordPending(int recorderId, int secondsLeft, boolean hasLater, Program program)
+    public Command63QueryRemoteEncoderRecordPending(Translator translator,
+                                                    Parser parser,
+                                                    int recorderId,
+                                                    int secondsLeft,
+                                                    boolean hasLater,
+                                                    Program program)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
+
         this.secondsLeft = secondsLeft;
         this.hasLater = hasLater;
         this.program = program;
@@ -43,9 +50,9 @@ import org.syphr.mythtv.util.socket.CommandUtils;
         args.add("RECORD_PENDING");
         args.add(String.valueOf(secondsLeft));
         args.add(String.valueOf(hasLater));
-        args.addAll(Protocol63Utils.extractProgramInfo(program));
+        args.addAll(getParser().extractProgramInfo(program));
 
-        return Protocol63Utils.combineArguments(args);
+        return getParser().combineArguments(args);
     }
 
     @Override

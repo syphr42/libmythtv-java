@@ -17,21 +17,26 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.CommandUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderCancelNextRecording extends AbstractCommand63QueryRemoteEncoder<Void>
 {
     private final boolean cancel;
 
-    public Command63QueryRemoteEncoderCancelNextRecording(int recorderId, boolean cancel)
+    public Command63QueryRemoteEncoderCancelNextRecording(Translator translator,
+                                                          Parser parser,
+                                                          int recorderId,
+                                                          boolean cancel)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
+
         this.cancel = cancel;
     }
 
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("CANCEL_NEXT_RECORDING", cancel ? "1" : "0");
+        return getParser().combineArguments("CANCEL_NEXT_RECORDING", cancel ? "1" : "0");
     }
 
     @Override

@@ -21,14 +21,16 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderGetKeyframePos extends AbstractCommand63QueryRecorder<Long>
 {
     private final long desiredPosition;
 
-    public Command63QueryRecorderGetKeyframePos(int recorderId, long desiredPosition)
+    public Command63QueryRecorderGetKeyframePos(Translator translator, Parser parser, int recorderId, long desiredPosition)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
+
         this.desiredPosition = desiredPosition;
     }
 
@@ -42,15 +44,15 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
     {
         Pair<String, String> ints = ProtocolUtils.splitLong(getDesiredPosition());
 
-        return Protocol63Utils.combineArguments("GET_KEYFRAME_POS",
-                                                ints.getLeft(),
-                                                ints.getRight());
+        return getParser().combineArguments("GET_KEYFRAME_POS",
+                                            ints.getLeft(),
+                                            ints.getRight());
     }
 
     @Override
     public Long parseResponse(String response) throws ProtocolException, CommandException
     {
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() != 2)
         {

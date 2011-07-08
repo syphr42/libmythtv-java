@@ -32,17 +32,18 @@ import org.syphr.mythtv.data.TunerStatus.TunerData;
 import org.syphr.mythtv.protocol.events.BackendEventListener63;
 import org.syphr.mythtv.protocol.events.SystemEvent;
 import org.syphr.mythtv.protocol.events.SystemEventData;
-import org.syphr.mythtv.protocol.impl.Protocol63Utils;
+import org.syphr.mythtv.protocol.impl.Parser;
 import org.syphr.mythtv.types.TunerStatusCategory;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.translate.DateUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener63>
 {
-    public EventProtocol63()
+    public EventProtocol63(Translator translator, Parser parser)
     {
-        super(BackendEventListener63.class);
+        super(translator, parser, BackendEventListener63.class);
     }
 
     @Override
@@ -251,7 +252,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                 }
                 else if ("UPDATE".equals(args.get(0)))
                 {
-                    final Program program = Protocol63Utils.parseProgramInfo(message.getData());
+                    final Program program = getParser().parseProgramInfo(message.getData());
 
                     return new EventSender<BackendEventListener63>()
                     {
@@ -313,7 +314,7 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                 int i = 0;
                 while (i < data.size())
                 {
-                    TunerStatusCategory category = Protocol63Utils.getTranslator().toEnum(data.get(i++), TunerStatusCategory.class);
+                    TunerStatusCategory category = getTranslator().toEnum(data.get(i++), TunerStatusCategory.class);
 
                     String[] split = data.get(i++).split(" ");
                     TunerData tunerData = new TunerData(split[0],

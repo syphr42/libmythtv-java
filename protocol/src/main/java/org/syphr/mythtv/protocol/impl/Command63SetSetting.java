@@ -16,7 +16,7 @@
 package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63SetSetting extends AbstractCommandOkResponse
 {
@@ -24,8 +24,14 @@ import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
     private final String name;
     private final String value;
 
-    public Command63SetSetting(String host, String name, String value)
+    public Command63SetSetting(Translator translator,
+                               Parser parser,
+                               String host,
+                               String name,
+                               String value)
     {
+        super(translator, parser);
+
         this.host = host;
         this.name = name;
         this.value = value;

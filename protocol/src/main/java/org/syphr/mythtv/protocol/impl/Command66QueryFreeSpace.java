@@ -20,13 +20,19 @@ import java.util.List;
 
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command66QueryFreeSpace extends Command63QueryFreeSpace
 {
+    public Command66QueryFreeSpace(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     public List<DriveInfo> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        return Protocol66Utils.parseDriveInfo(response);
+        return getParser().parseDriveInfo(response);
     }
 }

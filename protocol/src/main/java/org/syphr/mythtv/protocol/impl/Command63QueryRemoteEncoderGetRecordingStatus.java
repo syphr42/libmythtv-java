@@ -17,12 +17,13 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderGetRecordingStatus extends AbstractCommand63QueryRemoteEncoder<RecordingStatus>
 {
-    public Command63QueryRemoteEncoderGetRecordingStatus(int recorderId)
+    public Command63QueryRemoteEncoderGetRecordingStatus(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override
@@ -34,6 +35,6 @@ import org.syphr.mythtv.util.exception.ProtocolException;
     @Override
     protected RecordingStatus parseResponse(String response) throws ProtocolException
     {
-        return Protocol63Utils.getTranslator().toEnum(response, RecordingStatus.class);
+        return getTranslator().toEnum(response, RecordingStatus.class);
     }
 }

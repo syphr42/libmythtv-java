@@ -21,15 +21,20 @@ import java.util.List;
 
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63AnnSlaveBackend extends AbstractCommandOkResponse
 {
     private final InetAddress address;
     private final Program[] recordings;
 
-    public Command63AnnSlaveBackend(InetAddress address, Program... recordings)
+    public Command63AnnSlaveBackend(Translator translator,
+                                    Parser parser,
+                                    InetAddress address,
+                                    Program... recordings)
     {
+        super(translator, parser);
+
         this.address = address;
         this.recordings = recordings;
     }
@@ -48,9 +53,9 @@ import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 
         for (Program recording : recordings)
         {
-            args.addAll(Protocol63Utils.extractProgramInfo(recording));
+            args.addAll(getParser().extractProgramInfo(recording));
         }
 
-        return Protocol63Utils.combineArguments(args);
+        return getParser().combineArguments(args);
     }
 }

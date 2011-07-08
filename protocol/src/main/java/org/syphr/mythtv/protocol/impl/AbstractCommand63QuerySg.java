@@ -21,19 +21,23 @@ import java.util.List;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */abstract class AbstractCommand63QuerySg<T> extends AbstractCommand<T>
+/* default */abstract class AbstractCommand63QuerySg<T> extends AbstractProtocolCommand<T>
 {
     private final String host;
     private final String storageGroup;
     private final String path;
 
-    public AbstractCommand63QuerySg(String host,
+    public AbstractCommand63QuerySg(Translator translator,
+                                    Parser parser,
+                                    String host,
                                     String storageGroup,
                                     String path)
     {
+        super(translator, parser);
+
         this.host = host;
         this.storageGroup = storageGroup;
         this.path = path;
@@ -42,17 +46,17 @@ import org.syphr.mythtv.util.socket.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments(getCommand(),
-                                                host,
-                                                storageGroup,
-                                                path);
+        return getParser().combineArguments(getCommand(),
+                                            host,
+                                            storageGroup,
+                                            path);
     }
 
     @Override
     public T send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.isEmpty())
         {

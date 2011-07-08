@@ -18,12 +18,13 @@ package org.syphr.mythtv.protocol.impl;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.CommandUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderStopRecording extends AbstractCommand63QueryRemoteEncoder<Void>
 {
-    public Command63QueryRemoteEncoderStopRecording(int recorderId)
+    public Command63QueryRemoteEncoderStopRecording(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override

@@ -19,15 +19,16 @@ import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */abstract class AbstractCommand63QueryRecorder<T> extends AbstractCommand<T>
+/* default */abstract class AbstractCommand63QueryRecorder<T> extends AbstractProtocolCommand<T>
 {
     private final int recorderId;
 
-    public AbstractCommand63QueryRecorder(int recorderId)
+    public AbstractCommand63QueryRecorder(Translator translator, Parser parser, int recorderId)
     {
+        super(translator, parser);
         this.recorderId = recorderId;
     }
 
@@ -39,7 +40,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("QUERY_RECORDER " + recorderId, getSubCommand());
+        return getParser().combineArguments("QUERY_RECORDER " + recorderId, getSubCommand());
     }
 
     @Override

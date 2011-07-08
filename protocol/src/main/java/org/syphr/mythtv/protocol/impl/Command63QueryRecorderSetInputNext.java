@@ -15,10 +15,12 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import org.syphr.mythtv.util.translate.Translator;
+
 /* default */class Command63QueryRecorderSetInputNext extends Command63QueryRecorderSetInput
 {
-    public Command63QueryRecorderSetInputNext(int recorderId)
+    public Command63QueryRecorderSetInputNext(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId, "SwitchToNextInput");
+        super(translator, parser, recorderId, "SwitchToNextInput");
     }
 }

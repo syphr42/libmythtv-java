@@ -15,8 +15,16 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import org.syphr.mythtv.util.translate.Translator;
+
 /* default */class Command63MessageClearSettingsCache extends AbstractCommand63Message
 {
+    public Command63MessageClearSettingsCache(Translator translator,
+                                              Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getSubCommand()
     {

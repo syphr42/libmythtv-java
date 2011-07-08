@@ -18,12 +18,13 @@ package org.syphr.mythtv.protocol.impl;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command66QueryRecorderGetFilePosition extends Command63QueryRecorderGetFilePosition
 {
-    public Command66QueryRecorderGetFilePosition(int recorderId)
+    public Command66QueryRecorderGetFilePosition(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override

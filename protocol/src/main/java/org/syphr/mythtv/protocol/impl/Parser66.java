@@ -22,16 +22,23 @@ import java.util.List;
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
-public class Protocol66Utils
+public class Parser66 extends Parser63
 {
-    public static List<DriveInfo> parseDriveInfo(String value) throws ProtocolException
+    public Parser66(Translator translator)
+    {
+        super(translator);
+    }
+
+    @Override
+    public List<DriveInfo> parseDriveInfo(String value) throws ProtocolException
     {
         List<DriveInfo> drives = new ArrayList<DriveInfo>();
 
         try
         {
-            List<String> args = Protocol63Utils.splitArguments(value);
+            List<String> args = splitArguments(value);
 
             for (int i = 0; i < args.size();)
             {

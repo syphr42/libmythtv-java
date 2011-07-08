@@ -22,28 +22,30 @@ import org.syphr.mythtv.data.InputInfo;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderIsBusy extends AbstractCommand63QueryRemoteEncoder<Pair<Boolean, InputInfo>>
 {
     private final int withinSeconds;
 
-    public Command63QueryRemoteEncoderIsBusy(int recorderId, int withinSeconds)
+    public Command63QueryRemoteEncoderIsBusy(Translator translator, Parser parser, int recorderId, int withinSeconds)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
+
         this.withinSeconds = withinSeconds;
     }
 
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("IS_BUSY", String.valueOf(withinSeconds));
+        return getParser().combineArguments("IS_BUSY", String.valueOf(withinSeconds));
     }
 
     @Override
     protected Pair<Boolean, InputInfo> parseResponse(String response) throws ProtocolException,
                                                                      CommandException
     {
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() != 6)
         {

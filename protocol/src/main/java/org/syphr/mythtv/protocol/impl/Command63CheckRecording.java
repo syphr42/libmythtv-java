@@ -22,15 +22,17 @@ import java.util.List;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63CheckRecording extends AbstractCommand<Integer>
+/* default */class Command63CheckRecording extends AbstractProtocolCommand<Integer>
 {
     private final Program program;
 
-    public Command63CheckRecording(Program program)
+    public Command63CheckRecording(Translator translator, Parser parser, Program program)
     {
+        super(translator, parser);
+
         this.program = program;
     }
 
@@ -39,9 +41,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
     {
         List<String> args = new ArrayList<String>();
         args.add("CHECK_RECORDING");
-        args.addAll(Protocol63Utils.extractProgramInfo(program));
+        args.addAll(getParser().extractProgramInfo(program));
 
-        return Protocol63Utils.combineArguments(args);
+        return getParser().combineArguments(args);
     }
 
     @Override

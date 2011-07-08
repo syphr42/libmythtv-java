@@ -20,12 +20,13 @@ import java.util.List;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderGetFilePosition extends AbstractCommand63QueryRecorder<Long>
 {
-    public Command63QueryRecorderGetFilePosition(int recorderId)
+    public Command63QueryRecorderGetFilePosition(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override
@@ -37,7 +38,7 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
     @Override
     public Long parseResponse(String response) throws ProtocolException, CommandException
     {
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() != 2)
         {

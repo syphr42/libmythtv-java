@@ -21,22 +21,21 @@ import java.util.List;
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command66QueryFreeSpaceSummary extends AbstractCommand<DriveInfo>
+/* default */class Command66QueryFreeSpaceSummary extends Command63QueryFreeSpaceSummary
 {
-    @Override
-    protected String getMessage() throws org.syphr.mythtv.util.exception.ProtocolException
+    public Command66QueryFreeSpaceSummary(Translator translator, Parser parser)
     {
-        return "QUERY_FREE_SPACE_SUMMARY";
+        super(translator, parser);
     }
 
     @Override
     public DriveInfo send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() != 2)
         {

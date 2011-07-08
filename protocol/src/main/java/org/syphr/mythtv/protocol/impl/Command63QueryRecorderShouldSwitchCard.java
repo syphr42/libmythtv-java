@@ -18,22 +18,26 @@ package org.syphr.mythtv.protocol.impl;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderShouldSwitchCard extends AbstractCommand63QueryRecorder<Boolean>
 {
     private final Channel channel;
 
-    public Command63QueryRecorderShouldSwitchCard(int recorderId, Channel channel)
+    public Command63QueryRecorderShouldSwitchCard(Translator translator,
+                                                  Parser parser,
+                                                  int recorderId,
+                                                  Channel channel)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
         this.channel = channel;
     }
 
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("SHOULD_SWITCH_CARD",
-                                                String.valueOf(channel.getId()));
+        return getParser().combineArguments("SHOULD_SWITCH_CARD",
+                                            String.valueOf(channel.getId()));
     }
 
     @Override

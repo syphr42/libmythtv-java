@@ -19,51 +19,70 @@ import java.io.IOException;
 
 import org.syphr.mythtv.types.SeekOrigin;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class QueryFileTransfer63 extends AbstractQueryFileTransfer
 {
-    public QueryFileTransfer63(int socketNumber,
+    public QueryFileTransfer63(Translator translator,
+                               Parser parser,
+                               int socketNumber,
                                long size,
                                SocketManager socketManager)
     {
-        super(socketNumber, size, socketManager);
+        super(translator, parser, socketNumber, size, socketManager);
     }
 
     @Override
     public boolean isOpen() throws IOException
     {
-        return new Command63QueryFileTransferIsOpen(getSocketNumber()).send(getSocketManager());
+        return new Command63QueryFileTransferIsOpen(getTranslator(),
+                                                    getParser(),
+                                                    getSocketNumber()).send(getSocketManager());
     }
 
     @Override
     public void done() throws IOException
     {
-        new Command63QueryFileTransferDone(getSocketNumber()).send(getSocketManager());
+        new Command63QueryFileTransferDone(getTranslator(),
+                                           getParser(),
+                                           getSocketNumber()).send(getSocketManager());
     }
 
     @Override
     public long requestBlock(long bytes) throws IOException
     {
-        return new Command63QueryFileTransferRequestBlock(getSocketNumber(),
+        return new Command63QueryFileTransferRequestBlock(getTranslator(),
+                                                          getParser(),
+                                                          getSocketNumber(),
                                                           bytes).send(getSocketManager());
     }
 
     @Override
     public long writeBlock(long bytes) throws IOException
     {
-        return new Command63QueryFileTransferWriteBlock(getSocketNumber(),
+        return new Command63QueryFileTransferWriteBlock(getTranslator(),
+                                                        getParser(),
+                                                        getSocketNumber(),
                                                         bytes).send(getSocketManager());
     }
 
     @Override
     public long seek(long position, SeekOrigin origin, long curPosition) throws IOException
     {
-        return new Command63QueryFileTransferSeek(getSocketNumber(), position, origin, curPosition).send(getSocketManager());
+        return new Command63QueryFileTransferSeek(getTranslator(),
+                                                  getParser(),
+                                                  getSocketNumber(),
+                                                  position,
+                                                  origin,
+                                                  curPosition).send(getSocketManager());
     }
 
     @Override
     public void setTimeout(boolean fast) throws IOException
     {
-        new Command63QueryFileTransferSetTimeout(getSocketNumber(), fast).send(getSocketManager());
+        new Command63QueryFileTransferSetTimeout(getTranslator(),
+                                                 getParser(),
+                                                 getSocketNumber(),
+                                                 fast).send(getSocketManager());
     }
 }

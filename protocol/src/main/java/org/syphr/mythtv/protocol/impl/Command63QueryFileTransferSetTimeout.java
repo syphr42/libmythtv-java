@@ -16,15 +16,17 @@
 package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryFileTransferSetTimeout extends AbstractCommandOkResponse
 {
     private final int socketNumber;
     private final boolean fast;
 
-    public Command63QueryFileTransferSetTimeout(int socketNumber, boolean fast)
+    public Command63QueryFileTransferSetTimeout(Translator translator, Parser parser, int socketNumber, boolean fast)
     {
+        super(translator, parser);
+
         this.socketNumber = socketNumber;
         this.fast = fast;
     }
@@ -32,9 +34,9 @@ import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
-                                                        + socketNumber,
-                                                "SET_TIMEOUT",
-                                                fast ? "1" : "0");
+        return getParser().combineArguments("QUERY_FILETRANSFER "
+                                                    + socketNumber,
+                                            "SET_TIMEOUT",
+                                            fast ? "1" : "0");
     }
 }

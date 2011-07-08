@@ -18,7 +18,7 @@ package org.syphr.mythtv.protocol.impl;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63Ann extends AbstractCommandOkResponse
 {
@@ -26,10 +26,14 @@ import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
     private final String host;
     private final EventLevel eventLevel;
 
-    public Command63Ann(ConnectionType connectionType,
+    public Command63Ann(Translator translator,
+                        Parser parser,
+                        ConnectionType connectionType,
                         String host,
                         EventLevel eventLevel)
     {
+        super(translator, parser);
+
         this.connectionType = connectionType;
         this.host = host;
         this.eventLevel = eventLevel;
@@ -40,11 +44,11 @@ import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
     {
         StringBuilder builder = new StringBuilder();
         builder.append("ANN ");
-        builder.append(Protocol63Utils.getTranslator().toString(connectionType));
+        builder.append(getTranslator().toString(connectionType));
         builder.append(' ');
         builder.append(host);
         builder.append(' ');
-        builder.append(Protocol63Utils.getTranslator().toString(eventLevel));
+        builder.append(getTranslator().toString(eventLevel));
 
         return builder.toString();
     }

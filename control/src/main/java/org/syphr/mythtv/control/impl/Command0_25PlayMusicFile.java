@@ -17,7 +17,6 @@ package org.syphr.mythtv.control.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommandOkResponse;
 
 /* default */class Command0_25PlayMusicFile extends AbstractCommandOkResponse
 {

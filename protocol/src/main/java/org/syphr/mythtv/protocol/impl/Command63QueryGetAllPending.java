@@ -19,11 +19,16 @@ import java.io.IOException;
 
 import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryGetAllPending extends AbstractCommand<UpcomingRecordings>
+/* default */class Command63QueryGetAllPending extends AbstractProtocolCommand<UpcomingRecordings>
 {
+    public Command63QueryGetAllPending(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {
@@ -34,6 +39,6 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public UpcomingRecordings send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        return Protocol63Utils.parseUpcomingRecordings(response);
+        return getParser().parseUpcomingRecordings(response);
     }
 }

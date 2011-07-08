@@ -28,126 +28,193 @@ import org.syphr.mythtv.types.ChannelChangeDirection;
 import org.syphr.mythtv.types.PictureAdjustType;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRecorder
 {
-    public QueryRecorder63(int recorderId, SocketManager socketManager)
+    public QueryRecorder63(Translator translator,
+                           Parser parser,
+                           int recorderId,
+                           SocketManager socketManager)
     {
-        super(recorderId, socketManager);
+        super(translator, parser, recorderId, socketManager);
     }
 
     @Override
-    public void cancelNextRecording(boolean cancel) throws IOException, CommandException
+    public void cancelNextRecording(boolean cancel) throws IOException,
+                                                   CommandException
     {
-        new Command63QueryRecorderCancelNextRecording(getRecorderId(), cancel).send(getSocketManager());
+        new Command63QueryRecorderCancelNextRecording(getTranslator(),
+                                                      getParser(),
+                                                      getRecorderId(),
+                                                      cancel).send(getSocketManager());
     }
 
     @Override
-    public int changeBrightness(PictureAdjustType type, boolean increment) throws IOException, CommandException
+    public int changeBrightness(PictureAdjustType type, boolean increment) throws IOException,
+                                                                          CommandException
     {
-        return new Command63QueryRecorderChangeBrightness(getRecorderId(), type, increment).send(getSocketManager());
+        return new Command63QueryRecorderChangeBrightness(getTranslator(),
+                                                          getParser(),
+                                                          getRecorderId(),
+                                                          type,
+                                                          increment).send(getSocketManager());
     }
 
     @Override
-    public void changeChannel(ChannelChangeDirection direction) throws IOException, CommandException
+    public void changeChannel(ChannelChangeDirection direction) throws IOException,
+                                                               CommandException
     {
-        new Command63QueryRecorderChangeChannel(getRecorderId(), direction).send(getSocketManager());
+        new Command63QueryRecorderChangeChannel(getTranslator(),
+                                                getParser(),
+                                                getRecorderId(),
+                                                direction).send(getSocketManager());
     }
 
     @Override
-    public int changeColour(PictureAdjustType type, boolean increment) throws IOException, CommandException
+    public int changeColour(PictureAdjustType type, boolean increment) throws IOException,
+                                                                      CommandException
     {
-        return new Command63QueryRecorderChangeColour(getRecorderId(), type, increment).send(getSocketManager());
+        return new Command63QueryRecorderChangeColour(getTranslator(),
+                                                      getParser(),
+                                                      getRecorderId(),
+                                                      type,
+                                                      increment).send(getSocketManager());
     }
 
     @Override
-    public int changeContrast(PictureAdjustType type, boolean increment) throws IOException, CommandException
+    public int changeContrast(PictureAdjustType type, boolean increment) throws IOException,
+                                                                        CommandException
     {
-        return new Command63QueryRecorderChangeContrast(getRecorderId(), type, increment).send(getSocketManager());
+        return new Command63QueryRecorderChangeContrast(getTranslator(),
+                                                        getParser(),
+                                                        getRecorderId(),
+                                                        type,
+                                                        increment).send(getSocketManager());
     }
 
     @Override
-    public int changeHue(PictureAdjustType type, boolean increment) throws IOException, CommandException
+    public int changeHue(PictureAdjustType type, boolean increment) throws IOException,
+                                                                   CommandException
     {
-        return new Command63QueryRecorderChangeHue(getRecorderId(), type, increment).send(getSocketManager());
+        return new Command63QueryRecorderChangeHue(getTranslator(),
+                                                   getParser(),
+                                                   getRecorderId(),
+                                                   type,
+                                                   increment).send(getSocketManager());
     }
 
     @Override
-    public boolean checkChannel(String channelNumber) throws IOException, CommandException
+    public boolean checkChannel(String channelNumber) throws IOException,
+                                                     CommandException
     {
-        return new Command63QueryRecorderCheckChannel(getRecorderId(), channelNumber).send(getSocketManager());
+        return new Command63QueryRecorderCheckChannel(getTranslator(),
+                                                      getParser(),
+                                                      getRecorderId(),
+                                                      channelNumber).send(getSocketManager());
     }
 
     @Override
-    public ChannelQuery checkChannelPrefix(String channelNumberPrefix) throws IOException, CommandException
+    public ChannelQuery checkChannelPrefix(String channelNumberPrefix) throws IOException,
+                                                                      CommandException
     {
-        return new Command63QueryRecorderCheckChannelPrefix(getRecorderId(), channelNumberPrefix).send(getSocketManager());
+        return new Command63QueryRecorderCheckChannelPrefix(getTranslator(),
+                                                            getParser(),
+                                                            getRecorderId(),
+                                                            channelNumberPrefix).send(getSocketManager());
     }
 
     @Override
-    public Map<Long, Long> fillPositionMap(long start, long end) throws IOException, CommandException
+    public Map<Long, Long> fillPositionMap(long start, long end) throws IOException,
+                                                                CommandException
     {
-        return new Command63QueryRecorderFillPositionMap(getRecorderId(), start, end).send(getSocketManager());
+        return new Command63QueryRecorderFillPositionMap(getTranslator(),
+                                                         getParser(),
+                                                         getRecorderId(),
+                                                         start,
+                                                         end).send(getSocketManager());
     }
 
     @Override
     public void finishRecording() throws IOException, CommandException
     {
-        new Command63QueryRecorderFinishRecording(getRecorderId()).send(getSocketManager());
+        new Command63QueryRecorderFinishRecording(getTranslator(),
+                                                  getParser(),
+                                                  getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public void frontendReady() throws IOException, CommandException
     {
-        new Command63QueryRecorderFrontendReady(getRecorderId()).send(getSocketManager());
+        new Command63QueryRecorderFrontendReady(getTranslator(),
+                                                getParser(),
+                                                getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public int getBrightness() throws IOException, CommandException
     {
-        return new Command63QueryRecorderGetBrightness(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderGetBrightness(getTranslator(),
+                                                       getParser(),
+                                                       getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public Channel getChannelInfo(int channelId) throws IOException, CommandException
+    public Channel getChannelInfo(int channelId) throws IOException,
+                                                CommandException
     {
-        return new Command63QueryRecorderGetChannelInfo(getRecorderId(), channelId).send(getSocketManager());
+        return new Command63QueryRecorderGetChannelInfo(getTranslator(),
+                                                        getParser(),
+                                                        getRecorderId(),
+                                                        channelId).send(getSocketManager());
     }
 
     @Override
     public int getColour() throws IOException, CommandException
     {
-        return new Command63QueryRecorderGetColour(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderGetColour(getTranslator(),
+                                                   getParser(),
+                                                   getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public int getContrast() throws IOException, CommandException
     {
-        return new Command63QueryRecorderGetContrast(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderGetContrast(getTranslator(),
+                                                     getParser(),
+                                                     getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public Program getCurrentRecording() throws IOException, CommandException
     {
-        return new Command63QueryRecorderGetCurrentRecording(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderGetCurrentRecording(getTranslator(),
+                                                             getParser(),
+                                                             getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public long getFilePosition() throws IOException, CommandException
     {
-        return new Command63QueryRecorderGetFilePosition(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderGetFilePosition(getTranslator(),
+                                                         getParser(),
+                                                         getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public float getFrameRate() throws IOException, CommandException
     {
-        return new Command63QueryRecorderGetFrameRate(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderGetFrameRate(getTranslator(),
+                                                      getParser(),
+                                                      getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public long getFramesWritten() throws IOException, CommandException
     {
-        return new Command63QueryRecorderGetFramesWritten(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderGetFramesWritten(getTranslator(),
+                                                          getParser(),
+                                                          getRecorderId()).send(getSocketManager());
     }
 
     @Override
@@ -159,33 +226,46 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     @Override
     public int getHue() throws IOException, CommandException
     {
-        return new Command63QueryRecorderGetHue(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderGetHue(getTranslator(),
+                                                getParser(),
+                                                getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public String getInput() throws IOException, CommandException
     {
-        return new Command63QueryRecorderGetInput(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderGetInput(getTranslator(),
+                                                  getParser(),
+                                                  getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public long getKeyframePos(long desiredPosition) throws IOException, CommandException
+    public long getKeyframePos(long desiredPosition) throws IOException,
+                                                    CommandException
     {
-        return new Command63QueryRecorderGetKeyframePos(getRecorderId(), desiredPosition).send(getSocketManager());
+        return new Command63QueryRecorderGetKeyframePos(getTranslator(),
+                                                        getParser(),
+                                                        getRecorderId(),
+                                                        desiredPosition).send(getSocketManager());
     }
 
     @Override
     public long getMaxBitrate() throws IOException, CommandException
     {
-        return new Command63QueryRecorderGetMaxBitrate(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderGetMaxBitrate(getTranslator(),
+                                                       getParser(),
+                                                       getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public Program getNextProgramInfo(Channel channel,
-                                          ChannelBrowseDirection browseDirection,
-                                          Date startTime) throws IOException, CommandException
+                                      ChannelBrowseDirection browseDirection,
+                                      Date startTime) throws IOException,
+                                                     CommandException
     {
-        return new Command63QueryRecorderGetNextProgramInfo(getRecorderId(),
+        return new Command63QueryRecorderGetNextProgramInfo(getTranslator(),
+                                                            getParser(),
+                                                            getRecorderId(),
                                                             channel,
                                                             browseDirection,
                                                             startTime).send(getSocketManager());
@@ -194,37 +274,52 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     @Override
     public boolean isRecording() throws IOException, CommandException
     {
-        return new Command63QueryRecorderIsRecording(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderIsRecording(getTranslator(),
+                                                     getParser(),
+                                                     getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public void pause() throws IOException, CommandException
     {
-        new Command63QueryRecorderPause(getRecorderId()).send(getSocketManager());
+        new Command63QueryRecorderPause(getTranslator(),
+                                        getParser(),
+                                        getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public void setChannel(String channelNumber) throws IOException, CommandException
+    public void setChannel(String channelNumber) throws IOException,
+                                                CommandException
     {
-        new Command63QueryRecorderSetChannel(getRecorderId(), channelNumber).send(getSocketManager());
+        new Command63QueryRecorderSetChannel(getTranslator(),
+                                             getParser(),
+                                             getRecorderId(),
+                                             channelNumber).send(getSocketManager());
     }
 
     @Override
     public String setInput(String input) throws IOException, CommandException
     {
-        return new Command63QueryRecorderSetInput(getRecorderId(), input).send(getSocketManager());
+        return new Command63QueryRecorderSetInput(getTranslator(),
+                                                  getParser(),
+                                                  getRecorderId(),
+                                                  input).send(getSocketManager());
     }
 
     @Override
     public String setInputNext() throws IOException, CommandException
     {
-        return new Command63QueryRecorderSetInputNext(getRecorderId()).send(getSocketManager());
+        return new Command63QueryRecorderSetInputNext(getTranslator(),
+                                                      getParser(),
+                                                      getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public void setLiveRecording() throws IOException, CommandException
     {
-        new Command63QueryRecorderSetLiveRecording(getRecorderId()).send(getSocketManager());
+        new Command63QueryRecorderSetLiveRecording(getTranslator(),
+                                                   getParser(),
+                                                   getRecorderId()).send(getSocketManager());
     }
 
     @Override
@@ -234,25 +329,38 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public boolean shouldSwitchCard(Channel channel) throws IOException, CommandException
+    public boolean shouldSwitchCard(Channel channel) throws IOException,
+                                                    CommandException
     {
-        return new Command63QueryRecorderShouldSwitchCard(getRecorderId(), channel).send(getSocketManager());
+        return new Command63QueryRecorderShouldSwitchCard(getTranslator(),
+                                                          getParser(),
+                                                          getRecorderId(),
+                                                          channel).send(getSocketManager());
     }
 
     @Override
-    public void spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException, CommandException
+    public void spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException,
+                                                                              CommandException
     {
-        new Command63QueryRecorderSpawnLiveTv(getRecorderId(), chainId, pip, startChannel).send(getSocketManager());
+        new Command63QueryRecorderSpawnLiveTv(getTranslator(),
+                                              getParser(),
+                                              getRecorderId(),
+                                              chainId,
+                                              pip,
+                                              startChannel).send(getSocketManager());
     }
 
     @Override
     public void stopLiveTv() throws IOException, CommandException
     {
-        new Command63QueryRecorderStopLiveTv(getRecorderId()).send(getSocketManager());
+        new Command63QueryRecorderStopLiveTv(getTranslator(),
+                                             getParser(),
+                                             getRecorderId()).send(getSocketManager());
     }
 
     @Override
-    public void toggleChannelFavorite(String channelGroup) throws IOException, CommandException
+    public void toggleChannelFavorite(String channelGroup) throws IOException,
+                                                          CommandException
     {
         // TODO
         throw new UnsupportedOperationException();

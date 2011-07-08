@@ -17,21 +17,26 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderCheckChannel extends AbstractCommand63QueryRecorder<Boolean>
 {
     private final String channelNumber;
 
-    public Command63QueryRecorderCheckChannel(int recorderId, String channelNumber)
+    public Command63QueryRecorderCheckChannel(Translator translator,
+                                              Parser parser,
+                                              int recorderId,
+                                              String channelNumber)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
+
         this.channelNumber = channelNumber;
     }
 
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("CHECK_CHANNEL", channelNumber);
+        return getParser().combineArguments("CHECK_CHANNEL", channelNumber);
     }
 
     @Override

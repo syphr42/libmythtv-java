@@ -19,12 +19,13 @@ import java.util.Set;
 
 import org.syphr.mythtv.types.RecorderFlag;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderGetFlags extends AbstractCommand63QueryRemoteEncoder<Set<RecorderFlag>>
 {
-    public Command63QueryRemoteEncoderGetFlags(int recorderId)
+    public Command63QueryRemoteEncoderGetFlags(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override
@@ -36,6 +37,6 @@ import org.syphr.mythtv.util.exception.ProtocolException;
     @Override
     protected Set<RecorderFlag> parseResponse(String response) throws ProtocolException
     {
-        return Protocol63Utils.getTranslator().toEnums(response, RecorderFlag.class);
+        return getTranslator().toEnums(response, RecorderFlag.class);
     }
 }

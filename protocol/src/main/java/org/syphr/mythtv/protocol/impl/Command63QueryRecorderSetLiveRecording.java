@@ -17,12 +17,13 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.CommandUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderSetLiveRecording extends AbstractCommand63QueryRecorder<Void>
 {
-    public Command63QueryRecorderSetLiveRecording(int recorderId)
+    public Command63QueryRecorderSetLiveRecording(Translator translator, Parser parser, int recorderId)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
     }
 
     @Override
@@ -34,7 +35,7 @@ import org.syphr.mythtv.util.socket.CommandUtils;
          * and -1 means toggle based on the current state. However, this option
          * is read, but ignored, and the -1 argument is assumed.
          */
-        return Protocol63Utils.combineArguments("SET_LIVE_RECORDING", "-1");
+        return getParser().combineArguments("SET_LIVE_RECORDING", "-1");
     }
 
     @Override

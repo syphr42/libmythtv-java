@@ -26,16 +26,21 @@ import org.syphr.mythtv.data.VideoEditInfo;
 import org.syphr.mythtv.types.VideoEditMark;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */abstract class AbstractCommand63QueryVideoEditMarks extends AbstractCommand<List<VideoEditInfo>>
+/* default */abstract class AbstractCommand63QueryVideoEditMarks extends AbstractProtocolCommand<List<VideoEditInfo>>
 {
     private final Channel channel;
     private final Date recStartTs;
 
-    public AbstractCommand63QueryVideoEditMarks(Channel channel, Date recStartTs)
+    public AbstractCommand63QueryVideoEditMarks(Translator translator,
+                                                Parser parser,
+                                                Channel channel,
+                                                Date recStartTs)
     {
+        super(translator, parser);
+
         this.channel = channel;
         this.recStartTs = recStartTs;
     }
@@ -57,7 +62,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public List<VideoEditInfo> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.isEmpty())
         {
             throw new ProtocolException(response, Direction.RECEIVE);
@@ -80,7 +85,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
             for (int i = 1; i < args.size();)
             {
-                edits.add(new VideoEditInfo(Protocol63Utils.getTranslator().toEnum(args.get(i++), VideoEditMark.class),
+                edits.add(new VideoEditInfo(getTranslator().toEnum(args.get(i++), VideoEditMark.class),
                                             ProtocolUtils.combineInts(args.get(i++), args.get(i++))));
             }
 

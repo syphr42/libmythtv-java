@@ -23,11 +23,16 @@ import org.syphr.mythtv.data.MemStats;
 import org.syphr.mythtv.types.MemStatCategory;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryMemStats extends AbstractCommand<MemStats>
+/* default */class Command63QueryMemStats extends AbstractProtocolCommand<MemStats>
 {
+    public Command63QueryMemStats(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {
@@ -39,7 +44,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public MemStats send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() != 4)
         {

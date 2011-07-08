@@ -21,16 +21,21 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63SetChannelInfo extends AbstractCommand<Void>
+/* default */class Command63SetChannelInfo extends AbstractProtocolCommand<Void>
 {
     private final Channel oldChannel;
     private final Channel newChannel;
 
-    public Command63SetChannelInfo(Channel oldChannel, Channel newChannel)
+    public Command63SetChannelInfo(Translator translator,
+                                   Parser parser,
+                                   Channel oldChannel,
+                                   Channel newChannel)
     {
+        super(translator, parser);
+
         this.oldChannel = oldChannel;
         this.newChannel = newChannel;
     }
@@ -44,13 +49,13 @@ import org.syphr.mythtv.util.socket.SocketManager;
                                         Direction.SEND);
         }
 
-        return Protocol63Utils.combineArguments(String.valueOf(newChannel.getId()),
-                                                String.valueOf(newChannel.getSourceId()),
-                                                oldChannel.getNumber(),
-                                                newChannel.getCallsign(),
-                                                newChannel.getNumber(),
-                                                newChannel.getName(),
-                                                newChannel.getXmltvId());
+        return getParser().combineArguments(String.valueOf(newChannel.getId()),
+                                            String.valueOf(newChannel.getSourceId()),
+                                            oldChannel.getNumber(),
+                                            newChannel.getCallsign(),
+                                            newChannel.getNumber(),
+                                            newChannel.getName(),
+                                            newChannel.getXmltvId());
     }
 
     @Override

@@ -18,19 +18,23 @@ package org.syphr.mythtv.protocol.impl;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command66QueryRecorderGetKeyframePos extends Command63QueryRecorderGetKeyframePos
 {
-    public Command66QueryRecorderGetKeyframePos(int recorderId, long desiredPosition)
+    public Command66QueryRecorderGetKeyframePos(Translator translator,
+                                                Parser parser,
+                                                int recorderId,
+                                                long desiredPosition)
     {
-        super(recorderId, desiredPosition);
+        super(translator, parser, recorderId, desiredPosition);
     }
 
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("GET_KEYFRAME_POS",
-                                                String.valueOf(getDesiredPosition()));
+        return getParser().combineArguments("GET_KEYFRAME_POS",
+                                            String.valueOf(getDesiredPosition()));
     }
 
     @Override

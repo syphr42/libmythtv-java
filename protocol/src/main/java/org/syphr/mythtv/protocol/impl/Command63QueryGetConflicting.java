@@ -22,15 +22,17 @@ import java.util.List;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryGetConflicting extends AbstractCommand<List<Program>>
+/* default */class Command63QueryGetConflicting extends AbstractProtocolCommand<List<Program>>
 {
     private final Program program;
 
-    public Command63QueryGetConflicting(Program program)
+    public Command63QueryGetConflicting(Translator translator, Parser parser, Program program)
     {
+        super(translator, parser);
+
         this.program = program;
     }
 
@@ -39,16 +41,16 @@ import org.syphr.mythtv.util.socket.SocketManager;
     {
         List<String> args = new ArrayList<String>();
         args.add("QUERY_GETCONFLICTING");
-        args.addAll(Protocol63Utils.extractProgramInfo(program));
+        args.addAll(getParser().extractProgramInfo(program));
 
-        return Protocol63Utils.combineArguments(args);
+        return getParser().combineArguments(args);
     }
 
     @Override
     public List<Program> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.isEmpty())
         {
@@ -56,6 +58,6 @@ import org.syphr.mythtv.util.socket.SocketManager;
         }
 
         args.remove(0);
-        return Protocol63Utils.parseProgramInfos(args);
+        return getParser().parseProgramInfos(args);
     }
 }

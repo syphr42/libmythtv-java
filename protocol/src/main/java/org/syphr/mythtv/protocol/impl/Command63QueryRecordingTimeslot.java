@@ -24,17 +24,22 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.DateUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryRecordingTimeslot extends AbstractCommand<Program>
+/* default */class Command63QueryRecordingTimeslot extends AbstractProtocolCommand<Program>
 {
     private final Channel channel;
     private final Date recStartTs;
 
-    public Command63QueryRecordingTimeslot(Channel channel, Date recStartTs)
+    public Command63QueryRecordingTimeslot(Translator translator,
+                                           Parser parser,
+                                           Channel channel,
+                                           Date recStartTs)
     {
+        super(translator, parser);
+
         this.channel = channel;
         this.recStartTs = recStartTs;
     }
@@ -55,7 +60,7 @@ import org.syphr.mythtv.util.translate.DateUtils;
     public Program send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.isEmpty())
         {
@@ -72,7 +77,7 @@ import org.syphr.mythtv.util.translate.DateUtils;
         if ("OK".equals(status))
         {
             args.remove(0);
-            return Protocol63Utils.parseProgramInfo(args);
+            return getParser().parseProgramInfo(args);
         }
 
         throw new ProtocolException(response, Direction.RECEIVE);

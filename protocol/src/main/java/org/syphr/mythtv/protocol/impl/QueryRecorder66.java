@@ -19,36 +19,49 @@ import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class QueryRecorder66 extends QueryRecorder63
 {
-    public QueryRecorder66(int recorderId, SocketManager socketManager)
+    public QueryRecorder66(Translator translator,
+                           Parser parser,
+                           int recorderId,
+                           SocketManager socketManager)
     {
-        super(recorderId, socketManager);
+        super(translator, parser, recorderId, socketManager);
     }
 
     @Override
     public long getFilePosition() throws IOException, CommandException
     {
-        return new Command66QueryRecorderGetFilePosition(getRecorderId()).send(getSocketManager());
+        return new Command66QueryRecorderGetFilePosition(getTranslator(),
+                                                         getParser(),
+                                                         getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public long getFramesWritten() throws IOException, CommandException
     {
-        return new Command66QueryRecorderGetFramesWritten(getRecorderId()).send(getSocketManager());
+        return new Command66QueryRecorderGetFramesWritten(getTranslator(),
+                                                          getParser(),
+                                                          getRecorderId()).send(getSocketManager());
     }
 
     @Override
     public long getKeyframePos(long desiredPosition) throws IOException,
                                                     CommandException
     {
-        return new Command66QueryRecorderGetKeyframePos(getRecorderId(), desiredPosition).send(getSocketManager());
+        return new Command66QueryRecorderGetKeyframePos(getTranslator(),
+                                                        getParser(),
+                                                        getRecorderId(),
+                                                        desiredPosition).send(getSocketManager());
     }
 
     @Override
     public long getMaxBitrate() throws IOException, CommandException
     {
-        return new Command66QueryRecorderGetMaxBitrate(getRecorderId()).send(getSocketManager());
+        return new Command66QueryRecorderGetMaxBitrate(getTranslator(),
+                                                       getParser(),
+                                                       getRecorderId()).send(getSocketManager());
     }
 }

@@ -22,15 +22,17 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryRecordingBasename extends AbstractCommand<Program>
+/* default */class Command63QueryRecordingBasename extends AbstractProtocolCommand<Program>
 {
     private final String basename;
 
-    public Command63QueryRecordingBasename(String basename)
+    public Command63QueryRecordingBasename(Translator translator, Parser parser, String basename)
     {
+        super(translator, parser);
+
         this.basename = basename;
     }
 
@@ -44,7 +46,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public Program send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.isEmpty())
         {
@@ -61,7 +63,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
         if ("OK".equals(status))
         {
             args.remove(0);
-            return Protocol63Utils.parseProgramInfo(args);
+            return getParser().parseProgramInfo(args);
         }
 
         throw new ProtocolException(response, Direction.RECEIVE);

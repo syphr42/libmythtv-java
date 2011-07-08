@@ -18,12 +18,16 @@ package org.syphr.mythtv.protocol.impl;
 import java.util.Date;
 
 import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryCutList extends AbstractCommand63QueryVideoEditMarks
 {
-    public Command63QueryCutList(Channel channel, Date recStartTs)
+    public Command63QueryCutList(Translator translator,
+                                 Parser parser,
+                                 Channel channel,
+                                 Date recStartTs)
     {
-        super(channel, recStartTs);
+        super(translator, parser, channel, recStartTs);
     }
 
     @Override

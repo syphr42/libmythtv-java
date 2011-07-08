@@ -18,22 +18,27 @@ package org.syphr.mythtv.protocol.impl;
 import org.syphr.mythtv.types.ChannelChangeDirection;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.CommandUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderChangeChannel extends AbstractCommand63QueryRecorder<Void>
 {
     private final ChannelChangeDirection direction;
 
-    public Command63QueryRecorderChangeChannel(int recorderId, ChannelChangeDirection direction)
+    public Command63QueryRecorderChangeChannel(Translator translator,
+                                               Parser parser,
+                                               int recorderId,
+                                               ChannelChangeDirection direction)
     {
-        super(recorderId);
+        super(translator, parser, recorderId);
+
         this.direction = direction;
     }
 
     @Override
     protected String getSubCommand() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("CHANGE_CHANNEL",
-                                                Protocol63Utils.getTranslator().toString(direction));
+        return getParser().combineArguments("CHANGE_CHANNEL",
+                                            getTranslator().toString(direction));
     }
 
     @Override

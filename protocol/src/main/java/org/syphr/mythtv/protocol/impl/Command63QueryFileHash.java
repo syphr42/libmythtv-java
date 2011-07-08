@@ -20,16 +20,21 @@ import java.net.URI;
 
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryFileHash extends AbstractCommand<String>
+/* default */class Command63QueryFileHash extends AbstractProtocolCommand<String>
 {
     private final URI filename;
     private final String storageGroup;
 
-    public Command63QueryFileHash(URI filename, String storageGroup)
+    public Command63QueryFileHash(Translator translator,
+                                  Parser parser,
+                                  URI filename,
+                                  String storageGroup)
     {
+        super(translator, parser);
+
         this.filename = filename;
         this.storageGroup = storageGroup;
     }
@@ -37,9 +42,9 @@ import org.syphr.mythtv.util.socket.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("QUERY_FILE_HASH",
-                                                filename.getPath(),
-                                                storageGroup);
+        return getParser().combineArguments("QUERY_FILE_HASH",
+                                            filename.getPath(),
+                                            storageGroup);
     }
 
     @Override

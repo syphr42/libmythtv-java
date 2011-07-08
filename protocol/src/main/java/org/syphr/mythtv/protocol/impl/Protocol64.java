@@ -30,7 +30,7 @@ public class Protocol64 extends Protocol63
     @Override
     public void mythProtoVersion() throws IOException, CommandException
     {
-        new Command63MythProtoVersion()
+        new Command63MythProtoVersion(getTranslator(), getParser())
         {
             @Override
             protected String getVersion()
@@ -49,6 +49,6 @@ public class Protocol64 extends Protocol63
     @Override
     public void scanVideos() throws IOException
     {
-        new Command64ScanVideos().send(getSocketManager());
+        new Command64ScanVideos(getTranslator(), getParser()).send(getSocketManager());
     }
 }

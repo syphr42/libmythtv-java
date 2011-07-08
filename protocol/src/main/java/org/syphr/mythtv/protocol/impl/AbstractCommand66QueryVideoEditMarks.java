@@ -26,19 +26,23 @@ import org.syphr.mythtv.types.VideoEditMark;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */abstract class AbstractCommand66QueryVideoEditMarks extends AbstractCommand63QueryVideoEditMarks
 {
-    public AbstractCommand66QueryVideoEditMarks(Channel channel, Date recStartTs)
+    public AbstractCommand66QueryVideoEditMarks(Translator translator,
+                                                Parser parser,
+                                                Channel channel,
+                                                Date recStartTs)
     {
-        super(channel, recStartTs);
+        super(translator, parser, channel, recStartTs);
     }
 
     @Override
     public List<VideoEditInfo> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
         if (args.isEmpty())
         {
             throw new ProtocolException(response, Direction.RECEIVE);
@@ -61,7 +65,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
             for (int i = 1; i < args.size();)
             {
-                edits.add(new VideoEditInfo(Protocol63Utils.getTranslator().toEnum(args.get(i++), VideoEditMark.class),
+                edits.add(new VideoEditInfo(getTranslator().toEnum(args.get(i++), VideoEditMark.class),
                                             Long.parseLong(args.get(i++))));
             }
 

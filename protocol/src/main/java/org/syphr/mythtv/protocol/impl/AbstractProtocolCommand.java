@@ -15,14 +15,28 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.translate.Translator;
 
-public class Protocol65Utils
+public abstract class AbstractProtocolCommand<T> extends AbstractCommand<T>
 {
-    private static final Translator TRANSLATOR = new Translator65();
+    private final Translator translator;
 
-    public static Translator getTranslator()
+    private final Parser parser;
+
+    public AbstractProtocolCommand(Translator translator, Parser parser)
     {
-        return TRANSLATOR;
+        this.translator = translator;
+        this.parser = parser;
+    }
+
+    protected Translator getTranslator()
+    {
+        return translator;
+    }
+
+    protected Parser getParser()
+    {
+        return parser;
     }
 }

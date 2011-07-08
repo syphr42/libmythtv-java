@@ -22,21 +22,25 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.syphr.mythtv.types.SeekOrigin;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryFileTransferSeek extends AbstractCommand<Long>
+/* default */class Command63QueryFileTransferSeek extends AbstractProtocolCommand<Long>
 {
     private final int socketNumber;
     private final long position;
     private final SeekOrigin origin;
     private final long curPosition;
 
-    public Command63QueryFileTransferSeek(int socketNumber,
+    public Command63QueryFileTransferSeek(Translator translator,
+                                          Parser parser,
+                                          int socketNumber,
                                           long position,
                                           SeekOrigin origin,
                                           long curPosition)
     {
+        super(translator, parser);
+
         this.socketNumber = socketNumber;
         this.position = position;
         this.origin = origin;
@@ -69,21 +73,21 @@ import org.syphr.mythtv.util.socket.SocketManager;
         Pair<String, String> splitPosition = ProtocolUtils.splitLong(getPosition());
         Pair<String, String> splitCurPosition = ProtocolUtils.splitLong(getCurPosition());
 
-        return Protocol63Utils.combineArguments("QUERY_FILETRANSFER "
-                                                        + getSocketNumber(),
-                                                "SEEK",
-                                                splitPosition.getLeft(),
-                                                splitPosition.getRight(),
-                                                Protocol63Utils.getTranslator().toString(getOrigin()),
-                                                splitCurPosition.getLeft(),
-                                                splitCurPosition.getRight());
+        return getParser().combineArguments("QUERY_FILETRANSFER "
+                                                    + getSocketNumber(),
+                                            "SEEK",
+                                            splitPosition.getLeft(),
+                                            splitPosition.getRight(),
+                                            getTranslator().toString(getOrigin()),
+                                            splitCurPosition.getLeft(),
+                                            splitCurPosition.getRight());
     }
 
     @Override
     public Long send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        List<String> args = Protocol63Utils.splitArguments(response);
+        List<String> args = getParser().splitArguments(response);
 
         if (args.size() != 2)
         {

@@ -20,15 +20,18 @@ import java.io.IOException;
 import org.syphr.mythtv.types.TvState;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */abstract class AbstractCommand63QueryRemoteEncoder<T> extends AbstractCommand<T>
+/* default */abstract class AbstractCommand63QueryRemoteEncoder<T> extends AbstractProtocolCommand<T>
 {
     private final int recorderId;
 
-    public AbstractCommand63QueryRemoteEncoder(int recorderId)
+    public AbstractCommand63QueryRemoteEncoder(Translator translator,
+                                               Parser parser,
+                                               int recorderId)
     {
+        super(translator, parser);
         this.recorderId = recorderId;
     }
 
@@ -40,7 +43,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return Protocol63Utils.combineArguments("QUERY_REMOTEENCODER " + recorderId, getSubCommand());
+        return getParser().combineArguments("QUERY_REMOTEENCODER " + recorderId, getSubCommand());
     }
 
     @Override
@@ -50,7 +53,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
         try
         {
-            if (TvState.ERROR.equals(Protocol63Utils.getTranslator().toEnum(response, TvState.class)))
+            if (TvState.ERROR.equals(getTranslator().toEnum(response, TvState.class)))
             {
                 throw new CommandException("Unknown recorder ID: " + getRecorderId());
             }
