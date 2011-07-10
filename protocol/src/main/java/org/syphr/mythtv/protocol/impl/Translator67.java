@@ -18,7 +18,6 @@ package org.syphr.mythtv.protocol.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.Verbose;
 
 import com.google.common.collect.BiMap;
@@ -97,7 +96,7 @@ public class Translator67 extends Translator65
     private static final Map<Class<? extends Enum>, BiMap<? extends Enum, String>> MAPS = new HashMap<Class<? extends Enum>, BiMap<? extends Enum, String>>();
     static
     {
-        MAPS.put(RecordingStatus.class, LOG_OPTION_MAP);
+        MAPS.put(Verbose.class, LOG_OPTION_MAP);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
