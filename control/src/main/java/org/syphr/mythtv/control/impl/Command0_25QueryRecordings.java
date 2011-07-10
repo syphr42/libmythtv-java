@@ -19,27 +19,20 @@ import java.io.IOException;
 import java.util.List;
 
 import org.syphr.mythtv.data.Program;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command0_24QueryRecordings extends AbstractCommand<List<Program>>
+/* default */class Command0_25QueryRecordings extends Command0_24QueryRecordings
 {
-    public Command0_24QueryRecordings(Translator translator)
+    public Command0_25QueryRecordings(Translator translator)
     {
         super(translator);
     }
 
     @Override
-    protected String getMessage()
-    {
-        return "query recordings";
-    }
-
-    @Override
     public List<Program> send(SocketManager socketManager) throws IOException
     {
-        String response = Control0_24Utils.getResponseMaybe(socketManager, getMessage());
+        String response = socketManager.sendAndWait(getMessage());
         return Control0_24Utils.parseRecordings(response);
     }
 }

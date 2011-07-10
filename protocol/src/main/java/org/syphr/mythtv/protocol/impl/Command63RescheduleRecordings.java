@@ -19,15 +19,19 @@ import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63RescheduleRecordings extends AbstractCommand<Void>
+/* default */class Command63RescheduleRecordings extends AbstractProtocolCommand<Void>
 {
     private final int recorderId;
 
-    public Command63RescheduleRecordings(int recorderId)
+    public Command63RescheduleRecordings(Translator translator,
+                                         Parser parser,
+                                         int recorderId)
     {
+        super(translator, parser);
+
         this.recorderId = recorderId;
     }
 

@@ -20,11 +20,16 @@ import java.io.IOException;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63GoToSleep extends AbstractCommand<Void>
+/* default */class Command63GoToSleep extends AbstractProtocolCommand<Void>
 {
+    public Command63GoToSleep(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {

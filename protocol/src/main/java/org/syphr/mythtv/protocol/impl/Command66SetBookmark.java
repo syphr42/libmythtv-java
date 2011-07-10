@@ -20,12 +20,17 @@ import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command66SetBookmark extends Command63SetBookmark
 {
-    public Command66SetBookmark(Channel channel, Date recStartTs, long location)
+    public Command66SetBookmark(Translator translator,
+                                Parser parser,
+                                Channel channel,
+                                Date recStartTs,
+                                long location)
     {
-        super(channel, recStartTs, location);
+        super(translator, parser, channel, recStartTs, location);
     }
 
     @Override

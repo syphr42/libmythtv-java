@@ -18,7 +18,6 @@ package org.syphr.mythtv.types;
 public enum Verbose
 {
     ALL,
-    IMPORTANT,
     NONE,
 
     MOST,
@@ -49,7 +48,6 @@ public enum Verbose
     CHANNEL_SCAN,
     GUI,
     SYSTEM,
-    EXTRA,
     TIMESTAMP,
 
     NOT_MOST,
@@ -80,8 +78,28 @@ public enum Verbose
     NOT_CHANNEL_SCAN,
     NOT_GUI,
     NOT_SYSTEM,
-    NOT_EXTRA,
     NOT_TIMESTAMP,
 
-    DEFAULT;
+    DEFAULT,
+
+    /**
+     * @since 63
+     * @deprecated 67
+     */
+    @Deprecated
+    IMPORTANT,
+
+    /**
+     * @since 63
+     * @deprecated 67
+     */
+    @Deprecated
+    EXTRA,
+
+    /**
+     * @since 63
+     * @deprecated 67
+     */
+    @Deprecated
+    NOT_EXTRA;
 }

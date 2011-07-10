@@ -160,7 +160,7 @@ public class Protocol63 extends AbstractProtocol
 
         try
         {
-            new Command63Done().send(manager);
+            new Command63Done(getTranslator(), getParser()).send(manager);
         }
         finally
         {
@@ -213,7 +213,12 @@ public class Protocol63 extends AbstractProtocol
                                 boolean forget) throws IOException,
                                                CommandException
     {
-        new Command63DeleteRecording(channel, recStartTs, force, forget).send(getSocketManager());
+        new Command63DeleteRecording(getTranslator(),
+                                     getParser(),
+                                     channel,
+                                     recStartTs,
+                                     force,
+                                     forget).send(getSocketManager());
     }
 
     @Override
@@ -258,7 +263,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public boolean freeTuner(int recorderId) throws IOException
     {
-        return new Command63FreeTuner(recorderId).send(getSocketManager());
+        return new Command63FreeTuner(getTranslator(), getParser(), recorderId).send(getSocketManager());
     }
 
     @Override
@@ -270,7 +275,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public int getFreeRecorderCount() throws IOException
     {
-        return new Command63GetFreeRecorderCount().send(getSocketManager());
+        return new Command63GetFreeRecorderCount(getTranslator(), getParser()).send(getSocketManager());
     }
 
     @Override
@@ -307,7 +312,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public void goToSleep() throws IOException, CommandException
     {
-        new Command63GoToSleep().send(getSocketManager());
+        new Command63GoToSleep(getTranslator(), getParser()).send(getSocketManager());
     }
 
     @Override
@@ -439,13 +444,13 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public Date queryGuideDataThrough() throws IOException
     {
-        return new Command63QueryGuideDataThrough().send(getSocketManager());
+        return new Command63QueryGuideDataThrough(getTranslator(), getParser()).send(getSocketManager());
     }
 
     @Override
     public String queryHostname() throws IOException
     {
-        return new Command63QueryHostname().send(getSocketManager());
+        return new Command63QueryHostname(getTranslator(), getParser()).send(getSocketManager());
     }
 
     @Override
@@ -543,7 +548,10 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public String querySetting(String host, String name) throws IOException
     {
-        return new Command63QuerySetting(host, name).send(getSocketManager());
+        return new Command63QuerySetting(getTranslator(),
+                                         getParser(),
+                                         host,
+                                         name).send(getSocketManager());
     }
 
     @Override
@@ -581,7 +589,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public long queryUptime() throws IOException
     {
-        return new Command63QueryUptime().send(getSocketManager());
+        return new Command63QueryUptime(getTranslator(), getParser()).send(getSocketManager());
     }
 
     @Override
@@ -593,14 +601,20 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public void rescheduleRecordings(int recorderId) throws IOException
     {
-        new Command63RescheduleRecordings(recorderId).send(getSocketManager());
+        new Command63RescheduleRecordings(getTranslator(),
+                                          getParser(),
+                                          recorderId).send(getSocketManager());
     }
 
     @Override
     public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException,
                                                                                CommandException
     {
-        return new Command63SetBookmark(channel, recStartTs, location).send(getSocketManager());
+        return new Command63SetBookmark(getTranslator(),
+                                        getParser(),
+                                        channel,
+                                        recStartTs,
+                                        location).send(getSocketManager());
     }
 
     @Override
@@ -617,7 +631,10 @@ public class Protocol63 extends AbstractProtocol
     public void setNextLiveTvDir(int recorderId, String path) throws IOException,
                                                              CommandException
     {
-        new Command63SetNextLiveTvDir(recorderId, path).send(getSocketManager());
+        new Command63SetNextLiveTvDir(getTranslator(),
+                                      getParser(),
+                                      recorderId,
+                                      path).send(getSocketManager());
     }
 
     @Override

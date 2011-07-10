@@ -22,22 +22,26 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.DateUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63DeleteRecording extends AbstractCommand<Void>
+/* default */class Command63DeleteRecording extends AbstractProtocolCommand<Void>
 {
     private final Channel channel;
     private final Date recStartTs;
     private final boolean force;
     private final boolean forget;
 
-    public Command63DeleteRecording(Channel channel,
+    public Command63DeleteRecording(Translator translator,
+                                    Parser parser,
+                                    Channel channel,
                                     Date recStartTs,
                                     boolean force,
                                     boolean forget)
     {
+        super(translator, parser);
+
         this.channel = channel;
         this.recStartTs = recStartTs;
         this.force = force;

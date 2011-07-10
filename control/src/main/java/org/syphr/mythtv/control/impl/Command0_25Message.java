@@ -15,13 +15,16 @@
  */
 package org.syphr.mythtv.control.impl;
 
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_25Message extends AbstractCommandOkResponse
 {
     private final String text;
 
-    public Command0_25Message(String text)
+    public Command0_25Message(Translator translator, String text)
     {
+        super(translator);
+
         this.text = text;
     }
 

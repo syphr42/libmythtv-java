@@ -17,13 +17,16 @@ package org.syphr.mythtv.control.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_25PlayMusicSetVolume extends AbstractCommandOkResponse
 {
     private final int percent;
 
-    public Command0_25PlayMusicSetVolume(int percent) throws ProtocolException
+    public Command0_25PlayMusicSetVolume(Translator translator, int percent) throws ProtocolException
     {
+        super(translator);
+
         if (percent < 0 || percent > 100)
         {
             throw new ProtocolException("Volume percent must be 0 - 100, inclusive", Direction.SEND);

@@ -23,14 +23,17 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.DateUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryRecording extends AbstractCommand<Program>
 {
     private final int channelId;
     private final Date recStartTs;
 
-    public Command0_24QueryRecording(int channelId, Date recStartTs)
+    public Command0_24QueryRecording(Translator translator, int channelId, Date recStartTs)
     {
+        super(translator);
+
         this.channelId = channelId;
         this.recStartTs = recStartTs;
     }

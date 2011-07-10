@@ -17,6 +17,7 @@ package org.syphr.mythtv.control.impl;
 
 import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24PlaySeek extends AbstractCommand0_24Play
 {
@@ -26,13 +27,20 @@ import org.syphr.mythtv.util.exception.ProtocolException;
     private int minute;
     private int second;
 
-    public Command0_24PlaySeek(SeekTarget seekTarget)
+    public Command0_24PlaySeek(Translator translator, SeekTarget seekTarget)
     {
+        super(translator);
+
         this.seekTarget = seekTarget;
     }
 
-    public Command0_24PlaySeek(int hour, int minute, int second)
+    public Command0_24PlaySeek(Translator translator,
+                               int hour,
+                               int minute,
+                               int second)
     {
+        super(translator);
+
         this.hour = hour;
         this.minute = minute;
         this.second = second;
@@ -45,7 +53,7 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 
         if (seekTarget != null)
         {
-            message += Control0_24Utils.getTranslator().toString(seekTarget);
+            message += getTranslator().toString(seekTarget);
         }
         else
         {

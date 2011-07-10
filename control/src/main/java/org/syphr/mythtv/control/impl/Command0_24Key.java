@@ -17,19 +17,24 @@ package org.syphr.mythtv.control.impl;
 
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24Key extends AbstractCommandOkResponse
 {
     private char c;
     private Key key;
 
-    public Command0_24Key(char c)
+    public Command0_24Key(Translator translator, char c)
     {
+        super(translator);
+
         this.c = c;
     }
 
-    public Command0_24Key(Key key)
+    public Command0_24Key(Translator translator, Key key)
     {
+        super(translator);
+
         this.key = key;
     }
 
@@ -40,22 +45,22 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 
         if (key != null)
         {
-            keyCode = Control0_24Utils.getTranslator().toString(key);
+            keyCode = getTranslator().toString(key);
         }
         else
         {
             switch (c)
             {
                 case ' ':
-                    keyCode = Control0_24Utils.getTranslator().toString(Key.SPACE);
+                    keyCode = getTranslator().toString(Key.SPACE);
                     break;
 
                 case '\t':
-                    keyCode = Control0_24Utils.getTranslator().toString(Key.TAB);
+                    keyCode = getTranslator().toString(Key.TAB);
                     break;
 
                 case '\n':
-                    keyCode = Control0_24Utils.getTranslator().toString(Key.ENTER);
+                    keyCode = getTranslator().toString(Key.ENTER);
                     break;
 
                 default:

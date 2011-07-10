@@ -21,19 +21,22 @@ import java.util.List;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryChannels extends AbstractCommand<List<Channel>>
 {
     private final int start;
     private final int limit;
 
-    public Command0_24QueryChannels()
+    public Command0_24QueryChannels(Translator translator)
     {
-        this(-1, -1);
+        this(translator, -1, -1);
     }
 
-    public Command0_24QueryChannels(int start, int limit)
+    public Command0_24QueryChannels(Translator translator, int start, int limit)
     {
+        super(translator);
+
         this.start = start;
         this.limit = limit;
     }

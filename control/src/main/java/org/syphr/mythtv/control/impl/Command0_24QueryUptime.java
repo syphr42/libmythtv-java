@@ -19,9 +19,15 @@ import java.io.IOException;
 
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryUptime extends AbstractCommand<Long>
 {
+    public Command0_24QueryUptime(Translator translator)
+    {
+        super(translator);
+    }
+
     @Override
     protected String getMessage()
     {

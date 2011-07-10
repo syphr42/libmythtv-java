@@ -22,13 +22,16 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24PlayFile extends AbstractCommand<Void>
 {
     private final String filename;
 
-    public Command0_24PlayFile(String filename)
+    public Command0_24PlayFile(Translator translator, String filename)
     {
+        super(translator);
+
         this.filename = filename;
     }
 

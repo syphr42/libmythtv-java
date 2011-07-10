@@ -24,10 +24,16 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryVersion extends AbstractCommand<VersionInfo>
 {
     private static final Pattern VERSION_AND_SCM_PATTERN = Pattern.compile("(v(\\d+\\.\\d+)[^/]+)/(.*)");
+
+    public Command0_24QueryVersion(Translator translator)
+    {
+        super(translator);
+    }
 
     @Override
     protected String getMessage()

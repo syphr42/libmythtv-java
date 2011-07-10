@@ -16,8 +16,21 @@
 package org.syphr.mythtv.util.socket;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 public abstract class AbstractCommand<T> implements Command<T>
 {
+    private final Translator translator;
+
+    public AbstractCommand(Translator translator)
+    {
+        this.translator = translator;
+    }
+
+    protected Translator getTranslator()
+    {
+        return translator;
+    }
+
     protected abstract String getMessage() throws ProtocolException;
 }

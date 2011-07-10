@@ -20,19 +20,13 @@ import org.syphr.mythtv.util.translate.Translator;
 
 public abstract class AbstractProtocolCommand<T> extends AbstractCommand<T>
 {
-    private final Translator translator;
-
     private final Parser parser;
 
     public AbstractProtocolCommand(Translator translator, Parser parser)
     {
-        this.translator = translator;
-        this.parser = parser;
-    }
+        super(translator);
 
-    protected Translator getTranslator()
-    {
-        return translator;
+        this.parser = parser;
     }
 
     protected Parser getParser()

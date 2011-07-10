@@ -24,9 +24,15 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryLoad extends AbstractCommand<Load>
 {
+    public Command0_24QueryLoad(Translator translator)
+    {
+        super(translator);
+    }
+
     @Override
     protected String getMessage()
     {

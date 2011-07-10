@@ -18,11 +18,16 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryHostname extends AbstractCommand<String>
+/* default */class Command63QueryHostname extends AbstractProtocolCommand<String>
 {
+    public Command63QueryHostname(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
+
     @Override
     protected String getMessage() throws ProtocolException
     {

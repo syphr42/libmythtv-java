@@ -22,6 +22,7 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24Screenshot extends AbstractCommand<Void>
 {
@@ -29,8 +30,13 @@ import org.syphr.mythtv.util.socket.SocketManager;
     private final int width;
     private final int height;
 
-    public Command0_24Screenshot(String filename, int width, int height)
+    public Command0_24Screenshot(Translator translator,
+                                 String filename,
+                                 int width,
+                                 int height)
     {
+        super(translator);
+
         this.filename = filename;
         this.width = width;
         this.height = height;

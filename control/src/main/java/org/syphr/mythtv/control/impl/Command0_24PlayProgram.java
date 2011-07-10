@@ -24,6 +24,7 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.DateUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24PlayProgram extends AbstractCommand<Void>
 {
@@ -31,8 +32,13 @@ import org.syphr.mythtv.util.translate.DateUtils;
     private final Date recStartTs;
     private final boolean resume;
 
-    public Command0_24PlayProgram(int channelId, Date recStartTs, boolean resume)
+    public Command0_24PlayProgram(Translator translator,
+                                  int channelId,
+                                  Date recStartTs,
+                                  boolean resume)
     {
+        super(translator);
+
         this.channelId = channelId;
         this.recStartTs = recStartTs;
         this.resume = resume;
@@ -42,7 +48,7 @@ import org.syphr.mythtv.util.translate.DateUtils;
     protected String getMessage()
     {
         return "play program " + channelId + " " + DateUtils.getIsoDateFormat().format(recStartTs)
-               + " " + Control0_24Utils.getTranslator().toString(resume);
+               + " " + getTranslator().toString(resume);
     }
 
     @Override

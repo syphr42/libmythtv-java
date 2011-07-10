@@ -31,6 +31,8 @@ public abstract class AbstractControl implements Control
 
     private volatile CountDownLatch connectionLatch;
 
+    private volatile Translator translator;
+
     public AbstractControl(SocketManager socketManager)
     {
         this.socketManager = socketManager;
@@ -101,5 +103,21 @@ public abstract class AbstractControl implements Control
         return getTranslator().getAllowed(type);
     }
 
-    protected abstract Translator getTranslator();
+    protected Translator getTranslator()
+    {
+        if (translator == null)
+        {
+            synchronized (this)
+            {
+                if (translator == null)
+                {
+                    translator = createTranslator();
+                }
+            }
+        }
+
+        return translator;
+    }
+
+    protected abstract Translator createTranslator();
 }

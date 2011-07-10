@@ -20,16 +20,21 @@ import java.io.IOException;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63SetNextLiveTvDir extends AbstractCommand<Void>
+/* default */class Command63SetNextLiveTvDir extends AbstractProtocolCommand<Void>
 {
     private final int recorderId;
     private final String path;
 
-    public Command63SetNextLiveTvDir(int recorderId, String path)
+    public Command63SetNextLiveTvDir(Translator translator,
+                                     Parser parser,
+                                     int recorderId,
+                                     String path)
     {
+        super(translator, parser);
+
         this.recorderId = recorderId;
         this.path = path;
     }

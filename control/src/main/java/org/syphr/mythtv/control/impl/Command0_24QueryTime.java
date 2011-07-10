@@ -24,9 +24,15 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.DateUtils;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryTime extends AbstractCommand<Date>
 {
+    public Command0_24QueryTime(Translator translator)
+    {
+        super(translator);
+    }
+
     @Override
     protected String getMessage()
     {

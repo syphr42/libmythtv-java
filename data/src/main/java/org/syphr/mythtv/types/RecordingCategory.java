@@ -17,9 +17,23 @@ package org.syphr.mythtv.types;
 
 public enum RecordingCategory
 {
+    /**
+     * @since 63
+     */
     RECORDING,
 
+    /**
+     * @since 63
+     */
     RECORDED_UNSORTED,
+
+    /**
+     * @since 65
+     */
     RECORDED_ASCENDING,
+
+    /**
+     * @since 65
+     */
     RECORDED_DESCENDING
 }

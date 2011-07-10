@@ -21,9 +21,15 @@ import java.util.Set;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryVerbose extends AbstractCommand<Set<Verbose>>
 {
+    public Command0_24QueryVerbose(Translator translator)
+    {
+        super(translator);
+    }
+
     @Override
     protected String getMessage()
     {
@@ -34,6 +40,6 @@ import org.syphr.mythtv.util.socket.SocketManager;
     public Set<Verbose> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
-        return Control0_24Utils.getTranslator().toEnums(response, "\\s+", Verbose.class);
+        return getTranslator().toEnums(response, "\\s+", Verbose.class);
     }
 }

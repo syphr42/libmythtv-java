@@ -21,9 +21,15 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_25PlayMusicGetVolume extends AbstractCommand<Integer>
 {
+    public Command0_25PlayMusicGetVolume(Translator translator)
+    {
+        super(translator);
+    }
+
     @Override
     protected String getMessage()
     {

@@ -17,19 +17,22 @@ package org.syphr.mythtv.control.impl;
 
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24Jump extends AbstractCommandOkResponse
 {
     private final FrontendLocation jumpPoint;
 
-    public Command0_24Jump(FrontendLocation jumpPoint)
+    public Command0_24Jump(Translator translator, FrontendLocation jumpPoint)
     {
+        super(translator);
+
         this.jumpPoint = jumpPoint;
     }
 
     @Override
     protected String getMessage() throws ProtocolException
     {
-        return "jump " + Control0_24Utils.getTranslator().toString(jumpPoint);
+        return "jump " + getTranslator().toString(jumpPoint);
     }
 }

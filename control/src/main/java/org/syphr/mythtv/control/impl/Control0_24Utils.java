@@ -33,7 +33,6 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.DateUtils;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class Control0_24Utils
 {
@@ -42,8 +41,6 @@ public class Control0_24Utils
     private static final Pattern LIVE_TV_PATTERN = Pattern.compile("^\\s*(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+(.+?)(\\s+-\"(.*)\")?$");
 
     private static final Pattern CHANNEL_PATTERN = Pattern.compile("^\\d+:(\\d+)\\s+(\\d+)\\s+\"(.*)\"\\s+\"(.*)\"$");
-
-    private static final Translator TRANSLATOR = new Translator0_24();
 
     public static List<Program> parseRecordings(String value) throws IOException
     {
@@ -211,10 +208,5 @@ public class Control0_24Utils
         }
 
         return response;
-    }
-
-    public static Translator getTranslator()
-    {
-        return TRANSLATOR;
     }
 }

@@ -239,7 +239,7 @@ public class ProtocolTest
     public void testSetVerbose() throws IOException, CommandException
     {
         proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.ALL); }});
-        proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.IMPORTANT); add(Verbose.GENERAL); add(Verbose.NETWORK); }});
+        proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.DEFAULT); add(Verbose.NETWORK); }});
     }
 
     @Test

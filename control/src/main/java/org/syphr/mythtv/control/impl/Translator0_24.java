@@ -15,6 +15,9 @@
  */
 package org.syphr.mythtv.control.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.PlaybackType;
@@ -209,39 +212,26 @@ public class Translator0_24 extends AbstractTranslator
         SEEK_TARGET_MAP.put(SeekTarget.BACKWARD, "backward");
     }
 
+    @SuppressWarnings("rawtypes")
+    private static final Map<Class<? extends Enum>, BiMap<? extends Enum, String>> MAPS = new HashMap<Class<? extends Enum>, BiMap<? extends Enum, String>>();
+    static
+    {
+        MAPS.put(FrontendLocation.class, FE_LOCATION_MAP);
+        MAPS.put(Key.class, KEY_MAP);
+        MAPS.put(Verbose.class, LOG_OPTION_MAP);
+        MAPS.put(PlaybackType.class, PLAYBACK_TYPE_MAP);
+        MAPS.put(SeekTarget.class, SEEK_TARGET_MAP);
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     protected <E extends Enum<E>> BiMap<E, String> getMap(Class<E> type)
     {
-        /*
-         * Cast to raw BiMap necessary to appease javac (Eclipse doesn't require it).
-         */
-
-        if (FrontendLocation.class.equals(type))
+        if (!MAPS.containsKey(type))
         {
-            return (BiMap)FE_LOCATION_MAP;
+            throw new IllegalArgumentException("Unknown type: " + type);
         }
 
-        if (Key.class.equals(type))
-        {
-            return (BiMap)KEY_MAP;
-        }
-
-        if (Verbose.class.equals(type))
-        {
-            return (BiMap)LOG_OPTION_MAP;
-        }
-
-        if (PlaybackType.class.equals(type))
-        {
-            return (BiMap)PLAYBACK_TYPE_MAP;
-        }
-
-        if (SeekTarget.class.equals(type))
-        {
-            return (BiMap)SEEK_TARGET_MAP;
-        }
-
-        throw new IllegalArgumentException("Unknown type: " + type);
+        return (BiMap) MAPS.get(type);
     }
 }

@@ -21,9 +21,15 @@ import java.util.List;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryLiveTv extends AbstractCommand<List<Program>>
 {
+    public Command0_24QueryLiveTv(Translator translator)
+    {
+        super(translator);
+    }
+
     @Override
     protected String getMessage()
     {

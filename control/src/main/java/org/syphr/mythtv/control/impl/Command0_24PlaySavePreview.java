@@ -15,14 +15,21 @@
  */
 package org.syphr.mythtv.control.impl;
 
+import org.syphr.mythtv.util.translate.Translator;
+
 /* default */class Command0_24PlaySavePreview extends AbstractCommand0_24Play
 {
     private final String filename;
     private final int width;
     private final int height;
 
-    public Command0_24PlaySavePreview(String filename, int width, int height)
+    public Command0_24PlaySavePreview(Translator translator,
+                                      String filename,
+                                      int width,
+                                      int height)
     {
+        super(translator);
+
         this.filename = filename;
         this.width = width;
         this.height = height;

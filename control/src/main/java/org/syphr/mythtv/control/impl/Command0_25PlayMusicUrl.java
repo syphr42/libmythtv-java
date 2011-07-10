@@ -19,13 +19,16 @@ import java.net.URL;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_25PlayMusicUrl extends AbstractCommandOkResponse
 {
     private final URL url;
 
-    public Command0_25PlayMusicUrl(URL url) throws ProtocolException
+    public Command0_25PlayMusicUrl(Translator translator, URL url) throws ProtocolException
     {
+        super(translator);
+
         if (url == null)
         {
             throw new ProtocolException("URL must not be null", Direction.SEND);

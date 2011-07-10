@@ -20,9 +20,15 @@ import java.io.IOException;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public abstract class AbstractCommand0_24Play extends AbstractCommand<Void>
 {
+    public AbstractCommand0_24Play(Translator translator)
+    {
+        super(translator);
+    }
+
     @Override
     public Void send(SocketManager socketManager) throws IOException,
                                                  CommandException

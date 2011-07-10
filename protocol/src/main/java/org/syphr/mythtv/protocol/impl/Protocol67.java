@@ -48,6 +48,12 @@ public class Protocol67 extends Protocol66
     }
 
     @Override
+    protected Translator createTranslator()
+    {
+        return new Translator67();
+    }
+
+    @Override
     protected Parser createParser(Translator translator)
     {
         return new Parser67(translator);

@@ -46,61 +46,61 @@ public class Control0_24 extends AbstractControl
     @Override
     public void jump(FrontendLocation jumpPoint) throws IOException
     {
-        new Command0_24Jump(jumpPoint).send(getSocketManager());
+        new Command0_24Jump(getTranslator(), jumpPoint).send(getSocketManager());
     }
 
     @Override
     public void key(char c) throws IOException
     {
-        new Command0_24Key(c).send(getSocketManager());
+        new Command0_24Key(getTranslator(), c).send(getSocketManager());
     }
 
     @Override
     public void key(Key key) throws IOException
     {
-        new Command0_24Key(key).send(getSocketManager());
+        new Command0_24Key(getTranslator(), key).send(getSocketManager());
     }
 
     @Override
     public void playVolume(int percent) throws IOException, CommandException
     {
-        new Command0_24PlayVolume(percent).send(getSocketManager());
+        new Command0_24PlayVolume(getTranslator(), percent).send(getSocketManager());
     }
 
     @Override
     public void playChannelUp() throws IOException, CommandException
     {
-        new Command0_24PlayChannelUp().send(getSocketManager());
+        new Command0_24PlayChannelUp(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public void playChannelDown() throws IOException, CommandException
     {
-        new Command0_24PlayChannelDown().send(getSocketManager());
+        new Command0_24PlayChannelDown(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public void playChannel(String channelNumber) throws IOException, CommandException
     {
-        new Command0_24PlayChannel(channelNumber).send(getSocketManager());
+        new Command0_24PlayChannel(getTranslator(), channelNumber).send(getSocketManager());
     }
 
     @Override
     public void playChannel(int channelId) throws IOException, CommandException
     {
-        new Command0_24PlayChannel(channelId).send(getSocketManager());
+        new Command0_24PlayChannel(getTranslator(), channelId).send(getSocketManager());
     }
 
     @Override
     public void playFile(String filename) throws IOException, CommandException
     {
-        new Command0_24PlayFile(filename).send(getSocketManager());
+        new Command0_24PlayFile(getTranslator(), filename).send(getSocketManager());
     }
 
     @Override
     public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException, CommandException
     {
-        new Command0_24PlayProgram(channelId, recStartTs, resume).send(getSocketManager());
+        new Command0_24PlayProgram(getTranslator(), channelId, recStartTs, resume).send(getSocketManager());
     }
 
     @Override
@@ -118,31 +118,31 @@ public class Control0_24 extends AbstractControl
     @Override
     public void playSavePreview(String filename, int width, int height) throws IOException, CommandException
     {
-        new Command0_24PlaySavePreview(filename, width, height).send(getSocketManager());
+        new Command0_24PlaySavePreview(getTranslator(), filename, width, height).send(getSocketManager());
     }
 
     @Override
     public void playSeek(SeekTarget target) throws IOException, CommandException
     {
-        new Command0_24PlaySeek(target).send(getSocketManager());
+        new Command0_24PlaySeek(getTranslator(), target).send(getSocketManager());
     }
 
     @Override
     public void playSeek(int hour, int minute, int second) throws IOException, CommandException
     {
-        new Command0_24PlaySeek(hour, minute, second).send(getSocketManager());
+        new Command0_24PlaySeek(getTranslator(), hour, minute, second).send(getSocketManager());
     }
 
     @Override
     public void playSpeed(float speed) throws IOException, CommandException
     {
-        new Command0_24PlaySpeed(speed).send(getSocketManager());
+        new Command0_24PlaySpeed(getTranslator(), speed).send(getSocketManager());
     }
 
     @Override
     public void playStop() throws IOException, CommandException
     {
-        new Command0_24PlayStop().send(getSocketManager());
+        new Command0_24PlayStop(getTranslator()).send(getSocketManager());
     }
 
     @Override
@@ -202,97 +202,97 @@ public class Control0_24 extends AbstractControl
     @Override
     public FrontendLocation queryLocation() throws IOException
     {
-        return new Command0_24QueryLocation().send(getSocketManager());
+        return new Command0_24QueryLocation(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public PlaybackInfo queryPlaybackInfo() throws IOException
     {
-        return new Command0_24QueryPlaybackInfo().send(getSocketManager());
+        return new Command0_24QueryPlaybackInfo(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public int queryVolume() throws IOException
     {
-        return new Command0_24QueryVolume().send(getSocketManager());
+        return new Command0_24QueryVolume(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public List<Program> queryRecordings() throws IOException
     {
-        return new Command0_24QueryRecordings().send(getSocketManager());
+        return new Command0_24QueryRecordings(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public Program queryRecording(int channelId, Date recStartTs) throws IOException
     {
-        return new Command0_24QueryRecording(channelId, recStartTs).send(getSocketManager());
+        return new Command0_24QueryRecording(getTranslator(), channelId, recStartTs).send(getSocketManager());
     }
 
     @Override
     public List<Program> queryLiveTv() throws IOException
     {
-        return new Command0_24QueryLiveTv().send(getSocketManager());
+        return new Command0_24QueryLiveTv(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public Program queryLiveTv(int channelId) throws IOException
     {
-        return new Command0_24QueryLiveTvChannel(channelId).send(getSocketManager());
+        return new Command0_24QueryLiveTvChannel(getTranslator(), channelId).send(getSocketManager());
     }
 
     @Override
     public Load queryLoad() throws IOException
     {
-        return new Command0_24QueryLoad().send(getSocketManager());
+        return new Command0_24QueryLoad(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public MemStats queryMemStats() throws IOException
     {
-        return new Command0_24QueryMemStats().send(getSocketManager());
+        return new Command0_24QueryMemStats(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public Date queryTime() throws IOException
     {
-        return new Command0_24QueryTime().send(getSocketManager());
+        return new Command0_24QueryTime(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public long queryUptime() throws IOException
     {
-        return new Command0_24QueryUptime().send(getSocketManager());
+        return new Command0_24QueryUptime(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public Set<Verbose> queryVerbose() throws IOException
     {
-        return new Command0_24QueryVerbose().send(getSocketManager());
+        return new Command0_24QueryVerbose(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public VersionInfo queryVersion() throws IOException
     {
-        return new Command0_24QueryVersion().send(getSocketManager());
+        return new Command0_24QueryVersion(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public List<Channel> queryChannels() throws IOException
     {
-        return new Command0_24QueryChannels().send(getSocketManager());
+        return new Command0_24QueryChannels(getTranslator()).send(getSocketManager());
     }
 
     @Override
     public List<Channel> queryChannels(int start, int limit) throws IOException
     {
-        return new Command0_24QueryChannels(start, limit).send(getSocketManager());
+        return new Command0_24QueryChannels(getTranslator(), start, limit).send(getSocketManager());
     }
 
     @Override
     public void setVerbose(List<Verbose> options) throws IOException, CommandException
     {
-        new Command0_24SetVerbose(options).send(getSocketManager());
+        new Command0_24SetVerbose(getTranslator(), options).send(getSocketManager());
     }
 
     @Override
@@ -316,7 +316,7 @@ public class Control0_24 extends AbstractControl
     @Override
     public void screenshot(String filename, int width, int height) throws IOException, CommandException
     {
-        new Command0_24Screenshot(filename, width, height).send(getSocketManager());
+        new Command0_24Screenshot(getTranslator(), filename, width, height).send(getSocketManager());
     }
 
     @Override
@@ -332,7 +332,7 @@ public class Control0_24 extends AbstractControl
 
         try
         {
-            new Command0_24Exit().send(socketManager);
+            new Command0_24Exit(getTranslator()).send(socketManager);
         }
         finally
         {
@@ -344,8 +344,8 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    protected Translator getTranslator()
+    protected Translator createTranslator()
     {
-        return Control0_24Utils.getTranslator();
+        return new Translator0_24();
     }
 }

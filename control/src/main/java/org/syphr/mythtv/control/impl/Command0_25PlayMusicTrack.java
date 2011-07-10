@@ -16,13 +16,16 @@
 package org.syphr.mythtv.control.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_25PlayMusicTrack extends AbstractCommandOkResponse
 {
     private final int track;
 
-    public Command0_25PlayMusicTrack(int track) throws ProtocolException
+    public Command0_25PlayMusicTrack(Translator translator, int track) throws ProtocolException
     {
+        super(translator);
+
         this.track = track;
     }
 

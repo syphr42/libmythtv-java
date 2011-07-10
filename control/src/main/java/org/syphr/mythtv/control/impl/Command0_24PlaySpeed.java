@@ -17,13 +17,16 @@ package org.syphr.mythtv.control.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24PlaySpeed extends AbstractCommand0_24Play
 {
     private final float speed;
 
-    public Command0_24PlaySpeed(float speed) throws ProtocolException
+    public Command0_24PlaySpeed(Translator translator, float speed) throws ProtocolException
     {
+        super(translator);
+
         if (speed < 0 && Math.floor(speed) != speed)
         {
             throw new ProtocolException("Rewind (negative) speeds must be integer values",

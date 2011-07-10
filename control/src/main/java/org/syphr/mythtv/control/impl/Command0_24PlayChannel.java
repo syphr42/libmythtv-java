@@ -15,18 +15,24 @@
  */
 package org.syphr.mythtv.control.impl;
 
+import org.syphr.mythtv.util.translate.Translator;
+
 /* default */class Command0_24PlayChannel extends AbstractCommand0_24Play
 {
     private int id;
     private String number;
 
-    public Command0_24PlayChannel(int id)
+    public Command0_24PlayChannel(Translator translator, int id)
     {
+        super(translator);
+
         this.id = id;
     }
 
-    public Command0_24PlayChannel(String number)
+    public Command0_24PlayChannel(Translator translator, String number)
     {
+        super(translator);
+
         this.number = number;
     }
 

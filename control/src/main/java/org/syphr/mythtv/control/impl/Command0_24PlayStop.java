@@ -15,8 +15,15 @@
  */
 package org.syphr.mythtv.control.impl;
 
+import org.syphr.mythtv.util.translate.Translator;
+
 /* default */class Command0_24PlayStop extends AbstractCommand0_24Play
 {
+    public Command0_24PlayStop(Translator translator)
+    {
+        super(translator);
+    }
+
     @Override
     protected String getMessage()
     {

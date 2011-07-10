@@ -15,9 +15,15 @@
  */
 package org.syphr.mythtv.control.impl;
 
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_25PlayMusicPlay extends AbstractCommandOkResponse
 {
+    public Command0_25PlayMusicPlay(Translator translator)
+    {
+        super(translator);
+    }
+
     @Override
     protected String getMessage()
     {

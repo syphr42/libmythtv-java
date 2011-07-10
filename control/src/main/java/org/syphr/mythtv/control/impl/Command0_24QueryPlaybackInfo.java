@@ -31,6 +31,7 @@ import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.DateUtils;
+import org.syphr.mythtv.util.translate.Translator;
 import org.syphr.mythtv.util.translate.UriUtils;
 
 /* default */class Command0_24QueryPlaybackInfo extends AbstractCommand<PlaybackInfo>
@@ -39,6 +40,11 @@ import org.syphr.mythtv.util.translate.UriUtils;
 
     private static final Pattern CHANNEL_VIDEO_PATTERN = Pattern.compile("(\\d+):(\\d{2})\\s+of\\s+(\\d+):(\\d{2})\\s+(\\d+\\.?\\d*)x\\s+(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+(\\d+)\\s+(.*)\\s+(\\d+\\.?\\d*)");
     private static final Pattern OTHER_VIDEO_PATTERN = Pattern.compile("(\\d+):(\\d{2})\\s+(\\d+\\.?\\d*)x\\s+(.*)\\s+(\\d+)\\s+(\\d+\\.?\\d*)");
+
+    public Command0_24QueryPlaybackInfo(Translator translator)
+    {
+        super(translator);
+    }
 
     @Override
     protected String getMessage()
@@ -57,7 +63,7 @@ import org.syphr.mythtv.util.translate.UriUtils;
             return null;
         }
 
-        PlaybackType type = Control0_24Utils.getTranslator().toEnum(mainMatcher.group(1), PlaybackType.class);
+        PlaybackType type = getTranslator().toEnum(mainMatcher.group(1), PlaybackType.class);
 
         try
         {

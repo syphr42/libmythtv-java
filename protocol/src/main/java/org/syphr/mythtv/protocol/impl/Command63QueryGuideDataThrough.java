@@ -23,14 +23,19 @@ import java.util.Date;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryGuideDataThrough extends AbstractCommand<Date>
+/* default */class Command63QueryGuideDataThrough extends AbstractProtocolCommand<Date>
 {
     private static final String UNKNOWN = "0000-00-00 00:00";
 
     private final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+    public Command63QueryGuideDataThrough(Translator translator, Parser parser)
+    {
+        super(translator, parser);
+    }
 
     @Override
     protected String getMessage() throws ProtocolException

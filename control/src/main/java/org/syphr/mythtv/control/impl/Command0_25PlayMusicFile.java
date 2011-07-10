@@ -17,13 +17,16 @@ package org.syphr.mythtv.control.impl;
 
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_25PlayMusicFile extends AbstractCommandOkResponse
 {
     private final String filename;
 
-    public Command0_25PlayMusicFile(String filename) throws ProtocolException
+    public Command0_25PlayMusicFile(Translator translator, String filename) throws ProtocolException
     {
+        super(translator);
+
         if (filename == null || filename.isEmpty())
         {
             throw new ProtocolException("Filename must not be null or empty", Direction.SEND);

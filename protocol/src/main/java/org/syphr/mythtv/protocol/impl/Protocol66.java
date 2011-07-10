@@ -139,7 +139,11 @@ public class Protocol66 extends Protocol65
     public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException,
                                                                                CommandException
     {
-        return new Command66SetBookmark(channel, recStartTs, location).send(getSocketManager());
+        return new Command66SetBookmark(getTranslator(),
+                                        getParser(),
+                                        channel,
+                                        recStartTs,
+                                        location).send(getSocketManager());
     }
 
     @Override

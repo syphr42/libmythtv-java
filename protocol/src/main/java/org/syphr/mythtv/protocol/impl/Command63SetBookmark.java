@@ -24,17 +24,23 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63SetBookmark extends AbstractCommand<Boolean>
+/* default */class Command63SetBookmark extends AbstractProtocolCommand<Boolean>
 {
     private final Channel channel;
     private final Date recStartTs;
     private final long location;
 
-    public Command63SetBookmark(Channel channel, Date recStartTs, long location)
+    public Command63SetBookmark(Translator translator,
+                                Parser parser,
+                                Channel channel,
+                                Date recStartTs,
+                                long location)
     {
+        super(translator, parser);
+
         this.channel = channel;
         this.recStartTs = recStartTs;
         this.location = location;

@@ -21,13 +21,16 @@ import java.util.List;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryLiveTvChannel extends AbstractCommand<Program>
 {
     private final int channelId;
 
-    public Command0_24QueryLiveTvChannel(int channelId)
+    public Command0_24QueryLiveTvChannel(Translator translator, int channelId)
     {
+        super(translator);
+
         this.channelId = channelId;
     }
 

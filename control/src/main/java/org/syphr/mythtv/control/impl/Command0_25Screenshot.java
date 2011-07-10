@@ -15,14 +15,17 @@
  */
 package org.syphr.mythtv.control.impl;
 
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_25Screenshot extends AbstractCommandOkResponse
 {
     private final int width;
     private final int height;
 
-    public Command0_25Screenshot(int width, int height)
+    public Command0_25Screenshot(Translator translator, int width, int height)
     {
+        super(translator);
+
         this.width = width;
         this.height = height;
     }

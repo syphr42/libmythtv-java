@@ -24,10 +24,16 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.AbstractCommand;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_25PlayMusicGetMeta extends AbstractCommand<MusicInfo>
 {
     private static final Pattern MUSIC_INFO_PATTERN = Pattern.compile("(.*)\\sby\\s(.*)\\sfrom\\s(.*)");
+
+    public Command0_25PlayMusicGetMeta(Translator translator)
+    {
+        super(translator);
+    }
 
     @Override
     protected String getMessage()

@@ -392,8 +392,8 @@ public class ControlTest
     @SuppressWarnings("serial")
     public void testSetVerbose() throws IOException, CommandException
     {
-        control.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.ALL); }});
-        control.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.IMPORTANT); add(Verbose.GENERAL); }});
+        control.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.AUDIO); add(Verbose.PLAYBACK); }});
+        control.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.DEFAULT); }});
     }
 
     @Test
