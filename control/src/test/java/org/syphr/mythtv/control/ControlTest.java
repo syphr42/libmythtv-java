@@ -190,69 +190,6 @@ public class ControlTest
     }
 
     @Test
-    public void testPlayMusicPlay() throws IOException
-    {
-        // TODO
-        LOGGER.warn("play music play test not implemented");
-    }
-
-    @Test
-    public void testPlayMusicPause() throws IOException
-    {
-        // TODO
-        LOGGER.warn("play music pause test not implemented");
-    }
-
-    @Test
-    public void testPlayMusicStop() throws IOException
-    {
-        // TODO
-        LOGGER.warn("play music stop test not implemented");
-    }
-
-    @Test
-    public void testPlayMusicSetVolume() throws IOException
-    {
-        // TODO
-        LOGGER.warn("play music setvolume test not implemented");
-    }
-
-    @Test
-    public void testPlayMusicGetVolume() throws IOException
-    {
-        // TODO
-        LOGGER.warn("play music getvolume test not implemented");
-    }
-
-    @Test
-    public void testPlayMusicGetMeta() throws IOException
-    {
-        // TODO
-        LOGGER.warn("play music getmeta test not implemented");
-    }
-
-    @Test
-    public void testPlayMusicFile() throws IOException
-    {
-        // TODO
-        LOGGER.warn("play music file test not implemented");
-    }
-
-    @Test
-    public void testPlayMusicTrack() throws IOException
-    {
-        // TODO
-        LOGGER.warn("play music track test not implemented");
-    }
-
-    @Test
-    public void testPlayMusicUrl() throws IOException
-    {
-        // TODO
-        LOGGER.warn("play music url test not implemented");
-    }
-
-    @Test
     public void testQueryLocation() throws IOException
     {
         control.jump(FrontendLocation.MAIN_MENU);
