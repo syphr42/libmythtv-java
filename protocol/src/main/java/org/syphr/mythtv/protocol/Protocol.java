@@ -580,7 +580,8 @@ public interface Protocol
      * @param filename
      *            the location of the file to hash relative to a storage group
      * @param storageGroup
-     *            the storage group containing the file to has
+     *            the storage group containing the file to has (optional, this will default
+     *            to the default storage group)
      * @return the hash value or <code>null</code> if the hash could not be computed
      * @throws IOException
      *             if there is a communication or protocol error
@@ -588,8 +589,31 @@ public interface Protocol
      *             if the backend is unable to determine the hash value
      *
      * @since 63
+     * @deprecated 69 - see {@link #queryFileHash(URI, String, String)}
      */
+    @Deprecated
     public String queryFileHash(URI filename, String storageGroup) throws IOException, CommandException;
+
+    /**
+     * Retrieve a 64-bit hash of the file represented by the given name and storage group.
+     *
+     * @param filename
+     *            the location of the file to hash relative to a storage group
+     * @param storageGroup
+     *            the storage group containing the file to hash (optional, this will default
+     *            to the default storage group)
+     * @param host
+     *            the host containing the file (optional, this will default to the connected
+     *            backend)
+     * @return the hash value or <code>null</code> if the hash could not be computed
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend is unable to determine the hash value
+     *
+     * @since 69
+     */
+    public String queryFileHash(URI filename, String storageGroup, String host) throws IOException, CommandException;
 
     /**
      * Determine how much space is available on all drives connected to this backend.

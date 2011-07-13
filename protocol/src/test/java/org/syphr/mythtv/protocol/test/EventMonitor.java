@@ -12,6 +12,7 @@ import java.util.Map;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.TunerStatus;
+import org.syphr.mythtv.data.VideoListChange;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.Protocol;
@@ -19,6 +20,7 @@ import org.syphr.mythtv.protocol.ProtocolFactory;
 import org.syphr.mythtv.protocol.ProtocolVersion;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.protocol.events.BackendEventListener63;
+import org.syphr.mythtv.protocol.events.BackendEventListener68;
 import org.syphr.mythtv.protocol.events.SystemEvent;
 import org.syphr.mythtv.protocol.events.SystemEventData;
 import org.syphr.mythtv.test.Settings;
@@ -44,7 +46,9 @@ public class EventMonitor
         Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
                                                                                  ProtocolVersion.class),
                                                         socketManager);
+
         proto.addBackendEventListener(eventListener63);
+        proto.addBackendEventListener(eventListener68);
 
         EventLevel level = EventLevel.valueOf(args[0].toUpperCase());
         System.out.println("Listening for backend events at level " + level);
@@ -251,6 +255,31 @@ public class EventMonitor
         public void videoListChange()
         {
             System.out.println("Video list changed");
+        }
+
+        @Override
+        public void resetIdleTime()
+        {
+            System.out.println("Reset idle time");
+        }
+    };
+
+    private static BackendEventListener eventListener68 = new BackendEventListener68()
+    {
+        @Override
+        public void videoListChange(VideoListChange... changes)
+        {
+            if (changes.length == 0)
+            {
+                System.out.println("Video list update - no changes");
+                return;
+            }
+
+            System.out.println("Video list changes: ");
+            for (VideoListChange change : changes)
+            {
+                System.out.println("\tID: " + change.getId() + "; Type: " + change.getType());
+            }
         }
     };
 }

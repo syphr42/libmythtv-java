@@ -15,38 +15,29 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
 import java.net.URI;
 
-import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryFileHash extends AbstractProtocolCommand<String>
+/* default */class Command69QueryFileHash extends Command63QueryFileHash
 {
-    private final URI filename;
-    private final String storageGroup;
+    private final String host;
 
-    public Command63QueryFileHash(Translator translator,
+    public Command69QueryFileHash(Translator translator,
                                   Parser parser,
                                   URI filename,
-                                  String storageGroup)
+                                  String storageGroup,
+                                  String host)
     {
-        super(translator, parser);
+        super(translator, parser, filename, storageGroup);
 
-        this.filename = filename;
-        this.storageGroup = storageGroup;
+        this.host = host;
     }
 
-    protected URI getFilename()
+    protected String getHost()
     {
-        return filename;
-    }
-
-    protected String getStorageGroup()
-    {
-        return storageGroup;
+        return host;
     }
 
     @Override
@@ -54,19 +45,7 @@ import org.syphr.mythtv.util.translate.Translator;
     {
         return getParser().combineArguments("QUERY_FILE_HASH",
                                             getFilename().getPath(),
-                                            getStorageGroup());
-    }
-
-    @Override
-    public String send(SocketManager socketManager) throws IOException, CommandException
-    {
-        String response = socketManager.sendAndWait(getMessage());
-
-        if ("NULL".equals(response))
-        {
-            throw new CommandException("The backend was unable to compute the hash");
-        }
-
-        return response;
+                                            getStorageGroup(),
+                                            getHost());
     }
 }

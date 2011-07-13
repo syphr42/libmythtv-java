@@ -13,15 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol;
+package org.syphr.mythtv.data;
 
-public enum ProtocolVersion
+import org.syphr.mythtv.types.VideoListChangeType;
+
+public class VideoListChange
 {
-    _63,
-    _64,
-    _65,
-    _66,
-    _67,
-    _68,
-    _69
+    private final VideoListChangeType type;
+    private final int id;
+
+    public VideoListChange(VideoListChangeType type, int id)
+    {
+        this.type = type;
+        this.id = id;
+    }
+
+    public VideoListChangeType getType()
+    {
+        return type;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
 }

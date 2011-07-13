@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol;
+package org.syphr.mythtv.types;
 
-public enum ProtocolVersion
+public enum VideoListChangeType
 {
-    _63,
-    _64,
-    _65,
-    _66,
-    _67,
-    _68,
-    _69
+    ADDED,
+    MOVED,
+    DELETED
 }

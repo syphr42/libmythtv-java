@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol;
+package org.syphr.mythtv.protocol.events.impl;
 
-public enum ProtocolVersion
+import org.syphr.mythtv.data.VideoListChange;
+
+public interface BackendEvent68VideoListChange
 {
-    _63,
-    _64,
-    _65,
-    _66,
-    _67,
-    _68,
-    _69
+    public void videoListChange(VideoListChange... changes);
 }

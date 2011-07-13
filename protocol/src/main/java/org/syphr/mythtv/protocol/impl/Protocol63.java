@@ -44,6 +44,7 @@ import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
+import org.syphr.mythtv.protocol.events.EventProtocol;
 import org.syphr.mythtv.protocol.events.impl.EventProtocol63;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.RecordingCategory;
@@ -73,12 +74,17 @@ public class Protocol63 extends AbstractProtocol
         return new Parser63(translator);
     }
 
+    protected EventProtocol createEventProtocol(Translator translator, Parser parser)
+    {
+        return new EventProtocol63(translator, parser);
+    }
+
     @Override
     protected Interceptor createEventGrabber()
     {
         return new Interceptor()
         {
-            private final EventProtocol63 eventProto = new EventProtocol63(getTranslator(), getParser());
+            private final EventProtocol eventProto = createEventProtocol(getTranslator(), getParser());
             private final Logger logger = LoggerFactory.getLogger(getClass());
 
             @Override
@@ -665,6 +671,13 @@ public class Protocol63 extends AbstractProtocol
 
     @Override
     public void scanVideos() throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String queryFileHash(URI filename, String storageGroup, String host) throws IOException,
+                                                                               CommandException
     {
         throw new UnsupportedOperationException();
     }
