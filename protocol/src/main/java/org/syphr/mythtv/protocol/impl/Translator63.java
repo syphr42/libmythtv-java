@@ -115,13 +115,13 @@ public class Translator63 extends AbstractTranslator
     private static final BiMap<TunerStatusCategory, String> TUNER_STATUS_CATEGORY_MAP = EnumHashBiMap.create(TunerStatusCategory.class);
     static
     {
-        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.CHANNEL_TUNED, "Channel Tuned");
-        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SIGNAL_LOCK, "Signal Lock");
-        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SIGNAL_POWER, "Signal Power");
-        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SEEN_PAT, "Seen PAT");
-        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.MATCHING_PAT, "Matching PAT");
-        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SEEN_PMT, "Seen PMT");
-        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.MATCHING_PMT, "Matching PMT");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.CHANNEL_TUNED, "tuned");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SIGNAL_LOCK, "slock");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SIGNAL_POWER, "signal");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SEEN_PAT, "seen_pat");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.MATCHING_PAT, "matching_pat");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SEEN_PMT, "seen_pmt");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.MATCHING_PMT, "matching_pmt");
     }
 
     private static final BiMap<FileTransferType, String> FILE_TRANSFER_TYPE_MAP = EnumHashBiMap.create(FileTransferType.class);
@@ -235,6 +235,7 @@ public class Translator63 extends AbstractTranslator
         LOG_OPTION_MAP.put(Verbose.ALL, "all");
         LOG_OPTION_MAP.put(Verbose.IMPORTANT, "important");
         LOG_OPTION_MAP.put(Verbose.NONE, "none");
+        LOG_OPTION_MAP.put(Verbose.DEFAULT, "default");
 
         LOG_OPTION_MAP.put(Verbose.MOST, "most");
         LOG_OPTION_MAP.put(Verbose.GENERAL, "general");

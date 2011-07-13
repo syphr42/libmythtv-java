@@ -30,6 +30,7 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.TunerStatus;
 import org.syphr.mythtv.data.TunerStatus.TunerData;
 import org.syphr.mythtv.protocol.events.BackendEventListener63;
+import org.syphr.mythtv.protocol.events.EventProtocol;
 import org.syphr.mythtv.protocol.events.SystemEvent;
 import org.syphr.mythtv.protocol.events.SystemEventData;
 import org.syphr.mythtv.protocol.impl.Parser;
@@ -47,7 +48,13 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
     }
 
     @Override
-    protected EventSender<BackendEventListener63> createSender(List<String> fragments) throws ProtocolException
+    protected EventProtocol createFallbackProtocol()
+    {
+        return null;
+    }
+
+    @Override
+    protected EventSender<BackendEventListener63> createSender(List<String> fragments) throws ProtocolException, UnknownEventException
     {
         BackendMessage63 message = new BackendMessage63(fragments);
 
@@ -314,10 +321,12 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                 int i = 0;
                 while (i < data.size())
                 {
-                    TunerStatusCategory category = getTranslator().toEnum(data.get(i++), TunerStatusCategory.class);
+                    String name = data.get(i++);
 
                     String[] split = data.get(i++).split(" ");
-                    TunerData tunerData = new TunerData(split[0],
+                    TunerStatusCategory category = getTranslator().toEnum(split[0], TunerStatusCategory.class);
+
+                    TunerData tunerData = new TunerData(name,
                                                         Integer.parseInt(split[1]),
                                                         Integer.parseInt(split[2]),
                                                         Integer.parseInt(split[3]),
@@ -422,12 +431,23 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
                     }
                 };
             }
+            else if ("RESET_IDLETIME".equals(command))
+            {
+                return new EventSender<BackendEventListener63>()
+                {
+                    @Override
+                    public void sendEvent(BackendEventListener63 l)
+                    {
+                        l.resetIdleTime();
+                    }
+                };
+            }
         }
         catch (Exception e)
         {
             throw new ProtocolException(message.toString(), Direction.RECEIVE, e);
         }
 
-        throw new ProtocolException("Unknown backend message: " + message.toString(), Direction.RECEIVE);
+        throw new UnknownEventException(message.toString());
     }
 }

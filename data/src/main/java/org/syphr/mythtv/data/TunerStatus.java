@@ -61,12 +61,12 @@ public class TunerStatus
 
     public static class TunerData
     {
-        private final String key;
+        private final String name;
         private final List<Integer> data;
 
-        public TunerData(String key, int... data)
+        public TunerData(String name, int... data)
         {
-            this.key = key;
+            this.name = name;
 
             List<Integer> internalList = new ArrayList<Integer>();
             for (int datum : data)
@@ -76,9 +76,9 @@ public class TunerStatus
             this.data = Collections.unmodifiableList(internalList);
         }
 
-        public String getKey()
+        public String getName()
         {
-            return key;
+            return name;
         }
 
         public List<Integer> getData()
@@ -90,8 +90,8 @@ public class TunerStatus
         public String toString()
         {
             StringBuilder builder = new StringBuilder();
-            builder.append("TunerData [key=");
-            builder.append(key);
+            builder.append("TunerData [name=");
+            builder.append(name);
             builder.append(", data=");
             builder.append(data);
             builder.append("]");

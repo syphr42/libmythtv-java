@@ -13,26 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.types;
+package org.syphr.mythtv.protocol.events;
 
-public enum TunerStatusCategory
+import java.util.List;
+
+import org.syphr.mythtv.util.exception.ProtocolException;
+
+public interface EventProtocol
 {
-    /**
-     * @since 63
-     * @deprecated 65 - use {@link #SCRIPT_STATUS} instead
-     */
-    @Deprecated
-    CHANNEL_TUNED,
-
-    SIGNAL_LOCK,
-    SIGNAL_POWER,
-    SEEN_PAT,
-    MATCHING_PAT,
-    SEEN_PMT,
-    MATCHING_PMT,
-
-    /**
-     * @since 65
-     */
-    SCRIPT_STATUS
+    public void fireEvent(List<String> args, List<BackendEventListener> listeners) throws ProtocolException;
 }

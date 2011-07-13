@@ -24,10 +24,11 @@ import org.syphr.mythtv.protocol.events.impl.BackendEvent63GeneratedPixmap;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63LiveTvChainUpdate;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63LiveTvWatch;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63MasterUpdateProgInfo;
-import org.syphr.mythtv.protocol.events.impl.BackendEvent63RecordingListChangeNone;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63RecordingListChangeAdd;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63RecordingListChangeDelete;
+import org.syphr.mythtv.protocol.events.impl.BackendEvent63RecordingListChangeNone;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63RecordingListChangeUpdate;
+import org.syphr.mythtv.protocol.events.impl.BackendEvent63ResetIdleTime;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63ScheduleChange;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63SignalMessage;
 import org.syphr.mythtv.protocol.events.impl.BackendEvent63SignalTunerStatus;
@@ -51,7 +52,8 @@ public interface BackendEventListener63 extends BackendEventListener,
                                        BackendEvent63RecordingListChangeDelete,
                                        BackendEvent63ScheduleChange, BackendEvent63SignalMessage,
                                        BackendEvent63SignalTunerStatus, BackendEvent63SystemEvent,
-                                       BackendEvent63UpdateFileSize, BackendEvent63VideoListChange
+                                       BackendEvent63UpdateFileSize, BackendEvent63VideoListChange,
+                                       BackendEvent63ResetIdleTime
 {
     /*
      * Composite interface.

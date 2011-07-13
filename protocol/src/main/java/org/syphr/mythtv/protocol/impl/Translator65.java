@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.types.RecordingStatus;
+import org.syphr.mythtv.types.TunerStatusCategory;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
@@ -65,12 +66,25 @@ public class Translator65 extends Translator63
         REC_CATEGORY_MAP.put(RecordingCategory.RECORDED_DESCENDING, "Descending");
     }
 
+    private static final BiMap<TunerStatusCategory, String> TUNER_STATUS_CATEGORY_MAP = EnumHashBiMap.create(TunerStatusCategory.class);
+    static
+    {
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SCRIPT_STATUS, "script");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SIGNAL_LOCK, "slock");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SIGNAL_POWER, "signal");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SEEN_PAT, "seen_pat");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.MATCHING_PAT, "matching_pat");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.SEEN_PMT, "seen_pmt");
+        TUNER_STATUS_CATEGORY_MAP.put(TunerStatusCategory.MATCHING_PMT, "matching_pmt");
+    }
+
     @SuppressWarnings("rawtypes")
     private static final Map<Class<? extends Enum>, BiMap<? extends Enum, String>> MAPS = new HashMap<Class<? extends Enum>, BiMap<? extends Enum, String>>();
     static
     {
         MAPS.put(RecordingStatus.class, REC_STATUS_MAP);
         MAPS.put(RecordingCategory.class, REC_CATEGORY_MAP);
+        MAPS.put(TunerStatusCategory.class, TUNER_STATUS_CATEGORY_MAP);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

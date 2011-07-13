@@ -149,4 +149,10 @@ public class BackendEventListener63Adapter implements BackendEventListener63
     {
         // NOOP
     }
+
+    @Override
+    public void resetIdleTime()
+    {
+        // NOOP
+    }
 }

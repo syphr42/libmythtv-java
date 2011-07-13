@@ -20,17 +20,21 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
+import org.syphr.mythtv.protocol.events.EventProtocol;
 import org.syphr.mythtv.protocol.impl.Parser;
 import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.translate.Translator;
 
-public abstract class AbstractEventProtocol<T extends BackendEventListener>
+public abstract class AbstractEventProtocol<T extends BackendEventListener> implements EventProtocol
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEventProtocol.class);
 
     private final Translator translator;
     private final Parser parser;
     private final Class<T> type;
+
+    private volatile EventProtocol fallbackProtocol;
 
     public AbstractEventProtocol(Translator translator,
                                  Parser parser,
@@ -41,6 +45,7 @@ public abstract class AbstractEventProtocol<T extends BackendEventListener>
         this.type = type;
     }
 
+    @Override
     public void fireEvent(List<String> args, List<BackendEventListener> listeners) throws ProtocolException
     {
         EventSender<T> sender = null;
@@ -49,7 +54,7 @@ public abstract class AbstractEventProtocol<T extends BackendEventListener>
         {
             if (!type.isAssignableFrom(l.getClass()))
             {
-                LOGGER.warn("Skipping backend event listener of type "
+                LOGGER.debug("Skipping backend event listener of type "
                             + l.getClass()
                             + ", expecting "
                             + type);
@@ -58,7 +63,22 @@ public abstract class AbstractEventProtocol<T extends BackendEventListener>
 
             if (sender == null)
             {
-                sender = createSender(args);
+                try
+                {
+                    sender = createSender(args);
+                }
+                catch (UnknownEventException e)
+                {
+                    EventProtocol fallback = getFallbackProtocol();
+
+                    if (fallback != null)
+                    {
+                        fallback.fireEvent(args, listeners);
+                        return;
+                    }
+
+                    throw new ProtocolException("Unknown backend message: " + e.getMessage(), Direction.RECEIVE, e);
+                }
             }
 
             sender.sendEvent(type.cast(l));
@@ -75,5 +95,23 @@ public abstract class AbstractEventProtocol<T extends BackendEventListener>
         return parser;
     }
 
-    protected abstract EventSender<T> createSender(List<String> args) throws ProtocolException;
+    private EventProtocol getFallbackProtocol()
+    {
+        if (fallbackProtocol == null)
+        {
+            synchronized (this)
+            {
+                if (fallbackProtocol == null)
+                {
+                    fallbackProtocol = createFallbackProtocol();
+                }
+            }
+        }
+
+        return fallbackProtocol;
+    }
+
+    protected abstract EventSender<T> createSender(List<String> args) throws ProtocolException, UnknownEventException;
+
+    protected abstract EventProtocol createFallbackProtocol();
 }

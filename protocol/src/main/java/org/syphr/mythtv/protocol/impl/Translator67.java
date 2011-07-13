@@ -30,6 +30,7 @@ public class Translator67 extends Translator65
     {
         LOG_OPTION_MAP.put(Verbose.ALL, "all");
         LOG_OPTION_MAP.put(Verbose.NONE, "none");
+        LOG_OPTION_MAP.put(Verbose.DEFAULT, "default");
 
         LOG_OPTION_MAP.put(Verbose.MOST, "most");
         LOG_OPTION_MAP.put(Verbose.GENERAL, "general");

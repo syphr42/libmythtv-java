@@ -13,26 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.types;
+package org.syphr.mythtv.protocol.events.impl;
 
-public enum TunerStatusCategory
+public interface BackendEvent63ResetIdleTime
 {
-    /**
-     * @since 63
-     * @deprecated 65 - use {@link #SCRIPT_STATUS} instead
-     */
-    @Deprecated
-    CHANNEL_TUNED,
-
-    SIGNAL_LOCK,
-    SIGNAL_POWER,
-    SEEN_PAT,
-    MATCHING_PAT,
-    SEEN_PMT,
-    MATCHING_PMT,
-
-    /**
-     * @since 65
-     */
-    SCRIPT_STATUS
+    public void resetIdleTime();
 }
