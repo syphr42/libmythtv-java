@@ -127,7 +127,8 @@ public interface Protocol
      *            the URI of the file to transfer, relative to the storage group
      * @param storageGroup
      *            the storage group that contains (will contain) the file to be
-     *            transferred
+     *            transferred (optional, can be <code>null</code>, in which case
+     *            any and all storage groups are used)
      * @param commandProtocol
      *            the protocol that will be used to send file transfer commands
      * @return a sub-protocol API that can be used to manipulate the data stream
@@ -219,7 +220,9 @@ public interface Protocol
      * @param filename
      *            the file to delete, relative to the storage group
      * @param storageGroup
-     *            the storage group where the file exists
+     *            the storage group where the file exists (optional, can be
+     *            <code>null</code>, in which case any and all storage groups
+     *            are used)
      * @return <code>true</code> if the delete was successful;
      *         <code>false</code> otherwise
      * @throws IOException
@@ -263,7 +266,9 @@ public interface Protocol
      * @param url
      *            the URL of the item to download
      * @param storageGroup
-     *            the destination storage group
+     *            the destination storage group (optional, can be
+     *            <code>null</code>, in which case any and all storage groups
+     *            are used)
      * @param filename
      *            the location to save, relative to the storage group
      * @return the URI of the new file or <code>null</code> if an error occurred
@@ -285,7 +290,9 @@ public interface Protocol
      * @param url
      *            the URL of the item to download
      * @param storageGroup
-     *            the destination storage group
+     *            the destination storage group (optional, can be
+     *            <code>null</code>, in which case any and all storage groups
+     *            are used)
      * @param filename
      *            the location to save, relative to the storage group
      * @return the URI of the new file or <code>null</code> if an error occurred
