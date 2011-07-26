@@ -43,6 +43,7 @@ import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.unsupported.UnsupportedStrategy;
 
 /**
  * This interface represents the combined API of all MythTV protocols that are supported.
@@ -180,6 +181,14 @@ public interface Protocol
      * @return the socket manager that controls communication with the backend
      */
     public SocketManager getSocketManager();
+
+    /**
+     * Set the strategy used to handle unsupported operations.
+     *
+     * @param strategy
+     *            the strategy to use
+     */
+    public void setUnsupportedStrategy(UnsupportedStrategy strategy);
 
     /**
      * Allow the backend to shutdown. This releases a previous a call to
@@ -596,9 +605,8 @@ public interface Protocol
      *             if the backend is unable to determine the hash value
      *
      * @since 63
-     * @deprecated 69 - see {@link #queryFileHash(URI, String, String)}
+     * <!-- @deprecated 69 - see {@link #queryFileHash(URI, String, String)} -->
      */
-    @Deprecated
     public String queryFileHash(URI filename, String storageGroup) throws IOException, CommandException;
 
     /**

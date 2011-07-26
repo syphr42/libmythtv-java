@@ -25,6 +25,8 @@ import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.util.socket.Interceptor;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.util.unsupported.UnsupportedStrategy;
+import org.syphr.mythtv.util.unsupported.UnsupportedStratgeyLog;
 
 public abstract class AbstractProtocol implements Protocol
 {
@@ -34,12 +36,27 @@ public abstract class AbstractProtocol implements Protocol
     private volatile Translator translator;
     private volatile Parser parser;
 
+    private UnsupportedStrategy unsupported;
+
     public AbstractProtocol(SocketManager socketManager)
     {
         this.socketManager = socketManager;
         this.listeners = new CopyOnWriteArrayList<BackendEventListener>();
 
         socketManager.setInterceptor(createEventGrabber());
+
+        unsupported = new UnsupportedStratgeyLog();
+    }
+
+    @Override
+    public void setUnsupportedStrategy(UnsupportedStrategy unsupported)
+    {
+        this.unsupported = unsupported;
+    }
+
+    protected void handleUnsupported(String opDescription)
+    {
+        unsupported.handle(opDescription);
     }
 
     @Override

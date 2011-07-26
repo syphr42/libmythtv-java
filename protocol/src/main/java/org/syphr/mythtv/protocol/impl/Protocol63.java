@@ -672,13 +672,14 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public void scanVideos() throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("scan for videos");
     }
 
     @Override
     public String queryFileHash(URI filename, String storageGroup, String host) throws IOException,
                                                                                CommandException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("query file hash with a host");
+        return queryFileHash(filename, storageGroup);
     }
 }

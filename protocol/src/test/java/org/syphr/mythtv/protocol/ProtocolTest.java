@@ -318,12 +318,6 @@ public class ProtocolTest
     }
 
     @Test
-    public void testQueryFileHash() throws IOException
-    {
-        // TODO
-    }
-
-    @Test
     public void testQueryFreeSpace() throws IOException
     {
         for (DriveInfo drive : proto.queryFreeSpace())
@@ -609,6 +603,12 @@ public class ProtocolTest
         // TODO
     }
 
+    @Test
+    public void testScanVideos() throws IOException
+    {
+        proto.scanVideos();
+    }
+
     /*
      * ----------------------------------------------------------------
      * The following unit tests can cause side effects. Use with care.
@@ -665,13 +665,6 @@ public class ProtocolTest
 //        {
 //            LOGGER.debug("Backend refused sleep command: " + e.getMessage());
 //        }
-//    }
-//
-//    @Test
-//    public void testMessageSetVerbose() throws IOException, CommandException
-//    {
-//        proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.ALL); add(Verbose.NOT_CHANNEL); }});
-//        proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.IMPORTANT); add(Verbose.GENERAL); }});
 //    }
 //
 //    @Test
