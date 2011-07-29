@@ -124,7 +124,7 @@ public class Control0_25 extends Control0_24
     @Override
     public void screenshot(String filename) throws IOException, CommandException
     {
-        LOGGER.warn("The screen shot method no longer accepts a filename argument, it will be ignored");
+        handleUnsupported("screenshot with a filename");
         screenshot();
     }
 
@@ -132,7 +132,7 @@ public class Control0_25 extends Control0_24
     public void screenshot(String filename, int width, int height) throws IOException,
                                                                   CommandException
     {
-        LOGGER.warn("The screen shot method no longer accepts a filename argument, it will be ignored");
+        handleUnsupported("screenshot with a filename");
         screenshot(width, height);
     }
 

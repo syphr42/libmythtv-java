@@ -24,6 +24,8 @@ import org.syphr.mythtv.control.Control;
 import org.syphr.mythtv.util.socket.Interceptor;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandlerLog;
 
 public abstract class AbstractControl implements Control
 {
@@ -33,10 +35,25 @@ public abstract class AbstractControl implements Control
 
     private volatile Translator translator;
 
+    private UnsupportedHandler unsupported;
+
     public AbstractControl(SocketManager socketManager)
     {
         this.socketManager = socketManager;
         socketManager.setInterceptor(createInterceptor());
+
+        unsupported = new UnsupportedHandlerLog();
+    }
+
+    @Override
+    public void setUnsupportedHandler(UnsupportedHandler unsupported)
+    {
+        this.unsupported = unsupported;
+    }
+
+    protected void handleUnsupported(String opDescription)
+    {
+        unsupported.handle(opDescription);
     }
 
     protected Interceptor createInterceptor()

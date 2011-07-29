@@ -342,15 +342,9 @@ public class ControlTest
     @Test
     public void testMessage() throws IOException
     {
-        try
-        {
-            control.message("This is a test message!");
-            control.key(Key.ENTER);
-        }
-        catch (UnsupportedOperationException e)
-        {
-            LOGGER.warn("Skipping message test since it is not supported by this control version");
-            return;
-        }
+        control.message("This is a test message!");
+        Utils.waitSeconds(2, "message prompt");
+
+        control.jump(FrontendLocation.MAIN_MENU);
     }
 }

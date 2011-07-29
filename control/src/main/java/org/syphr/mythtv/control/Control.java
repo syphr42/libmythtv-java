@@ -33,6 +33,7 @@ import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 /**
  * This interface represents the combined frontend control API of all MythTV versions that
@@ -43,6 +44,14 @@ import org.syphr.mythtv.util.exception.CommandException;
  */
 public interface Control
 {
+    /**
+     * Set the handler used for unsupported operations.
+     *
+     * @param handler
+     *            the handler to use
+     */
+    public void setUnsupportedHandler(UnsupportedHandler handler);
+
     /**
      * Connect to a frontend instance. This method will block until the connection completes.
      * If a connection is already active, this method will do nothing.

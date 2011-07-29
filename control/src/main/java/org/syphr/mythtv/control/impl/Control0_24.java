@@ -148,55 +148,57 @@ public class Control0_24 extends AbstractControl
     @Override
     public void playMusicPlay() throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("play music");
     }
 
     @Override
     public void playMusicPause() throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("pause music");
     }
 
     @Override
     public void playMusicStop() throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("stop music");
     }
 
     @Override
     public void playMusicSetVolume(int percent) throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("set music volume");
     }
 
     @Override
     public int playMusicGetVolume() throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("get music volume");
+        return -1;
     }
 
     @Override
     public MusicInfo playMusicGetMeta() throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("get music metadata");
+        return new MusicInfo(null, null, null);
     }
 
     @Override
     public void playMusicFile(String filename) throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("play music file");
     }
 
     @Override
     public void playMusicTrack(int track) throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("play music track");
     }
 
     @Override
     public void playMusicUrl(URL url) throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("play music url");
     }
 
     @Override
@@ -304,7 +306,7 @@ public class Control0_24 extends AbstractControl
     @Override
     public void screenshot(int width, int height) throws IOException, CommandException
     {
-       throw new UnsupportedOperationException();
+        handleUnsupported("screenshot with only width and height (no filename)");
     }
 
     @Override
@@ -322,7 +324,7 @@ public class Control0_24 extends AbstractControl
     @Override
     public void message(String text) throws IOException
     {
-        throw new UnsupportedOperationException();
+        handleUnsupported("send message");
     }
 
     @Override

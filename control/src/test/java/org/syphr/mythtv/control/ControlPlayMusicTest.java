@@ -40,8 +40,6 @@ public class ControlPlayMusicTest
     private static PropertiesManager<Settings> settings;
     private static Control control;
 
-    private static boolean supported = true;
-
     @BeforeClass
     public static void setUpBeforeClass() throws IOException
     {
@@ -57,26 +55,14 @@ public class ControlPlayMusicTest
             return;
         }
 
-        try
-        {
-            control.playMusicPlay();
-        }
-        catch (UnsupportedOperationException e)
-        {
-            LOGGER.warn("Skipping music tests since it is not supported by this control version");
-            supported = false;
-            return;
-        }
+        control.playMusicPlay();
     }
 
     @AfterClass
     public static void tearDownAfterClass() throws IOException, CommandException
     {
-        if (supported)
-        {
-            control.playMusicStop();
-            Utils.waitSeconds(5, "stop playing music");
-        }
+        control.playMusicStop();
+        Utils.waitSeconds(5, "stop playing music");
 
         control.jump(FrontendLocation.MAIN_MENU);
         control.exit();
@@ -85,11 +71,6 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicPause() throws IOException, CommandException
     {
-        if (!supported)
-        {
-            return;
-        }
-
         control.playMusicPause();
         Utils.waitSeconds(2, "pause music");
     }
@@ -97,11 +78,6 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicPlay() throws IOException, CommandException
     {
-        if (!supported)
-        {
-            return;
-        }
-
         control.playMusicPlay();
         Utils.waitSeconds(5, "play music");
     }
@@ -109,11 +85,6 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicSetVolume() throws IOException, CommandException
     {
-        if (!supported)
-        {
-            return;
-        }
-
         control.playMusicSetVolume(50);
         Utils.waitSeconds(2, "set music volume to 50%");
     }
@@ -121,9 +92,10 @@ public class ControlPlayMusicTest
     @Test(expected = ProtocolException.class)
     public void testPlayVolumeTooLow() throws IOException, CommandException
     {
-        if (!supported)
+        if (isVersionBefore(ControlVersion._0_25))
         {
-            throw new ProtocolException("not supported", Direction.SEND);
+            throw new ProtocolException("Inject protocol exception for unsupported functionality test",
+                                        Direction.SEND);
         }
 
         control.playMusicSetVolume(-1);
@@ -133,9 +105,10 @@ public class ControlPlayMusicTest
     @Test(expected = ProtocolException.class)
     public void testPlayVolumeTooHigh() throws IOException, CommandException
     {
-        if (!supported)
+        if (isVersionBefore(ControlVersion._0_25))
         {
-            throw new ProtocolException("not supported", Direction.SEND);
+            throw new ProtocolException("Inject protocol exception for unsupported functionality test",
+                                        Direction.SEND);
         }
 
         control.playMusicSetVolume(101);
@@ -145,33 +118,18 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicGetVolume() throws IOException, CommandException
     {
-        if (!supported)
-        {
-            return;
-        }
-
         LOGGER.debug("Volume: {}", control.playMusicGetVolume());
     }
 
     @Test
     public void testPlayMusicGetMeta() throws IOException, CommandException
     {
-        if (!supported)
-        {
-            return;
-        }
-
         LOGGER.debug("Metadata: {}", control.playMusicGetMeta());
     }
 
     @Test
     public void testPlayMusicFile() throws IOException, CommandException
     {
-        if (!supported)
-        {
-            return;
-        }
-
         control.playMusicFile("/var/lib/mythtv/music/test with spaces.mp3");
         Utils.waitSeconds(5, "play music file");
     }
@@ -179,11 +137,6 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicTrack() throws IOException, CommandException
     {
-        if (!supported)
-        {
-            return;
-        }
-
         control.playMusicTrack(1);
         Utils.waitSeconds(5, "play music track");
     }
@@ -191,12 +144,13 @@ public class ControlPlayMusicTest
     @Test
     public void testPlayMusicUrl() throws IOException, CommandException
     {
-        if (!supported)
-        {
-            return;
-        }
-
         control.playMusicUrl(new URL("http://scfire-mtc-aa05.stream.aol.com:80/stream/1010"));
         Utils.waitSeconds(5, "play music url");
+    }
+
+    private boolean isVersionBefore(ControlVersion version)
+    {
+        return settings.getEnumProperty(Settings.FRONTEND_CONTROL_VERSION,
+                                        ControlVersion.class).compareTo(version) < 0;
     }
 }
