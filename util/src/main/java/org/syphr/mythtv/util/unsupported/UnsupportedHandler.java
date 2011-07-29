@@ -15,16 +15,7 @@
  */
 package org.syphr.mythtv.util.unsupported;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public class UnsupportedStratgeyLog implements UnsupportedStrategy
+public interface UnsupportedHandler
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UnsupportedStratgeyLog.class);
-
-    @Override
-    public void handle(String opDescription)
-    {
-        LOGGER.warn("Unsupported functionality: {}", opDescription);
-    }
+    public void handle(String opDescription);
 }

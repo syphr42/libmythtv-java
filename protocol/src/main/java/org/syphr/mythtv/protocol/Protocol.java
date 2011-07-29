@@ -43,7 +43,7 @@ import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.unsupported.UnsupportedStrategy;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 /**
  * This interface represents the combined API of all MythTV protocols that are supported.
@@ -183,12 +183,12 @@ public interface Protocol
     public SocketManager getSocketManager();
 
     /**
-     * Set the strategy used to handle unsupported operations.
+     * Set the handler used for unsupported operations.
      *
-     * @param strategy
-     *            the strategy to use
+     * @param handler
+     *            the handler to use
      */
-    public void setUnsupportedStrategy(UnsupportedStrategy strategy);
+    public void setUnsupportedHandler(UnsupportedHandler handler);
 
     /**
      * Allow the backend to shutdown. This releases a previous a call to

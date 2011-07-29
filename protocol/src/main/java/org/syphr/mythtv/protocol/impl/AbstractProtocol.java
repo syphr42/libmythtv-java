@@ -25,8 +25,8 @@ import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.util.socket.Interceptor;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
-import org.syphr.mythtv.util.unsupported.UnsupportedStrategy;
-import org.syphr.mythtv.util.unsupported.UnsupportedStratgeyLog;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandlerLog;
 
 public abstract class AbstractProtocol implements Protocol
 {
@@ -36,7 +36,7 @@ public abstract class AbstractProtocol implements Protocol
     private volatile Translator translator;
     private volatile Parser parser;
 
-    private UnsupportedStrategy unsupported;
+    private UnsupportedHandler unsupported;
 
     public AbstractProtocol(SocketManager socketManager)
     {
@@ -45,11 +45,11 @@ public abstract class AbstractProtocol implements Protocol
 
         socketManager.setInterceptor(createEventGrabber());
 
-        unsupported = new UnsupportedStratgeyLog();
+        unsupported = new UnsupportedHandlerLog();
     }
 
     @Override
-    public void setUnsupportedStrategy(UnsupportedStrategy unsupported)
+    public void setUnsupportedHandler(UnsupportedHandler unsupported)
     {
         this.unsupported = unsupported;
     }

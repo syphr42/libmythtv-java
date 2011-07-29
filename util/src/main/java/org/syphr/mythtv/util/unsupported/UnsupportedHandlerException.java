@@ -15,7 +15,12 @@
  */
 package org.syphr.mythtv.util.unsupported;
 
-public interface UnsupportedStrategy
+public class UnsupportedHandlerException implements UnsupportedHandler
 {
-    public void handle(String opDescription);
+    @Override
+    public void handle(String opDescription)
+    {
+        throw new UnsupportedOperationException("Unsupported functionality: "
+                                                + opDescription);
+    }
 }

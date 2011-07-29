@@ -15,10 +15,10 @@
  */
 package org.syphr.mythtv.util.unsupported;
 
-public class UnsupportedStratgeyLogException implements UnsupportedStrategy
+public class UnsupportedHandlerLogException implements UnsupportedHandler
 {
-    private final UnsupportedStrategy logStrategy = new UnsupportedStratgeyLog();
-    private final UnsupportedStrategy exceptionStrategy = new UnsupportedStratgeyException();
+    private final UnsupportedHandler logStrategy = new UnsupportedHandlerLog();
+    private final UnsupportedHandler exceptionStrategy = new UnsupportedHandlerException();
 
     @Override
     public void handle(String opDescription)
