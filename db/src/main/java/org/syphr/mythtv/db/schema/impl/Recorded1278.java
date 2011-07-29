@@ -29,7 +29,7 @@ import org.syphr.mythtv.db.schema.RecordedId;
 
 @Entity
 @Table(name = "recorded")
-public class Recorded1264 implements Recorded
+public class Recorded1278 implements Recorded
 {
     /**
      * Serialization ID
@@ -51,6 +51,12 @@ public class Recorded1264 implements Recorded
 
     @Column(nullable = false, length = 16000)
     private String description;
+
+    @Column(nullable = false)
+    private int season;
+
+    @Column(nullable = false)
+    private int episode;
 
     @Column(nullable = false, length = 64)
     private String category;
@@ -83,6 +89,9 @@ public class Recorded1264 implements Recorded
 
     @Column(nullable = false, length = 40)
     private String programid;
+
+    @Column(nullable = false, length = 40)
+    private String inetref;
 
     @Column(nullable = false, length = 19)
     @Temporal(TemporalType.TIMESTAMP)
@@ -151,16 +160,18 @@ public class Recorded1264 implements Recorded
     @Temporal(TemporalType.TIMESTAMP)
     private Date bookmarkupdate;
 
-    public Recorded1264()
+    public Recorded1278()
     {
         super();
     }
 
-    public Recorded1264(RecordedId1264 id,
+    public Recorded1278(RecordedId1264 id,
                     Date endtime,
                     String title,
                     String subtitle,
                     String description,
+                    int season,
+                    int episode,
                     String category,
                     String hostname,
                     boolean bookmark,
@@ -171,6 +182,7 @@ public class Recorded1264 implements Recorded
                     String recgroup,
                     String seriesid,
                     String programid,
+                    String inetref,
                     Date lastmodified,
                     long filesize,
                     float stars,
@@ -196,6 +208,8 @@ public class Recorded1264 implements Recorded
         this.title = title;
         this.subtitle = subtitle;
         this.description = description;
+        this.season = season;
+        this.episode = episode;
         this.category = category;
         this.hostname = hostname;
         this.bookmark = bookmark;
@@ -206,6 +220,7 @@ public class Recorded1264 implements Recorded
         this.recgroup = recgroup;
         this.seriesid = seriesid;
         this.programid = programid;
+        this.inetref = inetref;
         this.lastmodified = lastmodified;
         this.filesize = filesize;
         this.stars = stars;
@@ -227,11 +242,13 @@ public class Recorded1264 implements Recorded
         this.bookmarkupdate = bookmarkupdate;
     }
 
-    public Recorded1264(RecordedId1264 id,
+    public Recorded1278(RecordedId1264 id,
                     Date endtime,
                     String title,
                     String subtitle,
                     String description,
+                    int season,
+                    int episode,
                     String category,
                     String hostname,
                     boolean bookmark,
@@ -243,6 +260,7 @@ public class Recorded1264 implements Recorded
                     Integer recordid,
                     String seriesid,
                     String programid,
+                    String inetref,
                     Date lastmodified,
                     long filesize,
                     float stars,
@@ -270,6 +288,8 @@ public class Recorded1264 implements Recorded
         this.title = title;
         this.subtitle = subtitle;
         this.description = description;
+        this.season = season;
+        this.episode = episode;
         this.category = category;
         this.hostname = hostname;
         this.bookmark = bookmark;
@@ -281,6 +301,7 @@ public class Recorded1264 implements Recorded
         this.recordid = recordid;
         this.seriesid = seriesid;
         this.programid = programid;
+        this.inetref = inetref;
         this.lastmodified = lastmodified;
         this.filesize = filesize;
         this.stars = stars;
@@ -313,7 +334,7 @@ public class Recorded1264 implements Recorded
     @Override
     public void setId(RecordedId id)
     {
-        if (id != null && !(id instanceof Recorded1264))
+        if (id != null && !(id instanceof Recorded1278))
         {
             throw new IllegalArgumentException("Invalid ID type: " + id.getClass().getName());
         }
@@ -367,6 +388,30 @@ public class Recorded1264 implements Recorded
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    @Override
+    public int getSeason()
+    {
+        return season;
+    }
+
+    @Override
+    public void setSeason(int season)
+    {
+        this.season = season;
+    }
+
+    @Override
+    public int getEpisode()
+    {
+        return episode;
+    }
+
+    @Override
+    public void setEpisode(int episode)
+    {
+        this.episode = episode;
     }
 
     @Override
@@ -499,6 +544,18 @@ public class Recorded1264 implements Recorded
     public void setProgramid(String programid)
     {
         this.programid = programid;
+    }
+
+    @Override
+    public String getInetref()
+    {
+        return inetref;
+    }
+
+    @Override
+    public void setInetref(String inetref)
+    {
+        this.inetref = inetref;
     }
 
     @Override
@@ -767,6 +824,10 @@ public class Recorded1264 implements Recorded
         builder.append(subtitle);
         builder.append(", description=");
         builder.append(description);
+        builder.append(", season=");
+        builder.append(season);
+        builder.append(", episode=");
+        builder.append(episode);
         builder.append(", category=");
         builder.append(category);
         builder.append(", hostname=");
@@ -789,6 +850,8 @@ public class Recorded1264 implements Recorded
         builder.append(seriesid);
         builder.append(", programid=");
         builder.append(programid);
+        builder.append(", inetref=");
+        builder.append(inetref);
         builder.append(", lastmodified=");
         builder.append(lastmodified);
         builder.append(", filesize=");
@@ -833,44 +896,5 @@ public class Recorded1264 implements Recorded
         builder.append(bookmarkupdate);
         builder.append("]");
         return builder.toString();
-    }
-
-    @Override
-    public int getSeason()
-    {
-        // not supported in this schema version
-        return 0;
-    }
-
-    @Override
-    public void setSeason(int season)
-    {
-        // not supported in this schema version
-    }
-
-    @Override
-    public int getEpisode()
-    {
-        // not supported in this schema version
-        return 0;
-    }
-
-    @Override
-    public void setEpisode(int episode)
-    {
-        // not supported in this schema version
-    }
-
-    @Override
-    public String getInetref()
-    {
-        // not supported in this schema version
-        return null;
-    }
-
-    @Override
-    public void setInetref(String inetref)
-    {
-        // not supported in this schema version
     }
 }

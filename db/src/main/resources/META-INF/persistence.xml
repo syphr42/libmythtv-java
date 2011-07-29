@@ -40,13 +40,13 @@
 		</properties>
 	</persistence-unit>
 	
-	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1275">
+	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1280">
 		<description>MythTV database schema version 0.25</description>
 
 		<class>org.syphr.mythtv.db.schema.impl.Channel1268</class>
 		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
 		<class>org.syphr.mythtv.db.schema.impl.ProgramId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Recorded1264</class>
+		<class>org.syphr.mythtv.db.schema.impl.Recorded1278</class>
 		<class>org.syphr.mythtv.db.schema.impl.RecordedId1264</class>
 		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
 		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>

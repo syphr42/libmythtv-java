@@ -40,6 +40,14 @@ public interface Recorded extends Serializable
 
     public void setDescription(String description);
 
+    public int getSeason();
+
+    public void setSeason(int season);
+
+    public int getEpisode();
+
+    public void setEpisode(int episode);
+
     public String getCategory();
 
     public void setCategory(String category);
@@ -83,6 +91,10 @@ public interface Recorded extends Serializable
     public String getProgramid();
 
     public void setProgramid(String programid);
+
+    public String getInetref();
+
+    public void setInetref(String inetref);
 
     public Date getLastmodified();
 

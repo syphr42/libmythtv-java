@@ -18,7 +18,7 @@ package org.syphr.mythtv.db;
 public enum SchemaVersion
 {
     _1264(1264),
-    _1275(1275);
+    _1280(1280);
 
     private final int value;
 
