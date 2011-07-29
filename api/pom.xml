@@ -99,14 +99,10 @@
             <scope>test</scope>
         </dependency>
         
-		<!--
-			This dependencies comes from the JBoss repository.
-			https://repository.jboss.org/nexus/content/repositories/releases 
-		-->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.2.Final</version>
+			<version>3.6.6.Final</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>

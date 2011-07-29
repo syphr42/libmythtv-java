@@ -37,6 +37,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				
+<!-- 				<configuration> -->
+<!-- 			        <compilerArguments> -->
+<!-- 			        	<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor> -->
+<!-- 			        </compilerArguments> -->
+<!-- 				</configuration> -->
 			</plugin>
 
 			<plugin>
@@ -92,14 +98,17 @@
             <scope>test</scope>
         </dependency>
         
-		<!--
-			This dependency comes from the JBoss repository.
-			https://repository.jboss.org/nexus/content/repositories/releases 
-		-->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.hibernate</groupId> -->
+<!-- 			<artifactId>hibernate-jpamodelgen</artifactId> -->
+<!-- 			<version>1.1.1.Final</version> -->
+<!-- 			<type>jar</type> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.2.Final</version>
+			<version>3.6.6.Final</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
