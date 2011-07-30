@@ -1,0 +1,8 @@
+Usage
+
+  Launch the example application with the following command line 
+  (filling in the classpath with the required dependencies):
+  
++------------------------------------------------------
+java -cp ${project.build.finalName}.$(project.packaging}:... org.syphr.mythtv.example.Main
++------------------------------------------------------
