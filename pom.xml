@@ -78,6 +78,8 @@
 	   <module>api</module>
 	   
 	   <module>example</module>
+	   
+	   <module>assembly</module>
 	</modules>
 	
 	<properties>
