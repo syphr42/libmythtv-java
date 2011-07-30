@@ -32,25 +32,6 @@
 	<name>Assembly</name>
 	<description>This module builds the final assemblies containing the other modules.</description>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-
-				<executions>
-					<execution>
-						<id>build-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.syphr</groupId>
@@ -109,4 +90,39 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+	
+	<profiles>
+		<profile>
+			<id>sonatype-oss-release</id>
+			
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						
+						<configuration>
+							<finalName>${project.parent.build.finalName}</finalName>
+						
+							<descriptors>
+								<descriptor>src/main/assembly/bin.xml</descriptor>
+								<descriptor>src/main/assembly/bin-example.xml</descriptor>
+								<descriptor>src/main/assembly/src.xml</descriptor>
+							</descriptors>
+						</configuration>
+		
+						<executions>
+							<execution>
+								<id>build-assembly</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

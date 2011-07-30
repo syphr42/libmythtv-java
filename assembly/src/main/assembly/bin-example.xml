@@ -19,7 +19,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
 
-	<id>bin</id>
+	<id>example-bin</id>
 
 	<formats>
 		<format>tar.gz</format>
@@ -33,26 +33,16 @@
 			<useAllReactorProjects>true</useAllReactorProjects>
 
 			<includes>
-				<include>org.syphr:libmythtv-api</include>
-				<include>org.syphr:libmythtv-control</include>
-				<include>org.syphr:libmythtv-data</include>
-				<include>org.syphr:libmythtv-db</include>
-				<include>org.syphr:libmythtv-http</include>
-				<include>org.syphr:libmythtv-protocol</include>
-				<include>org.syphr:libmythtv-util</include>
+				<include>org.syphr:libmythtv-example</include>
 			</includes>
 
 			<binaries>
-				<outputDirectory>${project.parent.artifactId}-${project.parent.version}/lib</outputDirectory>
+				<outputDirectory>libmythtv-example-${project.parent.version}/lib</outputDirectory>
 				<unpack>false</unpack>
 
 				<dependencySets>
 					<dependencySet>
-						<outputDirectory>${project.parent.artifactId}-${project.parent.version}/dep</outputDirectory>
-						
-						<excludes>
-							<exclude>*:libmythtv-*</exclude>
-						</excludes>
+						<outputDirectory>libmythtv-example-${project.parent.version}/dep</outputDirectory>
 					</dependencySet>
 				</dependencySets>
 			</binaries>
