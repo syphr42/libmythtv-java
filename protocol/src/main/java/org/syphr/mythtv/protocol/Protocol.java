@@ -98,7 +98,7 @@ public interface Protocol
      *
      * @param address
      *            the address of this host
-     * @param programs
+     * @param recordings
      *            all recordings that are managed by this slave backend
      * @throws IOException
      *             if there is a communication or protocol error
