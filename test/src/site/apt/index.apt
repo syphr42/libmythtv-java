@@ -1,0 +1,5 @@
+MythTV Testing Utilities
+
+  This module provides common utilities for testing various
+  parts of the libmythtv-java set of libraries. It is not 
+  meant to be used in any situation outside of testing.

@@ -1,0 +1,7 @@
+MythTV Utilities
+
+  This module provides utilities and common abstractions
+  that are useful across the libmythtv-java set of 
+  libraries. It is not meant to be a standalone product, 
+  but rather a dependency of other MythTV libraries to 
+  reduce redundancy.

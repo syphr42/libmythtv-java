@@ -1,0 +1,7 @@
+MythTV Database API
+
+  This module provides an API to the MythTV database schema.
+
+  Warning: this module is still in early development so this release 
+  should be considered a code preview rather than a useable product. 
+  The implementation as well as the public API are subject to change.

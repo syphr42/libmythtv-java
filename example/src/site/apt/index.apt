@@ -1,0 +1,8 @@
+libmythtv-java Example Application
+
+  This module provides an example of how the libmythtv-java library
+  could be used in an end-user application.
+
+  Warning: this module is still in early development so this release 
+  should be considered a code preview rather than a useable product. 
+  The implementation as well as the public API are subject to change.

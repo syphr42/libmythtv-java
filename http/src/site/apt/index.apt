@@ -1,0 +1,8 @@
+MythTV HTTP API
+
+  This module provides web-based access to both the MythTV frontend
+  and backend services.
+
+  Warning: this module is still in early development so this release 
+  should be considered a code preview rather than a useable product. 
+  The implementation as well as the public API are subject to change.

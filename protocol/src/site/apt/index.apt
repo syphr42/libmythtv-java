@@ -1,0 +1,4 @@
+MythTV Backend Protocol API
+
+  This module provides low-level access to the 
+  complete MythTV backend network protocol.

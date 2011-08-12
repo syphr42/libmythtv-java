@@ -1,0 +1,10 @@
+MythTV High-Level API
+
+  This module provides an abstracted API to the MythTV ecosystem as
+  a whole. This is in contrast to the other APIs provided in sister
+  projects that represent low level access to individual components
+  of MythTV.
+
+  Warning: this module is still in early development so this release 
+  should be considered a code preview rather than a useable product. 
+  The implementation as well as the public API are subject to change.

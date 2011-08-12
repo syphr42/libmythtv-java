@@ -1,0 +1,4 @@
+MythTV Frontend Control API
+
+  This module provides access to the MythTV frontend network control
+  socket.

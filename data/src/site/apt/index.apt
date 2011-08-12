@@ -1,0 +1,8 @@
+MythTV Data Objects and Types
+
+  This module provides common data holders and types for
+  use across the libmythtv-java set of libraries. It is 
+  not meant to be a standalone product, but  rather a 
+  dependency of other MythTV libraries to keep consistency 
+  throughout the modules and make the higher level 
+  abstractions possible.
