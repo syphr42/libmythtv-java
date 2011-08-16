@@ -4,5 +4,5 @@ Usage
   (filling in the classpath with the required dependencies):
   
 +------------------------------------------------------
-java -cp ${project.build.finalName}.$(project.packaging}:... org.syphr.mythtv.example.Main
+java -jar ${project.build.finalName}.$(project.packaging}
 +------------------------------------------------------

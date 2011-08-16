@@ -37,7 +37,7 @@
 			</includes>
 
 			<binaries>
-				<outputDirectory>libmythtv-example-${project.parent.version}/lib</outputDirectory>
+				<outputDirectory>libmythtv-example-${project.parent.version}</outputDirectory>
 				<unpack>false</unpack>
 
 				<dependencySets>
