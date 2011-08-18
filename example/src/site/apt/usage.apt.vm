@@ -4,5 +4,5 @@ Usage
   (filling in the classpath with the required dependencies):
   
 +------------------------------------------------------
-java -jar ${project.build.finalName}.$(project.packaging}
+java -jar ${project.build.finalName}.jar
 +------------------------------------------------------
