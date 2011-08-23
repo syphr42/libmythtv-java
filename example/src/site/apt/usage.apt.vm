@@ -1,7 +1,6 @@
 Usage
 
-  Launch the example application with the following command line 
-  (filling in the classpath with the required dependencies):
+  Launch the example application with the following command line:
   
 +------------------------------------------------------
 java -jar ${project.build.finalName}.jar
