@@ -362,7 +362,9 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     public void toggleChannelFavorite(String channelGroup) throws IOException,
                                                           CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException();
+        new Command63QueryRecorderToggleChannelFavorite(getTranslator(),
+                                                        getParser(),
+                                                        getRecorderId(),
+                                                        channelGroup);
     }
 }
