@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -34,6 +35,12 @@ public class Main
         centerAndSize(mainWindow, 0.8f);
 
         mainWindow.setVisible(true);
+
+        // TODO temporary
+        JOptionPane.showMessageDialog(mainWindow,
+                                      "This example application is in early development and as such is currently non-functional.",
+                                      "Warning",
+                                      JOptionPane.WARNING_MESSAGE);
     }
 
     private static void setLookAndFeel()
