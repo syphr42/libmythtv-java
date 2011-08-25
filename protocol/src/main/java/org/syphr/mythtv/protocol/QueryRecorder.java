@@ -368,6 +368,12 @@ public interface QueryRecorder
      */
     public long getFramesWritten() throws IOException, CommandException;
 
+    /**
+     * <b>Not implemented yet</b>
+     *
+     * @throws IOException
+     * @throws CommandException
+     */
     // TODO
     public void getFreeInputs() throws IOException, CommandException;
 
@@ -554,6 +560,12 @@ public interface QueryRecorder
      */
     public void setLiveRecording() throws IOException, CommandException;
 
+    /**
+     * <b>Not implemented yet</b>
+     *
+     * @throws IOException
+     * @throws CommandException
+     */
     // TODO
     public void setSignalMonitoringRate() throws IOException, CommandException;
 

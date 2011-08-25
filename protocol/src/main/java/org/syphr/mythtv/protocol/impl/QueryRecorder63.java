@@ -220,7 +220,8 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     @Override
     public void getFreeInputs()
     {
-        throw new UnsupportedOperationException();
+        // TODO
+        throw new UnsupportedOperationException("not implemented yet");
     }
 
     @Override
@@ -325,7 +326,8 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     @Override
     public void setSignalMonitoringRate()
     {
-        throw new UnsupportedOperationException();
+        // TODO
+        throw new UnsupportedOperationException("not implemented yet");
     }
 
     @Override

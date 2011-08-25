@@ -70,7 +70,8 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     @Override
     public List<InputInfo> getFreeInputs() throws IOException
     {
-        throw new UnsupportedOperationException();
+        // TODO
+        throw new UnsupportedOperationException("not implemented yet");
     }
 
     @Override

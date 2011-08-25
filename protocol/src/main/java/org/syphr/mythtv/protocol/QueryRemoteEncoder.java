@@ -84,6 +84,13 @@ public interface QueryRemoteEncoder
      */
     public Set<RecorderFlag> getFlags() throws IOException, CommandException;
 
+    /**
+     * <b>Not implemented yet</b>
+     *
+     * @return
+     * @throws IOException
+     * @throws CommandException
+     */
     // TODO
     public List<InputInfo> getFreeInputs() throws IOException, CommandException;
 
