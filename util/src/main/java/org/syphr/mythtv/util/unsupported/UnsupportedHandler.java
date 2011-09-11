@@ -15,7 +15,21 @@
  */
 package org.syphr.mythtv.util.unsupported;
 
-public interface UnsupportedHandler
+/**
+ * This interface represents the contract to handle unsupported functionality.
+ * Common implementations are to throw an {@link UnsupportedOperationException}
+ * or log the event.
+ * 
+ * @author Gregory P. Moyer
+ */
+public interface UnsupportedHandler 
 {
-    public void handle(String opDescription);
+	/**
+	 * Handle the unsupported operation event.
+	 * 
+	 * @param opDescription
+	 *            a description of the operation that was attempted, but not
+	 *            supported
+	 */
+	public void handle(String opDescription);
 }
