@@ -15,6 +15,11 @@
  */
 package org.syphr.mythtv.protocol;
 
+/**
+ * This enum provides the list of supported protocol versions.
+ * 
+ * @author Gregory P. Moyer
+ */
 public enum ProtocolVersion
 {
     _63,

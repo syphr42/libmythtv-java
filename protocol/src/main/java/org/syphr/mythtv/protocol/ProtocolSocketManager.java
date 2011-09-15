@@ -17,6 +17,12 @@ package org.syphr.mythtv.protocol;
 
 import org.syphr.mythtv.util.socket.SocketManager;
 
+/**
+ * This class provides a {@link SocketManager} that is tailored for use by the
+ * MythTV backend protocol.
+ * 
+ * @author Gregory P. Moyer
+ */
 public class ProtocolSocketManager extends SocketManager
 {
     public ProtocolSocketManager()

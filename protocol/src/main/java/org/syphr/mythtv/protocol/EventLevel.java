@@ -15,6 +15,12 @@
  */
 package org.syphr.mythtv.protocol;
 
+/**
+ * This enum provides the list of available event levels to which a client can
+ * listen.
+ * 
+ * @author Gregory P. Moyer
+ */
 public enum EventLevel
 {
     NONE, ALL, NO_SYSTEM, ONLY_SYSTEM

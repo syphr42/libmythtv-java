@@ -15,6 +15,13 @@
  */
 package org.syphr.mythtv.protocol;
 
+/**
+ * This enum provides a list of connection modes that can be specified when
+ * creating a basic (i.e. not file transfer) connection to a MythTV backend
+ * instance.
+ * 
+ * @author Gregory P. Moyer
+ */
 public enum ConnectionType
 {
     MONITOR, PLAYBACK
