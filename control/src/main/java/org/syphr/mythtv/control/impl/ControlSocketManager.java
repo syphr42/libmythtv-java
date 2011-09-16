@@ -15,9 +15,9 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.socket.DefaultSocketManager;
 
-public class ControlSocketManager extends SocketManager
+public class ControlSocketManager extends DefaultSocketManager
 {
     public ControlSocketManager()
     {

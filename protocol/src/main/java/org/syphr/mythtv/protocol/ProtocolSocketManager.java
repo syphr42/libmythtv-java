@@ -15,6 +15,7 @@
  */
 package org.syphr.mythtv.protocol;
 
+import org.syphr.mythtv.util.socket.DefaultSocketManager;
 import org.syphr.mythtv.util.socket.SocketManager;
 
 /**
@@ -23,7 +24,7 @@ import org.syphr.mythtv.util.socket.SocketManager;
  * 
  * @author Gregory P. Moyer
  */
-public class ProtocolSocketManager extends SocketManager
+public class ProtocolSocketManager extends DefaultSocketManager
 {
     public ProtocolSocketManager()
     {
