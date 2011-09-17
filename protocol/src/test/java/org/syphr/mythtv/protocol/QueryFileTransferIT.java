@@ -49,9 +49,9 @@ import org.syphr.prom.PropertiesManager;
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
 
-public class QueryFileTransferTest
+public class QueryFileTransferIT
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(QueryFileTransferTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QueryFileTransferIT.class);
 
     private static final File LOCAL_TEMP = new File("target/testing");
 

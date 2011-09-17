@@ -32,9 +32,9 @@ import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
-public class QueryRecorderTest
+public class QueryRecorderIT
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(QueryRecorderTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QueryRecorderIT.class);
 
     private static PropertiesManager<Settings> settings;
 

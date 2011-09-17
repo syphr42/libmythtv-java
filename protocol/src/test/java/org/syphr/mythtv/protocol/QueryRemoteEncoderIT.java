@@ -28,9 +28,9 @@ import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
-public class QueryRemoteEncoderTest
+public class QueryRemoteEncoderIT
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(QueryRemoteEncoderTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QueryRemoteEncoderIT.class);
 
     private static PropertiesManager<Settings> settings;
 

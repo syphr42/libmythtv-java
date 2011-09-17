@@ -30,7 +30,7 @@ import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
-public class SlaveBackendTest
+public class SlaveBackendIT
 {
     private static PropertiesManager<Settings> settings;
     private static SocketManager socketManager;
