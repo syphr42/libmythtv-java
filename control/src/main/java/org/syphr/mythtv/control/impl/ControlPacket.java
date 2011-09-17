@@ -15,14 +15,9 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import java.io.IOException;
-import java.io.InterruptedIOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
-import java.nio.charset.Charset;
+import java.util.regex.Pattern;
 
-import org.syphr.mythtv.util.socket.Packet;
+import org.syphr.mythtv.util.socket.DefaultPacket;
 
 /**
  * This class represents the lowest level socket communication between the client and a
@@ -30,73 +25,20 @@ import org.syphr.mythtv.util.socket.Packet;
  *
  * @author Gregory P. Moyer
  */
-/* default */class ControlPacket implements Packet
+/* default */class ControlPacket extends DefaultPacket
 {
-    private static final Charset UTF8 = Charset.forName("UTF-8");
-
-    private static final String READ_MESSAGE_TERMINATOR = "\r\n# ";
+    private static final String READ_MESSAGE_TERMINATOR = Pattern.quote("\r\n# ");
     private static final String WRITE_MESSAGE_TERMINATOR = "\r\n";
 
-    private static final int PAYLOAD_BUFFER_SIZE = 8192;
-
     @Override
-    public String read(ReadableByteChannel in) throws IOException
+    public String getMessageTerminator()
     {
-        byte[] payloadBytes = new byte[PAYLOAD_BUFFER_SIZE];
-        ByteBuffer payloadBuffer = ByteBuffer.wrap(payloadBytes);
-
-        StringBuilder builder = new StringBuilder();
-        int read = 0;
-
-        while (true)
-        {
-            if (Thread.interrupted())
-            {
-                InterruptedIOException e = new InterruptedIOException();
-                e.bytesTransferred = read;
-                throw e;
-            }
-
-            payloadBuffer.clear();
-
-            int justRead = in.read(payloadBuffer);
-            if (justRead <= 0)
-            {
-                break;
-            }
-
-            read += justRead;
-            builder.append(new String(payloadBytes, 0, justRead, UTF8));
-        }
-
-        String response = builder.toString();
-        if (response.endsWith(READ_MESSAGE_TERMINATOR))
-        {
-            response = response.substring(0, response.length() - READ_MESSAGE_TERMINATOR.length());
-        }
-
-        return response;
+        return READ_MESSAGE_TERMINATOR;
     }
-
+    
     @Override
-    public void write(WritableByteChannel out, String data) throws IOException
+    protected String buildMessage(String data)
     {
-        byte[] payloadBytes = data.concat(WRITE_MESSAGE_TERMINATOR).getBytes(UTF8);
-        ByteBuffer buffer = ByteBuffer.allocate(payloadBytes.length);
-        buffer.put(payloadBytes);
-
-        buffer.flip();
-
-        while (buffer.hasRemaining())
-        {
-            if (Thread.interrupted())
-            {
-                InterruptedIOException e = new InterruptedIOException();
-                e.bytesTransferred = buffer.position();
-                throw e;
-            }
-
-            out.write(buffer);
-        }
+        return data.concat(WRITE_MESSAGE_TERMINATOR);
     }
 }

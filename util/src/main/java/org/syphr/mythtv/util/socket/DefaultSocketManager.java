@@ -242,7 +242,7 @@ public class DefaultSocketManager implements SocketManager
     /**
      * Start the receiver thread. This thread will wait for data to arrive from the
      * connected server and deal with it (as either a response or an unsolicited
-     * message). The reciever must be started before communication can proceed, but it
+     * message). The receiver must be started before communication can proceed, but it
      * should be {@link #stopReceiver() stopped} before redirecting the channel to prevent
      * corruption.
      */
@@ -269,28 +269,29 @@ public class DefaultSocketManager implements SocketManager
 
                         readSelector.selectedKeys().clear();
 
-                        String value = packet.read(socket);
-
-                        logger.trace("Received message: {}", value);
-
-                        if (interceptor != null
-                            && interceptor.intercept(value))
+                        for (String value : packet.read(socket))
                         {
-                            continue;
+                            logger.trace("Received message: {}", value);
+    
+                            if (interceptor != null
+                                && interceptor.intercept(value))
+                            {
+                                continue;
+                            }
+    
+                            /*
+                             * If the client stops waiting for a response, it will increment
+                             * this value. To keep things in sync, those skipped responses
+                             * need to be thrown away when they arrive.
+                             */
+                            if (skippedResponses.get() > 0)
+                            {
+                                skippedResponses.decrementAndGet();
+                                continue;
+                            }
+    
+                            queue.add(value);
                         }
-
-                        /*
-                         * If the client stops waiting for a response, it will increment
-                         * this value. To keep things in sync, those skipped responses
-                         * need to be thrown away when they arrive.
-                         */
-                        if (skippedResponses.get() > 0)
-                        {
-                            skippedResponses.decrementAndGet();
-                            continue;
-                        }
-
-                        queue.add(value);
                     }
                     catch (InterruptedIOException e)
                     {

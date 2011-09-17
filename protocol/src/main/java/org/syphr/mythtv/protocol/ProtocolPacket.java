@@ -21,6 +21,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.syphr.mythtv.util.socket.Packet;
 
@@ -38,7 +40,7 @@ import org.syphr.mythtv.util.socket.Packet;
     private static final int PAYLOAD_BUFFER_SIZE = 8192;
 
     @Override
-    public String read(ReadableByteChannel in) throws IOException
+    public List<String> read(ReadableByteChannel in) throws IOException
     {
         byte[] headerBytes = new byte[HEADER_SIZE];
         ByteBuffer headerBuffer = ByteBuffer.wrap(headerBytes);
@@ -96,7 +98,9 @@ import org.syphr.mythtv.util.socket.Packet;
             builder.append(new String(payloadBytes, 0, justRead, UTF8));
         }
 
-        return builder.toString();
+        List<String> messages = new ArrayList<String>();
+        messages.add(builder.toString());
+        return messages;
     }
 
     @Override

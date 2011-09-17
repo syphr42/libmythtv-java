@@ -18,6 +18,7 @@ package org.syphr.mythtv.util.socket;
 import java.io.IOException;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
+import java.util.List;
 
 /**
  * This interface describes the contract for an object that will handle formatting
@@ -27,24 +28,24 @@ import java.nio.channels.WritableByteChannel;
  * (such as adding/removing headers).<br>
  * <br>
  * Implementations of this interface should not retain state about any one communication
- * or the channel itself. A correct implementation should also be thread-safe, but this is
- * somewhat implied by not retaining state.
+ * or the channel itself. A correct implementation must be thread-safe.
  *
  * @author Gregory P. Moyer
  */
 public interface Packet
 {
     /**
-     * Read the next packet from the given channel. This method may or may not block based
-     * on the channel configuration.
-     *
+     * Read the next message(s) from the given channel. This method may or may
+     * not block based on the channel configuration.
+     * 
      * @param in
      *            the channel to read
-     * @return the content of the packet after it has been completely read
+     * @return the content of any messages after all available data has been
+     *         completely read
      * @throws IOException
      *             if an error occurs or this thread is interrupted
      */
-    public String read(ReadableByteChannel in) throws IOException;
+    public List<String> read(ReadableByteChannel in) throws IOException;
 
     /**
      * Write the given value to the specified channel. This method may or may not block
