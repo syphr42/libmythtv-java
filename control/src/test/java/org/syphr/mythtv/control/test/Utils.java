@@ -17,15 +17,18 @@ package org.syphr.mythtv.control.test;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.control.Control;
 import org.syphr.mythtv.control.ControlFactory;
-import org.syphr.mythtv.control.ControlPlayChannelTest;
 import org.syphr.mythtv.control.ControlVersion;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.prom.PropertiesManager;
 
 public class Utils
 {
+    private static Logger LOGGER = LoggerFactory.getLogger(Utils.class);
+
     public static Control connect(PropertiesManager<Settings> settings) throws IOException
     {
         Control control = ControlFactory.createInstance(settings.getEnumProperty(Settings.FRONTEND_CONTROL_VERSION,
@@ -46,7 +49,7 @@ public class Utils
         }
         catch (InterruptedException e)
         {
-            ControlPlayChannelTest.LOGGER.warn("Interrupted while waiting for frontend to " + message, e);
+            LOGGER.warn("Interrupted while waiting for frontend to " + message, e);
         }
     }
 }

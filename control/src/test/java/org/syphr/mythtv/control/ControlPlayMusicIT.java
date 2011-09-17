@@ -33,9 +33,9 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.prom.PropertiesManager;
 
-public class ControlPlayMusicTest
+public class ControlPlayMusicIT
 {
-    public static final Logger LOGGER = LoggerFactory.getLogger(ControlPlayMusicTest.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(ControlPlayMusicIT.class);
 
     private static PropertiesManager<Settings> settings;
     private static Control control;

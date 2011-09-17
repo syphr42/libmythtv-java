@@ -38,9 +38,9 @@ import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.prom.PropertiesManager;
 
-public class ControlTest
+public class ControlIT
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ControlTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ControlIT.class);
 
     private static PropertiesManager<Settings> settings;
     private static Control control;

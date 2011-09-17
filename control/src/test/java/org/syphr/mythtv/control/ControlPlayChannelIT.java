@@ -35,9 +35,9 @@ import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.prom.PropertiesManager;
 
-public class ControlPlayChannelTest
+public class ControlPlayChannelIT
 {
-    public static final Logger LOGGER = LoggerFactory.getLogger(ControlPlayChannelTest.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(ControlPlayChannelIT.class);
 
     private static PropertiesManager<Settings> settings;
     private static Control control;
