@@ -29,7 +29,7 @@ import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.prom.PropertiesManager;
 
-public class BackendTest
+public class BackendIT
 {
     private static Backend backend;
 
