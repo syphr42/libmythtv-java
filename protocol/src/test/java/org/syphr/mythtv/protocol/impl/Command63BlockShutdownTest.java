@@ -31,7 +31,7 @@ public class Command63BlockShutdownTest
     private static final String MESSAGE = "BLOCK_SHUTDOWN";
 
     private static Command63BlockShutdown command;
-    
+
     private SocketManager socketManager;
 
     @BeforeClass
@@ -39,7 +39,7 @@ public class Command63BlockShutdownTest
     {
         command = new Command63BlockShutdown(null, null);
     }
-    
+
     @Before
     public void setUp()
     {
@@ -57,9 +57,9 @@ public class Command63BlockShutdownTest
     {
         EasyMock.expect(socketManager.sendAndWait(MESSAGE)).andReturn("OK");
         EasyMock.replay(socketManager);
-        
+
         command.send(socketManager);
-        
+
         EasyMock.verify(socketManager);
     }
 
@@ -68,7 +68,7 @@ public class Command63BlockShutdownTest
     {
         EasyMock.expect(socketManager.sendAndWait(MESSAGE)).andReturn("BAD");
         EasyMock.replay(socketManager);
-        
+
         try
         {
             command.send(socketManager);

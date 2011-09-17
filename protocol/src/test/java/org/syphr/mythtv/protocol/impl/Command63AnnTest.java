@@ -103,7 +103,8 @@ public class Command63AnnTest
         {
             command.send(socketManager);
         }
-        finally {
+        finally
+        {
             EasyMock.verify(socketManager);
         }
     }

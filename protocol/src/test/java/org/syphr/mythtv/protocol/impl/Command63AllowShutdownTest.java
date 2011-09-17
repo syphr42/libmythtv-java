@@ -31,7 +31,7 @@ public class Command63AllowShutdownTest
     private static final String MESSAGE = "ALLOW_SHUTDOWN";
 
     private static Command63AllowShutdown command;
-    
+
     private SocketManager socketManager;
 
     @BeforeClass
@@ -57,9 +57,9 @@ public class Command63AllowShutdownTest
     {
         EasyMock.expect(socketManager.sendAndWait(MESSAGE)).andReturn("OK");
         EasyMock.replay(socketManager);
-        
+
         command.send(socketManager);
-        
+
         EasyMock.verify(socketManager);
     }
 
@@ -68,7 +68,7 @@ public class Command63AllowShutdownTest
     {
         EasyMock.expect(socketManager.sendAndWait(MESSAGE)).andReturn("BAD");
         EasyMock.replay(socketManager);
-        
+
         try
         {
             command.send(socketManager);
