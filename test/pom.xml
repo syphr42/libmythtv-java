@@ -78,6 +78,14 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>3.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${dep.version.slf4j}</version>
