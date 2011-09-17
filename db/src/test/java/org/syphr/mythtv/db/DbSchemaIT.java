@@ -35,7 +35,7 @@ import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.test.Utils;
 import org.syphr.prom.PropertiesManager;
 
-public class DbSchemaTest
+public class DbSchemaIT
 {
     private static PropertiesManager<Settings> settings;
     private static Logger logger;
@@ -48,7 +48,7 @@ public class DbSchemaTest
     public static void setupBeforeClass() throws IOException, DatabaseException
     {
         settings = Settings.createSettings();
-        logger = LoggerFactory.getLogger(DbSchemaTest.class);
+        logger = LoggerFactory.getLogger(DbSchemaIT.class);
 
         factory = DbUtils.getEntityManagerFactory(settings.getEnumProperty(Settings.DB_SCHEMA,
                                                                            SchemaVersion.class),
