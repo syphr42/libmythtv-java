@@ -35,14 +35,15 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.util.exception.ResponseTimeoutException;
 
 public class DefaultSocketManagerTest
 {
     private static final String FIRST_RESPONSE = "first response";
     private static final String SECOND_RESPONSE = "second response";
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSocketManagerTest.class);
-    
+
     private static ServerSocket server;
     private static ConnectionHandler handler;
 
@@ -52,11 +53,12 @@ public class DefaultSocketManagerTest
     public static void setUpBeforeClass() throws IOException
     {
         Settings.createSettings();
-        
+
         server = new ServerSocket(0);
 
         new Thread()
         {
+            @Override
             public void run()
             {
                 try
@@ -65,9 +67,8 @@ public class DefaultSocketManagerTest
                     {
                         Socket client = server.accept();
                         LOGGER.info("Client connected");
-                        
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                                client.getInputStream()));
+
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
                         PrintWriter writer = new PrintWriter(client.getOutputStream());
 
                         while (client.isConnected())
@@ -77,14 +78,14 @@ public class DefaultSocketManagerTest
                             {
                                 break;
                             }
-                            LOGGER.info("Server received input: " + input);
-                            
+                            LOGGER.trace("Server received input: " + input);
+
                             String output = handler.handle(input);
-                            LOGGER.info("Server sending output: " + output);
+                            LOGGER.trace("Server sending output: " + output);
                             writer.print(output + "\n");
                             writer.flush();
                         }
-                        
+
                         LOGGER.info("Client disconnected");
                     }
                 }
@@ -134,7 +135,7 @@ public class DefaultSocketManagerTest
                     case 0:
                         try
                         {
-                            Thread.sleep(1000);
+                            TimeUnit.SECONDS.sleep(1);
                         }
                         catch (InterruptedException e)
                         {
@@ -150,11 +151,19 @@ public class DefaultSocketManagerTest
                 }
             }
         };
-        
-        String firstResponse = socketManager.sendAndWait("first message", 10, TimeUnit.MILLISECONDS);
+
+        try
+        {
+            socketManager.sendAndWait("first message", 10, TimeUnit.MILLISECONDS);
+            Assert.fail();
+        }
+        catch (ResponseTimeoutException e)
+        {
+            // expected
+            LOGGER.info("Timeout {}", e.getMessage());
+        }
+
         String secondResponse = socketManager.sendAndWait("second message", 3, TimeUnit.SECONDS);
-        
-        Assert.assertEquals("", firstResponse);
         Assert.assertEquals(SECOND_RESPONSE, secondResponse);
     }
 
