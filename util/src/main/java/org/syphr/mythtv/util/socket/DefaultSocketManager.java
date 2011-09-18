@@ -34,13 +34,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.util.exception.ResponseTimeoutException;
 
 /**
- * This class manages a low-level network connection. It provides the necessary read/write
- * capabilities as well as the ability to take over the communications channel entirely to
- * perform bulk raw data transfer, such as transferring a file while another manager
- * controls the flow.
- *
+ * This class manages a low-level network connection. It provides the necessary
+ * read/write capabilities as well as the ability to take over the
+ * communications channel entirely to perform bulk raw data transfer, such as
+ * transferring a file while another manager controls the flow.
+ * 
  * @author Gregory P. Moyer
  */
 public class DefaultSocketManager implements SocketManager
@@ -67,10 +68,10 @@ public class DefaultSocketManager implements SocketManager
 
     /**
      * Construct a new socket manager that is not connected to a server.
-     *
+     * 
      * @param packet
-     *            a packet implementation that will handle formatting outgoing messages
-     *            and parsing incoming messages
+     *            a packet implementation that will handle formatting outgoing
+     *            messages and parsing incoming messages
      */
     public DefaultSocketManager(Packet packet)
     {
@@ -89,7 +90,7 @@ public class DefaultSocketManager implements SocketManager
                         : Thread.currentThread().getThreadGroup();
 
                 Thread t = new Thread(group, r, DefaultSocketManager.class.getSimpleName()
-                                                + " Receiver Thread", 0);
+                        + " Receiver Thread", 0);
                 if (!t.isDaemon())
                 {
                     t.setDaemon(true);
@@ -105,31 +106,31 @@ public class DefaultSocketManager implements SocketManager
     }
 
     @Override
-	public void setInterceptor(Interceptor interceptor)
+    public void setInterceptor(Interceptor interceptor)
     {
         this.interceptor = interceptor;
     }
 
     @Override
-	public void setDefaultTimeout(long time, TimeUnit unit)
+    public void setDefaultTimeout(long time, TimeUnit unit)
     {
         this.defaultTimeout = unit.toMillis(time);
     }
 
     @Override
-	public long getDefaultTimeout(TimeUnit unit)
+    public long getDefaultTimeout(TimeUnit unit)
     {
         return unit.convert(defaultTimeout, TimeUnit.MILLISECONDS);
     }
 
     @Override
-	public void connect(String host, int port, final long timeout) throws IOException
+    public void connect(String host, int port, final long timeout) throws IOException
     {
         connect(new InetSocketAddress(host, port), timeout);
     }
 
     @Override
-	public void connect(InetSocketAddress addr, final long timeout) throws IOException
+    public void connect(InetSocketAddress addr, final long timeout) throws IOException
     {
         if (isConnected())
         {
@@ -188,11 +189,12 @@ public class DefaultSocketManager implements SocketManager
     }
 
     /**
-     * Open the read and write selectors. This needs to be done before data can be send
-     * through this socket manager using its own API (not the {@link #redirectChannel()
-     * redirected channel}). These selectors should be {@link #closeSelectors() closed}
-     * before redirecting the channel to prevent corruption.
-     *
+     * Open the read and write selectors. This needs to be done before data can
+     * be send through this socket manager using its own API (not the
+     * {@link #redirectChannel() redirected channel}). These selectors should be
+     * {@link #closeSelectors() closed} before redirecting the channel to
+     * prevent corruption.
+     * 
      * @throws IOException
      *             if an error occurs while opening either selector
      */
@@ -206,11 +208,11 @@ public class DefaultSocketManager implements SocketManager
     }
 
     /**
-     * Close the read and write selectors. This will prevent any further communication to
-     * the connected server through this manager until the selectors are
-     * {@link #openSelectors() opened} again. This should happen before
-     * {@link #redirectChannel() redirecting the channel}. If any errors occur here they
-     * will be logged, but not thrown.
+     * Close the read and write selectors. This will prevent any further
+     * communication to the connected server through this manager until the
+     * selectors are {@link #openSelectors() opened} again. This should happen
+     * before {@link #redirectChannel() redirecting the channel}. If any errors
+     * occur here they will be logged, but not thrown.
      */
     private void closeSelectors()
     {
@@ -240,11 +242,11 @@ public class DefaultSocketManager implements SocketManager
     }
 
     /**
-     * Start the receiver thread. This thread will wait for data to arrive from the
-     * connected server and deal with it (as either a response or an unsolicited
-     * message). The receiver must be started before communication can proceed, but it
-     * should be {@link #stopReceiver() stopped} before redirecting the channel to prevent
-     * corruption.
+     * Start the receiver thread. This thread will wait for data to arrive from
+     * the connected server and deal with it (as either a response or an
+     * unsolicited message). The receiver must be started before communication
+     * can proceed, but it should be {@link #stopReceiver() stopped} before
+     * redirecting the channel to prevent corruption.
      */
     private void startReceiver()
     {
@@ -272,24 +274,24 @@ public class DefaultSocketManager implements SocketManager
                         for (String value : packet.read(socket))
                         {
                             logger.trace("Received message: {}", value);
-    
-                            if (interceptor != null
-                                && interceptor.intercept(value))
+
+                            if (interceptor != null && interceptor.intercept(value))
                             {
                                 continue;
                             }
-    
+
                             /*
-                             * If the client stops waiting for a response, it will increment
-                             * this value. To keep things in sync, those skipped responses
-                             * need to be thrown away when they arrive.
+                             * If the client stops waiting for a response, it
+                             * will increment this value. To keep things in
+                             * sync, those skipped responses need to be thrown
+                             * away when they arrive.
                              */
                             if (skippedResponses.get() > 0)
                             {
                                 skippedResponses.decrementAndGet();
                                 continue;
                             }
-    
+
                             queue.add(value);
                         }
                     }
@@ -311,9 +313,9 @@ public class DefaultSocketManager implements SocketManager
     }
 
     /**
-     * Stop the receiver thread from pulling incoming data off the channel. Once this
-     * occurs, communication from the server will be ignored. This must occur before
-     * {@link #redirectChannel() redirecting the channel}.
+     * Stop the receiver thread from pulling incoming data off the channel. Once
+     * this occurs, communication from the server will be ignored. This must
+     * occur before {@link #redirectChannel() redirecting the channel}.
      */
     private void stopReceiver()
     {
@@ -327,21 +329,21 @@ public class DefaultSocketManager implements SocketManager
     }
 
     @Override
-	public boolean isConnected()
+    public boolean isConnected()
     {
         return socket != null && socket.isConnected();
     }
 
     @Override
-	public InetSocketAddress getConnectedAddress()
+    public InetSocketAddress getConnectedAddress()
     {
         return isConnected() ? (InetSocketAddress)socket.socket().getRemoteSocketAddress() : null;
     }
 
     @Override
-	public SocketManager newConnection() throws IOException
+    public SocketManager newConnection() throws IOException
     {
-    	SocketManager newManager = createSocketManager(packet);
+        SocketManager newManager = createSocketManager(packet);
 
         if (isConnected())
         {
@@ -350,26 +352,26 @@ public class DefaultSocketManager implements SocketManager
 
         return newManager;
     }
-    
-	/**
-	 * Build a new {@link DefaultSocketManager} in a default state.
-	 * 
-	 * @param packet
-	 *            the packet implementation to use
-	 * @return the new manager
-	 */
-	protected SocketManager createSocketManager(Packet packet) 
-	{
-		return new DefaultSocketManager(packet);
-	}
+
+    /**
+     * Build a new {@link DefaultSocketManager} in a default state.
+     * 
+     * @param packet
+     *            the packet implementation to use
+     * @return the new manager
+     */
+    protected SocketManager createSocketManager(Packet packet)
+    {
+        return new DefaultSocketManager(packet);
+    }
 
     @Override
-	public void disconnect()
+    public void disconnect()
     {
         /*
          * Make sure the receiver thread is cancelled and forgotten in case this
-         * disconnect call is made after the socket has already been closed for some other
-         * reason (like an error).
+         * disconnect call is made after the socket has already been closed for
+         * some other reason (like an error).
          */
         stopReceiver();
 
@@ -395,7 +397,7 @@ public class DefaultSocketManager implements SocketManager
     }
 
     @Override
-	public void send(String message) throws IOException
+    public void send(String message) throws IOException
     {
         logger.trace("Sending message: {}", message);
 
@@ -412,13 +414,13 @@ public class DefaultSocketManager implements SocketManager
     }
 
     @Override
-	public String sendAndWait(String message) throws IOException
+    public String sendAndWait(String message) throws IOException
     {
         return sendAndWait(message, defaultTimeout, TimeUnit.MILLISECONDS);
     }
 
     @Override
-	public String sendAndWait(String message, long timeout, TimeUnit unit) throws IOException
+    public String sendAndWait(String message, long timeout, TimeUnit unit) throws IOException
     {
         synchronized (Lock.SEND_AND_WAIT)
         {
@@ -437,12 +439,14 @@ public class DefaultSocketManager implements SocketManager
                 if (response == null)
                 {
                     /*
-                     * Indicate to the receiver thread that this response is being skipped
-                     * so that it can be thrown away when it arrives.
+                     * Indicate to the receiver thread that this response is
+                     * being skipped so that it can be thrown away when it
+                     * arrives.
                      */
                     skippedResponses.incrementAndGet();
 
-                    response = "";
+                    throw new ResponseTimeoutException(TimeUnit.MILLISECONDS.convert(timeout, unit)
+                            + " ms");
                 }
 
                 return response;
@@ -456,7 +460,7 @@ public class DefaultSocketManager implements SocketManager
     }
 
     @Override
-	public ByteChannel redirectChannel()
+    public ByteChannel redirectChannel()
     {
         synchronized (Lock.REDIRECT_CHANNEL)
         {
