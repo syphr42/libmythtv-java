@@ -288,6 +288,8 @@ public class DefaultSocketManager implements SocketManager
                              */
                             if (skippedResponses.get() > 0)
                             {
+                                logger.trace("Discarding skipped message: {}", value);
+
                                 skippedResponses.decrementAndGet();
                                 continue;
                             }
@@ -414,13 +416,14 @@ public class DefaultSocketManager implements SocketManager
     }
 
     @Override
-    public String sendAndWait(String message) throws IOException
+    public String sendAndWait(String message) throws ResponseTimeoutException, IOException
     {
         return sendAndWait(message, defaultTimeout, TimeUnit.MILLISECONDS);
     }
 
     @Override
-    public String sendAndWait(String message, long timeout, TimeUnit unit) throws IOException
+    public String sendAndWait(String message, long timeout, TimeUnit unit) throws ResponseTimeoutException,
+                                                                          IOException
     {
         synchronized (Lock.SEND_AND_WAIT)
         {
