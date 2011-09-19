@@ -71,6 +71,16 @@ import org.syphr.mythtv.util.translate.Translator;
 
         try
         {
+            // @formatter:off
+            /*
+             * Valid values:
+             * 
+             * -2 -> error
+             * -1 -> success
+             *  0 -> no channel ID or success, but expiring instead of delete
+             *  + -> success, file was active recording on returned encoder number
+             */
+            // @formatter:on
             int result = Integer.parseInt(response);
             if (result == -2)
             {
