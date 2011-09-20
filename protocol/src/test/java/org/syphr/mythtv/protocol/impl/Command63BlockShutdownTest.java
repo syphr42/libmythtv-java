@@ -21,7 +21,6 @@ import junit.framework.Assert;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.SocketManager;
@@ -30,15 +29,7 @@ public class Command63BlockShutdownTest
 {
     private static final String MESSAGE = "BLOCK_SHUTDOWN";
 
-    private static Command63BlockShutdown command;
-
     private SocketManager socketManager;
-
-    @BeforeClass
-    public static void setUpBeforeClass()
-    {
-        command = new Command63BlockShutdown(null, null);
-    }
 
     @Before
     public void setUp()
@@ -49,15 +40,15 @@ public class Command63BlockShutdownTest
     @Test
     public void testGetMessage() throws ProtocolException
     {
-        Assert.assertEquals(MESSAGE, command.getMessage());
+        Assert.assertEquals(MESSAGE, getCommand().getMessage());
     }
 
     @Test
     public void testSendSuccess() throws IOException
     {
-        EasyMock.expect(socketManager.sendAndWait(MESSAGE)).andReturn("OK");
-        EasyMock.replay(socketManager);
+        setupMocks("OK");
 
+        Command63BlockShutdown command = getCommand();
         command.send(socketManager);
 
         EasyMock.verify(socketManager);
@@ -66,17 +57,28 @@ public class Command63BlockShutdownTest
     @Test(expected = IOException.class)
     public void testSendBadResponse() throws IOException
     {
-        EasyMock.expect(socketManager.sendAndWait(MESSAGE)).andReturn("BAD");
-        EasyMock.replay(socketManager);
+        setupMocks("BAD");
 
         try
         {
+            Command63BlockShutdown command = getCommand();
             command.send(socketManager);
         }
         finally
         {
             EasyMock.verify(socketManager);
         }
+    }
+
+    private Command63BlockShutdown getCommand()
+    {
+        return new Command63BlockShutdown(null, null);
+    }
+
+    private void setupMocks(String response) throws IOException
+    {
+        EasyMock.expect(socketManager.sendAndWait(MESSAGE)).andReturn(response);
+        EasyMock.replay(socketManager);
     }
 
 }

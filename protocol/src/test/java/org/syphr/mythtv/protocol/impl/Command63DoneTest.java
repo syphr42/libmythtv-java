@@ -17,10 +17,13 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
+import junit.framework.Assert;
+
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.SocketManager;
 
 public class Command63DoneTest
@@ -33,6 +36,12 @@ public class Command63DoneTest
     public void setUp() throws Exception
     {
         socketManager = EasyMock.createMock(SocketManager.class);
+    }
+
+    @Test
+    public void testGetMessage() throws ProtocolException
+    {
+        Assert.assertEquals(MESSAGE, getCommand().getMessage());
     }
 
     @Test
