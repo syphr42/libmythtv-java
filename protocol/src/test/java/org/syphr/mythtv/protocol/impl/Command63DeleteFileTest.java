@@ -27,11 +27,14 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
 public class Command63DeleteFileTest
 {
+    private static final URI FILE_PATH = URI.create("uri");
+    private static final String STORAGE_GROUP = "storageGroup";
+
     private SocketManager socketManager;
     private Parser parser;
 
     @Before
-    public void setUp() throws Exception
+    public void setUp()
     {
         socketManager = EasyMock.createMock(SocketManager.class);
         parser = EasyMock.createMock(Parser.class);
@@ -40,43 +43,64 @@ public class Command63DeleteFileTest
     @Test
     public void testSendSuccessTrue() throws IOException
     {
-        setupMocks("1");
-
-        Command63DeleteFile command = getCommand();
-        Boolean actual = command.send(socketManager);
+        Boolean actual = test("1");
         Assert.assertEquals(Boolean.TRUE, actual);
     }
 
     @Test
     public void testSendSuccessFalse() throws IOException
     {
-        setupMocks("0");
-
-        Command63DeleteFile command = getCommand();
-        Boolean actual = command.send(socketManager);
+        Boolean actual = test("0");
         Assert.assertEquals(Boolean.FALSE, actual);
     }
 
     @Test(expected = IOException.class)
     public void testSendBadResponse() throws IOException
     {
-        setupMocks("BAD");
+        test("BAD");
+    }
+
+    private Boolean test(String response) throws IOException
+    {
+        setupMocks(response);
 
         Command63DeleteFile command = getCommand();
-        command.send(socketManager);
+        try
+        {
+            return command.send(socketManager);
+        }
+        finally
+        {
+            verify();
+        }
     }
 
     private Command63DeleteFile getCommand()
     {
-        return new Command63DeleteFile(null, parser, URI.create("testing"), "");
+        return new Command63DeleteFile(null, parser, FILE_PATH, STORAGE_GROUP);
     }
 
     private void setupMocks(String response) throws IOException
     {
-        EasyMock.expect(socketManager.sendAndWait(EasyMock.isA(String.class))).andReturn(response);
-        EasyMock.expect(parser.combineArguments(EasyMock.isA(String.class),
-                                                EasyMock.isA(String.class),
-                                                EasyMock.isA(String.class))).andReturn("");
+        /*
+         * Building the message.
+         */
+        String combined = "COMBINED";
+        EasyMock.expect(parser.combineArguments("DELETE_FILE", FILE_PATH.toString(), STORAGE_GROUP)).andReturn(combined);
+
+        /*
+         * Sending the message.
+         */
+        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+
+        /*
+         * Replay.
+         */
         EasyMock.replay(socketManager, parser);
+    }
+
+    private void verify()
+    {
+        EasyMock.verify(socketManager, parser);
     }
 }

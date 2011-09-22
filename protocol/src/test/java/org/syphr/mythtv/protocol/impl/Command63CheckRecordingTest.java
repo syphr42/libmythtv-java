@@ -17,6 +17,7 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -29,11 +30,13 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
 public class Command63CheckRecordingTest
 {
+    private static final Program PROGRAM = new Program(null, null);
+
     private SocketManager socketManager;
     private Parser parser;
 
     @Before
-    public void setUp() throws Exception
+    public void setUp()
     {
         socketManager = EasyMock.createMock(SocketManager.class);
         parser = EasyMock.createMock(Parser.class);
@@ -43,33 +46,66 @@ public class Command63CheckRecordingTest
     public void testSendSuccess() throws IOException
     {
         Integer expected = 1;
-        setupMocks(expected.toString());
+        Integer actual = test(expected.toString());
 
-        Command63CheckRecording command = getCommand();
-        Integer actual = command.send(socketManager);
         Assert.assertEquals(expected, actual);
+        verify();
     }
 
     @Test(expected = IOException.class)
     public void testSendBadResponse() throws IOException
     {
-        setupMocks("BAD");
+        test("BAD");
+    }
+
+    private Integer test(String response) throws IOException
+    {
+        setupMocks(response);
 
         Command63CheckRecording command = getCommand();
-        command.send(socketManager);
+        try
+        {
+            return command.send(socketManager);
+        }
+        finally
+        {
+            verify();
+        }
     }
 
     private Command63CheckRecording getCommand()
     {
-        return new Command63CheckRecording(null, parser, EasyMock.createMock(Program.class));
+        return new Command63CheckRecording(null, parser, PROGRAM);
     }
 
-    @SuppressWarnings("unchecked")
     private void setupMocks(String response) throws IOException
     {
-        EasyMock.expect(socketManager.sendAndWait(EasyMock.isA(String.class))).andReturn(response);
-        EasyMock.expect(parser.extractProgramInfo(EasyMock.isA(Program.class))).andReturn(new ArrayList<String>());
-        EasyMock.expect(parser.combineArguments(EasyMock.isA(List.class))).andReturn("");
+        /*
+         * Building the message.
+         */
+        List<String> programInfo = Arrays.asList(new String[] { "PROGRAM" });
+        EasyMock.expect(parser.extractProgramInfo(PROGRAM)).andReturn(programInfo);
+
+        List<String> args = new ArrayList<String>();
+        args.add("CHECK_RECORDING");
+        args.addAll(programInfo);
+
+        String combined = "COMBINED";
+        EasyMock.expect(parser.combineArguments(args)).andReturn(combined);
+
+        /*
+         * Sending the message.
+         */
+        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+
+        /*
+         * Replay.
+         */
         EasyMock.replay(socketManager, parser);
+    }
+
+    private void verify()
+    {
+        EasyMock.verify(socketManager, parser);
     }
 }

@@ -17,54 +17,102 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.util.socket.SocketManager;
 
 public class Command63AnnSlaveBackendTest
 {
+    private static final Program PROGRAM = new Program(null, null);
+
     private SocketManager socketManager;
     private Parser parser;
+    private InetAddress host;
 
     @Before
-    public void setUp() throws Exception
+    public void setUp()
     {
         socketManager = EasyMock.createMock(SocketManager.class);
         parser = EasyMock.createMock(Parser.class);
+        host = EasyMock.createMock(InetAddress.class);
     }
 
     @Test
     public void testSendSuccess() throws IOException
     {
-        setupMocks("OK");
-
-        Command63AnnSlaveBackend command = getCommand();
-        command.send(socketManager);
+        test("OK");
     }
 
     @Test(expected = IOException.class)
     public void testSendBadResponse() throws IOException
     {
-        setupMocks("BAD");
+        test("BAD");
+    }
+
+    private void test(String response) throws IOException
+    {
+        setupMocks(response);
 
         Command63AnnSlaveBackend command = getCommand();
-        command.send(socketManager);
+        try
+        {
+            command.send(socketManager);
+        }
+        finally
+        {
+            verify();
+        }
     }
 
-    private Command63AnnSlaveBackend getCommand() throws UnknownHostException
+    private Command63AnnSlaveBackend getCommand()
     {
-        return new Command63AnnSlaveBackend(null, parser, InetAddress.getLocalHost());
+        return new Command63AnnSlaveBackend(null, parser, host, PROGRAM);
     }
 
-    @SuppressWarnings("unchecked")
     private void setupMocks(String response) throws IOException
     {
-        EasyMock.expect(socketManager.sendAndWait(EasyMock.isA(String.class))).andReturn(response);
-        EasyMock.expect(parser.combineArguments(EasyMock.isA(List.class))).andReturn("");
-        EasyMock.replay(socketManager, parser);
+        /*
+         * Building the message.
+         */
+        String hostName = "HOSTNAME";
+        String hostAddress = "HOSTADDRESS";
+        List<String> programInfo = Arrays.asList(new String[] { "PROGRAM" });
+        EasyMock.expect(host.getHostName()).andReturn(hostName);
+        EasyMock.expect(host.getHostAddress()).andReturn(hostAddress);
+        EasyMock.expect(parser.extractProgramInfo(PROGRAM)).andReturn(programInfo);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("ANN SlaveBackend ");
+        builder.append(hostName);
+        builder.append(' ');
+        builder.append(hostAddress);
+
+        List<String> args = new ArrayList<String>();
+        args.add(builder.toString());
+        args.addAll(programInfo);
+
+        String combined = "COMBINED";
+        EasyMock.expect(parser.combineArguments(args)).andReturn(combined);
+
+        /*
+         * Sending the message.
+         */
+        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+
+        /*
+         * Replay.
+         */
+        EasyMock.replay(socketManager, parser, host);
+    }
+
+    private void verify()
+    {
+        EasyMock.verify(socketManager, parser, host);
     }
 }

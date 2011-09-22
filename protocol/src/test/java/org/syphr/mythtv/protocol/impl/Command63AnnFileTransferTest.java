@@ -32,12 +32,17 @@ import org.syphr.mythtv.util.translate.Translator;
 
 public class Command63AnnFileTransferTest
 {
+    private static final String HOST = "host";
+    private static final FileTransferType TRANSFER_TYPE = FileTransferType.values()[0];
+    private static final URI FILE_PATH = URI.create("uri");
+    private static final String STORAGE_GROUP = "storageGroup";
+
     private SocketManager socketManager;
     private Translator translator;
     private Parser parser;
 
     @Before
-    public void setUp() throws Exception
+    public void setUp()
     {
         socketManager = EasyMock.createMock(SocketManager.class);
         translator = EasyMock.createMock(Translator.class);
@@ -45,19 +50,27 @@ public class Command63AnnFileTransferTest
     }
 
     @Test
-    public void testSendSuccess() throws IOException
+    public void testSendSuccessReadAheadZeroTimeout() throws IOException
     {
-        List<String> response = new ArrayList<String>();
-        response.add("OK");
-        response.add("1");
-        response.add("2");
-        response.add("3");
-        setupMocks(response);
+        testSuccess(true, 0);
+    }
 
-        Command63AnnFileTransfer command = getCommand();
+    @Test
+    public void testSendSuccessNoReadAheadZeroTimeout() throws IOException
+    {
+        testSuccess(false, 0);
+    }
 
-        QueryFileTransfer result = command.send(socketManager);
-        Assert.assertEquals(QueryFileTransfer63.class, result.getClass());
+    @Test
+    public void testSendSuccessReadAheadNonZeroTimeout() throws IOException
+    {
+        testSuccess(true, 1);
+    }
+
+    @Test
+    public void testSendSuccessNoReadAheadNonZeroTimeout() throws IOException
+    {
+        testSuccess(false, 1);
     }
 
     @Test(expected = IOException.class)
@@ -65,10 +78,8 @@ public class Command63AnnFileTransferTest
     {
         List<String> response = new ArrayList<String>();
         response.add("");
-        setupMocks(response);
 
-        Command63AnnFileTransfer command = getCommand();
-        command.send(socketManager);
+        testFailure(response);
     }
 
     @Test(expected = IOException.class)
@@ -80,10 +91,8 @@ public class Command63AnnFileTransferTest
         response.add("");
         response.add("");
         response.add("");
-        setupMocks(response);
 
-        Command63AnnFileTransfer command = getCommand();
-        command.send(socketManager);
+        testFailure(response);
     }
 
     @Test(expected = IOException.class)
@@ -94,10 +103,8 @@ public class Command63AnnFileTransferTest
         response.add("1");
         response.add("2");
         response.add("3");
-        setupMocks(response);
 
-        Command63AnnFileTransfer command = getCommand();
-        command.send(socketManager);
+        testFailure(response);
     }
 
     @Test(expected = IOException.class)
@@ -108,10 +115,8 @@ public class Command63AnnFileTransferTest
         response.add("BAD");
         response.add("2");
         response.add("3");
-        setupMocks(response);
 
-        Command63AnnFileTransfer command = getCommand();
-        command.send(socketManager);
+        testFailure(response);
     }
 
     @Test(expected = IOException.class)
@@ -122,10 +127,8 @@ public class Command63AnnFileTransferTest
         response.add("1");
         response.add("BAD");
         response.add("3");
-        setupMocks(response);
 
-        Command63AnnFileTransfer command = getCommand();
-        command.send(socketManager);
+        testFailure(response);
     }
 
     @Test(expected = IOException.class)
@@ -136,36 +139,103 @@ public class Command63AnnFileTransferTest
         response.add("1");
         response.add("2");
         response.add("BAD");
-        setupMocks(response);
 
-        Command63AnnFileTransfer command = getCommand();
-        command.send(socketManager);
+        testFailure(response);
     }
 
-    private Command63AnnFileTransfer getCommand()
+    private void testSuccess(boolean readAhead, long timeout) throws IOException
     {
-        FileTransferType type = FileTransferType.values()[0];
+        List<String> response = new ArrayList<String>();
+        response.add("OK");
+        response.add("1");
+        response.add("2");
+        response.add("3");
+        setupMocks(readAhead, timeout, response);
 
+        Command63AnnFileTransfer command = getCommand(readAhead, timeout);
+        QueryFileTransfer result = command.send(socketManager);
+        Assert.assertEquals(QueryFileTransfer63.class, result.getClass());
+
+        verify();
+    }
+
+    private void testFailure(List<String> response) throws IOException
+    {
+        boolean readAhead = false;
+        long timeout = 0;
+
+        setupMocks(readAhead, timeout, response);
+
+        Command63AnnFileTransfer command = getCommand(readAhead, timeout);
+        try
+        {
+            command.send(socketManager);
+        }
+        finally
+        {
+            verify();
+        }
+    }
+
+    private Command63AnnFileTransfer getCommand(boolean readAhead, long timeout)
+    {
         return new Command63AnnFileTransfer(translator,
                                             parser,
-                                            "",
-                                            type,
-                                            false,
-                                            0,
-                                            URI.create("uri"),
-                                            "",
+                                            HOST,
+                                            TRANSFER_TYPE,
+                                            readAhead,
+                                            timeout,
+                                            FILE_PATH,
+                                            STORAGE_GROUP,
                                             socketManager);
     }
 
-    private void setupMocks(List<String> response) throws IOException
+    private void setupMocks(boolean readAhead, long timeout, List<String> response) throws IOException
     {
-        EasyMock.expect(socketManager.sendAndWait(EasyMock.isA(String.class))).andReturn("");
-        EasyMock.expect(translator.toString(EasyMock.isA(FileTransferType.class))).andReturn("");
-        EasyMock.expect(parser.combineArguments(EasyMock.isA(String.class),
-                                                EasyMock.isA(String.class),
-                                                EasyMock.isA(String.class))).andReturn("");
-        EasyMock.expect(parser.splitArguments(EasyMock.isA(String.class))).andReturn(response);
+        /*
+         * Building the message.
+         */
+        String translated = "TRANSLATED";
+        EasyMock.expect(translator.toString(EasyMock.isA(FileTransferType.class))).andReturn(translated);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("ANN FileTransfer ");
+        builder.append(HOST);
+        builder.append(' ');
+        builder.append(translated);
+        builder.append(' ');
+        builder.append(readAhead ? 1 : 0);
+        if (timeout > 0)
+        {
+            builder.append(' ');
+            builder.append(timeout);
+        }
+
+        String combined = "COMBINED";
+        EasyMock.expect(parser.combineArguments(builder.toString(),
+                                                FILE_PATH.toString(),
+                                                STORAGE_GROUP)).andReturn(combined);
+
+        /*
+         * Sending the message.
+         */
+        String serverResponse = "RESPONSE";
+        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(serverResponse);
+
+        /*
+         * Parsing the response.
+         */
+        EasyMock.expect(parser.splitArguments(serverResponse)).andReturn(response);
+
+        /*
+         * Replay.
+         */
         EasyMock.replay(socketManager, translator, parser);
+    }
+
+    private void verify()
+    {
+        EasyMock.verify(socketManager, translator, parser);
     }
 
 }

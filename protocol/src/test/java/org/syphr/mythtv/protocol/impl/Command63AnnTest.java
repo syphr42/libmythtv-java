@@ -17,21 +17,19 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
-import junit.framework.Assert;
-
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
-import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 
 public class Command63AnnTest
 {
-    private static final String HOST = "localhost";
-    private static final String MESSAGE_PREFIX = "ANN ";
+    private static final ConnectionType TYPE = ConnectionType.values()[0];
+    private static final String HOST = "HOST";
+    private static final EventLevel LEVEL = EventLevel.values()[0];
 
     private SocketManager socketManager;
     private Translator translator;
@@ -44,69 +42,71 @@ public class Command63AnnTest
     }
 
     @Test
-    public void testGetMessage() throws ProtocolException
-    {
-        for (ConnectionType type : ConnectionType.values())
-        {
-            for (EventLevel level : EventLevel.values())
-            {
-                EasyMock.expect(translator.toString(type)).andReturn(type.name());
-                EasyMock.expect(translator.toString(level)).andReturn(level.name());
-                EasyMock.replay(translator);
-
-                Command63Ann command = new Command63Ann(translator, null, type, HOST, level);
-                Assert.assertEquals(getMessage(type, level), command.getMessage());
-
-                EasyMock.verify(translator);
-                EasyMock.reset(translator);
-            }
-        }
-    }
-
-    private String getMessage(ConnectionType type, EventLevel level)
-    {
-        return MESSAGE_PREFIX + type.name() + " " + HOST + " " + level.name();
-    }
-
-    @Test
     public void testSendSuccess() throws IOException
     {
-        ConnectionType type = ConnectionType.values()[0];
-        EventLevel level = EventLevel.values()[0];
-
-        Command63Ann command = new Command63Ann(translator, null, type, HOST, level);
-
-        EasyMock.expect(socketManager.sendAndWait(EasyMock.isA(String.class))).andReturn("OK");
-        EasyMock.expect(translator.toString(type)).andReturn("");
-        EasyMock.expect(translator.toString(level)).andReturn("");
-        EasyMock.replay(socketManager, translator);
-
-        command.send(socketManager);
-
-        EasyMock.verify(socketManager);
+        test("OK");
     }
 
     @Test(expected = IOException.class)
     public void testSendBadResponse() throws IOException
     {
-        ConnectionType type = ConnectionType.values()[0];
-        EventLevel level = EventLevel.values()[0];
+        test("BAD");
+    }
 
-        Command63Ann command = new Command63Ann(translator, null, type, HOST, level);
+    private void test(String response) throws IOException
+    {
+        setupMocks(response);
 
-        EasyMock.expect(socketManager.sendAndWait(EasyMock.isA(String.class))).andReturn("BAD");
-        EasyMock.expect(translator.toString(type)).andReturn("");
-        EasyMock.expect(translator.toString(level)).andReturn("");
-        EasyMock.replay(socketManager, translator);
-
+        Command63Ann command = getCommand();
         try
         {
             command.send(socketManager);
         }
         finally
         {
-            EasyMock.verify(socketManager);
+            verify();
         }
+    }
+
+    private Command63Ann getCommand()
+    {
+        return new Command63Ann(translator, null, TYPE, HOST, LEVEL);
+    }
+
+    private void setupMocks(String response) throws IOException
+    {
+        /*
+         * Building the message.
+         */
+        String translatedType = "TRANSLATED_TYPE";
+        String translatedLevel = "TRANSLATED_LEVEL";
+        EasyMock.expect(translator.toString(TYPE)).andReturn(translatedType);
+        EasyMock.expect(translator.toString(LEVEL)).andReturn(translatedLevel);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("ANN ");
+        builder.append(translatedType);
+        builder.append(' ');
+        builder.append(HOST);
+        builder.append(' ');
+        builder.append(translatedLevel);
+
+        String combined = builder.toString();
+
+        /*
+         * Sending the message.
+         */
+        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+
+        /*
+         * Replay.
+         */
+        EasyMock.replay(socketManager, translator);
+    }
+
+    private void verify()
+    {
+        EasyMock.verify(socketManager, translator);
     }
 
 }

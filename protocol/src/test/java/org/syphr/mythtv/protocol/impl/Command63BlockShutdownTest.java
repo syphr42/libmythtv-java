@@ -17,18 +17,13 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
-import junit.framework.Assert;
-
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
-import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.socket.SocketManager;
 
 public class Command63BlockShutdownTest
 {
-    private static final String MESSAGE = "BLOCK_SHUTDOWN";
-
     private SocketManager socketManager;
 
     @Before
@@ -38,35 +33,29 @@ public class Command63BlockShutdownTest
     }
 
     @Test
-    public void testGetMessage() throws ProtocolException
-    {
-        Assert.assertEquals(MESSAGE, getCommand().getMessage());
-    }
-
-    @Test
     public void testSendSuccess() throws IOException
     {
-        setupMocks("OK");
-
-        Command63BlockShutdown command = getCommand();
-        command.send(socketManager);
-
-        EasyMock.verify(socketManager);
+        test("OK");
     }
 
     @Test(expected = IOException.class)
     public void testSendBadResponse() throws IOException
     {
-        setupMocks("BAD");
+        test("BAD");
+    }
 
+    private void test(String response) throws IOException
+    {
+        setupMocks(response);
+
+        Command63BlockShutdown command = getCommand();
         try
         {
-            Command63BlockShutdown command = getCommand();
             command.send(socketManager);
         }
         finally
         {
-            EasyMock.verify(socketManager);
+            verify();
         }
     }
 
@@ -77,8 +66,13 @@ public class Command63BlockShutdownTest
 
     private void setupMocks(String response) throws IOException
     {
-        EasyMock.expect(socketManager.sendAndWait(MESSAGE)).andReturn(response);
+        EasyMock.expect(socketManager.sendAndWait("BLOCK_SHUTDOWN")).andReturn(response);
         EasyMock.replay(socketManager);
+    }
+
+    private void verify()
+    {
+        EasyMock.verify(socketManager);
     }
 
 }
