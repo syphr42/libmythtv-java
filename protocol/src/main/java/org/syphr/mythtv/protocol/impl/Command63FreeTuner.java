@@ -26,9 +26,7 @@ import org.syphr.mythtv.util.translate.Translator;
 {
     private final int recorderId;
 
-    public Command63FreeTuner(Translator translator,
-                              Parser parser,
-                              int recorderId)
+    public Command63FreeTuner(Translator translator, Parser parser, int recorderId)
     {
         super(translator, parser);
 
@@ -46,12 +44,12 @@ import org.syphr.mythtv.util.translate.Translator;
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        if (!"OK".equals(response))
+        if ("OK".equals(response))
         {
             return true;
         }
 
-        if (!"FAILED".equals(response))
+        if ("FAILED".equals(response))
         {
             return false;
         }
