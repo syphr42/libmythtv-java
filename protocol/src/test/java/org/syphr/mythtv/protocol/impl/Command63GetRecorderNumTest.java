@@ -1,0 +1,172 @@
+/*
+ * Copyright 2011 Gregory P. Moyer
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.syphr.mythtv.protocol.impl;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import junit.framework.Assert;
+
+import org.easymock.EasyMock;
+import org.junit.Before;
+import org.junit.Test;
+import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.Program;
+import org.syphr.mythtv.data.RecorderLocation;
+import org.syphr.mythtv.util.socket.SocketManager;
+
+public class Command63GetRecorderNumTest
+{
+    private static final Program PROGRAM = new Program(new Channel(1), new Date());
+
+    private SocketManager socketManager;
+    private Parser parser;
+
+    @Before
+    public void setUp()
+    {
+        socketManager = EasyMock.createMock(SocketManager.class);
+        parser = EasyMock.createMock(Parser.class);
+    }
+
+    @Test
+    public void testSendSuccess() throws IOException
+    {
+        RecorderLocation expected = new RecorderLocation(1, "HOST", 2);
+
+        List<String> response = new ArrayList<String>();
+        response.add(String.valueOf(expected.getId()));
+        response.add(expected.getHost());
+        response.add(String.valueOf(expected.getPort()));
+
+        Assert.assertEquals(expected, test(response));
+    }
+
+    @Test
+    public void testSendFailure() throws IOException
+    {
+        List<String> response = new ArrayList<String>();
+        response.add("-1");
+        response.add("");
+        response.add("");
+
+        Assert.assertNull(test(response));
+    }
+
+    @Test(expected = IOException.class)
+    public void testSendEmptyResponse() throws IOException
+    {
+        List<String> response = new ArrayList<String>();
+        response.add("");
+
+        test(response);
+    }
+
+    @Test(expected = IOException.class)
+    public void testSendTooManyArgs() throws IOException
+    {
+        List<String> response = new ArrayList<String>();
+        response.add("");
+        response.add("");
+        response.add("");
+        response.add("");
+
+        test(response);
+    }
+
+    @Test(expected = IOException.class)
+    public void testSendFirstArgWrong() throws IOException
+    {
+        List<String> response = new ArrayList<String>();
+        response.add("BAD");
+        response.add("HOST");
+        response.add("2");
+
+        test(response);
+    }
+
+    @Test(expected = IOException.class)
+    public void testSendThirdArgWrong() throws IOException
+    {
+        List<String> response = new ArrayList<String>();
+        response.add("1");
+        response.add("HOST");
+        response.add("BAD");
+
+        test(response);
+    }
+
+    private RecorderLocation test(List<String> response) throws IOException
+    {
+        setupMocks(response);
+
+        Command63GetRecorderNum command = getCommand();
+        try
+        {
+            return command.send(socketManager);
+        }
+        finally
+        {
+            verify();
+        }
+    }
+
+    private Command63GetRecorderNum getCommand() throws MalformedURLException
+    {
+        return new Command63GetRecorderNum(null, parser, PROGRAM);
+    }
+
+    private void setupMocks(List<String> response) throws IOException
+    {
+        /*
+         * Building the message.
+         */
+        List<String> programInfo = Arrays.asList(new String[] { "PROGRAM" });
+        EasyMock.expect(parser.extractProgramInfo(PROGRAM)).andReturn(programInfo);
+
+        List<String> args = new ArrayList<String>();
+        args.add("GET_RECORDER_NUM");
+        args.addAll(programInfo);
+
+        String combined = "COMBINED";
+        EasyMock.expect(parser.combineArguments(args)).andReturn(combined);
+
+        /*
+         * Sending the message.
+         */
+        String serverResponse = "SERVER_RESPONSE";
+        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(serverResponse);
+
+        /*
+         * Parsing the response.
+         */
+        EasyMock.expect(parser.splitArguments(serverResponse)).andReturn(response);
+
+        /*
+         * Replay.
+         */
+        EasyMock.replay(socketManager, parser);
+    }
+
+    private void verify()
+    {
+        EasyMock.verify(socketManager, parser);
+    }
+}
