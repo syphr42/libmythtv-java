@@ -55,7 +55,7 @@ import org.syphr.prom.PropertiesManager;
  * This class provides a quick way to examine preview images for existing
  * recordings. It is not meant to be re-used in application code as it takes
  * many shortcuts around the proper Swing way and does no caching of images.
- *
+ * 
  * @author Gregory P. Moyer
  */
 public class PreviewImageViewer
@@ -96,18 +96,16 @@ public class PreviewImageViewer
                                                           boolean isSelected,
                                                           boolean cellHasFocus)
             {
-                JLabel label = (JLabel) super.getListCellRendererComponent(list,
-                                                                           value,
-                                                                           index,
-                                                                           isSelected,
-                                                                           cellHasFocus);
+                JLabel label = (JLabel)super.getListCellRendererComponent(list,
+                                                                          value,
+                                                                          index,
+                                                                          isSelected,
+                                                                          cellHasFocus);
 
                 if (value instanceof Program)
                 {
-                    Program program = (Program) value;
-                    label.setText(program.getTitle()
-                                  + " - "
-                                  + program.getSubtitle());
+                    Program program = (Program)value;
+                    label.setText(program.getTitle() + " - " + program.getSubtitle());
                 }
                 else
                 {
@@ -144,9 +142,9 @@ public class PreviewImageViewer
         categoriesComboBox.addItemListener(new ItemListener()
         {
             @Override
-            public void itemStateChanged(ItemEvent e)
+            public void itemStateChanged(ItemEvent event)
             {
-                if (ItemEvent.SELECTED != e.getStateChange())
+                if (ItemEvent.SELECTED != event.getStateChange())
                 {
                     return;
                 }
@@ -154,14 +152,14 @@ public class PreviewImageViewer
                 List<Object> programs = new ArrayList<Object>();
                 programs.add("<No program selected>");
 
-                RecordingCategory category = (RecordingCategory)e.getItem();
+                RecordingCategory category = (RecordingCategory)event.getItem();
                 try
                 {
                     programs.addAll(proto.queryRecordings(category));
                 }
-                catch (IOException e1)
+                catch (IOException e)
                 {
-                    logger.error("Unable to retrieve programs of type " + category);
+                    logger.error("Unable to retrieve programs of type " + category, e);
                 }
 
                 programsComboBox.setModel(new DefaultComboBoxModel(programs.toArray()));
@@ -179,54 +177,50 @@ public class PreviewImageViewer
 
         JPanel selectionPanel = new JPanel(selectionLayout);
         selectionPanel.setBorder(BorderFactory.createTitledBorder("Selection"));
-        selectionPanel.add(new JLabel("Category:"),
-                           new GridBagConstraints(0,
-                                                  0,
-                                                  1,
-                                                  1,
-                                                  0.0,
-                                                  0.0,
-                                                  GridBagConstraints.WEST,
-                                                  GridBagConstraints.NONE,
-                                                  new Insets(0, 3, 0, 0),
-                                                  0,
-                                                  0));
-        selectionPanel.add(categoriesComboBox,
-                           new GridBagConstraints(1,
-                                                  0,
-                                                  1,
-                                                  1,
-                                                  0.0,
-                                                  0.0,
-                                                  GridBagConstraints.WEST,
-                                                  GridBagConstraints.NONE,
-                                                  new Insets(0, 3, 0, 3),
-                                                  0,
-                                                  0));
-        selectionPanel.add(new JLabel("Program:"),
-                           new GridBagConstraints(2,
-                                                  0,
-                                                  1,
-                                                  1,
-                                                  0.0,
-                                                  0.0,
-                                                  GridBagConstraints.WEST,
-                                                  GridBagConstraints.NONE,
-                                                  new Insets(0, 3, 0, 0),
-                                                  0,
-                                                  0));
-        selectionPanel.add(programsComboBox,
-                           new GridBagConstraints(3,
-                                                  0,
-                                                  1,
-                                                  1,
-                                                  0.0,
-                                                  0.0,
-                                                  GridBagConstraints.WEST,
-                                                  GridBagConstraints.HORIZONTAL,
-                                                  new Insets(0, 3, 0, 3),
-                                                  0,
-                                                  0));
+        selectionPanel.add(new JLabel("Category:"), new GridBagConstraints(0,
+                                                                           0,
+                                                                           1,
+                                                                           1,
+                                                                           0.0,
+                                                                           0.0,
+                                                                           GridBagConstraints.WEST,
+                                                                           GridBagConstraints.NONE,
+                                                                           new Insets(0, 3, 0, 0),
+                                                                           0,
+                                                                           0));
+        selectionPanel.add(categoriesComboBox, new GridBagConstraints(1,
+                                                                      0,
+                                                                      1,
+                                                                      1,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      GridBagConstraints.WEST,
+                                                                      GridBagConstraints.NONE,
+                                                                      new Insets(0, 3, 0, 3),
+                                                                      0,
+                                                                      0));
+        selectionPanel.add(new JLabel("Program:"), new GridBagConstraints(2,
+                                                                          0,
+                                                                          1,
+                                                                          1,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          GridBagConstraints.WEST,
+                                                                          GridBagConstraints.NONE,
+                                                                          new Insets(0, 3, 0, 0),
+                                                                          0,
+                                                                          0));
+        selectionPanel.add(programsComboBox, new GridBagConstraints(3,
+                                                                    0,
+                                                                    1,
+                                                                    1,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    GridBagConstraints.WEST,
+                                                                    GridBagConstraints.HORIZONTAL,
+                                                                    new Insets(0, 3, 0, 3),
+                                                                    0,
+                                                                    0));
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(selectionPanel, BorderLayout.NORTH);
