@@ -18,6 +18,8 @@ package org.syphr.mythtv.data;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.types.RecordingDupIn;
@@ -46,7 +48,7 @@ public class Program
     private final RecordingStatus recStatus;
     private final int recordId;
     private final RecordingType recType;
-    private final RecordingDupIn dupIn;
+    private final Set<RecordingDupIn> dupIn;
     private final RecordingDupMethod dupMethod;
     private final Date recStartTs;
     private final Date recEndTs;
@@ -114,10 +116,7 @@ public class Program
              0);
     }
 
-    public Program(String title,
-                   String subtitle,
-                   Channel channel,
-                   Date recStartTs)
+    public Program(String title, String subtitle, Channel channel, Date recStartTs)
     {
         this(title,
              subtitle,
@@ -158,21 +157,9 @@ public class Program
              0);
     }
 
-    public Program(String title,
-                   String subtitle,
-                   Channel channel,
-                   Date startTime,
-                   Date endTime)
+    public Program(String title, String subtitle, Channel channel, Date startTime, Date endTime)
     {
-        this(title,
-             subtitle,
-             null,
-             null,
-             channel,
-             startTime,
-             endTime,
-             null,
-             null);
+        this(title, subtitle, null, null, channel, startTime, endTime, null, null);
     }
 
     public Program(String title,
@@ -241,7 +228,7 @@ public class Program
                    RecordingStatus recStatus,
                    int recordId,
                    RecordingType recType,
-                   RecordingDupIn dupIn,
+                   Set<RecordingDupIn> dupIn,
                    RecordingDupMethod dupMethod,
                    Date recStartTs,
                    Date recEndTs,
@@ -323,7 +310,7 @@ public class Program
                    RecordingStatus recStatus,
                    int recordId,
                    RecordingType recType,
-                   RecordingDupIn dupIn,
+                   Set<RecordingDupIn> dupIn,
                    RecordingDupMethod dupMethod,
                    Date recStartTs,
                    Date recEndTs,
@@ -354,9 +341,7 @@ public class Program
         this.channel = channel;
         this.filename = filename;
         this.fileSize = fileSize;
-        this.startTime = startTime != null
-                ? new Date(startTime.getTime())
-                : null;
+        this.startTime = startTime != null ? new Date(startTime.getTime()) : null;
         this.endTime = endTime != null ? new Date(endTime.getTime()) : null;
         this.findId = findId;
         this.hostname = hostname;
@@ -366,11 +351,9 @@ public class Program
         this.recStatus = recStatus;
         this.recordId = recordId;
         this.recType = recType;
-        this.dupIn = dupIn;
+        this.dupIn = dupIn != null ? new HashSet<RecordingDupIn>(dupIn) : null;
         this.dupMethod = dupMethod;
-        this.recStartTs = recStartTs != null
-                ? new Date(recStartTs.getTime())
-                : null;
+        this.recStartTs = recStartTs != null ? new Date(recStartTs.getTime()) : null;
         this.recEndTs = recEndTs != null ? new Date(recEndTs.getTime()) : null;
         this.programFlags = programFlags;
         this.recGroup = recGroup;
@@ -378,9 +361,7 @@ public class Program
         this.seriesId = seriesId;
         this.programId = programId;
         this.inetref = inetref;
-        this.lastModified = lastModified != null
-                ? new Date(lastModified.getTime())
-                : null;
+        this.lastModified = lastModified != null ? new Date(lastModified.getTime()) : null;
         this.stars = stars;
         this.airDate = airDate != null ? new Date(airDate.getTime()) : null;
         this.playGroup = playGroup;
@@ -504,7 +485,7 @@ public class Program
         return recType;
     }
 
-    public RecordingDupIn getDupIn()
+    public Set<RecordingDupIn> getDupIn()
     {
         return dupIn;
     }
@@ -697,9 +678,7 @@ public class Program
         final int prime = 31;
         int result = 1;
         result = prime * result + ((channel == null) ? 0 : channel.hashCode());
-        result = prime
-                 * result
-                 + ((recStartTs == null) ? 0 : recStartTs.hashCode());
+        result = prime * result + ((recStartTs == null) ? 0 : recStartTs.hashCode());
         return result;
     }
 
@@ -718,7 +697,7 @@ public class Program
         {
             return false;
         }
-        Program other = (Program) obj;
+        Program other = (Program)obj;
         if (channel == null)
         {
             if (other.channel != null)

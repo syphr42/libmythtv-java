@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
@@ -72,13 +73,10 @@ public class Parser67 extends Parser66
             int cardId = Integer.parseInt(args.get(i++));
             int inputId = Integer.parseInt(args.get(i++));
             int recPriority = Integer.parseInt(args.get(i++));
-            RecordingStatus recStatus = getTranslator().toEnum(args.get(i++),
-                                                               RecordingStatus.class);
+            RecordingStatus recStatus = getTranslator().toEnum(args.get(i++), RecordingStatus.class);
             int recordId = Integer.parseInt(args.get(i++));
-            RecordingType recType = getTranslator().toEnum(args.get(i++),
-                                                           RecordingType.class);
-            RecordingDupIn dupIn = getTranslator().toEnum(args.get(i++),
-                                                          RecordingDupIn.class);
+            RecordingType recType = getTranslator().toEnum(args.get(i++), RecordingType.class);
+            Set<RecordingDupIn> dupIn = getTranslator().toEnums(args.get(i++), RecordingDupIn.class);
             RecordingDupMethod dupMethod = getTranslator().toEnum(args.get(i++),
                                                                   RecordingDupMethod.class);
             Date recStartTs = getDateTime(args.get(i++));
@@ -116,11 +114,7 @@ public class Parser67 extends Parser66
                                season,
                                episode,
                                category,
-                               new Channel(chanId,
-                                           sourceId,
-                                           chanNum,
-                                           callsign,
-                                           chanName),
+                               new Channel(chanId, sourceId, chanNum, callsign, chanName),
                                filename,
                                fileSize,
                                startTime,

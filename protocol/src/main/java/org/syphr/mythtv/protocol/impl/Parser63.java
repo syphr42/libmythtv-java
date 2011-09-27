@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.DriveInfo;
@@ -59,10 +60,8 @@ public class Parser63 extends AbstractParser
                 long driveNumber = Long.parseLong(args.get(i++));
                 long storageGroupId = Long.parseLong(args.get(i++));
                 long blockSize = Long.parseLong(args.get(i++));
-                long totalSpace = ProtocolUtils.combineInts(args.get(i++),
-                                                            args.get(i++));
-                long usedSpace = ProtocolUtils.combineInts(args.get(i++),
-                                                           args.get(i++));
+                long totalSpace = ProtocolUtils.combineInts(args.get(i++), args.get(i++));
+                long usedSpace = ProtocolUtils.combineInts(args.get(i++), args.get(i++));
 
                 drives.add(new DriveInfo(hostname,
                                          driveRoot,
@@ -124,9 +123,7 @@ public class Parser63 extends AbstractParser
             }
             catch (IndexOutOfBoundsException e)
             {
-                throw new ProtocolException(args.toString(),
-                                            Direction.RECEIVE,
-                                            e);
+                throw new ProtocolException(args.toString(), Direction.RECEIVE, e);
             }
         }
 
@@ -168,13 +165,10 @@ public class Parser63 extends AbstractParser
             int cardId = Integer.parseInt(args.get(i++));
             int inputId = Integer.parseInt(args.get(i++));
             int recPriority = Integer.parseInt(args.get(i++));
-            RecordingStatus recStatus = getTranslator().toEnum(args.get(i++),
-                                                               RecordingStatus.class);
+            RecordingStatus recStatus = getTranslator().toEnum(args.get(i++), RecordingStatus.class);
             int recordId = Integer.parseInt(args.get(i++));
-            RecordingType recType = getTranslator().toEnum(args.get(i++),
-                                                           RecordingType.class);
-            RecordingDupIn dupIn = getTranslator().toEnum(args.get(i++),
-                                                          RecordingDupIn.class);
+            RecordingType recType = getTranslator().toEnum(args.get(i++), RecordingType.class);
+            Set<RecordingDupIn> dupIn = getTranslator().toEnums(args.get(i++), RecordingDupIn.class);
             RecordingDupMethod dupMethod = getTranslator().toEnum(args.get(i++),
                                                                   RecordingDupMethod.class);
             Date recStartTs = getDateTime(args.get(i++));
@@ -209,11 +203,7 @@ public class Parser63 extends AbstractParser
                                subtitle,
                                description,
                                category,
-                               new Channel(chanId,
-                                           sourceId,
-                                           chanNum,
-                                           callsign,
-                                           chanName),
+                               new Channel(chanId, sourceId, chanNum, callsign, chanName),
                                filename,
                                fileSize,
                                startTime,
