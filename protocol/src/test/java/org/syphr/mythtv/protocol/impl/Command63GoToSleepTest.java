@@ -16,7 +16,6 @@
 package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 import junit.framework.Assert;
 
@@ -82,7 +81,7 @@ public class Command63GoToSleepTest
         }
     }
 
-    private Command63GoToSleep getCommand() throws MalformedURLException
+    private Command63GoToSleep getCommand()
     {
         return new Command63GoToSleep(null, null);
     }

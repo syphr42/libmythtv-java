@@ -16,7 +16,6 @@
 package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,7 +123,7 @@ public class Command63GetNextFreeRecorderTest
         }
     }
 
-    private Command63GetNextFreeRecorder getCommand() throws MalformedURLException
+    private Command63GetNextFreeRecorder getCommand()
     {
         return new Command63GetNextFreeRecorder(null, parser, FROM);
     }

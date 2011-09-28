@@ -16,7 +16,6 @@
 package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 import junit.framework.Assert;
 
@@ -70,7 +69,7 @@ public class Command63FreeTunerTest
         }
     }
 
-    private Command63FreeTuner getCommand() throws MalformedURLException
+    private Command63FreeTuner getCommand()
     {
         return new Command63FreeTuner(null, null, RECORDER_ID);
     }

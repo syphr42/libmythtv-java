@@ -141,7 +141,7 @@ public class Command63DownloadFileTest
         }
     }
 
-    private Command63DownloadFile getCommand(boolean now) throws MalformedURLException
+    private Command63DownloadFile getCommand(boolean now)
     {
         return new Command63DownloadFile(null, parser, TARGET, STORAGE_GROUP, FILE_PATH, now);
     }
