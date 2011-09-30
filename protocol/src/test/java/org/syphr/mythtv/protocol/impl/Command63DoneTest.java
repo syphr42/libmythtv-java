@@ -18,27 +18,17 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
-import org.syphr.mythtv.util.socket.SocketManager;
 
-public class Command63DoneTest
+public class Command63DoneTest extends AbstractProtocolTest
 {
-    private SocketManager socketManager;
-
-    @Before
-    public void setUp()
-    {
-        socketManager = EasyMock.createMock(SocketManager.class);
-    }
-
     @Test
     public void testSendSuccess() throws IOException
     {
         setupMocks();
 
         Command63Done command = getCommand();
-        command.send(socketManager);
+        command.send(getSocketManager());
 
         verify();
     }
@@ -50,12 +40,19 @@ public class Command63DoneTest
 
     private void setupMocks() throws IOException
     {
-        socketManager.send(EasyMock.eq("DONE"));
-        EasyMock.replay(socketManager);
-    }
+        /*
+         * Building the message.
+         */
+        String message = "DONE";
 
-    private void verify()
-    {
-        EasyMock.verify(socketManager);
+        /*
+         * Sending the message.
+         */
+        getSocketManager().send(EasyMock.eq(message));
+
+        /*
+         * Replay.
+         */
+        EasyMock.replay(getSocketManager());
     }
 }

@@ -21,22 +21,20 @@ import java.net.URI;
 import junit.framework.Assert;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
-import org.syphr.mythtv.util.socket.SocketManager;
 
-public class Command63DeleteFileTest
+public class Command63DeleteFileTest extends AbstractProtocolTest
 {
     private static final URI FILE_PATH = URI.create("uri");
     private static final String STORAGE_GROUP = "storageGroup";
 
-    private SocketManager socketManager;
     private Parser parser;
 
-    @Before
+    @Override
     public void setUp()
     {
-        socketManager = EasyMock.createMock(SocketManager.class);
+        super.setUp();
+
         parser = EasyMock.createMock(Parser.class);
     }
 
@@ -67,7 +65,7 @@ public class Command63DeleteFileTest
         Command63DeleteFile command = getCommand();
         try
         {
-            return command.send(socketManager);
+            return command.send(getSocketManager());
         }
         finally
         {
@@ -91,16 +89,19 @@ public class Command63DeleteFileTest
         /*
          * Sending the message.
          */
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(response);
 
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager, parser);
+        EasyMock.replay(getSocketManager(), parser);
     }
 
-    private void verify()
+    @Override
+    protected void verify()
     {
-        EasyMock.verify(socketManager, parser);
+        super.verify();
+
+        EasyMock.verify(parser);
     }
 }

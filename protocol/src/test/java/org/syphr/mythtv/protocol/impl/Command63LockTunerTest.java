@@ -22,21 +22,19 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
 import org.syphr.mythtv.data.RecorderDevice;
 import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
 
-public class Command63LockTunerTest
+public class Command63LockTunerTest extends AbstractProtocolTest
 {
-    private SocketManager socketManager;
     private Parser parser;
 
-    @Before
+    @Override
     public void setUp()
     {
-        socketManager = EasyMock.createMock(SocketManager.class);
+        super.setUp();
+
         parser = EasyMock.createMock(Parser.class);
     }
 
@@ -91,7 +89,7 @@ public class Command63LockTunerTest
         Command63LockTuner command = getCommand(recorderId);
         try
         {
-            return command.send(socketManager);
+            return command.send(getSocketManager());
         }
         finally
         {
@@ -124,7 +122,7 @@ public class Command63LockTunerTest
          * Sending the message.
          */
         String serverResponse = "SERVER_RESPONSE";
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(serverResponse);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(serverResponse);
 
         /*
          * Parsing the response.
@@ -134,11 +132,14 @@ public class Command63LockTunerTest
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager, parser);
+        EasyMock.replay(getSocketManager(), parser);
     }
 
-    private void verify()
+    @Override
+    protected void verify()
     {
-        EasyMock.verify(socketManager, parser);
+        super.verify();
+
+        EasyMock.verify(parser);
     }
 }

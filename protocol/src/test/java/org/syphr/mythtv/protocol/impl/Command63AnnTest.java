@@ -18,26 +18,24 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
-import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 
-public class Command63AnnTest
+public class Command63AnnTest extends AbstractProtocolTest
 {
     private static final ConnectionType TYPE = ConnectionType.values()[0];
     private static final String HOST = "HOST";
     private static final EventLevel LEVEL = EventLevel.values()[0];
 
-    private SocketManager socketManager;
     private Translator translator;
 
-    @Before
+    @Override
     public void setUp()
     {
-        socketManager = EasyMock.createMock(SocketManager.class);
+        super.setUp();
+
         translator = EasyMock.createMock(Translator.class);
     }
 
@@ -60,7 +58,7 @@ public class Command63AnnTest
         Command63Ann command = getCommand();
         try
         {
-            command.send(socketManager);
+            command.send(getSocketManager());
         }
         finally
         {
@@ -96,17 +94,20 @@ public class Command63AnnTest
         /*
          * Sending the message.
          */
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(response);
 
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager, translator);
+        EasyMock.replay(getSocketManager(), translator);
     }
 
-    private void verify()
+    @Override
+    protected void verify()
     {
-        EasyMock.verify(socketManager, translator);
+        super.verify();
+
+        EasyMock.verify(translator);
     }
 
 }

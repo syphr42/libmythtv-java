@@ -22,22 +22,20 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
 import org.syphr.mythtv.data.RecorderLocation;
-import org.syphr.mythtv.util.socket.SocketManager;
 
-public class Command63GetNextFreeRecorderTest
+public class Command63GetNextFreeRecorderTest extends AbstractProtocolTest
 {
     private static final RecorderLocation FROM = new RecorderLocation(1, "HOST", 1);
 
-    private SocketManager socketManager;
     private Parser parser;
 
-    @Before
+    @Override
     public void setUp()
     {
-        socketManager = EasyMock.createMock(SocketManager.class);
+        super.setUp();
+
         parser = EasyMock.createMock(Parser.class);
     }
 
@@ -115,7 +113,7 @@ public class Command63GetNextFreeRecorderTest
         Command63GetNextFreeRecorder command = getCommand();
         try
         {
-            return command.send(socketManager);
+            return command.send(getSocketManager());
         }
         finally
         {
@@ -141,7 +139,7 @@ public class Command63GetNextFreeRecorderTest
          * Sending the message.
          */
         String serverResponse = "SERVER_RESPONSE";
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(serverResponse);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(serverResponse);
 
         /*
          * Parsing the response.
@@ -151,11 +149,14 @@ public class Command63GetNextFreeRecorderTest
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager, parser);
+        EasyMock.replay(getSocketManager(), parser);
     }
 
-    private void verify()
+    @Override
+    protected void verify()
     {
-        EasyMock.verify(socketManager, parser);
+        super.verify();
+
+        EasyMock.verify(parser);
     }
 }

@@ -19,25 +19,15 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.DateUtils;
 
-public class Command63DeleteRecordingTest
+public class Command63DeleteRecordingTest extends AbstractProtocolTest
 {
     private static final Channel CHANNEL = new Channel(1);
     private static final Date REC_START = new Date();
-
-    private SocketManager socketManager;
-
-    @Before
-    public void setUp()
-    {
-        socketManager = EasyMock.createMock(SocketManager.class);
-    }
 
     @Test
     public void testSendSuccessForceForget() throws IOException, CommandException
@@ -89,7 +79,7 @@ public class Command63DeleteRecordingTest
         Command63DeleteRecording command = getCommand(force, forget);
         try
         {
-            command.send(socketManager);
+            command.send(getSocketManager());
         }
         finally
         {
@@ -122,16 +112,11 @@ public class Command63DeleteRecordingTest
         /*
          * Sending the message.
          */
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(response);
 
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager);
-    }
-
-    private void verify()
-    {
-        EasyMock.verify(socketManager);
+        EasyMock.replay(getSocketManager());
     }
 }

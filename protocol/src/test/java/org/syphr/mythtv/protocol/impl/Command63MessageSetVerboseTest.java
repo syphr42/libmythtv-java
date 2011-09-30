@@ -20,25 +20,23 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 
-public class Command63MessageSetVerboseTest
+public class Command63MessageSetVerboseTest extends AbstractProtocolTest
 {
     private final List<Verbose> OPTIONS = Arrays.asList(new Verbose[] { Verbose.ALL });
 
-    private SocketManager socketManager;
     private Translator translator;
     private Parser parser;
 
-    @Before
+    @Override
     public void setUp()
     {
-        socketManager = EasyMock.createMock(SocketManager.class);
+        super.setUp();
+
         translator = EasyMock.createMock(Translator.class);
         parser = EasyMock.createMock(Parser.class);
     }
@@ -68,7 +66,7 @@ public class Command63MessageSetVerboseTest
         Command63MessageSetVerbose command = getCommand();
         try
         {
-            command.send(socketManager);
+            command.send(getSocketManager());
         }
         finally
         {
@@ -95,16 +93,19 @@ public class Command63MessageSetVerboseTest
         /*
          * Sending the message.
          */
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(response);
 
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager, translator, parser);
+        EasyMock.replay(getSocketManager(), translator, parser);
     }
 
-    private void verify()
+    @Override
+    protected void verify()
     {
-        EasyMock.verify(socketManager, translator, parser);
+        super.verify();
+
+        EasyMock.verify(translator, parser);
     }
 }

@@ -18,20 +18,10 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
-import org.syphr.mythtv.util.socket.SocketManager;
 
-public class Command63AllowShutdownTest
+public class Command63AllowShutdownTest extends AbstractProtocolTest
 {
-    private SocketManager socketManager;
-
-    @Before
-    public void setUp()
-    {
-        socketManager = EasyMock.createMock(SocketManager.class);
-    }
-
     @Test
     public void testSendSuccess() throws IOException
     {
@@ -51,7 +41,7 @@ public class Command63AllowShutdownTest
         Command63AllowShutdown command = getCommand();
         try
         {
-            command.send(socketManager);
+            command.send(getSocketManager());
         }
         finally
         {
@@ -66,13 +56,19 @@ public class Command63AllowShutdownTest
 
     private void setupMocks(String response) throws IOException
     {
-        EasyMock.expect(socketManager.sendAndWait("ALLOW_SHUTDOWN")).andReturn(response);
-        EasyMock.replay(socketManager);
-    }
+        /*
+         * Building the message.
+         */
+        String message = "ALLOW_SHUTDOWN";
 
-    private void verify()
-    {
-        EasyMock.verify(socketManager);
-    }
+        /*
+         * Sending the message.
+         */
+        EasyMock.expect(getSocketManager().sendAndWait(message)).andReturn(response);
 
+        /*
+         * Replay.
+         */
+        EasyMock.replay(getSocketManager());
+    }
 }

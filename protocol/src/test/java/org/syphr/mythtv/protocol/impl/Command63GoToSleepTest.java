@@ -20,21 +20,11 @@ import java.io.IOException;
 import junit.framework.Assert;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
 import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
 
-public class Command63GoToSleepTest
+public class Command63GoToSleepTest extends AbstractProtocolTest
 {
-    private SocketManager socketManager;
-
-    @Before
-    public void setUp()
-    {
-        socketManager = EasyMock.createMock(SocketManager.class);
-    }
-
     @Test
     public void testSendSuccess() throws IOException, CommandException
     {
@@ -73,7 +63,7 @@ public class Command63GoToSleepTest
         Command63GoToSleep command = getCommand();
         try
         {
-            command.send(socketManager);
+            command.send(getSocketManager());
         }
         finally
         {
@@ -96,16 +86,11 @@ public class Command63GoToSleepTest
         /*
          * Sending the message.
          */
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(response);
 
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager);
-    }
-
-    private void verify()
-    {
-        EasyMock.verify(socketManager);
+        EasyMock.replay(getSocketManager());
     }
 }

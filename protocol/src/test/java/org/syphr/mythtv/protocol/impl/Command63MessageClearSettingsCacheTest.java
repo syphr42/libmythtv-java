@@ -18,20 +18,18 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
 import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
 
-public class Command63MessageClearSettingsCacheTest
+public class Command63MessageClearSettingsCacheTest extends AbstractProtocolTest
 {
-    private SocketManager socketManager;
     private Parser parser;
 
-    @Before
+    @Override
     public void setUp()
     {
-        socketManager = EasyMock.createMock(SocketManager.class);
+        super.setUp();
+
         parser = EasyMock.createMock(Parser.class);
     }
 
@@ -54,7 +52,7 @@ public class Command63MessageClearSettingsCacheTest
         Command63MessageClearSettingsCache command = getCommand();
         try
         {
-            command.send(socketManager);
+            command.send(getSocketManager());
         }
         finally
         {
@@ -78,16 +76,19 @@ public class Command63MessageClearSettingsCacheTest
         /*
          * Sending the message.
          */
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(response);
 
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager, parser);
+        EasyMock.replay(getSocketManager(), parser);
     }
 
-    private void verify()
+    @Override
+    protected void verify()
     {
-        EasyMock.verify(socketManager, parser);
+        super.verify();
+
+        EasyMock.verify(parser);
     }
 }

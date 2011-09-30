@@ -20,21 +20,11 @@ import java.io.IOException;
 import junit.framework.Assert;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
-import org.syphr.mythtv.util.socket.SocketManager;
 
-public class Command63FreeTunerTest
+public class Command63FreeTunerTest extends AbstractProtocolTest
 {
     private static final int RECORDER_ID = 1;
-
-    private SocketManager socketManager;
-
-    @Before
-    public void setUp()
-    {
-        socketManager = EasyMock.createMock(SocketManager.class);
-    }
 
     @Test
     public void testSendSuccess() throws IOException
@@ -61,7 +51,7 @@ public class Command63FreeTunerTest
         Command63FreeTuner command = getCommand();
         try
         {
-            return command.send(socketManager);
+            return command.send(getSocketManager());
         }
         finally
         {
@@ -84,16 +74,11 @@ public class Command63FreeTunerTest
         /*
          * Sending the message.
          */
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(response);
 
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager);
-    }
-
-    private void verify()
-    {
-        EasyMock.verify(socketManager);
+        EasyMock.replay(getSocketManager());
     }
 }

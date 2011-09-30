@@ -25,19 +25,16 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
 
-public class Command63DownloadFileTest
+public class Command63DownloadFileTest extends AbstractProtocolTest
 {
     private static URL TARGET;
     private static final String STORAGE_GROUP = "storageGroup";
     private static final URI FILE_PATH = URI.create("uri");
 
-    private SocketManager socketManager;
     private Parser parser;
 
     @BeforeClass
@@ -46,10 +43,11 @@ public class Command63DownloadFileTest
         TARGET = new URL("http://example.org");
     }
 
-    @Before
+    @Override
     public void setUp()
     {
-        socketManager = EasyMock.createMock(SocketManager.class);
+        super.setUp();
+
         parser = EasyMock.createMock(Parser.class);
     }
 
@@ -133,7 +131,7 @@ public class Command63DownloadFileTest
         Command63DownloadFile command = getCommand(now);
         try
         {
-            return command.send(socketManager);
+            return command.send(getSocketManager());
         }
         finally
         {
@@ -160,7 +158,7 @@ public class Command63DownloadFileTest
         /*
          * Sending the message.
          */
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(combinedResponse);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(combinedResponse);
 
         /*
          * Parsing the response.
@@ -171,11 +169,14 @@ public class Command63DownloadFileTest
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager, parser);
+        EasyMock.replay(getSocketManager(), parser);
     }
 
-    private void verify()
+    @Override
+    protected void verify()
     {
-        EasyMock.verify(socketManager, parser);
+        super.verify();
+
+        EasyMock.verify(parser);
     }
 }

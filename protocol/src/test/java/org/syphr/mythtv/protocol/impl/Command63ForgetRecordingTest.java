@@ -22,23 +22,21 @@ import java.util.Date;
 import java.util.List;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
-import org.syphr.mythtv.util.socket.SocketManager;
 
-public class Command63ForgetRecordingTest
+public class Command63ForgetRecordingTest extends AbstractProtocolTest
 {
     private static final Program PROGRAM = new Program(new Channel(1), new Date());
 
-    private SocketManager socketManager;
     private Parser parser;
 
-    @Before
+    @Override
     public void setUp()
     {
-        socketManager = EasyMock.createMock(SocketManager.class);
+        super.setUp();
+
         parser = EasyMock.createMock(Parser.class);
     }
 
@@ -61,7 +59,7 @@ public class Command63ForgetRecordingTest
         Command63ForgetRecording command = getCommand();
         try
         {
-            command.send(socketManager);
+            command.send(getSocketManager());
         }
         finally
         {
@@ -92,16 +90,19 @@ public class Command63ForgetRecordingTest
         /*
          * Sending the message.
          */
-        EasyMock.expect(socketManager.sendAndWait(combined)).andReturn(response);
+        EasyMock.expect(getSocketManager().sendAndWait(combined)).andReturn(response);
 
         /*
          * Replay.
          */
-        EasyMock.replay(socketManager, parser);
+        EasyMock.replay(getSocketManager(), parser);
     }
 
-    private void verify()
+    @Override
+    protected void verify()
     {
-        EasyMock.verify(socketManager, parser);
+        super.verify();
+
+        EasyMock.verify(parser);
     }
 }
