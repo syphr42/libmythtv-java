@@ -23,13 +23,32 @@ import org.junit.Test;
 public class ProtocolUtilsTest
 {
     @Test
-    public void testCombineAndBreakNumbers()
+    public void testSplitAndCombineNoNegatives()
     {
-        long value = 1234567890098765432L;
+        test(0x0FFFFFFF0FFFFFFFL);
+    }
 
+    @Test
+    public void testSplitAndCombineHighNegative()
+    {
+        test(0xFFFFFFFF0FFFFFFFL);
+    }
+
+    @Test
+    public void testSplitAndCombineLowNegative()
+    {
+        test(0x0FFFFFFFFFFFFFFFL);
+    }
+
+    @Test
+    public void testSplitAndCombineBothNegatives()
+    {
+        test(0xFFFFFFFFFFFFFFFFL);
+    }
+
+    private void test(long value)
+    {
         Pair<String, String> split = ProtocolUtils.splitLong(value);
-        Assert.assertEquals(value,
-                            ProtocolUtils.combineInts(split.getLeft(),
-                                                      split.getRight()));
+        Assert.assertEquals(value, ProtocolUtils.combineInts(split.getLeft(), split.getRight()));
     }
 }
