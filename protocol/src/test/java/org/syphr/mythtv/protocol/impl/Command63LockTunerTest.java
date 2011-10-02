@@ -39,10 +39,23 @@ public class Command63LockTunerTest extends AbstractProtocolTest
     }
 
     @Test
-    public void testSendSuccess() throws IOException, CommandException
+    public void testSendSuccessTuner() throws IOException, CommandException
     {
         RecorderDevice expected = new RecorderDevice(1, "VIDEO", "AUDIO", "VBI");
         RecorderDevice actual = test(expected.getId(),
+                                     Arrays.asList(new String[] { String.valueOf(expected.getId()),
+                                                                 expected.getVideo(),
+                                                                 expected.getAudio(),
+                                                                 expected.getVbi() }));
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testSendSuccessNoTuner() throws IOException, CommandException
+    {
+        RecorderDevice expected = new RecorderDevice(1, "VIDEO", "AUDIO", "VBI");
+        RecorderDevice actual = test(0,
                                      Arrays.asList(new String[] { String.valueOf(expected.getId()),
                                                                  expected.getVideo(),
                                                                  expected.getAudio(),
