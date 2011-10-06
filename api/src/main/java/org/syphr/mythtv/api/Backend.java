@@ -41,6 +41,9 @@ public class Backend
 {
     private static Logger LOGGER = LoggerFactory.getLogger(Backend.class);
 
+    private static final int DEFAULT_PROTOCOL_PORT = 6543;
+    private static final int DEFAULT_HTTP_PORT = 6544;
+
     private final SocketManager socketManager;
     private final Protocol protocol;
 
@@ -64,27 +67,26 @@ public class Backend
     public void connect(String host,
                         int protocolPort,
                         int httpPort,
-                        int timeout,
+                        long timeout,
                         ConnectionType connectionType,
                         EventLevel eventLevel) throws IOException,
                                               CommandException,
                                               DatabaseException
     {
-        connMan = new ConnectionManager(host, httpPort);
+        connMan = new ConnectionManager(host, httpPort == 0 ? DEFAULT_HTTP_PORT : httpPort);
 
-        socketManager.connect(host, protocolPort, timeout);
+        socketManager.connect(host,
+                              protocolPort == 0 ? DEFAULT_PROTOCOL_PORT : protocolPort,
+                              timeout);
 
         try
         {
             protocol.mythProtoVersion();
-            protocol.ann(connectionType, InetAddress.getLocalHost()
-                                                    .getHostName(), eventLevel);
+            protocol.ann(connectionType, InetAddress.getLocalHost().getHostName(), eventLevel);
 
             try
             {
-                org.syphr.mythtv.http.backend.Database dbInfo = BackendFactory.getMyth(connMan)
-                                                                              .getConnectionInfo()
-                                                                              .getDatabase();
+                org.syphr.mythtv.http.backend.Database dbInfo = BackendFactory.getMyth(connMan).getConnectionInfo().getDatabase();
                 database.load(normalizeDbHost(host, dbInfo.getHost()),
                               dbInfo.getPort(),
                               dbInfo.getName(),
@@ -93,7 +95,8 @@ public class Backend
             }
             catch (ContentException e)
             {
-                LOGGER.warn("Failed to determine database info from the backend, trying local config file instead", e);
+                LOGGER.warn("Failed to determine database info from the backend, trying local config file instead",
+                            e);
 
                 /*
                  * If this happens, we were unable to connect to the backend via
@@ -122,7 +125,8 @@ public class Backend
 
     private String normalizeDbHost(String backendHost, String remoteDiscoveredDbHost)
     {
-        if ("127.0.0.1".equals(remoteDiscoveredDbHost) || "localhost".equals(remoteDiscoveredDbHost))
+        if ("127.0.0.1".equals(remoteDiscoveredDbHost)
+                || "localhost".equals(remoteDiscoveredDbHost))
         {
             return backendHost;
         }
