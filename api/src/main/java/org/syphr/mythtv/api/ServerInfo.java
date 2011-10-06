@@ -16,8 +16,11 @@
 package org.syphr.mythtv.api;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
 import org.syphr.mythtv.data.TimeInfo;
@@ -30,14 +33,16 @@ public class ServerInfo
     private final MemStats memory;
     private final TimeInfo time;
     private final long uptime;
+    private final List<DriveInfo> drives;
 
     public ServerInfo(Protocol protocol) throws IOException
     {
-        this.hostname = protocol.queryHostname();
-        this.load = protocol.queryLoad();
-        this.memory = protocol.queryMemStats();
-        this.time = protocol.queryTimeZone();
-        this.uptime = protocol.queryUptime();
+        hostname = protocol.queryHostname();
+        load = protocol.queryLoad();
+        memory = protocol.queryMemStats();
+        time = protocol.queryTimeZone();
+        uptime = protocol.queryUptime();
+        drives = protocol.queryFreeSpace();
     }
 
     public String getHostname()
@@ -65,6 +70,11 @@ public class ServerInfo
         return unit.convert(uptime, TimeUnit.SECONDS);
     }
 
+    public List<DriveInfo> getDrives()
+    {
+        return Collections.unmodifiableList(drives);
+    }
+
     @Override
     public String toString()
     {
@@ -79,6 +89,8 @@ public class ServerInfo
         builder.append(time);
         builder.append(", uptime=");
         builder.append(uptime);
+        builder.append(", drives=");
+        builder.append(drives);
         builder.append("]");
         return builder.toString();
     }
