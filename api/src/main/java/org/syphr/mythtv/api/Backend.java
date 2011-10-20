@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.db.DatabaseException;
 import org.syphr.mythtv.db.SchemaVersion;
 import org.syphr.mythtv.http.backend.BackendFactory;
@@ -199,5 +200,12 @@ public class Backend
         }
 
         return recorders;
+    }
+
+    public UpcomingRecordings getUpcomingRecordings() throws IOException
+    {
+        verifyConnected();
+
+        return protocol.queryGetAllPending();
     }
 }
