@@ -39,6 +39,7 @@ public enum SystemEvent
     NET_CTRL_DISCONNECTED,
     MYTHFILLDATABASE_RAN,
     SETTINGS_CACHE_CLEARED,
+    SCREEN_TYPE,
     USER_1,
     USER_2,
     USER_3,

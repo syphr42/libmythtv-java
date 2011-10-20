@@ -18,8 +18,11 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.net.URI;
 
+import org.syphr.mythtv.protocol.events.EventProtocol;
+import org.syphr.mythtv.protocol.events.impl.EventProtocol69;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class Protocol69 extends Protocol68
 {
@@ -63,5 +66,11 @@ public class Protocol69 extends Protocol68
                                           filename,
                                           storageGroup,
                                           host).send(getSocketManager());
+    }
+
+    @Override
+    protected EventProtocol createEventProtocol(Translator translator, Parser parser)
+    {
+        return new EventProtocol69(translator, parser);
     }
 }
