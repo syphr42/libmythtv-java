@@ -41,7 +41,7 @@ import org.gstreamer.media.event.StopEvent;
 import org.gstreamer.swing.VideoComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.syphr.mythtv.api.RecordingByteChannel;
+import org.syphr.mythtv.api.backend.RecordingByteChannel;
 
 public class PlayerPanel extends JPanel
 {

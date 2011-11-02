@@ -16,15 +16,13 @@
 package org.syphr.mythtv.api;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
-import junit.framework.Assert;
-
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.syphr.mythtv.api.backend.Backend;
 import org.syphr.mythtv.db.DatabaseException;
 import org.syphr.mythtv.protocol.ConnectionType;
-import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.prom.PropertiesManager;
@@ -38,25 +36,17 @@ public class BackendIT
     {
         PropertiesManager<Settings> settings = Settings.createSettings();
 
-        backend = new Backend(settings.getEnumProperty(Settings.MYTH_VERSION,
-                                                       MythVersion.class));
-        backend.connect(settings.getProperty(Settings.BACKEND_HOST),
-                        settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_PORT),
-                        settings.getIntegerProperty(Settings.BACKEND_HTTP_PORT),
-                        settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_TIMEOUT),
-                        ConnectionType.MONITOR,
-                        EventLevel.NONE);
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass()
-    {
-        backend.disconnect();
+        backend = new Backend(settings.getEnumProperty(Settings.MYTH_VERSION, MythVersion.class));
+        backend.setBackendConnectionParameters(InetAddress.getLocalHost().getHostName(),
+                                               settings.getProperty(Settings.BACKEND_HOST),
+                                               settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_PORT),
+                                               ConnectionType.MONITOR,
+                                               settings.getIntegerProperty(Settings.BACKEND_HTTP_PORT));
     }
 
     @Test
-    public void testIsConnected()
+    public void testInfo() throws IOException
     {
-        Assert.assertTrue(backend.isConnected());
+        System.out.println(backend.getInfo());
     }
 }
