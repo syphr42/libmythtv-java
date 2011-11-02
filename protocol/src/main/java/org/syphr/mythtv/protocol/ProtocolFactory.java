@@ -26,21 +26,35 @@ import org.syphr.mythtv.util.socket.SocketManager;
 
 /**
  * This class acts as a bridge to the various protocol implementations.
- *
+ * 
  * @author Gregory P. Moyer
  */
 public class ProtocolFactory
 {
     /**
-     * Create a new protocol instance. This instance cannot be used until the associated
-     * socket manager is connected.
-     *
+     * Create a new protocol instance. This instance cannot be used until the
+     * associated socket manager is connected.
+     * 
      * @param version
-     *            the desired protocol version (this must match the backend to which the
-     *            socket manager is connecting)
+     *            the desired protocol version (this must match the backend to
+     *            which the socket manager is connecting)
+     * @return a new protocol instance
+     */
+    public static Protocol createInstance(ProtocolVersion version)
+    {
+        return createInstance(version, new ProtocolSocketManager());
+    }
+
+    /**
+     * Create a new protocol instance. This instance cannot be used until the
+     * associated socket manager is connected.
+     * 
+     * @param version
+     *            the desired protocol version (this must match the backend to
+     *            which the socket manager is connecting)
      * @param socketManager
-     *            the socket manager that will control communication between the client
-     *            and the backend
+     *            the socket manager that will control communication between the
+     *            client and the backend
      * @return a new protocol instance
      */
     public static Protocol createInstance(ProtocolVersion version, SocketManager socketManager)
@@ -69,8 +83,7 @@ public class ProtocolFactory
                 return new Protocol69(socketManager);
 
             default:
-                throw new IllegalArgumentException("Unknown protocol version: "
-                                                   + version);
+                throw new IllegalArgumentException("Unknown protocol version: " + version);
         }
     }
 }

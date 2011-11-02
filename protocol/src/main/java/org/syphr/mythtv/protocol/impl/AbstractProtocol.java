@@ -87,6 +87,18 @@ public abstract class AbstractProtocol implements Protocol
     }
 
     @Override
+    public void connect(String host, int port, long timeout) throws IOException
+    {
+        getSocketManager().connect(host, port, timeout);
+    }
+
+    @Override
+    public boolean isConnected()
+    {
+        return getSocketManager().isConnected();
+    }
+
+    @Override
     public void addBackendEventListener(BackendEventListener l)
     {
         listeners.add(l);
