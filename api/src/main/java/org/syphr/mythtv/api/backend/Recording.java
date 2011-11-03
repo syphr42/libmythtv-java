@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.data.PixMap;
 import org.syphr.mythtv.data.Program;
@@ -42,6 +43,15 @@ public class Recording
     public Program getProgram()
     {
         return program;
+    }
+
+    public RecordingByteChannel getByteChannel(boolean readAhead, long timeout, TimeUnit unit) throws IOException,
+                                                                                              CommandException
+    {
+        return new RecordingByteChannel(protocol,
+                                        program,
+                                        readAhead,
+                                        TimeUnit.MILLISECONDS.convert(timeout, unit));
     }
 
     public boolean isCurrentlyRecording() throws IOException
