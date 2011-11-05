@@ -57,6 +57,8 @@ public class Backend
 
     private Protocol eventMonitor;
 
+    private String host;
+
     public Backend(MythVersion version)
     {
         this(version.getProtocol(), version.getSchema());
@@ -94,6 +96,8 @@ public class Backend
                                                ConnectionType connectionType,
                                                int httpPort)
     {
+        this.host = backendHost;
+
         protocol.setConnectionParameters(localHost, backendHost, protocolPort == 0
                 ? DEFAULT_PROTOCOL_PORT
                 : protocolPort, connectionType);
@@ -171,6 +175,11 @@ public class Backend
         }
 
         eventMonitor.removeBackendEventListener(l);
+    }
+
+    public String getHost()
+    {
+        return host;
     }
 
     // TODO users of this are broken for now - need to detect backend's db and load
