@@ -151,4 +151,11 @@ public interface QueryFileTransfer
      * @return the file size
      */
     public long getSize();
+
+    /**
+     * Retrieve the transfer type for this instance.
+     * 
+     * @return the current transfer type
+     */
+    public FileTransferType getTransferType();
 }

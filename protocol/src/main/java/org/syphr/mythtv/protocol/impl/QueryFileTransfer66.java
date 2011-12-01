@@ -17,6 +17,7 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.SeekOrigin;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
@@ -28,10 +29,11 @@ public class QueryFileTransfer66 extends QueryFileTransfer63
                                Parser parser,
                                int socketNumber,
                                long size,
+                               FileTransferType transferType,
                                SocketManager socketManager,
                                UnsupportedHandler unsupported)
     {
-        super(translator, parser, socketNumber, size, socketManager, unsupported);
+        super(translator, parser, socketNumber, size, transferType, socketManager, unsupported);
     }
 
     @Override

@@ -16,6 +16,7 @@
 package org.syphr.mythtv.protocol.impl;
 
 import org.syphr.mythtv.protocol.QueryFileTransfer;
+import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
@@ -26,6 +27,7 @@ public abstract class AbstractQueryFileTransfer implements QueryFileTransfer
     private final Parser parser;
     private final int socketNumber;
     private final long size;
+    private final FileTransferType transferType;
     private final SocketManager socketManager;
 
     private final UnsupportedHandler unsupported;
@@ -34,6 +36,7 @@ public abstract class AbstractQueryFileTransfer implements QueryFileTransfer
                                      Parser parser,
                                      int socketNumber,
                                      long size,
+                                     FileTransferType transferType,
                                      SocketManager socketManager,
                                      UnsupportedHandler unsupported)
     {
@@ -41,6 +44,7 @@ public abstract class AbstractQueryFileTransfer implements QueryFileTransfer
         this.parser = parser;
         this.socketNumber = socketNumber;
         this.size = size;
+        this.transferType = transferType;
         this.socketManager = socketManager;
 
         this.unsupported = unsupported;
@@ -65,6 +69,12 @@ public abstract class AbstractQueryFileTransfer implements QueryFileTransfer
     public long getSize()
     {
         return size;
+    }
+
+    @Override
+    public FileTransferType getTransferType()
+    {
+        return transferType;
     }
 
     protected SocketManager getSocketManager()

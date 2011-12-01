@@ -87,6 +87,7 @@ import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
                                        getParser(),
                                        socketNumber,
                                        size,
+                                       getType(),
                                        getCommandSocketManager(),
                                        getUnsupported());
     }

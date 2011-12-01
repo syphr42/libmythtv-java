@@ -176,6 +176,7 @@ public class QueryFileTransferIT
         }
 
         Assert.assertTrue(fileTransfer.isOpen());
+        Assert.assertEquals(FileTransferType.READ, fileTransfer.getTransferType());
         Assert.assertFalse("re-open should not be allowed for read-mode file transfers",
                            fileTransfer.reOpen(null));
 
@@ -220,6 +221,8 @@ public class QueryFileTransferIT
                                                                    dest,
                                                                    TEST_STORAGE_GROUP,
                                                                    commandProto);
+
+        Assert.assertEquals(FileTransferType.WRITE, fileTransfer.getTransferType());
 
         Utils.writeFromFile(settings, fileProto, EXPECTED_FILE, fileTransfer);
 
