@@ -54,6 +54,11 @@ public abstract class AbstractProtocol implements Protocol
         this.unsupported = unsupported;
     }
 
+    protected UnsupportedHandler getUnsupportedHandler()
+    {
+        return unsupported;
+    }
+
     protected void handleUnsupported(String opDescription)
     {
         unsupported.handle(opDescription);

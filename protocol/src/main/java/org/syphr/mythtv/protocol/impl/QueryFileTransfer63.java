@@ -20,6 +20,7 @@ import java.io.IOException;
 import org.syphr.mythtv.types.SeekOrigin;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 public class QueryFileTransfer63 extends AbstractQueryFileTransfer
 {
@@ -27,25 +28,22 @@ public class QueryFileTransfer63 extends AbstractQueryFileTransfer
                                Parser parser,
                                int socketNumber,
                                long size,
-                               SocketManager socketManager)
+                               SocketManager socketManager,
+                               UnsupportedHandler unsupported)
     {
-        super(translator, parser, socketNumber, size, socketManager);
+        super(translator, parser, socketNumber, size, socketManager, unsupported);
     }
 
     @Override
     public boolean isOpen() throws IOException
     {
-        return new Command63QueryFileTransferIsOpen(getTranslator(),
-                                                    getParser(),
-                                                    getSocketNumber()).send(getSocketManager());
+        return new Command63QueryFileTransferIsOpen(getTranslator(), getParser(), getSocketNumber()).send(getSocketManager());
     }
 
     @Override
     public void done() throws IOException
     {
-        new Command63QueryFileTransferDone(getTranslator(),
-                                           getParser(),
-                                           getSocketNumber()).send(getSocketManager());
+        new Command63QueryFileTransferDone(getTranslator(), getParser(), getSocketNumber()).send(getSocketManager());
     }
 
     @Override
@@ -84,5 +82,12 @@ public class QueryFileTransfer63 extends AbstractQueryFileTransfer
                                                  getParser(),
                                                  getSocketNumber(),
                                                  fast).send(getSocketManager());
+    }
+
+    @Override
+    public boolean reOpen(String filename) throws IOException
+    {
+        handleUnsupported("re-open");
+        return false;
     }
 }

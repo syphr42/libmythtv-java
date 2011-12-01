@@ -15,21 +15,17 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.types.FileTransferType;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
-/* default */class Command66AnnFileTransfer extends Command63AnnFileTransfer
+/* default */class Command70AnnFileTransfer extends Command66AnnFileTransfer
 {
-    public Command66AnnFileTransfer(Translator translator,
+    public Command70AnnFileTransfer(Translator translator,
                                     Parser parser,
                                     String host,
                                     FileTransferType type,
@@ -53,37 +49,9 @@ import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
     }
 
     @Override
-    public QueryFileTransfer send(SocketManager socketManager) throws IOException
-    {
-        String response = socketManager.sendAndWait(getMessage());
-        List<String> args = getParser().splitArguments(response);
-        if (args.size() != 3)
-        {
-            throw new ProtocolException(response, Direction.RECEIVE);
-        }
-
-        try
-        {
-            if (!"OK".equals(args.get(0)))
-            {
-                throw new ProtocolException(response, Direction.RECEIVE);
-            }
-
-            int socketNumber = Integer.parseInt(args.get(1));
-            long size = Long.parseLong(args.get(2));
-
-            return createQueryFileTransfer(socketNumber, size);
-        }
-        catch (NumberFormatException e)
-        {
-            throw new ProtocolException(response, Direction.RECEIVE, e);
-        }
-    }
-
-    @Override
     protected QueryFileTransfer createQueryFileTransfer(int socketNumber, long size)
     {
-        return new QueryFileTransfer66(getTranslator(),
+        return new QueryFileTransfer70(getTranslator(),
                                        getParser(),
                                        socketNumber,
                                        size,

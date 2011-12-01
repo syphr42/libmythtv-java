@@ -27,6 +27,8 @@ import org.junit.Test;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandlerLog;
 
 public class Command63AnnFileTransferTest extends AbstractProtocolTest
 {
@@ -34,6 +36,8 @@ public class Command63AnnFileTransferTest extends AbstractProtocolTest
     private static final FileTransferType TRANSFER_TYPE = FileTransferType.values()[0];
     private static final URI FILE_PATH = URI.create("uri");
     private static final String STORAGE_GROUP = "storageGroup";
+
+    private static final UnsupportedHandler UNSUPPORTED_HANDLER = new UnsupportedHandlerLog();
 
     private Translator translator;
     private Parser parser;
@@ -185,7 +189,8 @@ public class Command63AnnFileTransferTest extends AbstractProtocolTest
                                             timeout,
                                             FILE_PATH,
                                             STORAGE_GROUP,
-                                            getSocketManager());
+                                            getSocketManager(),
+                                            UNSUPPORTED_HANDLER);
     }
 
     private void setupMocks(boolean readAhead, long timeout, List<String> response) throws IOException

@@ -18,6 +18,7 @@ package org.syphr.mythtv.protocol.impl;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 public abstract class AbstractQueryFileTransfer implements QueryFileTransfer
 {
@@ -27,17 +28,22 @@ public abstract class AbstractQueryFileTransfer implements QueryFileTransfer
     private final long size;
     private final SocketManager socketManager;
 
+    private final UnsupportedHandler unsupported;
+
     public AbstractQueryFileTransfer(Translator translator,
                                      Parser parser,
                                      int socketNumber,
                                      long size,
-                                     SocketManager socketManager)
+                                     SocketManager socketManager,
+                                     UnsupportedHandler unsupported)
     {
         this.translator = translator;
         this.parser = parser;
         this.socketNumber = socketNumber;
         this.size = size;
         this.socketManager = socketManager;
+
+        this.unsupported = unsupported;
     }
 
     protected Translator getTranslator()
@@ -64,5 +70,10 @@ public abstract class AbstractQueryFileTransfer implements QueryFileTransfer
     protected SocketManager getSocketManager()
     {
         return socketManager;
+    }
+
+    protected void handleUnsupported(String opDescription)
+    {
+        unsupported.handle(opDescription);
     }
 }

@@ -75,34 +75,26 @@ public class Protocol66 extends Protocol65
                                             timeout,
                                             uri,
                                             storageGroup,
-                                            commandProtocol.getSocketManager()).send(getSocketManager());
+                                            commandProtocol.getSocketManager(),
+                                            getUnsupportedHandler()).send(getSocketManager());
     }
 
     @Override
     public long queryBookmark(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command66QueryBookmark(getTranslator(),
-                                          getParser(),
-                                          channel,
-                                          recStartTs).send(getSocketManager());
+        return new Command66QueryBookmark(getTranslator(), getParser(), channel, recStartTs).send(getSocketManager());
     }
 
     @Override
     public List<VideoEditInfo> queryCommBreak(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command66QueryCommBreak(getTranslator(),
-                                           getParser(),
-                                           channel,
-                                           recStartTs).send(getSocketManager());
+        return new Command66QueryCommBreak(getTranslator(), getParser(), channel, recStartTs).send(getSocketManager());
     }
 
     @Override
     public List<VideoEditInfo> queryCutList(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command66QueryCutList(getTranslator(),
-                                         getParser(),
-                                         channel,
-                                         recStartTs).send(getSocketManager());
+        return new Command66QueryCutList(getTranslator(), getParser(), channel, recStartTs).send(getSocketManager());
     }
 
     @Override
@@ -120,10 +112,7 @@ public class Protocol66 extends Protocol65
     @Override
     public QueryRecorder queryRecorder(int recorderId)
     {
-        return new QueryRecorder66(getTranslator(),
-                                   getParser(),
-                                   recorderId,
-                                   getSocketManager());
+        return new QueryRecorder66(getTranslator(), getParser(), recorderId, getSocketManager());
     }
 
     @Override
@@ -139,11 +128,7 @@ public class Protocol66 extends Protocol65
     public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException,
                                                                                CommandException
     {
-        return new Command66SetBookmark(getTranslator(),
-                                        getParser(),
-                                        channel,
-                                        recStartTs,
-                                        location).send(getSocketManager());
+        return new Command66SetBookmark(getTranslator(), getParser(), channel, recStartTs, location).send(getSocketManager());
     }
 
     @Override

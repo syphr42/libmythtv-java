@@ -17,14 +17,13 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.types.SeekOrigin;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
-public class QueryFileTransfer66 extends QueryFileTransfer63
+public class QueryFileTransfer70 extends QueryFileTransfer66
 {
-    public QueryFileTransfer66(Translator translator,
+    public QueryFileTransfer70(Translator translator,
                                Parser parser,
                                int socketNumber,
                                long size,
@@ -35,13 +34,11 @@ public class QueryFileTransfer66 extends QueryFileTransfer63
     }
 
     @Override
-    public long seek(long position, SeekOrigin origin, long curPosition) throws IOException
+    public boolean reOpen(String filename) throws IOException
     {
-        return new Command66QueryFileTransferSeek(getTranslator(),
-                                                  getParser(),
-                                                  getSocketNumber(),
-                                                  position,
-                                                  origin,
-                                                  curPosition).send(getSocketManager());
+        return new Command70QueryFileTransferReOpen(getTranslator(),
+                                                    getParser(),
+                                                    getSocketNumber(),
+                                                    filename).send(getSocketManager());
     }
 }

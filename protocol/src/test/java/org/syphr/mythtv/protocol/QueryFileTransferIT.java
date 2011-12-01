@@ -72,7 +72,7 @@ public class QueryFileTransferIT
         if (!LOCAL_TEMP.exists() && !LOCAL_TEMP.mkdirs())
         {
             throw new IOException("Cannot create parent directory at: "
-                                  + LOCAL_TEMP.getAbsolutePath());
+                    + LOCAL_TEMP.getAbsolutePath());
         }
 
         /*
@@ -85,9 +85,7 @@ public class QueryFileTransferIT
         settings = Settings.createSettings();
 
         commandSocketManager = Utils.connect(settings);
-        commandProto = Utils.announceMonitor(settings,
-                                             commandSocketManager,
-                                             EventLevel.NONE);
+        commandProto = Utils.announceMonitor(settings, commandSocketManager, EventLevel.NONE);
     }
 
     @AfterClass
@@ -100,21 +98,21 @@ public class QueryFileTransferIT
     }
 
     @Test
-    public void testDownloadReadDeleteFile() throws IOException, URISyntaxException, CommandException
+    public void testDownloadReadDeleteFile() throws IOException,
+                                            URISyntaxException,
+                                            CommandException
     {
         URI dest = new URI(TEST_URI);
 
         URI result = commandProto.downloadFileNow(new URL(TEST_URL), TEST_STORAGE_GROUP, dest);
         Assert.assertNotNull(result);
-        Assert.assertEquals(dest.getPath().replace("/", ""),
-                            result.getPath().replace("/", ""));
+        Assert.assertEquals(dest.getPath().replace("/", ""), result.getPath().replace("/", ""));
         Assert.assertEquals(TEST_STORAGE_GROUP, result.getUserInfo());
 
         Protocol fileProto = commandProto.newProtocol();
         fileProto.mythProtoVersion();
 
-        QueryFileTransfer fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
-                                                                              .getHostName(),
+        QueryFileTransfer fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost().getHostName(),
                                                                    FileTransferType.READ,
                                                                    false,
                                                                    0L,
@@ -151,8 +149,7 @@ public class QueryFileTransferIT
             fileProto = commandProto.newProtocol();
             fileProto.mythProtoVersion();
 
-            fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
-                                                                .getHostName(),
+            fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost().getHostName(),
                                                      FileTransferType.READ,
                                                      false,
                                                      0L,
@@ -179,6 +176,8 @@ public class QueryFileTransferIT
         }
 
         Assert.assertTrue(fileTransfer.isOpen());
+        Assert.assertFalse("re-open should not be allowed for read-mode file transfers",
+                           fileTransfer.reOpen(null));
 
         fileTransfer.setTimeout(false);
         fileTransfer.setTimeout(true);
@@ -190,29 +189,17 @@ public class QueryFileTransferIT
 
         if (chunk >= totalSize)
         {
-            Assert.fail("Unable to test read/seek - file too small ("
-                        + totalSize
-                        + "B)");
+            Assert.fail("Unable to test read/seek - file too small (" + totalSize + "B)");
         }
 
         File tempFile = new File(LOCAL_TEMP, targetProgram.getBasename().toString());
 
-        Utils.readToFile(settings,
-                         fileProto,
-                         tempFile,
-                         fileTransfer,
-                         chunk,
-                         false);
+        Utils.readToFile(settings, fileProto, tempFile, fileTransfer, chunk, false);
 
         long newPosition = fileTransfer.seek(seekPosition, SeekOrigin.BEGINNING, chunk);
         Assert.assertEquals(seekPosition, newPosition);
 
-        Utils.readToFile(settings,
-                         fileProto,
-                         tempFile,
-                         fileTransfer,
-                         chunk,
-                         true);
+        Utils.readToFile(settings, fileProto, tempFile, fileTransfer, chunk, true);
 
         fileTransfer.done();
         fileProto.done();
@@ -226,8 +213,7 @@ public class QueryFileTransferIT
         Protocol fileProto = commandProto.newProtocol();
         fileProto.mythProtoVersion();
 
-        QueryFileTransfer fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost()
-                                                                              .getHostName(),
+        QueryFileTransfer fileTransfer = fileProto.annFileTransfer(InetAddress.getLocalHost().getHostName(),
                                                                    FileTransferType.WRITE,
                                                                    false,
                                                                    0L,
@@ -236,6 +222,9 @@ public class QueryFileTransferIT
                                                                    commandProto);
 
         Utils.writeFromFile(settings, fileProto, EXPECTED_FILE, fileTransfer);
+
+        // TODO - re-open causes the file size to become 0, not sure if this is a myth bug or expected behavior
+        //        Assert.assertTrue(fileTransfer.reOpen(null));
 
         fileTransfer.done();
         fileProto.done();

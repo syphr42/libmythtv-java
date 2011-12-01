@@ -84,7 +84,8 @@ public class Protocol63 extends AbstractProtocol
     {
         return new Interceptor()
         {
-            private final EventProtocol eventProto = createEventProtocol(getTranslator(), getParser());
+            private final EventProtocol eventProto = createEventProtocol(getTranslator(),
+                                                                         getParser());
             private final Logger logger = LoggerFactory.getLogger(getClass());
 
             @Override
@@ -122,20 +123,13 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public void ann(ConnectionType connectionType, String host, EventLevel level) throws IOException
     {
-        new Command63Ann(getTranslator(),
-                         getParser(),
-                         connectionType,
-                         host,
-                         level).send(getSocketManager());
+        new Command63Ann(getTranslator(), getParser(), connectionType, host, level).send(getSocketManager());
     }
 
     @Override
     public void annSlaveBackend(InetAddress address, Program... recordings) throws IOException
     {
-        new Command63AnnSlaveBackend(getTranslator(),
-                                     getParser(),
-                                     address,
-                                     recordings).send(getSocketManager());
+        new Command63AnnSlaveBackend(getTranslator(), getParser(), address, recordings).send(getSocketManager());
 
     }
 
@@ -156,7 +150,8 @@ public class Protocol63 extends AbstractProtocol
                                             timeout,
                                             uri,
                                             storageGroup,
-                                            commandProtocol.getSocketManager()).send(getSocketManager());
+                                            commandProtocol.getSocketManager(),
+                                            getUnsupportedHandler()).send(getSocketManager());
     }
 
     @Override
@@ -198,26 +193,18 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public int checkRecording(Program program) throws IOException
     {
-        return new Command63CheckRecording(getTranslator(),
-                                           getParser(),
-                                           program).send(getSocketManager());
+        return new Command63CheckRecording(getTranslator(), getParser(), program).send(getSocketManager());
     }
 
     @Override
     public boolean deleteFile(URI filename, String storageGroup) throws IOException
     {
-        return new Command63DeleteFile(getTranslator(),
-                                       getParser(),
-                                       filename,
-                                       storageGroup).send(getSocketManager());
+        return new Command63DeleteFile(getTranslator(), getParser(), filename, storageGroup).send(getSocketManager());
     }
 
     @Override
-    public void deleteRecording(Channel channel,
-                                Date recStartTs,
-                                boolean force,
-                                boolean forget) throws IOException,
-                                               CommandException
+    public void deleteRecording(Channel channel, Date recStartTs, boolean force, boolean forget) throws IOException,
+                                                                                                CommandException
     {
         new Command63DeleteRecording(getTranslator(),
                                      getParser(),
@@ -254,10 +241,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public Program fillProgramInfo(String host, Program program) throws IOException
     {
-        return new Command63FillProgramInfo(getTranslator(),
-                                            getParser(),
-                                            host,
-                                            program).send(getSocketManager());
+        return new Command63FillProgramInfo(getTranslator(), getParser(), host, program).send(getSocketManager());
     }
 
     @Override
@@ -293,26 +277,19 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public RecorderLocation getNextFreeRecorder(RecorderLocation from) throws IOException
     {
-        return new Command63GetNextFreeRecorder(getTranslator(),
-                                                getParser(),
-                                                from).send(getSocketManager());
+        return new Command63GetNextFreeRecorder(getTranslator(), getParser(), from).send(getSocketManager());
     }
 
     @Override
-    public RecorderLocation getRecorderFromNum(int recorderId) throws IOException,
-                                                              CommandException
+    public RecorderLocation getRecorderFromNum(int recorderId) throws IOException, CommandException
     {
-        return new Command63GetRecorderFromNum(getTranslator(),
-                                               getParser(),
-                                               recorderId).send(getSocketManager());
+        return new Command63GetRecorderFromNum(getTranslator(), getParser(), recorderId).send(getSocketManager());
     }
 
     @Override
     public RecorderLocation getRecorderNum(Program program) throws IOException
     {
-        return new Command63GetRecorderNum(getTranslator(),
-                                           getParser(),
-                                           program).send(getSocketManager());
+        return new Command63GetRecorderNum(getTranslator(), getParser(), program).send(getSocketManager());
     }
 
     @Override
@@ -322,8 +299,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public RecorderDevice lockTuner(int recorderId) throws IOException,
-                                                   CommandException
+    public RecorderDevice lockTuner(int recorderId) throws IOException, CommandException
     {
         return new Command63LockTuner(getTranslator(), getParser(), recorderId).send(getSocketManager());
     }
@@ -341,8 +317,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void messageSetVerbose(List<Verbose> options) throws IOException,
-                                                        CommandException
+    public void messageSetVerbose(List<Verbose> options) throws IOException, CommandException
     {
         new Command63MessageSetVerbose(getTranslator(), getParser(), options).send(getSocketManager());
     }
@@ -350,56 +325,38 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public long queryBookmark(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command63QueryBookmark(getTranslator(),
-                                          getParser(),
-                                          channel,
-                                          recStartTs).send(getSocketManager());
+        return new Command63QueryBookmark(getTranslator(), getParser(), channel, recStartTs).send(getSocketManager());
     }
 
     @Override
     public URI queryCheckFile(boolean checkSlaves, Program program) throws IOException
     {
-        return new Command63QueryCheckFile(getTranslator(),
-                                           getParser(),
-                                           checkSlaves,
-                                           program).send(getSocketManager());
+        return new Command63QueryCheckFile(getTranslator(), getParser(), checkSlaves, program).send(getSocketManager());
     }
 
     @Override
     public List<VideoEditInfo> queryCommBreak(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command63QueryCommBreak(getTranslator(),
-                                           getParser(),
-                                           channel,
-                                           recStartTs).send(getSocketManager());
+        return new Command63QueryCommBreak(getTranslator(), getParser(), channel, recStartTs).send(getSocketManager());
     }
 
     @Override
     public List<VideoEditInfo> queryCutList(Channel channel, Date recStartTs) throws IOException
     {
-        return new Command63QueryCutList(getTranslator(),
-                                         getParser(),
-                                         channel,
-                                         recStartTs).send(getSocketManager());
+        return new Command63QueryCutList(getTranslator(), getParser(), channel, recStartTs).send(getSocketManager());
     }
 
     @Override
     public FileInfo queryFileExists(URI filename, String storageGroup) throws IOException
     {
-        return new Command63QueryFileExists(getTranslator(),
-                                            getParser(),
-                                            filename,
-                                            storageGroup).send(getSocketManager());
+        return new Command63QueryFileExists(getTranslator(), getParser(), filename, storageGroup).send(getSocketManager());
     }
 
     @Override
     public String queryFileHash(URI filename, String storageGroup) throws IOException,
                                                                   CommandException
     {
-        return new Command63QueryFileHash(getTranslator(),
-                                          getParser(),
-                                          filename,
-                                          storageGroup).send(getSocketManager());
+        return new Command63QueryFileHash(getTranslator(), getParser(), filename, storageGroup).send(getSocketManager());
     }
 
     @Override
@@ -415,8 +372,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void queryGenPixMap2(String id, Program program) throws IOException,
-                                                           CommandException
+    public void queryGenPixMap2(String id, Program program) throws IOException, CommandException
     {
         new Command63QueryGenPixMap2(getTranslator(), getParser(), id, program).send(getSocketManager());
     }
@@ -436,9 +392,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public List<Program> queryGetConflicting(Program program) throws IOException
     {
-        return new Command63QueryGetConflicting(getTranslator(),
-                                                getParser(),
-                                                program).send(getSocketManager());
+        return new Command63QueryGetConflicting(getTranslator(), getParser(), program).send(getSocketManager());
     }
 
     @Override
@@ -462,9 +416,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public boolean queryIsActiveBackend(String hostname) throws IOException
     {
-        return new Command63QueryIsActiveBackend(getTranslator(),
-                                                 getParser(),
-                                                 hostname).send(getSocketManager());
+        return new Command63QueryIsActiveBackend(getTranslator(), getParser(), hostname).send(getSocketManager());
     }
 
     @Override
@@ -486,10 +438,8 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public PixMap queryPixMapGetIfModified(Date timestamp,
-                                           int maxFileSize,
-                                           Program program) throws IOException,
-                                                           CommandException
+    public PixMap queryPixMapGetIfModified(Date timestamp, int maxFileSize, Program program) throws IOException,
+                                                                                            CommandException
     {
         return new Command63QueryPixMapGetIfModified(getTranslator(),
                                                      getParser(),
@@ -501,27 +451,19 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public Date queryPixMapLastModified(Program program) throws IOException
     {
-        return new Command63QueryPixMapLastModified(getTranslator(),
-                                                    getParser(),
-                                                    program).send(getSocketManager());
+        return new Command63QueryPixMapLastModified(getTranslator(), getParser(), program).send(getSocketManager());
     }
 
     @Override
     public QueryRecorder queryRecorder(int recorderId)
     {
-        return new QueryRecorder63(getTranslator(),
-                                   getParser(),
-                                   recorderId,
-                                   getSocketManager());
+        return new QueryRecorder63(getTranslator(), getParser(), recorderId, getSocketManager());
     }
 
     @Override
-    public Program queryRecordingBasename(String basename) throws IOException,
-                                                          CommandException
+    public Program queryRecordingBasename(String basename) throws IOException, CommandException
     {
-        return new Command63QueryRecordingBasename(getTranslator(),
-                                                   getParser(),
-                                                   basename).send(getSocketManager());
+        return new Command63QueryRecordingBasename(getTranslator(), getParser(), basename).send(getSocketManager());
     }
 
     @Override
@@ -537,9 +479,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public List<Program> queryRecordings(RecordingCategory recCategory) throws IOException
     {
-        return new Command63QueryRecordings(getTranslator(),
-                                            getParser(),
-                                            recCategory).send(getSocketManager());
+        return new Command63QueryRecordings(getTranslator(), getParser(), recCategory).send(getSocketManager());
     }
 
     @Override
@@ -554,30 +494,19 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public String querySetting(String host, String name) throws IOException
     {
-        return new Command63QuerySetting(getTranslator(),
-                                         getParser(),
-                                         host,
-                                         name).send(getSocketManager());
+        return new Command63QuerySetting(getTranslator(), getParser(), host, name).send(getSocketManager());
     }
 
     @Override
-    public FileInfo querySgFileQuery(String host,
-                                     String storageGroup,
-                                     String path) throws IOException,
-                                                 CommandException
+    public FileInfo querySgFileQuery(String host, String storageGroup, String path) throws IOException,
+                                                                                   CommandException
     {
-        return new Command63QuerySgFileQuery(getTranslator(),
-                                             getParser(),
-                                             host,
-                                             storageGroup,
-                                             path).send(getSocketManager());
+        return new Command63QuerySgFileQuery(getTranslator(), getParser(), host, storageGroup, path).send(getSocketManager());
     }
 
     @Override
-    public List<FileEntry> querySgGetFileList(String host,
-                                              String storageGroup,
-                                              String path) throws IOException,
-                                                          CommandException
+    public List<FileEntry> querySgGetFileList(String host, String storageGroup, String path) throws IOException,
+                                                                                            CommandException
     {
         return new Command63QuerySgGetFileList(getTranslator(),
                                                getParser(),
@@ -607,40 +536,27 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public void rescheduleRecordings(int recorderId) throws IOException
     {
-        new Command63RescheduleRecordings(getTranslator(),
-                                          getParser(),
-                                          recorderId).send(getSocketManager());
+        new Command63RescheduleRecordings(getTranslator(), getParser(), recorderId).send(getSocketManager());
     }
 
     @Override
     public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException,
                                                                                CommandException
     {
-        return new Command63SetBookmark(getTranslator(),
-                                        getParser(),
-                                        channel,
-                                        recStartTs,
-                                        location).send(getSocketManager());
+        return new Command63SetBookmark(getTranslator(), getParser(), channel, recStartTs, location).send(getSocketManager());
     }
 
     @Override
     public void setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException,
                                                                       CommandException
     {
-        new Command63SetChannelInfo(getTranslator(),
-                                    getParser(),
-                                    oldChannel,
-                                    newChannel).send(getSocketManager());
+        new Command63SetChannelInfo(getTranslator(), getParser(), oldChannel, newChannel).send(getSocketManager());
     }
 
     @Override
-    public void setNextLiveTvDir(int recorderId, String path) throws IOException,
-                                                             CommandException
+    public void setNextLiveTvDir(int recorderId, String path) throws IOException, CommandException
     {
-        new Command63SetNextLiveTvDir(getTranslator(),
-                                      getParser(),
-                                      recorderId,
-                                      path).send(getSocketManager());
+        new Command63SetNextLiveTvDir(getTranslator(), getParser(), recorderId, path).send(getSocketManager());
     }
 
     @Override
@@ -664,9 +580,7 @@ public class Protocol63 extends AbstractProtocol
     @Override
     public boolean undeleteRecording(Program program) throws IOException
     {
-        return new Command63UndeleteRecording(getTranslator(),
-                                              getParser(),
-                                              program).send(getSocketManager());
+        return new Command63UndeleteRecording(getTranslator(), getParser(), program).send(getSocketManager());
     }
 
     @Override

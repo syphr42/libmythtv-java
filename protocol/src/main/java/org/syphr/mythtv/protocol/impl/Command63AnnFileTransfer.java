@@ -25,6 +25,7 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 /* default */class Command63AnnFileTransfer extends AbstractProtocolCommand<QueryFileTransfer>
 {
@@ -35,6 +36,7 @@ import org.syphr.mythtv.util.translate.Translator;
     private final URI uri;
     private final String storageGroup;
     private final SocketManager commandSocketManager;
+    private final UnsupportedHandler unsupported;
 
     public Command63AnnFileTransfer(Translator translator,
                                     Parser parser,
@@ -44,7 +46,8 @@ import org.syphr.mythtv.util.translate.Translator;
                                     long timeout,
                                     URI uri,
                                     String storageGroup,
-                                    SocketManager commandSocketManager)
+                                    SocketManager commandSocketManager,
+                                    UnsupportedHandler unsupported)
     {
         super(translator, parser);
 
@@ -55,6 +58,7 @@ import org.syphr.mythtv.util.translate.Translator;
         this.uri = uri;
         this.storageGroup = storageGroup;
         this.commandSocketManager = commandSocketManager;
+        this.unsupported = unsupported;
     }
 
     protected String getHost()
@@ -90,6 +94,11 @@ import org.syphr.mythtv.util.translate.Translator;
     protected SocketManager getCommandSocketManager()
     {
         return commandSocketManager;
+    }
+
+    protected UnsupportedHandler getUnsupported()
+    {
+        return unsupported;
     }
 
     @Override
@@ -134,15 +143,21 @@ import org.syphr.mythtv.util.translate.Translator;
             int socketNumber = Integer.parseInt(args.get(1));
             long size = ProtocolUtils.combineInts(args.get(2), args.get(3));
 
-            return new QueryFileTransfer63(getTranslator(),
-                                           getParser(),
-                                           socketNumber,
-                                           size,
-                                           getCommandSocketManager());
+            return createQueryFileTransfer(socketNumber, size);
         }
         catch (NumberFormatException e)
         {
             throw new ProtocolException(response, Direction.RECEIVE, e);
         }
+    }
+
+    protected QueryFileTransfer createQueryFileTransfer(int socketNumber, long size)
+    {
+        return new QueryFileTransfer63(getTranslator(),
+                                       getParser(),
+                                       socketNumber,
+                                       size,
+                                       getCommandSocketManager(),
+                                       getUnsupported());
     }
 }

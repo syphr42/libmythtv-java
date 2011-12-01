@@ -17,6 +17,7 @@ package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.SeekOrigin;
 
 /**
@@ -24,19 +25,19 @@ import org.syphr.mythtv.types.SeekOrigin;
  * combined file transfer API of all MythTV protocols that are supported.
  * However, any functionality that is not part of the protocol present in the
  * most current stable release of MythTV will be marked as deprecated.
- *
+ * 
  * @author Gregory P. Moyer
  */
 public interface QueryFileTransfer
 {
     /**
      * Determine whether or not the associated file transfer socket is open.
-     *
+     * 
      * @return <code>true</code> if the socket is open; <code>false</code>
      *         otherwise
      * @throws IOException
      *             if there is a communication or protocol error
-     *
+     * 
      * @since 63
      */
     public boolean isOpen() throws IOException;
@@ -50,17 +51,17 @@ public interface QueryFileTransfer
      * {@link Protocol#annFileTransfer(String, org.syphr.mythtv.types.FileTransferType, boolean, long, java.net.URI, String, Protocol)
      * announce a new file transfer}) will not throw an error, but it will not
      * function correctly. MythTV requires a new connection in this instance.
-     *
+     * 
      * @throws IOException
      *             if there is a communication or protocol error
-     *
+     * 
      * @since 63
      */
     public void done() throws IOException;
 
     /**
      * Request data be sent over this file transfer socket.
-     *
+     * 
      * @param bytes
      *            the number of bytes requested by the client
      * @return the number of bytes actually being transferred by the server
@@ -68,14 +69,14 @@ public interface QueryFileTransfer
      *         there was an error
      * @throws IOException
      *             if there is a communication or protocol error
-     *
+     * 
      * @since 63
      */
     public long requestBlock(long bytes) throws IOException;
 
     /**
      * Notify the backend that data will be sent over this file transfer socket.
-     *
+     * 
      * @param bytes
      *            the number of bytes to be transferred from the client
      * @return the number of bytes actually being transferred by the server
@@ -83,7 +84,7 @@ public interface QueryFileTransfer
      *         there was an error
      * @throws IOException
      *             if there is a communication or protocol error
-     *
+     * 
      * @since 63
      */
     public long writeBlock(long bytes) throws IOException;
@@ -91,7 +92,7 @@ public interface QueryFileTransfer
     /**
      * Request that the backend seek to another location in the file being
      * transferred.
-     *
+     * 
      * @param position
      *            the desired position relative to the given origin
      * @param origin
@@ -106,7 +107,7 @@ public interface QueryFileTransfer
      *         <code>-1</code> if the request failed
      * @throws IOException
      *             if there is a communication or protocol error
-     *
+     * 
      * @since 63
      */
     public long seek(long position, SeekOrigin origin, long curPosition) throws IOException;
@@ -114,20 +115,39 @@ public interface QueryFileTransfer
     /**
      * Set the timeout to fast or slow. Fast timeouts are used for static files
      * and slow timeouts are used for live data streams.
-     *
+     * 
      * @param fast
      *            if <code>true</code>, the timeout will be set to fast;
      *            otherwise the timeout will be set to slow
      * @throws IOException
      *             if there is a communication or protocol error
-     *
+     * 
      * @since 63
      */
     public void setTimeout(boolean fast) throws IOException;
 
     /**
+     * Flush the current file, close it, and either re-open it or open a new
+     * file (if provided).<br>
+     * <br>
+     * Note: this file transfer connection must be in
+     * {@link FileTransferType#WRITE write} mode for this request to succeed.
+     * 
+     * @param filename
+     *            optional name of a file to open after closing the current file
+     *            (if <code>null</code>, the current file will be re-opened)
+     * @return <code>true</code> if if the re-open operation completed
+     *         successfully; <code>false</code> otherwise
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * 
+     * @since 70
+     */
+    public boolean reOpen(String filename) throws IOException;
+
+    /**
      * Retrieve the size of the file being transferred.
-     *
+     * 
      * @return the file size
      */
     public long getSize();
