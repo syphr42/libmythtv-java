@@ -15,32 +15,7 @@
  */
 package org.syphr.mythtv.types;
 
-public enum VideoEditMark
+public enum SubtitleType
 {
-    ALL,
-    UNSET,
-    TMP_CUT_END,
-    TMP_CUT_START,
-    UPDATED_CUT,
-    PLACEHOLDER,
-    CUT_END,
-    CUT_START,
-    BOOKMARK,
-    BLANK_FRAME,
-    COMM_START,
-    COMM_END,
-    GOP_START,
-    KEYFRAME,
-    SCENE_CHANGE,
-    GOP_BYFRAME,
-    ASPECT_1_1,
-    ASPECT_4_3,
-    ASPECT_16_9,
-    ASPECT_2_21_1,
-    ASPECT_CUSTOM,
-    VIDEO_WIDTH,
-    VIDEO_HEIGHT,
-    VIDEO_RATE,
-    DURATION_MS,
-    TOTAL_FRAMES;
+    UNKNOWN, HARD_HEAR, NORMAL, ON_SCREEN, SIGNED
 }

@@ -23,6 +23,7 @@ import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class Protocol70 extends Protocol69
 {
@@ -69,5 +70,11 @@ public class Protocol70 extends Protocol69
                                             storageGroup,
                                             commandProtocol.getSocketManager(),
                                             getUnsupportedHandler()).send(getSocketManager());
+    }
+
+    @Override
+    protected Translator createTranslator()
+    {
+        return new Translator70();
     }
 }

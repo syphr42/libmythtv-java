@@ -15,32 +15,26 @@
  */
 package org.syphr.mythtv.types;
 
-public enum VideoEditMark
+public enum ProgramFlag
 {
-    ALL,
-    UNSET,
-    TMP_CUT_END,
-    TMP_CUT_START,
-    UPDATED_CUT,
-    PLACEHOLDER,
-    CUT_END,
-    CUT_START,
+    NONE,
+    COMMERCIAL_FLAG,
+    CUTLIST,
+    AUTO_EXPIRE,
+    EDITING,
     BOOKMARK,
-    BLANK_FRAME,
-    COMM_START,
-    COMM_END,
-    GOP_START,
-    KEYFRAME,
-    SCENE_CHANGE,
-    GOP_BYFRAME,
-    ASPECT_1_1,
-    ASPECT_4_3,
-    ASPECT_16_9,
-    ASPECT_2_21_1,
-    ASPECT_CUSTOM,
-    VIDEO_WIDTH,
-    VIDEO_HEIGHT,
-    VIDEO_RATE,
-    DURATION_MS,
-    TOTAL_FRAMES;
+    REALLY_EDITING,
+    COMMERCIAL_PROCESSING,
+    DELETE_PENDING,
+    TRANSCODED,
+    WATCHED,
+    PRESERVED,
+    CHANNEL_COMMERCIAL_FREE,
+    REPEAT,
+    DUPLICATE,
+    REACTIVATE,
+    IGNORE_BOOKMARK,
+    IN_USE_RECORDING,
+    IN_USE_PLAYING,
+    IN_USE_OTHER
 }

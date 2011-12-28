@@ -28,10 +28,14 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.UpcomingRecordings;
+import org.syphr.mythtv.types.AudioProperty;
+import org.syphr.mythtv.types.ProgramFlag;
 import org.syphr.mythtv.types.RecordingDupIn;
 import org.syphr.mythtv.types.RecordingDupMethod;
 import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.RecordingType;
+import org.syphr.mythtv.types.SubtitleType;
+import org.syphr.mythtv.types.VideoProperty;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.translate.Translator;
@@ -173,7 +177,8 @@ public class Parser63 extends AbstractParser
                                                                   RecordingDupMethod.class);
             Date recStartTs = getDateTime(args.get(i++));
             Date recEndTs = getDateTime(args.get(i++));
-            long programFlags = Long.parseLong(args.get(i++));
+            Set<ProgramFlag> programFlags = getTranslator().toEnums(args.get(i++),
+                                                                    ProgramFlag.class);
             String recGroup = args.get(i++);
             String outputFilters = args.get(i++);
             String seriesId = args.get(i++);
@@ -194,9 +199,11 @@ public class Parser63 extends AbstractParser
             int recPriority2 = Integer.parseInt(args.get(i++));
             int parentId = Integer.parseInt(args.get(i++));
             String storageGroup = args.get(i++);
-            int audioProps = Integer.parseInt(args.get(i++));
-            int videoProps = Integer.parseInt(args.get(i++));
-            int subtitleType = Integer.parseInt(args.get(i++));
+            Set<AudioProperty> audioProps = getTranslator().toEnums(args.get(i++),
+                                                                    AudioProperty.class);
+            Set<VideoProperty> videoProps = getTranslator().toEnums(args.get(i++),
+                                                                    VideoProperty.class);
+            SubtitleType subtitleType = getTranslator().toEnum(args.get(i++), SubtitleType.class);
             int year = Integer.parseInt(args.get(i++));
 
             return new Program(title,

@@ -25,7 +25,7 @@ import org.syphr.mythtv.types.TunerStatusCategory;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
 
-public class Translator65 extends Translator63
+public class Translator65 extends Translator64
 {
     private static final BiMap<RecordingStatus, String> REC_STATUS_MAP = EnumHashBiMap.create(RecordingStatus.class);
     static

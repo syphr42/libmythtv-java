@@ -20,10 +20,12 @@ import java.util.Map;
 
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
+import org.syphr.mythtv.types.AudioProperty;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
 import org.syphr.mythtv.types.ChannelChangeDirection;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.PictureAdjustType;
+import org.syphr.mythtv.types.ProgramFlag;
 import org.syphr.mythtv.types.RecorderFlag;
 import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.types.RecordingDupIn;
@@ -33,10 +35,12 @@ import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.RecordingType;
 import org.syphr.mythtv.types.SeekOrigin;
 import org.syphr.mythtv.types.SleepStatus;
+import org.syphr.mythtv.types.SubtitleType;
 import org.syphr.mythtv.types.TunerStatusCategory;
 import org.syphr.mythtv.types.TvState;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.types.VideoEditMark;
+import org.syphr.mythtv.types.VideoProperty;
 import org.syphr.mythtv.util.translate.AbstractTranslator;
 
 import com.google.common.collect.BiMap;
@@ -136,8 +140,6 @@ public class Translator63 extends AbstractTranslator
     {
         VIDEO_EDIT_MARK_MAP.put(VideoEditMark.ALL, "-100");
         VIDEO_EDIT_MARK_MAP.put(VideoEditMark.UNSET, "-10");
-        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.TMP_CUT_END, "-5");
-        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.TMP_CUT_START, "-4");
         VIDEO_EDIT_MARK_MAP.put(VideoEditMark.UPDATED_CUT, "-3");
         VIDEO_EDIT_MARK_MAP.put(VideoEditMark.PLACEHOLDER, "-2");
         VIDEO_EDIT_MARK_MAP.put(VideoEditMark.CUT_END, "0");
@@ -158,7 +160,6 @@ public class Translator63 extends AbstractTranslator
         VIDEO_EDIT_MARK_MAP.put(VideoEditMark.VIDEO_WIDTH, "30");
         VIDEO_EDIT_MARK_MAP.put(VideoEditMark.VIDEO_HEIGHT, "31");
         VIDEO_EDIT_MARK_MAP.put(VideoEditMark.VIDEO_RATE, "32");
-        VIDEO_EDIT_MARK_MAP.put(VideoEditMark.DURATION_MS, "33");
     }
 
     private static final BiMap<TvState, String> TV_STATE_MAP = EnumHashBiMap.create(TvState.class);
@@ -365,6 +366,64 @@ public class Translator63 extends AbstractTranslator
         REC_SEARCH_TYPE_MAP.put(RecordingSearchType.MANUAL, "6");
     }
 
+    private static final BiMap<ProgramFlag, String> PROGRAM_FLAG_MAP = EnumHashBiMap.create(ProgramFlag.class);
+    static
+    {
+        PROGRAM_FLAG_MAP.put(ProgramFlag.NONE, String.valueOf(0x00000000L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.COMMERCIAL_FLAG, String.valueOf(0x00000001L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.CUTLIST, String.valueOf(0x00000002L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.AUTO_EXPIRE, String.valueOf(0x00000004L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.EDITING, String.valueOf(0x00000008L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.BOOKMARK, String.valueOf(0x00000010L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.REALLY_EDITING, String.valueOf(0x00000020L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.COMMERCIAL_PROCESSING, String.valueOf(0x00000040L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.DELETE_PENDING, String.valueOf(0x00000080L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.TRANSCODED, String.valueOf(0x00000100L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.WATCHED, String.valueOf(0x00000200L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.PRESERVED, String.valueOf(0x00000400L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.CHANNEL_COMMERCIAL_FREE, String.valueOf(0x00000800L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.REPEAT, String.valueOf(0x00001000L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.DUPLICATE, String.valueOf(0x00002000L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.REACTIVATE, String.valueOf(0x00004000L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.IGNORE_BOOKMARK, String.valueOf(0x00008000L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.IN_USE_RECORDING, String.valueOf(0x00100000L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.IN_USE_PLAYING, String.valueOf(0x00200000L));
+        PROGRAM_FLAG_MAP.put(ProgramFlag.IN_USE_OTHER, String.valueOf(0x00400000L));
+    }
+
+    private static final BiMap<AudioProperty, String> AUDIO_PROPERTY_MAP = EnumHashBiMap.create(AudioProperty.class);
+    static
+    {
+        AUDIO_PROPERTY_MAP.put(AudioProperty.UNKNOWN, String.valueOf(0x00L));
+        AUDIO_PROPERTY_MAP.put(AudioProperty.STEREO, String.valueOf(0x01L));
+        AUDIO_PROPERTY_MAP.put(AudioProperty.MONO, String.valueOf(0x02L));
+        AUDIO_PROPERTY_MAP.put(AudioProperty.SURROUND, String.valueOf(0x04L));
+        AUDIO_PROPERTY_MAP.put(AudioProperty.DOLBY, String.valueOf(0x08L));
+        AUDIO_PROPERTY_MAP.put(AudioProperty.HARD_HEAR, String.valueOf(0x10L));
+        AUDIO_PROPERTY_MAP.put(AudioProperty.VISUALLY_IMPAIRED, String.valueOf(0x20L));
+    }
+
+    private static final BiMap<VideoProperty, String> VIDEO_PROPERTY_MAP = EnumHashBiMap.create(VideoProperty.class);
+    static
+    {
+        VIDEO_PROPERTY_MAP.put(VideoProperty.UNKNOWN, String.valueOf(0x00L));
+        VIDEO_PROPERTY_MAP.put(VideoProperty.HDTV, String.valueOf(0x01L));
+        VIDEO_PROPERTY_MAP.put(VideoProperty.WIDESCREEN, String.valueOf(0x02L));
+        VIDEO_PROPERTY_MAP.put(VideoProperty.AVC, String.valueOf(0x04L));
+        VIDEO_PROPERTY_MAP.put(VideoProperty._720, String.valueOf(0x08L));
+        VIDEO_PROPERTY_MAP.put(VideoProperty._1080, String.valueOf(0x10L));
+    }
+
+    private static final BiMap<SubtitleType, String> SUBTITLE_TYPE_MAP = EnumHashBiMap.create(SubtitleType.class);
+    static
+    {
+        SUBTITLE_TYPE_MAP.put(SubtitleType.UNKNOWN, String.valueOf(0x00L));
+        SUBTITLE_TYPE_MAP.put(SubtitleType.HARD_HEAR, String.valueOf(0x01L));
+        SUBTITLE_TYPE_MAP.put(SubtitleType.NORMAL, String.valueOf(0x02L));
+        SUBTITLE_TYPE_MAP.put(SubtitleType.ON_SCREEN, String.valueOf(0x04L));
+        SUBTITLE_TYPE_MAP.put(SubtitleType.SIGNED, String.valueOf(0x08L));
+    }
+
     @SuppressWarnings("rawtypes")
     private static final Map<Class<? extends Enum>, BiMap<? extends Enum, String>> MAPS = new HashMap<Class<? extends Enum>, BiMap<? extends Enum, String>>();
     static
@@ -388,6 +447,10 @@ public class Translator63 extends AbstractTranslator
         MAPS.put(RecordingDupIn.class, REC_DUP_IN_MAP);
         MAPS.put(RecordingDupMethod.class, REC_DUP_METHOD_MAP);
         MAPS.put(RecordingSearchType.class, REC_SEARCH_TYPE_MAP);
+        MAPS.put(ProgramFlag.class, PROGRAM_FLAG_MAP);
+        MAPS.put(AudioProperty.class, AUDIO_PROPERTY_MAP);
+        MAPS.put(VideoProperty.class, VIDEO_PROPERTY_MAP);
+        MAPS.put(SubtitleType.class, SUBTITLE_TYPE_MAP);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.util.translate.Translator;
 
 public class Protocol64 extends Protocol63
 {
@@ -50,5 +51,11 @@ public class Protocol64 extends Protocol63
     public void scanVideos() throws IOException
     {
         new Command64ScanVideos(getTranslator(), getParser()).send(getSocketManager());
+    }
+
+    @Override
+    protected Translator createTranslator()
+    {
+        return new Translator64();
     }
 }

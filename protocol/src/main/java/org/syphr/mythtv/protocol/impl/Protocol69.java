@@ -73,4 +73,10 @@ public class Protocol69 extends Protocol68
     {
         return new EventProtocol69(translator, parser);
     }
+
+    @Override
+    protected Translator createTranslator()
+    {
+        return new Translator69();
+    }
 }

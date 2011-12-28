@@ -17,7 +17,11 @@ package org.syphr.mythtv.types;
 
 public enum RecordingStatus
 {
+    /**
+     * @since 65
+     */
     MISSED_FUTURE,
+
     TUNING,
     FAILED,
     TUNER_BUSY,

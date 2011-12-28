@@ -22,10 +22,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.types.AudioProperty;
+import org.syphr.mythtv.types.ProgramFlag;
 import org.syphr.mythtv.types.RecordingDupIn;
 import org.syphr.mythtv.types.RecordingDupMethod;
 import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.RecordingType;
+import org.syphr.mythtv.types.SubtitleType;
+import org.syphr.mythtv.types.VideoProperty;
 
 public class Program
 {
@@ -52,7 +56,7 @@ public class Program
     private final RecordingDupMethod dupMethod;
     private final Date recStartTs;
     private final Date recEndTs;
-    private final long programFlags;
+    private final Set<ProgramFlag> programFlags;
     private final String recGroup;
     private final String outputFilters;
     private final String seriesId;
@@ -65,9 +69,9 @@ public class Program
     private final int recPriority2;
     private final int parentId;
     private final String storageGroup;
-    private final int audioProps;
-    private final int videoProps;
-    private final int subtitleType;
+    private final Set<AudioProperty> audioProps;
+    private final Set<VideoProperty> videoProps;
+    private final SubtitleType subtitleType;
     private final int year;
 
     public Program(Channel channel, Date recStartTs)
@@ -98,21 +102,21 @@ public class Program
              null,
              recStartTs,
              null,
-             0,
              null,
              null,
              null,
              null,
-             null,
-             0,
              null,
              null,
              0,
-             0,
+             null,
              null,
              0,
              0,
-             0,
+             null,
+             null,
+             null,
+             null,
              0);
     }
 
@@ -139,21 +143,21 @@ public class Program
              null,
              recStartTs,
              null,
-             0,
              null,
              null,
              null,
              null,
-             null,
-             0,
              null,
              null,
              0,
-             0,
+             null,
              null,
              0,
              0,
-             0,
+             null,
+             null,
+             null,
+             null,
              0);
     }
 
@@ -193,7 +197,7 @@ public class Program
              null,
              null,
              null,
-             0,
+             null,
              null,
              null,
              seriesid,
@@ -205,9 +209,9 @@ public class Program
              0,
              0,
              null,
-             0,
-             0,
-             0,
+             null,
+             null,
+             null,
              0);
     }
 
@@ -232,7 +236,7 @@ public class Program
                    RecordingDupMethod dupMethod,
                    Date recStartTs,
                    Date recEndTs,
-                   long programFlags,
+                   Set<ProgramFlag> programFlags,
                    String recGroup,
                    String outputFilters,
                    String seriesId,
@@ -244,9 +248,9 @@ public class Program
                    int recPriority2,
                    int parentId,
                    String storageGroup,
-                   int audioProps,
-                   int videoProps,
-                   int subtitleType,
+                   Set<AudioProperty> audioProps,
+                   Set<VideoProperty> videoProps,
+                   SubtitleType subtitleType,
                    int year)
     {
         this(title,
@@ -314,7 +318,7 @@ public class Program
                    RecordingDupMethod dupMethod,
                    Date recStartTs,
                    Date recEndTs,
-                   long programFlags,
+                   Set<ProgramFlag> programFlags,
                    String recGroup,
                    String outputFilters,
                    String seriesId,
@@ -327,9 +331,9 @@ public class Program
                    int recPriority2,
                    int parentId,
                    String storageGroup,
-                   int audioProps,
-                   int videoProps,
-                   int subtitleType,
+                   Set<AudioProperty> audioProps,
+                   Set<VideoProperty> videoProps,
+                   SubtitleType subtitleType,
                    int year)
     {
         this.title = title;
@@ -505,7 +509,7 @@ public class Program
         return recEndTs != null ? new Date(recEndTs.getTime()) : null;
     }
 
-    public long getProgramFlags()
+    public Set<ProgramFlag> getProgramFlags()
     {
         return programFlags;
     }
@@ -570,17 +574,17 @@ public class Program
         return storageGroup;
     }
 
-    public int getAudioProps()
+    public Set<AudioProperty> getAudioProps()
     {
         return audioProps;
     }
 
-    public int getVideoProps()
+    public Set<VideoProperty> getVideoProps()
     {
         return videoProps;
     }
 
-    public int getSubtitleType()
+    public SubtitleType getSubtitleType()
     {
         return subtitleType;
     }
