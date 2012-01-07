@@ -1,12 +1,13 @@
 Running Tests
 ================
 
-There is a fairly comprehensive set of unit tests available in this
-repository. However, a lot of the functionality provided here can cause
-side affects (such as interfering with backend functionality, creating/
-deleting files, and changing settings). Any unit test for functionality
-which has side-effects that are not easily mitigated (such as deleting
-a file after transferring it to local disk) is commented out by default.
+There is a fairly comprehensive set of integration tests available in 
+this repository. However, a lot of the functionality provided here can 
+cause side affects (such as interfering with backend functionality, 
+creating/deleting files, and changing settings). Any test for 
+functionality which has side-effects that are not easily mitigated 
+(such as deleting a file after transferring it to local disk) is 
+commented out by default.
 
 
 
