@@ -3,7 +3,7 @@ Direct Myth Protocol Access
   Create a connection to a MythTV backend using a specific protocol implementation.
 
 +------------------------------------------------------
-  SocketManager socketManager = new SocketManager();
+  SocketManager socketManager = new ProtocolSocketManager();
   socketManager.connect("localhost", 6543, 10000);
 
   Protocol proto = ProtocolFactory.createInstance(ProtocolVersion._63, 
@@ -25,7 +25,7 @@ Backend Events
   Listen for broadcast messages from a backend server.
   
 +------------------------------------------------------
-  SocketManager socketManager = new SocketManager();
+  SocketManager socketManager = new ProtocolSocketManager();
   socketManager.connect("localhost", 6543, 10000);
 
   Protocol proto = ProtocolFactory.createInstance(ProtocolVersion._63),
