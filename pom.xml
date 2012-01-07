@@ -84,4 +84,23 @@
 	<properties>
 	   <dep.version.slf4j>1.6.1</dep.version.slf4j>
 	</properties>
+	
+    <profiles>
+        <profile>
+            <id>sonatype-oss-release</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+
+                        <configuration>
+                            <skipITs>true</skipITs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
