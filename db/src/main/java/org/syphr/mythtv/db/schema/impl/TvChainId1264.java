@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Gregory P. Moyer
+ * Copyright 2011-2012 Gregory P. Moyer
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  import java.util.Date;
