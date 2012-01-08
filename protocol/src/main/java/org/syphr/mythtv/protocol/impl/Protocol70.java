@@ -20,6 +20,8 @@ import java.net.URI;
 
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
+import org.syphr.mythtv.protocol.events.EventProtocol;
+import org.syphr.mythtv.protocol.events.impl.EventProtocol70;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
@@ -70,6 +72,12 @@ public class Protocol70 extends Protocol69
                                             storageGroup,
                                             commandProtocol.getSocketManager(),
                                             getUnsupportedHandler()).send(getSocketManager());
+    }
+
+    @Override
+    protected EventProtocol createEventProtocol(Translator translator, Parser parser)
+    {
+        return new EventProtocol70(translator, parser);
     }
 
     @Override

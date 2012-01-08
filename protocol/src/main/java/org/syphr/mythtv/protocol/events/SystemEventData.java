@@ -17,5 +17,5 @@ package org.syphr.mythtv.protocol.events;
 
 public enum SystemEventData
 {
-    SENDER, HOSTNAME, CARD_ID, CHAN_ID, START_TIME, SECS, CREATED, DESTROYED
+    SENDER, HOSTNAME, CARD_ID, CHAN_ID, START_TIME, SECS, CREATED, DESTROYED, REC_STATUS
 }
