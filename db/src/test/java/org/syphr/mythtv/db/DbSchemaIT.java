@@ -30,14 +30,14 @@ import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.db.schema.Channel;
 import org.syphr.mythtv.db.schema.Program;
 import org.syphr.mythtv.db.schema.Recorded;
+import org.syphr.mythtv.db.schema.Settings;
 import org.syphr.mythtv.db.schema.TvChain;
-import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.test.Utils;
 import org.syphr.prom.PropertiesManager;
 
 public class DbSchemaIT
 {
-    private static PropertiesManager<Settings> settings;
+    private static PropertiesManager<org.syphr.mythtv.test.Settings> settings;
     private static Logger logger;
 
     private static EntityManagerFactory factory;
@@ -47,16 +47,16 @@ public class DbSchemaIT
     @BeforeClass
     public static void setupBeforeClass() throws IOException, DatabaseException
     {
-        settings = Settings.createSettings();
+        settings = org.syphr.mythtv.test.Settings.createSettings();
         logger = LoggerFactory.getLogger(DbSchemaIT.class);
 
-        factory = DbUtils.getEntityManagerFactory(settings.getEnumProperty(Settings.DB_SCHEMA,
+        factory = DbUtils.getEntityManagerFactory(settings.getEnumProperty(org.syphr.mythtv.test.Settings.DB_SCHEMA,
                                                                            SchemaVersion.class),
-                                                  settings.getProperty(Settings.DB_HOST),
-                                                  settings.getIntegerProperty(Settings.DB_PORT),
-                                                  settings.getProperty(Settings.DB_INSTANCE),
-                                                  settings.getProperty(Settings.DB_USER),
-                                                  settings.getProperty(Settings.DB_PASSWORD));
+                                                  settings.getProperty(org.syphr.mythtv.test.Settings.DB_HOST),
+                                                  settings.getIntegerProperty(org.syphr.mythtv.test.Settings.DB_PORT),
+                                                  settings.getProperty(org.syphr.mythtv.test.Settings.DB_INSTANCE),
+                                                  settings.getProperty(org.syphr.mythtv.test.Settings.DB_USER),
+                                                  settings.getProperty(org.syphr.mythtv.test.Settings.DB_PASSWORD));
     }
 
     @Before
@@ -94,7 +94,7 @@ public class DbSchemaIT
     @Test
     public void testSettings()
     {
-        printFirstFive(org.syphr.mythtv.db.schema.Settings.class);
+        printFirstFive(Settings.class);
     }
 
     @Test
@@ -108,7 +108,7 @@ public class DbSchemaIT
         logger.debug("Retrieving records from {} table", entityType.getSimpleName());
 
         TypedQuery<T> query = manager.createQuery("select x from " + entityType.getName() + " as x",
-                                          entityType);
+                                                  entityType);
         query.setMaxResults(5);
 
         Utils.printFirstFive(query.getResultList(), logger);
