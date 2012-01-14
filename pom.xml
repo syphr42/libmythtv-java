@@ -24,7 +24,7 @@
 	<parent>
 		<groupId>org.syphr</groupId>
 		<artifactId>syphr-parent</artifactId>
-		<version>5</version>
+		<version>6-SNAPSHOT</version>
 	</parent>
 
 	<name>MythTV Java API</name>
