@@ -31,6 +31,9 @@ import org.syphr.mythtv.db.schema.CallsignNetworkMap;
 import org.syphr.mythtv.db.schema.CaptureCard;
 import org.syphr.mythtv.db.schema.CardInput;
 import org.syphr.mythtv.db.schema.Channel;
+import org.syphr.mythtv.db.schema.ChannelGroup;
+import org.syphr.mythtv.db.schema.ChannelGroupNames;
+import org.syphr.mythtv.db.schema.ChannelScan;
 import org.syphr.mythtv.db.schema.Program;
 import org.syphr.mythtv.db.schema.Recorded;
 import org.syphr.mythtv.db.schema.Settings;
@@ -98,6 +101,24 @@ public class DbSchemaIT
     public void testChannel()
     {
         printFirstFive(Channel.class);
+    }
+
+    @Test
+    public void testChannelGroup()
+    {
+        printFirstFive(ChannelGroup.class);
+    }
+
+    @Test
+    public void testChannelGroupNames()
+    {
+        printFirstFive(ChannelGroupNames.class);
+    }
+
+    @Test
+    public void testChannelScan()
+    {
+        printFirstFive(ChannelScan.class);
     }
 
     @Test
