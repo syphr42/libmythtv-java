@@ -13,7 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.db.schema;
+package org.syphr.mythtv.db;
+
+import org.syphr.mythtv.db.schema.Channel;
+import org.syphr.mythtv.db.schema.Program;
+import org.syphr.mythtv.db.schema.Recorded;
+import org.syphr.mythtv.db.schema.Settings;
+import org.syphr.mythtv.db.schema.TvChain;
 
 public class Table
 {
