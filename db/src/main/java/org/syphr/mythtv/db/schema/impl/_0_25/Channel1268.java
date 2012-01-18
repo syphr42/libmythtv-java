@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.db.schema.impl;
+package org.syphr.mythtv.db.schema.impl._0_25;
 
 import java.util.Date;
 
@@ -28,7 +28,7 @@ import org.syphr.mythtv.db.schema.Channel;
 
 @Entity
 @Table(name = "channel")
-public class Channel1264 implements Channel
+public class Channel1268 implements Channel
 {
     /**
      * Serialization ID
@@ -60,7 +60,7 @@ public class Channel1264 implements Channel
     @Column(nullable = false)
     private String videofilters;
 
-    @Column(nullable = false, length = 64)
+    @Column(nullable = false, length = 255)
     private String xmltvid;
 
     @Column(nullable = false)
@@ -107,105 +107,6 @@ public class Channel1264 implements Channel
 
     @Column(nullable = false)
     private int commmethod;
-
-    public Channel1264()
-    {
-        super();
-    }
-
-    public Channel1264(int chanid,
-                       String channum,
-                       String callsign,
-                       String name,
-                       String icon,
-                       String videofilters,
-                       String xmltvid,
-                       int recpriority,
-                       String tvformat,
-                       boolean visible,
-                       String outputfilters,
-                       int tmoffset,
-                       int atscMajorChan,
-                       int atscMinorChan,
-                       Date lastRecord,
-                       String defaultAuthority,
-                       int commmethod)
-    {
-        this.chanid = chanid;
-        this.channum = channum;
-        this.callsign = callsign;
-        this.name = name;
-        this.icon = icon;
-        this.videofilters = videofilters;
-        this.xmltvid = xmltvid;
-        this.recpriority = recpriority;
-        this.tvformat = tvformat;
-        this.visible = visible;
-        this.outputfilters = outputfilters;
-        this.tmoffset = tmoffset;
-        this.atscMajorChan = atscMajorChan;
-        this.atscMinorChan = atscMinorChan;
-        this.lastRecord = lastRecord;
-        this.defaultAuthority = defaultAuthority;
-        this.commmethod = commmethod;
-    }
-
-    public Channel1264(int chanid,
-                       String channum,
-                       String freqid,
-                       Integer sourceid,
-                       String callsign,
-                       String name,
-                       String icon,
-                       Integer finetune,
-                       String videofilters,
-                       String xmltvid,
-                       int recpriority,
-                       Integer contrast,
-                       Integer brightness,
-                       Integer colour,
-                       Integer hue,
-                       String tvformat,
-                       boolean visible,
-                       String outputfilters,
-                       Boolean useonairguide,
-                       Short mplexid,
-                       Integer serviceid,
-                       int tmoffset,
-                       int atscMajorChan,
-                       int atscMinorChan,
-                       Date lastRecord,
-                       String defaultAuthority,
-                       int commmethod)
-    {
-        this.chanid = chanid;
-        this.channum = channum;
-        this.freqid = freqid;
-        this.sourceid = sourceid;
-        this.callsign = callsign;
-        this.name = name;
-        this.icon = icon;
-        this.finetune = finetune;
-        this.videofilters = videofilters;
-        this.xmltvid = xmltvid;
-        this.recpriority = recpriority;
-        this.contrast = contrast;
-        this.brightness = brightness;
-        this.colour = colour;
-        this.hue = hue;
-        this.tvformat = tvformat;
-        this.visible = visible;
-        this.outputfilters = outputfilters;
-        this.useonairguide = useonairguide;
-        this.mplexid = mplexid;
-        this.serviceid = serviceid;
-        this.tmoffset = tmoffset;
-        this.atscMajorChan = atscMajorChan;
-        this.atscMinorChan = atscMinorChan;
-        this.lastRecord = lastRecord;
-        this.defaultAuthority = defaultAuthority;
-        this.commmethod = commmethod;
-    }
 
     @Override
     public int getChanid()
@@ -535,7 +436,7 @@ public class Channel1264 implements Channel
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Channel1264 [chanid=");
+        builder.append("Channel1268 [chanid=");
         builder.append(chanid);
         builder.append(", channum=");
         builder.append(channum);

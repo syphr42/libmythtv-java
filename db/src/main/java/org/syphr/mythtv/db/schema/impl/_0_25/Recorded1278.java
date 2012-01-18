@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.db.schema.impl;
+package org.syphr.mythtv.db.schema.impl._0_25;
 
 import java.util.Date;
 
@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 
 import org.syphr.mythtv.db.schema.Recorded;
 import org.syphr.mythtv.db.schema.RecordedId;
+import org.syphr.mythtv.db.schema.impl._0_24.RecordedId1264;
 
 @Entity
 @Table(name = "recorded")

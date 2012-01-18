@@ -27,6 +27,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.db.schema.CallsignNetworkMap;
+import org.syphr.mythtv.db.schema.CaptureCard;
+import org.syphr.mythtv.db.schema.CardInput;
 import org.syphr.mythtv.db.schema.Channel;
 import org.syphr.mythtv.db.schema.Program;
 import org.syphr.mythtv.db.schema.Recorded;
@@ -71,6 +74,24 @@ public class DbSchemaIT
     {
         manager.getTransaction().commit();
         manager.close();
+    }
+
+    @Test
+    public void testCallsignNetworkMap()
+    {
+        printFirstFive(CallsignNetworkMap.class);
+    }
+
+    @Test
+    public void testCaptureCard()
+    {
+        printFirstFive(CaptureCard.class);
+    }
+
+    @Test
+    public void testCardInput()
+    {
+        printFirstFive(CardInput.class);
     }
 
     @Test

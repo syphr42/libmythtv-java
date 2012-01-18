@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.db.schema.impl;
+package org.syphr.mythtv.db.schema.impl._0_24;
 
 import java.util.Date;
 

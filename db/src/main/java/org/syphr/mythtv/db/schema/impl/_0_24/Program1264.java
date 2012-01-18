@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.db.schema.impl;
+package org.syphr.mythtv.db.schema.impl._0_24;
 
 import java.util.Date;
 
@@ -25,6 +25,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.syphr.mythtv.db.schema.Program;
+import org.syphr.mythtv.db.schema.ProgramId;
 
 @Entity
 @Table(name = "program")
@@ -127,133 +128,6 @@ public class Program1264 implements java.io.Serializable, Program
     @Column(nullable = false, length = 19)
     private String videoprop;
 
-    public Program1264()
-    {
-        super();
-    }
-
-    public Program1264(ProgramId1264 id,
-                   Date endtime,
-                   String title,
-                   String subtitle,
-                   String description,
-                   String category,
-                   String categoryType,
-                   Date airdate,
-                   float stars,
-                   byte previouslyshown,
-                   String titlePronounce,
-                   boolean stereo,
-                   boolean subtitled,
-                   boolean hdtv,
-                   boolean closecaptioned,
-                   int partnumber,
-                   int parttotal,
-                   String seriesid,
-                   String showtype,
-                   String colorcode,
-                   String syndicatedepisodenumber,
-                   String programid,
-                   int listingsource,
-                   boolean first,
-                   boolean last,
-                   String audioprop,
-                   String subtitletypes,
-                   String videoprop)
-    {
-        this.id = id;
-        this.endtime = endtime;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.description = description;
-        this.category = category;
-        this.categoryType = categoryType;
-        this.airdate = airdate;
-        this.stars = stars;
-        this.previouslyshown = previouslyshown;
-        this.titlePronounce = titlePronounce;
-        this.stereo = stereo;
-        this.subtitled = subtitled;
-        this.hdtv = hdtv;
-        this.closecaptioned = closecaptioned;
-        this.partnumber = partnumber;
-        this.parttotal = parttotal;
-        this.seriesid = seriesid;
-        this.showtype = showtype;
-        this.colorcode = colorcode;
-        this.syndicatedepisodenumber = syndicatedepisodenumber;
-        this.programid = programid;
-        this.listingsource = listingsource;
-        this.first = first;
-        this.last = last;
-        this.audioprop = audioprop;
-        this.subtitletypes = subtitletypes;
-        this.videoprop = videoprop;
-    }
-
-    public Program1264(ProgramId1264 id,
-                   Date endtime,
-                   String title,
-                   String subtitle,
-                   String description,
-                   String category,
-                   String categoryType,
-                   Date airdate,
-                   float stars,
-                   byte previouslyshown,
-                   String titlePronounce,
-                   boolean stereo,
-                   boolean subtitled,
-                   boolean hdtv,
-                   boolean closecaptioned,
-                   int partnumber,
-                   int parttotal,
-                   String seriesid,
-                   Date originalairdate,
-                   String showtype,
-                   String colorcode,
-                   String syndicatedepisodenumber,
-                   String programid,
-                   Boolean generic,
-                   int listingsource,
-                   boolean first,
-                   boolean last,
-                   String audioprop,
-                   String subtitletypes,
-                   String videoprop)
-    {
-        this.id = id;
-        this.endtime = endtime;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.description = description;
-        this.category = category;
-        this.categoryType = categoryType;
-        this.airdate = airdate;
-        this.stars = stars;
-        this.previouslyshown = previouslyshown;
-        this.titlePronounce = titlePronounce;
-        this.stereo = stereo;
-        this.subtitled = subtitled;
-        this.hdtv = hdtv;
-        this.closecaptioned = closecaptioned;
-        this.partnumber = partnumber;
-        this.parttotal = parttotal;
-        this.seriesid = seriesid;
-        this.originalairdate = originalairdate;
-        this.showtype = showtype;
-        this.colorcode = colorcode;
-        this.syndicatedepisodenumber = syndicatedepisodenumber;
-        this.programid = programid;
-        this.generic = generic;
-        this.listingsource = listingsource;
-        this.first = first;
-        this.last = last;
-        this.audioprop = audioprop;
-        this.subtitletypes = subtitletypes;
-        this.videoprop = videoprop;
-    }
-
     @Override
     public ProgramId1264 getId()
     {
@@ -261,9 +135,14 @@ public class Program1264 implements java.io.Serializable, Program
     }
 
     @Override
-    public void setId(ProgramId1264 id)
+    public void setId(ProgramId id)
     {
-        this.id = id;
+        if (id != null && !(id instanceof Recorded1264))
+        {
+            throw new IllegalArgumentException("Invalid ID type: " + id.getClass().getName());
+        }
+
+        this.id = (ProgramId1264)id;
     }
 
     @Override

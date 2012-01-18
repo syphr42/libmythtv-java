@@ -18,13 +18,11 @@ package org.syphr.mythtv.db.schema;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.syphr.mythtv.db.schema.impl.ProgramId1264;
-
 public interface Program extends Serializable
 {
-    public ProgramId1264 getId();
+    public ProgramId getId();
 
-    public void setId(ProgramId1264 id);
+    public void setId(ProgramId id);
 
     public Date getEndtime();
 

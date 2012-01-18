@@ -22,15 +22,18 @@
 	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1264">
 		<description>MythTV database schema version for 0.24</description>
 
-		<class>org.syphr.mythtv.db.schema.impl.Channel1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.ProgramId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Recorded1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.RecordedId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_24.CallsignNetworkMap1264</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_24.CaptureCard1264</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_24.CardInput1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.Channel1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.Program1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.ProgramId1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.Recorded1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.RecordedId1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.Settings1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.SettingsId1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.TvChain1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.TvChainId1264</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
@@ -40,18 +43,21 @@
 		</properties>
 	</persistence-unit>
 	
-	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1292">
+	<persistence-unit name="org.syphr.mythtv.db.schema.impl.1293">
 		<description>MythTV database schema version 0.25</description>
 
-		<class>org.syphr.mythtv.db.schema.impl.Channel1268</class>
-		<class>org.syphr.mythtv.db.schema.impl.Program1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.ProgramId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Recorded1278</class>
-		<class>org.syphr.mythtv.db.schema.impl.RecordedId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.Settings1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.SettingsId1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChain1264</class>
-		<class>org.syphr.mythtv.db.schema.impl.TvChainId1264</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_24.CallsignNetworkMap1264</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_24.CaptureCard1264</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_25.CardInput1293</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_25.Channel1268</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.Program1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.ProgramId1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_25.Recorded1278</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.RecordedId1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.Settings1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.SettingsId1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.TvChain1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.TvChainId1264</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
