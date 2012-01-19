@@ -29,6 +29,9 @@
 		<class>org.syphr.mythtv.db.schema.impl._0_24.ChannelGroup1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.ChannelGroupNames1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.ChannelScan1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.ChannelScanChannel1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.ChannelScanChannelId1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.ChannelScanDtvMultiplex1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.Program1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.ProgramId1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.Recorded1264</class>
@@ -56,6 +59,9 @@
 		<class>org.syphr.mythtv.db.schema.impl._0_24.ChannelGroup1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.ChannelGroupNames1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.ChannelScan1264</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_24.ChannelScanChannel1264</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_24.ChannelScanChannelId1264</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_24.ChannelScanDtvMultiplex1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.Program1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.ProgramId1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_25.Recorded1278</class>
