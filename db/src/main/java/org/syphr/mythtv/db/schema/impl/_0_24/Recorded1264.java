@@ -160,7 +160,7 @@ public class Recorded1264 implements Recorded
     @Override
     public void setId(RecordedId id)
     {
-        if (id != null && !(id instanceof Recorded1264))
+        if (id != null && !(id instanceof RecordedId1264))
         {
             throw new IllegalArgumentException("Invalid ID type: " + id.getClass().getName());
         }
