@@ -18,6 +18,7 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 
 import org.syphr.mythtv.protocol.QueryRecorder;
+import org.syphr.mythtv.protocol.QueryRemoteEncoder;
 import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 
@@ -51,5 +52,14 @@ public class Protocol71 extends Protocol70
     public QueryRecorder queryRecorder(int recorderId)
     {
         return new QueryRecorder71(getTranslator(), getParser(), recorderId, getSocketManager());
+    }
+
+    @Override
+    public QueryRemoteEncoder queryRemoteEncoder(int recorderId)
+    {
+        return new QueryRemoteEncoder71(getTranslator(),
+                                        getParser(),
+                                        recorderId,
+                                        getSocketManager());
     }
 }

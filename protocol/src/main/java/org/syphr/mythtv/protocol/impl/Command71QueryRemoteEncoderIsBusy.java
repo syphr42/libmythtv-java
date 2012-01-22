@@ -24,25 +24,14 @@ import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command63QueryRemoteEncoderIsBusy extends
-                                                     AbstractCommand63QueryRemoteEncoder<Pair<Boolean, TunedInputInfo>>
+/* default */class Command71QueryRemoteEncoderIsBusy extends Command63QueryRemoteEncoderIsBusy
 {
-    private final int withinSeconds;
-
-    public Command63QueryRemoteEncoderIsBusy(Translator translator,
+    public Command71QueryRemoteEncoderIsBusy(Translator translator,
                                              Parser parser,
                                              int recorderId,
                                              int withinSeconds)
     {
-        super(translator, parser, recorderId);
-
-        this.withinSeconds = withinSeconds;
-    }
-
-    @Override
-    protected String getSubCommand() throws ProtocolException
-    {
-        return getParser().combineArguments("IS_BUSY", String.valueOf(withinSeconds));
+        super(translator, parser, recorderId, withinSeconds);
     }
 
     @Override
@@ -51,7 +40,7 @@ import org.syphr.mythtv.util.translate.Translator;
     {
         List<String> args = getParser().splitArguments(response);
 
-        if (args.size() != 7)
+        if (args.size() != 8)
         {
             throw new ProtocolException(response, Direction.RECEIVE);
         }
@@ -74,6 +63,7 @@ import org.syphr.mythtv.util.translate.Translator;
         {
             int i = 1;
             TunedInputInfo inputInfo = new TunedInputInfo(args.get(i++),
+                                                          Integer.parseInt(args.get(i++)),
                                                           Integer.parseInt(args.get(i++)),
                                                           Integer.parseInt(args.get(i++)),
                                                           Integer.parseInt(args.get(i++)),

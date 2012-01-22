@@ -22,6 +22,7 @@ import java.util.Set;
 import org.apache.commons.lang3.tuple.Pair;
 import org.syphr.mythtv.data.InputInfo;
 import org.syphr.mythtv.data.Program;
+import org.syphr.mythtv.data.TunedInputInfo;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
 import org.syphr.mythtv.types.RecorderFlag;
 import org.syphr.mythtv.types.RecordingStatus;
@@ -42,8 +43,7 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public void cancelNextRecording(boolean cancel) throws IOException,
-                                                   CommandException
+    public void cancelNextRecording(boolean cancel) throws IOException, CommandException
     {
         new Command63QueryRemoteEncoderCancelNextRecording(getTranslator(),
                                                            getParser(),
@@ -83,8 +83,7 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public RecordingStatus getRecordingStatus() throws IOException,
-                                               CommandException
+    public RecordingStatus getRecordingStatus() throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderGetRecordingStatus(getTranslator(),
                                                                  getParser(),
@@ -108,8 +107,8 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public Pair<Boolean, InputInfo> isBusy(int withinSeconds) throws IOException,
-                                                             CommandException
+    public Pair<Boolean, TunedInputInfo> isBusy(int withinSeconds) throws IOException,
+                                                                  CommandException
     {
         return new Command63QueryRemoteEncoderIsBusy(getTranslator(),
                                                      getParser(),
@@ -118,8 +117,7 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public boolean matchesRecording(Program program) throws IOException,
-                                                    CommandException
+    public boolean matchesRecording(Program program) throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderMatchesRecording(getTranslator(),
                                                                getParser(),
@@ -140,8 +138,7 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public boolean startRecording(Program program) throws IOException,
-                                                  CommandException
+    public boolean startRecording(Program program) throws IOException, CommandException
     {
         return new Command63QueryRemoteEncoderStartRecording(getTranslator(),
                                                              getParser(),
@@ -152,8 +149,6 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     @Override
     public void stopRecording() throws IOException, CommandException
     {
-        new Command63QueryRemoteEncoderStopRecording(getTranslator(),
-                                                     getParser(),
-                                                     getRecorderId()).send(getSocketManager());
+        new Command63QueryRemoteEncoderStopRecording(getTranslator(), getParser(), getRecorderId()).send(getSocketManager());
     }
 }

@@ -22,14 +22,26 @@ public class InputInfo
     private final int inputId;
     private final int cardId;
     private final int mplexId;
+    private final int liveTvOrder;
 
     public InputInfo(String name, int sourceId, int inputId, int cardId, int mplexId)
+    {
+        this(name, sourceId, inputId, cardId, mplexId, 0);
+    }
+
+    public InputInfo(String name,
+                     int sourceId,
+                     int inputId,
+                     int cardId,
+                     int mplexId,
+                     int liveTvOrder)
     {
         this.name = name;
         this.sourceId = sourceId;
         this.inputId = inputId;
         this.cardId = cardId;
         this.mplexId = mplexId;
+        this.liveTvOrder = liveTvOrder;
     }
 
     public String getName()
@@ -57,6 +69,11 @@ public class InputInfo
         return mplexId;
     }
 
+    public int getLiveTvOrder()
+    {
+        return liveTvOrder;
+    }
+
     @Override
     public String toString()
     {
@@ -71,6 +88,8 @@ public class InputInfo
         builder.append(cardId);
         builder.append(", mplexId=");
         builder.append(mplexId);
+        builder.append(", liveTvOrder=");
+        builder.append(liveTvOrder);
         builder.append("]");
         return builder.toString();
     }

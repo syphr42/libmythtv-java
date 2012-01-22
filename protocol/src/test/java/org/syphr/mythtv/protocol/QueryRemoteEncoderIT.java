@@ -17,11 +17,13 @@ package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.data.TunedInputInfo;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.util.exception.CommandException;
@@ -105,9 +107,11 @@ public class QueryRemoteEncoderIT
     }
 
     @Test
-    public void testIsBusy() throws IOException
+    public void testIsBusy() throws IOException, CommandException
     {
-        // TODO
+        Pair<Boolean, TunedInputInfo> response = queryRemoteEncoder.isBusy(5);
+        LOGGER.debug("Is busy? {}", response.getLeft());
+        LOGGER.debug("Info: {}", response.getRight());
     }
 
     @Test
@@ -129,12 +133,12 @@ public class QueryRemoteEncoderIT
     }
 
     /*
-     * ----------------------------------------------------------------
-     * The following unit tests can cause side effects. Use with care.
+     * ---------------------------------------------------------------- The
+     * following unit tests can cause side effects. Use with care.
      */
-//    @Test
-//    public void testStopRecording() throws IOException, CommandException
-//    {
-//        queryRemoteEncoder.stopRecording();
-//    }
+    //    @Test
+    //    public void testStopRecording() throws IOException, CommandException
+    //    {
+    //        queryRemoteEncoder.stopRecording();
+    //    }
 }
