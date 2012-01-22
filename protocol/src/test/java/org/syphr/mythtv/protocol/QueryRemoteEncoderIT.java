@@ -16,13 +16,18 @@
 package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.data.InputInfo;
 import org.syphr.mythtv.data.TunedInputInfo;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.test.Settings;
@@ -39,6 +44,7 @@ public class QueryRemoteEncoderIT
     private static SocketManager socketManager;
     private static Protocol proto;
 
+    private static int recorderId;
     private static QueryRemoteEncoder queryRemoteEncoder;
 
     @BeforeClass
@@ -48,7 +54,7 @@ public class QueryRemoteEncoderIT
         socketManager = Utils.connect(settings);
         proto = Utils.announceMonitor(settings, socketManager, EventLevel.NONE);
 
-        int recorderId = settings.getIntegerProperty(Settings.RECORDER);
+        recorderId = settings.getIntegerProperty(Settings.RECORDER);
         LOGGER.debug("Interrogating recorder {}", recorderId);
         queryRemoteEncoder = proto.queryRemoteEncoder(recorderId);
     }
@@ -76,6 +82,37 @@ public class QueryRemoteEncoderIT
     public void testGetFlags() throws IOException, CommandException
     {
         LOGGER.debug("Flags: {}", queryRemoteEncoder.getFlags());
+    }
+
+    @Test
+    public void testGetFreeInputsNoExclusion() throws IOException,
+                                              CommandException,
+                                              InterruptedException
+    {
+        boolean busy = queryRemoteEncoder.isBusy(1).getLeft();
+        Thread.sleep(1000);
+
+        List<InputInfo> freeInputs = queryRemoteEncoder.getFreeInputs(null);
+
+        if (busy)
+        {
+            Assert.assertTrue(freeInputs.isEmpty());
+        }
+
+        Assert.assertFalse(freeInputs.isEmpty());
+        LOGGER.debug("Free input: {}", freeInputs.get(0));
+    }
+
+    @Test
+    public void testGetFreeInputsWithExclusion() throws IOException, CommandException
+    {
+        Set<Integer> excluded = new HashSet<Integer>();
+        excluded.add(recorderId);
+
+        List<InputInfo> freeInputs = queryRemoteEncoder.getFreeInputs(excluded);
+
+        Assert.assertFalse(freeInputs.isEmpty());
+        LOGGER.debug("Free input: {}", freeInputs.get(0));
     }
 
     @Test

@@ -17,10 +17,13 @@ package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.ChannelQuery;
+import org.syphr.mythtv.data.InputInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
 import org.syphr.mythtv.types.ChannelChangeDirection;
@@ -32,138 +35,148 @@ import org.syphr.mythtv.util.exception.CommandException;
  * combined recorder information API of all MythTV protocols that are supported.
  * However, any functionality that is not part of the protocol present in the
  * most current stable release of MythTV will be marked as deprecated.
- *
+ * 
  * @see QueryRemoteEncoder
- *
+ * 
  * @author Gregory P. Moyer
  */
 public interface QueryRecorder
 {
     /**
-     * Inform this encoder to cancel or continue recording the next program scheduled to
-     * be recorded. This is useful when the encoder is recording live TV and there is a
-     * scheduled recording that needs this encoder.
-     *
+     * Inform this encoder to cancel or continue recording the next program
+     * scheduled to be recorded. This is useful when the encoder is recording
+     * live TV and there is a scheduled recording that needs this encoder.
+     * 
      * @param cancel
-     *            if <code>true</code>, the next recording will be cancelled; otherwise
-     *            the recording will continue as scheduled
+     *            if <code>true</code>, the next recording will be cancelled;
+     *            otherwise the recording will continue as scheduled
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
     public void cancelNextRecording(boolean cancel) throws IOException, CommandException;
 
     /**
-     * Increment or decrement the current brightness value for this recorder. This command
-     * is likely to only be useful for frame grabbing recorders.
-     *
+     * Increment or decrement the current brightness value for this recorder.
+     * This command is likely to only be useful for frame grabbing recorders.
+     * 
      * @param type
-     *            the level of permanence for this change (i.e. everything recorded on
-     *            this channel vs. this recording vs. this playback only)
+     *            the level of permanence for this change (i.e. everything
+     *            recorded on this channel vs. this recording vs. this playback
+     *            only)
      * @param increment
-     *            if <code>true</code>, increment the current value; otherwise decrement
-     *            the current value
-     * @return the new value [0, 100] or <code>-1</code> if the recorder is not local to
-     *         this backend or the value cannot be changed
+     *            if <code>true</code>, increment the current value; otherwise
+     *            decrement the current value
+     * @return the new value [0, 100] or <code>-1</code> if the recorder is not
+     *         local to this backend or the value cannot be changed
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
-    public int changeBrightness(PictureAdjustType type, boolean increment) throws IOException, CommandException;
+    public int changeBrightness(PictureAdjustType type, boolean increment) throws IOException,
+                                                                          CommandException;
 
     /**
-     * Change the channel in the given direction of the currently recording stream.<br>
+     * Change the channel in the given direction of the currently recording
+     * stream.<br>
      * <br>
      * Note that {@link #pause()} must be called before this command.<br>
      * <br>
      * Note that this command only works for recorders local to this backend.
-     *
+     * 
      * @param direction
      *            the direction in which to change the channel
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
-    public void changeChannel(ChannelChangeDirection direction) throws IOException, CommandException;
+    public void changeChannel(ChannelChangeDirection direction) throws IOException,
+                                                               CommandException;
 
     /**
-     * Increment or decrement the current color value for this recorder. This command is
-     * likely to only be useful for frame grabbing recorders.
-     *
+     * Increment or decrement the current color value for this recorder. This
+     * command is likely to only be useful for frame grabbing recorders.
+     * 
      * @param type
-     *            the level of permanence for this change (i.e. everything recorded on
-     *            this channel vs. this recording vs. this playback only)
+     *            the level of permanence for this change (i.e. everything
+     *            recorded on this channel vs. this recording vs. this playback
+     *            only)
      * @param increment
-     *            if <code>true</code>, increment the current value; otherwise decrement
-     *            the current value
-     * @return the new value [0, 100] or <code>-1</code> if the recorder is not local to
-     *         this backend or the value cannot be changed
+     *            if <code>true</code>, increment the current value; otherwise
+     *            decrement the current value
+     * @return the new value [0, 100] or <code>-1</code> if the recorder is not
+     *         local to this backend or the value cannot be changed
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
-    public int changeColour(PictureAdjustType type, boolean increment) throws IOException, CommandException;
+    public int changeColour(PictureAdjustType type, boolean increment) throws IOException,
+                                                                      CommandException;
 
     /**
-     * Increment or decrement the current contrast value for this recorder. This command
-     * is likely to only be useful for frame grabbing recorders.
-     *
+     * Increment or decrement the current contrast value for this recorder. This
+     * command is likely to only be useful for frame grabbing recorders.
+     * 
      * @param type
-     *            the level of permanence for this change (i.e. everything recorded on
-     *            this channel vs. this recording vs. this playback only)
+     *            the level of permanence for this change (i.e. everything
+     *            recorded on this channel vs. this recording vs. this playback
+     *            only)
      * @param increment
-     *            if <code>true</code>, increment the current value; otherwise decrement
-     *            the current value
-     * @return the new value [0, 100] or <code>-1</code> if the recorder is not local to
-     *         this backend or the value cannot be changed
+     *            if <code>true</code>, increment the current value; otherwise
+     *            decrement the current value
+     * @return the new value [0, 100] or <code>-1</code> if the recorder is not
+     *         local to this backend or the value cannot be changed
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
-    public int changeContrast(PictureAdjustType type, boolean increment) throws IOException, CommandException;
+    public int changeContrast(PictureAdjustType type, boolean increment) throws IOException,
+                                                                        CommandException;
 
     /**
-     * Increment or decrement the current contrast value for this recorder. This command
-     * is likely to only be useful for frame grabbing recorders.
-     *
+     * Increment or decrement the current contrast value for this recorder. This
+     * command is likely to only be useful for frame grabbing recorders.
+     * 
      * @param type
-     *            the level of permanence for this change (i.e. everything recorded on
-     *            this channel vs. this recording vs. this playback only)
+     *            the level of permanence for this change (i.e. everything
+     *            recorded on this channel vs. this recording vs. this playback
+     *            only)
      * @param increment
-     *            if <code>true</code>, increment the current value; otherwise decrement
-     *            the current value
-     * @return the new value [0, 100] or <code>-1</code> if the recorder is not local to
-     *         this backend or the value cannot be changed
+     *            if <code>true</code>, increment the current value; otherwise
+     *            decrement the current value
+     * @return the new value [0, 100] or <code>-1</code> if the recorder is not
+     *         local to this backend or the value cannot be changed
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
-    public int changeHue(PictureAdjustType type, boolean increment) throws IOException, CommandException;
+    public int changeHue(PictureAdjustType type, boolean increment) throws IOException,
+                                                                   CommandException;
 
     /**
      * Determine whether or not the given channel exists on this recorder.<br>
      * <br>
      * Note, this command will return <code>false</code> if the recorder is not
      * local to the connected backend.
-     *
+     * 
      * @param channelNumber
      *            the channel number to check
      * @return <code>true</code> if the channel exists; <code>false</code> if it
@@ -173,38 +186,40 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
     public boolean checkChannel(String channelNumber) throws IOException, CommandException;
 
     /**
-     * Query the backend to determine if the given channel number prefix either matches a
-     * valid channel or is a prefix to a valid channel.<br>
+     * Query the backend to determine if the given channel number prefix either
+     * matches a valid channel or is a prefix to a valid channel.<br>
      * <br>
-     * An example use case for this method is a user typing in a channel number. This
-     * method can be used to check what the user types to look for a valid channel.<br>
+     * An example use case for this method is a user typing in a channel number.
+     * This method can be used to check what the user types to look for a valid
+     * channel.<br>
      * <br>
-     * Note, this command will return {@link ChannelQuery#isValid() invalid} if the
-     * recorder is not local to the connected backend.
-     *
+     * Note, this command will return {@link ChannelQuery#isValid() invalid} if
+     * the recorder is not local to the connected backend.
+     * 
      * @param channelNumberPrefix
      *            the prefix of the desired channel number
-     * @return a query object with details about the availability of a channel matching
-     *         the given prefix
+     * @return a query object with details about the availability of a channel
+     *         matching the given prefix
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
-    public ChannelQuery checkChannelPrefix(String channelNumberPrefix) throws IOException, CommandException;
+    public ChannelQuery checkChannelPrefix(String channelNumberPrefix) throws IOException,
+                                                                      CommandException;
 
     /**
      * Get a map of keyframe positions to file byte offsets for all of the
      * keyframes within the given range.
-     *
+     * 
      * @param start
      *            the start of the desired range
      * @param end
@@ -215,31 +230,32 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
-     *
+     * 
      * @since 63
      */
-    public Map<Long, Long> fillPositionMap(long start, long end) throws IOException, CommandException;
+    public Map<Long, Long> fillPositionMap(long start, long end) throws IOException,
+                                                                CommandException;
 
     /**
      * Request that this recorder stop recording as soon as possible.
-     *
+     * 
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
-     *
+     * 
      * @since 63
      */
     public void finishRecording() throws IOException, CommandException;
 
     /**
      * Inform the backend that this client is ready to receive messages.
-     *
+     * 
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
     public void frontendReady() throws IOException, CommandException;
@@ -247,14 +263,14 @@ public interface QueryRecorder
     /**
      * Get the current brightness value for this recorder. This command is
      * likely to only be useful for frame grabbing recorders.
-     *
+     * 
      * @return the current value [0, 100] or <code>-1</code> if the recorder is
      *         not local to this backend or the value cannot be determined
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
     public int getBrightness() throws IOException, CommandException;
@@ -263,7 +279,7 @@ public interface QueryRecorder
      * Get information about the channel identified with the given ID.<br>
      * <br>
      * Note that this command only works for recorders local to this backend.
-     *
+     * 
      * @param channelId
      *            the unique ID of the channel whose information is requested
      * @return the corresponding channel information
@@ -271,7 +287,7 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
     public Channel getChannelInfo(int channelId) throws IOException, CommandException;
@@ -279,14 +295,14 @@ public interface QueryRecorder
     /**
      * Get the current color value for this recorder. This command is likely to
      * only be useful for frame grabbing recorders.
-     *
+     * 
      * @return the current value [0, 100] or <code>-1</code> if the recorder is
      *         not local to this backend or the value cannot be determined
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
     public int getColour() throws IOException, CommandException;
@@ -294,28 +310,28 @@ public interface QueryRecorder
     /**
      * Get the current contrast value for this recorder. This command is likely
      * to only be useful for frame grabbing recorders.
-     *
+     * 
      * @return the current value [0, 100] or <code>-1</code> if the recorder is
      *         not local to this backend or the value cannot be determined
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
     public int getContrast() throws IOException, CommandException;
 
     /**
      * Retrieve the currently recording program.
-     *
-     * @return the currently recording program or <code>null</code> if nothing is
-     *         recording
+     * 
+     * @return the currently recording program or <code>null</code> if nothing
+     *         is recording
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
-     *
+     * 
      * @since 63
      */
     public Program getCurrentRecording() throws IOException, CommandException;
@@ -325,13 +341,13 @@ public interface QueryRecorder
      * <br>
      * Note, this command will throw an exception if the recorder is not local
      * to the connected backend.
-     *
+     * 
      * @return the number of bytes written
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
-     *
+     * 
      * @since 63
      */
     public long getFilePosition() throws IOException, CommandException;
@@ -341,13 +357,13 @@ public interface QueryRecorder
      * <br>
      * Note, this command will throw an exception if the recorder is not local
      * to the connected backend.
-     *
+     * 
      * @return the frame rate
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
-     *
+     * 
      * @since 63
      */
     public float getFrameRate() throws IOException, CommandException;
@@ -357,37 +373,48 @@ public interface QueryRecorder
      * <br>
      * Note, this command will throw an exception if the recorder is not local
      * to the connected backend.
-     *
+     * 
      * @return the number of frames written
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
-     *
+     * 
      * @since 63
      */
     public long getFramesWritten() throws IOException, CommandException;
 
     /**
-     * <b>Not implemented yet</b>
-     *
+     * Get input information on all of the available inputs for this recorder
+     * that are not currently recording.
+     * 
+     * @param excludedCardIds
+     *            a set of card IDs that will be excluded from the busy check
+     *            (in other words, a busy input whose card ID matches one of
+     *            these will be returned as free)
+     * 
+     * @return the list of free inputs
      * @throws IOException
+     *             if there is a communication or protocol error
      * @throws CommandException
+     *             if the recorder is unknown
+     * 
+     * @since 63
      */
-    // TODO
-    public void getFreeInputs() throws IOException, CommandException;
+    public List<InputInfo> getFreeInputs(Set<Integer> excludedCardIds) throws IOException,
+                                                                      CommandException;
 
     /**
      * Get the current hue value for this recorder. This command is likely to
      * only be useful for frame grabbing recorders.
-     *
+     * 
      * @return the current value [0, 100] or <code>-1</code> if the recorder is
      *         not local to this backend or the value cannot be determined
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
     public int getHue() throws IOException, CommandException;
@@ -397,20 +424,20 @@ public interface QueryRecorder
      * <br>
      * Note, this command will throw an exception if the recorder is not local
      * to the connected backend.
-     *
+     * 
      * @return the name of the input
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
-     *
+     * 
      * @since 63
      */
     public String getInput() throws IOException, CommandException;
 
     /**
      * Get the closest keyframe position to the desired position.
-     *
+     * 
      * @param desiredPosition
      *            the desired frame position
      * @return the keyframe position closest to the desired location
@@ -418,31 +445,31 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
-     *
+     * 
      * @since 63
      */
     public long getKeyframePos(long desiredPosition) throws IOException, CommandException;
 
     /**
      * Retrieve the maximum bits per second for this recorder.
-     *
+     * 
      * @return the max bitrate
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if this recorder is unknown
-     *
+     * 
      * @since 63
      */
     public long getMaxBitrate() throws IOException, CommandException;
 
     /**
-     * Retrieve information about the program found by moving in the given direction from
-     * the given channel and start time.<br>
+     * Retrieve information about the program found by moving in the given
+     * direction from the given channel and start time.<br>
      * <br>
-     * Note, this command will retrieve an empty {@link Program} if the recorder is
-     * not local to the connected backend.
-     *
+     * Note, this command will retrieve an empty {@link Program} if the recorder
+     * is not local to the connected backend.
+     * 
      * @param channel
      *            the channel from which to start
      * @param browseDirection
@@ -454,23 +481,23 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if this recorder is unknown
-     *
+     * 
      * @since 63
      */
     public Program getNextProgramInfo(Channel channel,
-                                          ChannelBrowseDirection browseDirection,
-                                          Date startTime) throws IOException, CommandException;
+                                      ChannelBrowseDirection browseDirection,
+                                      Date startTime) throws IOException, CommandException;
 
     /**
      * Determine whether or not this recorder is currently recording.
-     *
+     * 
      * @return <code>true</code> if this recorder is actively recording,
      *         <code>false</code> otherwise
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if this recorder is unknown
-     *
+     * 
      * @since 63
      */
     public boolean isRecording() throws IOException, CommandException;
@@ -480,12 +507,12 @@ public interface QueryRecorder
      * <br>
      * Note, this command will do nothing if the recorder is not local to the
      * connected backend.
-     *
+     * 
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if this recorder is unknown
-     *
+     * 
      * @since 63
      */
     public void pause() throws IOException, CommandException;
@@ -496,14 +523,15 @@ public interface QueryRecorder
      * Note that {@link #pause()} must be called before this command.<br>
      * <br>
      * Note that this command only works for recorders local to this backend.
-     *
+     * 
      * @param channelNumber
-     *            the channel number (which does not necessarily have to be a number)
+     *            the channel number (which does not necessarily have to be a
+     *            number)
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is unknown
-     *
+     * 
      * @since 63
      */
     public void setChannel(String channelNumber) throws IOException, CommandException;
@@ -512,9 +540,9 @@ public interface QueryRecorder
      * Request that this recorder switch to the given input.<br>
      * <br>
      * Note that {@link #pause()} must be called before this command.
-     *
+     * 
      * @see #setInputNext()
-     *
+     * 
      * @param input
      *            the input to which to the recorder should switch
      * @return the current input after the switch
@@ -522,7 +550,7 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
-     *
+     * 
      * @since 63
      */
     public String setInput(String input) throws IOException, CommandException;
@@ -531,15 +559,15 @@ public interface QueryRecorder
      * Request that this recorder switch to the next available input.<br>
      * <br>
      * Note that {@link #pause()} must be called before this command.
-     *
+     * 
      * @see #setInput(String)
-     *
+     * 
      * @return the current input after the switch
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if the recorder is not local or it is not currently recording
-     *
+     * 
      * @since 63
      */
     public String setInputNext() throws IOException, CommandException;
@@ -550,19 +578,19 @@ public interface QueryRecorder
      * <br>
      * Note, this command will do nothing if the recorder is not local to the
      * connected backend.
-     *
+     * 
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if this recorder is unknown
-     *
+     * 
      * @since 63
      */
     public void setLiveRecording() throws IOException, CommandException;
 
     /**
      * <b>Not implemented yet</b>
-     *
+     * 
      * @throws IOException
      * @throws CommandException
      */
@@ -571,7 +599,7 @@ public interface QueryRecorder
 
     /**
      * Determine if the given channel exists on a recorder other than this one.
-     *
+     * 
      * @param channel
      *            the channel to check
      * @return <code>true</code> if the channel exists on another recorder;
@@ -581,16 +609,17 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if this recorder is unknown
-     *
+     * 
      * @since 63
      */
     public boolean shouldSwitchCard(Channel channel) throws IOException, CommandException;
 
     /**
      * Request a new LiveTV chain to start recording.
-     *
+     * 
      * @param chainId
-     *            the ID of the new chain (suggest live-[host]-[current datetime])
+     *            the ID of the new chain (suggest live-[host]-[current
+     *            datetime])
      * @param pip
      *            tell the backend whether or not this chain will be used for
      *            Picture-In-Picture
@@ -600,35 +629,36 @@ public interface QueryRecorder
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if this recorder is unknown
-     *
+     * 
      * @since 63
      */
-    public void spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException, CommandException;
+    public void spawnLiveTv(String chainId, boolean pip, Channel startChannel) throws IOException,
+                                                                              CommandException;
 
     /**
      * Request that the recorder stop recording and cancel it's live TV chain.
-     *
+     * 
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if this recorder is unknown
-     *
+     * 
      * @since 63
      */
     public void stopLiveTv() throws IOException, CommandException;
 
     /**
-     * Toggle the current channel as a member of the given channel group. The request only
-     * works for recorders that are local to the connected backend. If the recorder is
-     * remote, the request will be silently ignored.
-     *
+     * Toggle the current channel as a member of the given channel group. The
+     * request only works for recorders that are local to the connected backend.
+     * If the recorder is remote, the request will be silently ignored.
+     * 
      * @param channelGroup
      *            the group in which to toggle the current channel
      * @throws IOException
      *             if there is a communication or protocol error
      * @throws CommandException
      *             if this recorder is unknown
-     *
+     * 
      * @since 63
      */
     public void toggleChannelFavorite(String channelGroup) throws IOException, CommandException;

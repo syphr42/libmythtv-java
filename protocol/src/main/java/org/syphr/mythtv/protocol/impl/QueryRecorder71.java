@@ -15,6 +15,12 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Set;
+
+import org.syphr.mythtv.data.InputInfo;
+import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 
@@ -29,9 +35,12 @@ public class QueryRecorder71 extends QueryRecorder66
     }
 
     @Override
-    public void getFreeInputs()
+    public List<InputInfo> getFreeInputs(Set<Integer> excludedCardIds) throws IOException,
+                                                                      CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException("not implemented yet");
+        return new Command71QueryRecorderRemoteEncoderGetFreeInputs(getTranslator(),
+                                                                    getParser(),
+                                                                    getRecorderId(),
+                                                                    excludedCardIds).send(getSocketManager());
     }
 }

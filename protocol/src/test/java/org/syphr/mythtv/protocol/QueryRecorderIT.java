@@ -16,13 +16,18 @@
 package org.syphr.mythtv.protocol;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.InputInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.protocol.test.Utils;
@@ -41,6 +46,7 @@ public class QueryRecorderIT
     private static SocketManager socketManager;
     private static Protocol proto;
 
+    private static int recorderId;
     private static QueryRecorder queryRecorder;
 
     private static boolean recording;
@@ -52,7 +58,7 @@ public class QueryRecorderIT
         socketManager = Utils.connect(settings);
         proto = Utils.announceMonitor(settings, socketManager, EventLevel.NONE);
 
-        int recorderId = settings.getIntegerProperty(Settings.RECORDER);
+        recorderId = settings.getIntegerProperty(Settings.RECORDER);
         LOGGER.debug("Interrogating recorder {}", recorderId);
         queryRecorder = proto.queryRecorder(recorderId);
 
@@ -121,8 +127,7 @@ public class QueryRecorderIT
     public void testCheckChannelPrefix() throws IOException, CommandException
     {
         String chanNumPrefix = "3";
-        LOGGER.debug("Channel query: {}",
-                     queryRecorder.checkChannelPrefix(chanNumPrefix));
+        LOGGER.debug("Channel query: {}", queryRecorder.checkChannelPrefix(chanNumPrefix));
     }
 
     @Test
@@ -256,6 +261,32 @@ public class QueryRecorderIT
         }
 
         queryRecorder.getFramesWritten();
+    }
+
+    @Test
+    public void testGetFreeInputsNoExclusion() throws IOException, CommandException
+    {
+        List<InputInfo> freeInputs = queryRecorder.getFreeInputs(null);
+
+        if (recording)
+        {
+            Assert.assertTrue(freeInputs.isEmpty());
+        }
+
+        Assert.assertFalse(freeInputs.isEmpty());
+        LOGGER.debug("Free input: {}", freeInputs.get(0));
+    }
+
+    @Test
+    public void testGetFreeInputsWithExclusion() throws IOException, CommandException
+    {
+        Set<Integer> excluded = new HashSet<Integer>();
+        excluded.add(recorderId);
+
+        List<InputInfo> freeInputs = queryRecorder.getFreeInputs(excluded);
+
+        Assert.assertFalse(freeInputs.isEmpty());
+        LOGGER.debug("Free input: {}", freeInputs.get(0));
     }
 
     @Test

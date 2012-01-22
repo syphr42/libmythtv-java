@@ -68,10 +68,13 @@ public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements Qu
     }
 
     @Override
-    public List<InputInfo> getFreeInputs() throws IOException
+    public List<InputInfo> getFreeInputs(Set<Integer> excludedCardIds) throws IOException,
+                                                                      CommandException
     {
-        // TODO
-        throw new UnsupportedOperationException("not implemented yet");
+        return new Command63QueryRecorderRemoteEncoderGetFreeInputs(getTranslator(),
+                                                                    getParser(),
+                                                                    getRecorderId(),
+                                                                    excludedCardIds).send(getSocketManager());
     }
 
     @Override

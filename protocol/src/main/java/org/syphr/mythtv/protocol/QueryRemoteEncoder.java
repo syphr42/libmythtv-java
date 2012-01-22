@@ -86,14 +86,24 @@ public interface QueryRemoteEncoder
     public Set<RecorderFlag> getFlags() throws IOException, CommandException;
 
     /**
-     * <b>Not implemented yet</b>
+     * Get input information on all of the available inputs for this recorder
+     * that are not currently recording.
      * 
-     * @return
+     * @param excludedCardIds
+     *            a set of card IDs that will be excluded from the busy check
+     *            (in other words, a busy input whose card ID matches one of
+     *            these will be returned as free)
+     * 
+     * @return the list of free inputs
      * @throws IOException
+     *             if there is a communication or protocol error
      * @throws CommandException
+     *             if the recorder is unknown
+     * 
+     * @since 63
      */
-    // TODO
-    public List<InputInfo> getFreeInputs() throws IOException, CommandException;
+    public List<InputInfo> getFreeInputs(Set<Integer> excludedCardIds) throws IOException,
+                                                                      CommandException;
 
     /**
      * Retrieve the maximum bits per second for this recorder.
