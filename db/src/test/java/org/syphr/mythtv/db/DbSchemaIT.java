@@ -36,6 +36,7 @@ import org.syphr.mythtv.db.schema.ChannelGroupNames;
 import org.syphr.mythtv.db.schema.ChannelScan;
 import org.syphr.mythtv.db.schema.ChannelScanChannel;
 import org.syphr.mythtv.db.schema.ChannelScanDtvMultiplex;
+import org.syphr.mythtv.db.schema.OldRecorded;
 import org.syphr.mythtv.db.schema.Program;
 import org.syphr.mythtv.db.schema.Recorded;
 import org.syphr.mythtv.db.schema.Settings;
@@ -133,6 +134,12 @@ public class DbSchemaIT
     public void testChannelScanDtvMultiplex()
     {
         printFirstFive(ChannelScanDtvMultiplex.class);
+    }
+
+    @Test
+    public void testOldRecorded()
+    {
+        printFirstFive(OldRecorded.class);
     }
 
     @Test
