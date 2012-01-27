@@ -41,6 +41,8 @@
 		<class>org.syphr.mythtv.db.schema.impl._0_24.RecordedId1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.RecordedProgram1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.RecordedProgramId1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.RecordMatch1264</class>
+		<class>org.syphr.mythtv.db.schema.impl._0_24.RecordMatchId1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.Settings1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.SettingsId1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.TvChain1264</class>
@@ -76,6 +78,8 @@
 		<class>org.syphr.mythtv.db.schema.impl._0_24.RecordedId1264</class>
         <class>org.syphr.mythtv.db.schema.impl._0_24.RecordedProgram1264</class>
         <class>org.syphr.mythtv.db.schema.impl._0_24.RecordedProgramId1264</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_25.RecordMatch1272</class>
+        <class>org.syphr.mythtv.db.schema.impl._0_25.RecordMatchId1272</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.Settings1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.SettingsId1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.TvChain1264</class>
