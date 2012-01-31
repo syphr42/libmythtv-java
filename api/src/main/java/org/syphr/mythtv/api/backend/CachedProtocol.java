@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.api.util.AbstractCachedConnection;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.DriveInfo;
@@ -43,6 +45,8 @@ import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 import org.syphr.mythtv.protocol.Protocol;
+import org.syphr.mythtv.protocol.ProtocolFactory;
+import org.syphr.mythtv.protocol.ProtocolVersion;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
@@ -63,9 +67,14 @@ import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 public class CachedProtocol extends AbstractCachedConnection implements Protocol
 {
     /**
+     * Standard logging facility.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(CachedProtocol.class);
+
+    /**
      * The protocol for actual communication with the server.
      */
-    private final Protocol delegate;
+    private Protocol delegate;
 
     /**
      * The name of the local machine.
@@ -121,9 +130,39 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
         {
             delegate.mythProtoVersion();
         }
-        catch (CommandException e)
+        catch (InvalidProtocolVersionException e1)
         {
-            throw new IOException(e);
+            ProtocolVersion supported = e1.getSupportedVersion();
+            if (supported == null)
+            {
+                throw new IOException(e1);
+            }
+
+            /*
+             * Make sure the socket manager is fully disconnected.
+             */
+            SocketManager socketManager = delegate.getSocketManager();
+            socketManager.disconnect();
+
+            /*
+             * The specified protocol version is incorrect, but the proper
+             * version has been detected and is fully supported by this
+             * framework. Therefore, try again with the correct version.
+             */
+            LOGGER.warn("Attempted backend connection using incorrect protocol version ({}), automatically retrying with correct version ({})",
+                        e1.getAttemptedVersionStr(),
+                        e1.getSupportedVersionStr());
+
+            delegate = ProtocolFactory.createInstance(supported, socketManager);
+            delegate.connect(remoteHost, remotePort, getTimeout() / 2L);
+            try
+            {
+                delegate.mythProtoVersion();
+            }
+            catch (InvalidProtocolVersionException e2)
+            {
+                throw new IOException(e2);
+            }
         }
         delegate.ann(connectionType, localHost, EventLevel.NONE);
     }

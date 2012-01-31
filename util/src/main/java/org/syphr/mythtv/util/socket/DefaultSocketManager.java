@@ -20,6 +20,7 @@ import java.io.InterruptedIOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.ByteChannel;
+import java.nio.channels.ClosedByInterruptException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
@@ -300,6 +301,11 @@ public class DefaultSocketManager implements SocketManager
                     catch (InterruptedIOException e)
                     {
                         logger.info("Receiver interrupted");
+                        break;
+                    }
+                    catch (ClosedByInterruptException e)
+                    {
+                        logger.info("Receiver closed by interrupt");
                         break;
                     }
                     catch (IOException e)

@@ -46,7 +46,7 @@ public class InvalidProtocolVersionException extends CommandException
      * The local representation of the attempted version sent to the remote
      * server.
      */
-    private ProtocolVersion attemptedVersion;
+    private final ProtocolVersion attemptedVersion;
 
     /**
      * The exact supported version as announced by the remote server.
@@ -76,18 +76,9 @@ public class InvalidProtocolVersionException extends CommandException
                 + supportedVersionStr);
 
         this.attemptedVersionStr = attemptedVersionStr;
+        attemptedVersion = ProtocolVersion.convert(attemptedVersionStr);
+
         this.supportedVersionStr = supportedVersionStr;
-
-        try
-        {
-            attemptedVersion = ProtocolVersion.convert(attemptedVersionStr);
-        }
-        catch (IllegalArgumentException e)
-        {
-            LOGGER.warn("Unknown protocol version sent to remote server: {}", attemptedVersionStr);
-            attemptedVersion = null;
-        }
-
         try
         {
             supportedVersion = ProtocolVersion.convert(supportedVersionStr);
@@ -135,7 +126,8 @@ public class InvalidProtocolVersionException extends CommandException
      * Retrieve the local representation of the supported version announced by
      * the remote server.
      * 
-     * @return the supported version
+     * @return the supported version or <code>null</code> if the supported
+     *         version is not implemented by this framework
      */
     public ProtocolVersion getSupportedVersion()
     {
