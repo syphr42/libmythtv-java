@@ -70,8 +70,7 @@ public class ProtocolIT
         List<Program> expiringPrograms = proto.queryGetExpiring();
         if (!expiringPrograms.isEmpty())
         {
-            Assert.assertEquals(0,
-                                proto.checkRecording(expiringPrograms.get(0)));
+            Assert.assertEquals(0, proto.checkRecording(expiringPrograms.get(0)));
         }
 
         List<Program> recPrograms = proto.queryRecordings(RecordingCategory.RECORDING);
@@ -98,54 +97,54 @@ public class ProtocolIT
 
         Program fullProgram = recordings.get(0);
         Program partialProgram = new Program(fullProgram.getTitle(),
-                                                     fullProgram.getSubtitle(),
-                                                     fullProgram.getDescription(),
-                                                     fullProgram.getCategory(),
-                                                     fullProgram.getChannel(),
-                                                     fullProgram.getFilename(),
-                                                     0,
-                                                     fullProgram.getStartTime(),
-                                                     fullProgram.getEndTime(),
-                                                     fullProgram.getFindId(),
-                                                     fullProgram.getHostname(),
-                                                     fullProgram.getCardId(),
-                                                     fullProgram.getInputId(),
-                                                     fullProgram.getRecPriority(),
-                                                     fullProgram.getRecStatus(),
-                                                     fullProgram.getRecordId(),
-                                                     fullProgram.getRecType(),
-                                                     fullProgram.getDupIn(),
-                                                     fullProgram.getDupMethod(),
-                                                     fullProgram.getRecStartTs(),
-                                                     fullProgram.getRecEndTs(),
-                                                     fullProgram.getProgramFlags(),
-                                                     fullProgram.getRecGroup(),
-                                                     fullProgram.getOutputFilters(),
-                                                     fullProgram.getSeriesId(),
-                                                     fullProgram.getProgramId(),
-                                                     fullProgram.getLastModified(),
-                                                     fullProgram.getStars(),
-                                                     fullProgram.getAirDate(),
-                                                     fullProgram.getPlayGroup(),
-                                                     fullProgram.getRecPriority2(),
-                                                     fullProgram.getParentId(),
-                                                     fullProgram.getStorageGroup(),
-                                                     fullProgram.getAudioProps(),
-                                                     fullProgram.getVideoProps(),
-                                                     fullProgram.getSubtitleType(),
-                                                     fullProgram.getYear());
+                                             fullProgram.getSubtitle(),
+                                             fullProgram.getDescription(),
+                                             fullProgram.getCategory(),
+                                             fullProgram.getChannel(),
+                                             fullProgram.getFilename(),
+                                             0,
+                                             fullProgram.getStartTime(),
+                                             fullProgram.getEndTime(),
+                                             fullProgram.getFindId(),
+                                             fullProgram.getHostname(),
+                                             fullProgram.getCardId(),
+                                             fullProgram.getInputId(),
+                                             fullProgram.getRecPriority(),
+                                             fullProgram.getRecStatus(),
+                                             fullProgram.getRecordId(),
+                                             fullProgram.getRecType(),
+                                             fullProgram.getDupIn(),
+                                             fullProgram.getDupMethod(),
+                                             fullProgram.getRecStartTs(),
+                                             fullProgram.getRecEndTs(),
+                                             fullProgram.getProgramFlags(),
+                                             fullProgram.getRecGroup(),
+                                             fullProgram.getOutputFilters(),
+                                             fullProgram.getSeriesId(),
+                                             fullProgram.getProgramId(),
+                                             fullProgram.getLastModified(),
+                                             fullProgram.getStars(),
+                                             fullProgram.getAirDate(),
+                                             fullProgram.getPlayGroup(),
+                                             fullProgram.getRecPriority2(),
+                                             fullProgram.getParentId(),
+                                             fullProgram.getStorageGroup(),
+                                             fullProgram.getAudioProps(),
+                                             fullProgram.getVideoProps(),
+                                             fullProgram.getSubtitleType(),
+                                             fullProgram.getYear());
 
         Program fillInProgram = proto.fillProgramInfo(settings.getProperty(Settings.FRONTEND_HOST),
-                                                          partialProgram);
+                                                      partialProgram);
 
         LOGGER.debug("File info for "
-                     + fillInProgram.getChannel()
-                     + "/"
-                     + fillInProgram.getRecStartTs()
-                     + ": "
-                     + fillInProgram.getFilename()
-                     + " / "
-                     + fillInProgram.getFileSize());
+                + fillInProgram.getChannel()
+                + "/"
+                + fillInProgram.getRecStartTs()
+                + ": "
+                + fillInProgram.getFilename()
+                + " / "
+                + fillInProgram.getFileSize());
     }
 
     @Test
@@ -186,16 +185,14 @@ public class ProtocolIT
     }
 
     @Test
-    public void testGetRecorderFromNumGood() throws IOException,
-                                            CommandException
+    public void testGetRecorderFromNumGood() throws IOException, CommandException
     {
         RecorderLocation good = proto.getRecorderFromNum(settings.getIntegerProperty(Settings.RECORDER));
         Assert.assertNotNull(good);
     }
 
     @Test(expected = CommandException.class)
-    public void testGetRecorderFromNumBad() throws IOException,
-                                           CommandException
+    public void testGetRecorderFromNumBad() throws IOException, CommandException
     {
         proto.getRecorderFromNum(-1);
     }
@@ -238,8 +235,19 @@ public class ProtocolIT
     @SuppressWarnings("serial")
     public void testSetVerbose() throws IOException, CommandException
     {
-        proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.ALL); }});
-        proto.messageSetVerbose(new ArrayList<Verbose>() {{ add(Verbose.DEFAULT); add(Verbose.NETWORK); }});
+        proto.messageSetVerbose(new ArrayList<Verbose>()
+        {
+            {
+                add(Verbose.ALL);
+            }
+        });
+        proto.messageSetVerbose(new ArrayList<Verbose>()
+        {
+            {
+                add(Verbose.DEFAULT);
+                add(Verbose.NETWORK);
+            }
+        });
     }
 
     @Test
@@ -253,12 +261,11 @@ public class ProtocolIT
 
         Program program = recordings.get(0);
         LOGGER.debug("Bookmark for "
-                     + program.getChannel()
-                     + "/"
-                     + program.getStartTime()
-                     + ": "
-                     + proto.queryBookmark(program.getChannel(),
-                                           program.getRecStartTs()));
+                + program.getChannel()
+                + "/"
+                + program.getStartTime()
+                + ": "
+                + proto.queryBookmark(program.getChannel(), program.getRecStartTs()));
     }
 
     @Test
@@ -272,12 +279,11 @@ public class ProtocolIT
 
         Program program = recordings.get(0);
         LOGGER.debug("Commercial breaks for "
-                     + program.getChannel()
-                     + "/"
-                     + program.getStartTime()
-                     + ": "
-                     + proto.queryCommBreak(program.getChannel(),
-                                            program.getRecStartTs()));
+                + program.getChannel()
+                + "/"
+                + program.getStartTime()
+                + ": "
+                + proto.queryCommBreak(program.getChannel(), program.getRecStartTs()));
     }
 
     @Test
@@ -291,12 +297,11 @@ public class ProtocolIT
 
         Program program = recordings.get(0);
         LOGGER.debug("Cut list marks for "
-                     + program.getChannel()
-                     + "/"
-                     + program.getStartTime()
-                     + ": "
-                     + proto.queryCutList(program.getChannel(),
-                                          program.getRecStartTs()));
+                + program.getChannel()
+                + "/"
+                + program.getStartTime()
+                + ": "
+                + proto.queryCutList(program.getChannel(), program.getRecStartTs()));
     }
 
     @Test
@@ -310,11 +315,11 @@ public class ProtocolIT
 
         Program program = recordings.get(0);
         LOGGER.debug("URI for "
-                     + program.getChannel()
-                     + "/"
-                     + program.getRecStartTs()
-                     + ": "
-                     + proto.queryCheckFile(true, program));
+                + program.getChannel()
+                + "/"
+                + program.getRecStartTs()
+                + ": "
+                + proto.queryCheckFile(true, program));
     }
 
     @Test
@@ -446,8 +451,7 @@ public class ProtocolIT
     }
 
     @Test
-    public void testQueryPixMapGetIfModified() throws IOException,
-                                              CommandException
+    public void testQueryPixMapGetIfModified() throws IOException, CommandException
     {
         List<Program> recordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         for (Program recording : recordings)
@@ -462,13 +466,11 @@ public class ProtocolIT
             }
 
             LOGGER.debug("Pix map for "
-                         + recording.getChannel()
-                         + "/"
-                         + recording.getStartTime()
-                         + ": "
-                         + proto.queryPixMapGetIfModified(null,
-                                                          Integer.MAX_VALUE,
-                                                          recording));
+                    + recording.getChannel()
+                    + "/"
+                    + recording.getStartTime()
+                    + ": "
+                    + proto.queryPixMapGetIfModified(null, Integer.MAX_VALUE, recording));
         }
     }
 
@@ -483,11 +485,11 @@ public class ProtocolIT
 
         Program program = recordings.get(0);
         LOGGER.debug("Pix map last modified for "
-                     + program.getChannel()
-                     + "/"
-                     + program.getStartTime()
-                     + ": "
-                     + proto.queryPixMapLastModified(program));
+                + program.getChannel()
+                + "/"
+                + program.getStartTime()
+                + ": "
+                + proto.queryPixMapLastModified(program));
     }
 
     @Test
@@ -502,8 +504,7 @@ public class ProtocolIT
     }
 
     @Test
-    public void testQueryRecordingBasename() throws IOException,
-                                            CommandException
+    public void testQueryRecordingBasename() throws IOException, CommandException
     {
         List<Program> allRecordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (allRecordings.isEmpty())
@@ -512,14 +513,11 @@ public class ProtocolIT
         }
 
         Program program = allRecordings.get(0);
-        Assert.assertEquals(program,
-                            proto.queryRecordingBasename(program.getFilename()
-                                                                .getPath()));
+        Assert.assertEquals(program, proto.queryRecordingBasename(program.getFilename().getPath()));
     }
 
     @Test
-    public void testQueryRecordingTimeslot() throws IOException,
-                                            CommandException
+    public void testQueryRecordingTimeslot() throws IOException, CommandException
     {
         List<Program> allRecordings = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
         if (allRecordings.isEmpty())
@@ -609,109 +607,115 @@ public class ProtocolIT
         proto.scanVideos();
     }
 
+    @Test
+    public void testQueryActiveBackends() throws IOException
+    {
+        proto.queryActiveBackends();
+    }
+
     /*
-     * ----------------------------------------------------------------
-     * The following unit tests can cause side effects. Use with care.
+     * ---------------------------------------------------------------- The
+     * following unit tests can cause side effects. Use with care.
      */
-//    @Test
-//    public void testAllowShutdown() throws IOException
-//    {
-//        proto.allowShutdown();
-//    }
-//
-//    @Test
-//    public void testBlockShutdown() throws IOException
-//    {
-//        proto.blockShutdown();
-//    }
-//
-//    @Test
-//    public void testDeleteRecording() throws IOException, CommandException
-//    {
-//        List<Program> recorded = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
-//        if (recorded.isEmpty())
-//        {
-//            return;
-//        }
-//
-//        Program delete = recorded.get(0);
-//        LOGGER.debug("Deleting \"{}\" : \"{}\"", delete.getTitle(), delete.getSubtitle());
-//        proto.deleteRecording(delete.getChannel(), delete.getRecStartTs(), false, false);
-//    }
-//
-//    @Test
-//    public void testForgetRecording() throws IOException
-//    {
-//        List<Program> expiring = proto.queryGetExpiring();
-//        if (expiring.isEmpty())
-//        {
-//            return;
-//        }
-//
-//        Program forget = expiring.get(0);
-//        LOGGER.debug("Forgetting \"{}\" : \"{}\"", forget.getTitle(), forget.getSubtitle());
-//        proto.forgetRecording(forget);
-//    }
-//
-//    @Test
-//    public void testGoToSleep() throws IOException
-//    {
-//        try
-//        {
-//            proto.goToSleep();
-//            LOGGER.debug("Backend OK with sleep command");
-//        }
-//        catch (CommandException e)
-//        {
-//            LOGGER.debug("Backend refused sleep command: " + e.getMessage());
-//        }
-//    }
-//
-//    @Test
-//    public void testShutdownNow() throws IOException
-//    {
-//        String backendHost = settings.getProperty(Settings.BACKEND_HOST);
-//        LOGGER.debug("Attempting to shut down {}", backendHost);
-//        proto.shutdownNow("halt");
-//    }
-//
-//    @Test
-//    public void testStopRecording() throws IOException
-//    {
-//        List<Program> recording = proto.queryRecordings(RecordingCategory.RECORDING);
-//        if (recording.isEmpty())
-//        {
-//            return;
-//        }
-//
-//        Program stop = recording.get(0);
-//
-//        LOGGER.debug("Stopping \"{}\" : \"{}\"", stop.getTitle(), stop.getSubtitle());
-//        Assert.assertNotSame(-1, proto.stopRecording(stop));
-//    }
-//
-//    @Test
-//    public void testUndeleteRecording() throws IOException
-//    {
-//        List<Program> expiring = proto.queryGetExpiring();
-//        if (expiring.isEmpty())
-//        {
-//            return;
-//        }
-//
-//        Program undelete = expiring.get(0);
-//        LOGGER.debug("Undeleting \"{}\" : \"{}\"", undelete.getTitle(), undelete.getSubtitle());
-//        Assert.assertTrue(proto.undeleteRecording(undelete));
-//    }
-//
-//    @Test
-//    public void testRescheduleRecordings() throws IOException
-//    {
-//        int recorderId = settings.getIntegerProperty(Settings.RECORDER);
-//        LOGGER.debug("Requesting reschedule on recorder {}", recorderId);
-//        proto.rescheduleRecordings(recorderId);
-//
-//        LOGGER.debug("Requesting full reschedule");
-//        proto.rescheduleRecordings(-1);
-//    }
+    //    @Test
+    //    public void testAllowShutdown() throws IOException
+    //    {
+    //        proto.allowShutdown();
+    //    }
+    //
+    //    @Test
+    //    public void testBlockShutdown() throws IOException
+    //    {
+    //        proto.blockShutdown();
+    //    }
+    //
+    //    @Test
+    //    public void testDeleteRecording() throws IOException, CommandException
+    //    {
+    //        List<Program> recorded = proto.queryRecordings(RecordingCategory.RECORDED_UNSORTED);
+    //        if (recorded.isEmpty())
+    //        {
+    //            return;
+    //        }
+    //
+    //        Program delete = recorded.get(0);
+    //        LOGGER.debug("Deleting \"{}\" : \"{}\"", delete.getTitle(), delete.getSubtitle());
+    //        proto.deleteRecording(delete.getChannel(), delete.getRecStartTs(), false, false);
+    //    }
+    //
+    //    @Test
+    //    public void testForgetRecording() throws IOException
+    //    {
+    //        List<Program> expiring = proto.queryGetExpiring();
+    //        if (expiring.isEmpty())
+    //        {
+    //            return;
+    //        }
+    //
+    //        Program forget = expiring.get(0);
+    //        LOGGER.debug("Forgetting \"{}\" : \"{}\"", forget.getTitle(), forget.getSubtitle());
+    //        proto.forgetRecording(forget);
+    //    }
+    //
+    //    @Test
+    //    public void testGoToSleep() throws IOException
+    //    {
+    //        try
+    //        {
+    //            proto.goToSleep();
+    //            LOGGER.debug("Backend OK with sleep command");
+    //        }
+    //        catch (CommandException e)
+    //        {
+    //            LOGGER.debug("Backend refused sleep command: " + e.getMessage());
+    //        }
+    //    }
+    //
+    //    @Test
+    //    public void testShutdownNow() throws IOException
+    //    {
+    //        String backendHost = settings.getProperty(Settings.BACKEND_HOST);
+    //        LOGGER.debug("Attempting to shut down {}", backendHost);
+    //        proto.shutdownNow("halt");
+    //    }
+    //
+    //    @Test
+    //    public void testStopRecording() throws IOException
+    //    {
+    //        List<Program> recording = proto.queryRecordings(RecordingCategory.RECORDING);
+    //        if (recording.isEmpty())
+    //        {
+    //            return;
+    //        }
+    //
+    //        Program stop = recording.get(0);
+    //
+    //        LOGGER.debug("Stopping \"{}\" : \"{}\"", stop.getTitle(), stop.getSubtitle());
+    //        Assert.assertNotSame(-1, proto.stopRecording(stop));
+    //    }
+    //
+    //    @Test
+    //    public void testUndeleteRecording() throws IOException
+    //    {
+    //        List<Program> expiring = proto.queryGetExpiring();
+    //        if (expiring.isEmpty())
+    //        {
+    //            return;
+    //        }
+    //
+    //        Program undelete = expiring.get(0);
+    //        LOGGER.debug("Undeleting \"{}\" : \"{}\"", undelete.getTitle(), undelete.getSubtitle());
+    //        Assert.assertTrue(proto.undeleteRecording(undelete));
+    //    }
+    //
+    //    @Test
+    //    public void testRescheduleRecordings() throws IOException
+    //    {
+    //        int recorderId = settings.getIntegerProperty(Settings.RECORDER);
+    //        LOGGER.debug("Requesting reschedule on recorder {}", recorderId);
+    //        proto.rescheduleRecordings(recorderId);
+    //
+    //        LOGGER.debug("Requesting full reschedule");
+    //        proto.rescheduleRecordings(-1);
+    //    }
 }

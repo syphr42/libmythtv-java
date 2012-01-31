@@ -439,6 +439,13 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
     }
 
     @Override
+    public List<String> queryActiveBackends() throws IOException
+    {
+        connectIfNecessary();
+        return delegate.queryActiveBackends();
+    }
+
+    @Override
     public RecordingsInProgress queryIsRecording() throws IOException
     {
         connectIfNecessary();

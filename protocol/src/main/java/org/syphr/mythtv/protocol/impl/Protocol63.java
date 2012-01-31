@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -595,5 +596,12 @@ public class Protocol63 extends AbstractProtocol
     {
         handleUnsupported("query file hash with a host");
         return queryFileHash(filename, storageGroup);
+    }
+
+    @Override
+    public List<String> queryActiveBackends() throws IOException
+    {
+        handleUnsupported("query for active backends");
+        return new ArrayList<String>();
     }
 }

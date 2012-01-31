@@ -30,5 +30,6 @@ public enum ProtocolVersion
     _68,
     _69,
     _70,
-    _71
+    _71,
+    _72;
 }

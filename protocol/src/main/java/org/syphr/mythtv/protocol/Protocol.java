@@ -798,6 +798,17 @@ public interface Protocol
     public boolean queryIsActiveBackend(String hostname) throws IOException;
 
     /**
+     * Retrieve a list of hostnames of currently active backends.
+     * 
+     * @return the list of active backends
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * 
+     * @since 72
+     */
+    public List<String> queryActiveBackends() throws IOException;
+
+    /**
      * Retrieve a count of the recordings in progress.
      * 
      * @return stats on recordings in progress
