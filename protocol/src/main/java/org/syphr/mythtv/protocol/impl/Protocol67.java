@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.mythtv.util.translate.Translator;
 
@@ -29,7 +29,7 @@ public class Protocol67 extends Protocol66
     }
 
     @Override
-    public void mythProtoVersion() throws IOException, CommandException
+    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException
     {
         new Command63MythProtoVersion(getTranslator(), getParser())
         {

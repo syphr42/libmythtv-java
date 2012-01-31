@@ -41,6 +41,7 @@ import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.data.VideoEditInfo;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
+import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.QueryRecorder;
@@ -116,7 +117,7 @@ public class Protocol63 extends AbstractProtocol
     }
 
     @Override
-    public void mythProtoVersion() throws IOException, CommandException
+    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException
     {
         new Command63MythProtoVersion(getTranslator(), getParser()).send(getSocketManager());
     }

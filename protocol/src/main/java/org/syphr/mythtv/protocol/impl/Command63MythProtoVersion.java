@@ -18,7 +18,7 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.util.List;
 
-import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.mythtv.util.socket.SocketManager;
@@ -44,7 +44,8 @@ import org.syphr.mythtv.util.translate.Translator;
     }
 
     @Override
-    public Void send(SocketManager socketManager) throws IOException, CommandException
+    public Void send(SocketManager socketManager) throws IOException,
+                                                 InvalidProtocolVersionException
     {
         String response = socketManager.sendAndWait(getMessage());
 
@@ -61,10 +62,7 @@ import org.syphr.mythtv.util.translate.Translator;
 
         if ("REJECT".equals(args.get(0)))
         {
-            throw new CommandException("Attempted protocol "
-                                    + getVersion()
-                                    + ", backend accepts "
-                                    + args.get(1));
+            throw new InvalidProtocolVersionException(getVersion(), args.get(1));
         }
 
         throw new ProtocolException(response, Direction.RECEIVE);

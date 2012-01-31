@@ -18,6 +18,7 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.net.URI;
 
+import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 import org.syphr.mythtv.protocol.events.EventProtocol;
 import org.syphr.mythtv.protocol.events.impl.EventProtocol69;
 import org.syphr.mythtv.util.exception.CommandException;
@@ -32,7 +33,7 @@ public class Protocol69 extends Protocol68
     }
 
     @Override
-    public void mythProtoVersion() throws IOException, CommandException
+    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException
     {
         new Command63MythProtoVersion(getTranslator(), getParser())
         {

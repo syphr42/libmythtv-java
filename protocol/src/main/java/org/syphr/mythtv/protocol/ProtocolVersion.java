@@ -15,6 +15,8 @@
  */
 package org.syphr.mythtv.protocol;
 
+import java.util.regex.Pattern;
+
 /**
  * This enum provides the list of supported protocol versions.
  * 
@@ -32,4 +34,27 @@ public enum ProtocolVersion
     _70,
     _71,
     _72;
+    
+    /**
+     * The pattern used to determine if a potential version string needs a
+     * prefix to be a valid enum name.
+     */
+    private static final Pattern NEEDS_PREFIX_PATTERN = Pattern.compile("^\\d.*$");
+
+    /**
+     * Convert a version string to a valid {@link ProtocolVersion}.
+     * 
+     * @param version
+     *            the version string
+     * @return the corresponding {@link ProtocolVersion}
+     * @throws IllegalArgumentException
+     *             if there is no matching {@link ProtocolVersion}
+     */
+    public static ProtocolVersion convert(String version)
+    {
+        boolean needsPrefix = NEEDS_PREFIX_PATTERN.matcher(version).matches();
+        return needsPrefix
+                ? ProtocolVersion.valueOf("_" + version)
+                : ProtocolVersion.valueOf(version);
+    }
 }

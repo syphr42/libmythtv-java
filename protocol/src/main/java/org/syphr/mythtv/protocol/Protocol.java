@@ -90,12 +90,12 @@ public interface Protocol
      * 
      * @throws IOException
      *             if there is a communication or protocol error
-     * @throws CommandException
+     * @throws InvalidProtocolVersionException
      *             if the backend does not speak the same protocol
      * 
      * @since 63
      */
-    public void mythProtoVersion() throws IOException, CommandException;
+    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException;
 
     /**
      * Announce this connection to the backend. This should be the first command
