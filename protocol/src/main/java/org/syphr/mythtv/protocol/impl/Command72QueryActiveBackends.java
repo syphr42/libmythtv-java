@@ -50,7 +50,7 @@ import org.syphr.mythtv.util.translate.Translator;
         try
         {
             int size = Integer.parseInt(args.get(0));
-            if (args.size() != size - 1)
+            if (args.size() - 1 != size)
             {
                 throw new ProtocolException(response, Direction.RECEIVE);
             }
