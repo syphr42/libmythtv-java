@@ -16,6 +16,7 @@
 package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.List;
 
 import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
@@ -45,6 +46,12 @@ public class Protocol72 extends Protocol71
                 return "D78EFD6F";
             }
         }.send(getSocketManager());
+    }
+
+    @Override
+    public void annMediaServer(InetAddress address) throws IOException
+    {
+        new Command72AnnMediaServer(getTranslator(), getParser(), address).send(getSocketManager());
     }
 
     @Override

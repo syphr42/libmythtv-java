@@ -32,6 +32,7 @@ public enum Settings implements Defaultable
 
     BACKEND_HOST("localhost"),
     BACKEND_SLAVE_HOST("localhost"),
+    BACKEND_MEDIA_SERVER_HOST("localhost"),
 
     BACKEND_HTTP_PORT("6544"),
 
@@ -66,7 +67,8 @@ public enum Settings implements Defaultable
 
     private static final String SETTINGS_SYS_PROP = "libmythtv.java.test.settings";
 
-    private static final File DEFAULT_SETTINGS_FILE = new File(SystemUtils.getUserHome(), ".libmythtv-java/settings.properties");
+    private static final File DEFAULT_SETTINGS_FILE = new File(SystemUtils.getUserHome(),
+                                                               ".libmythtv-java/settings.properties");
 
     static
     {
@@ -125,9 +127,7 @@ public enum Settings implements Defaultable
             settingsStr = System.getProperty(SETTINGS_SYS_PROP);
         }
 
-        File settingsFile = settingsStr == null
-                ? DEFAULT_SETTINGS_FILE
-                : new File(settingsStr);
+        File settingsFile = settingsStr == null ? DEFAULT_SETTINGS_FILE : new File(settingsStr);
         PropertiesManager<Settings> settings = PropertiesManagers.newManager(settingsFile,
                                                                              Settings.class);
         settings.load();

@@ -605,4 +605,11 @@ public class Protocol63 extends AbstractProtocol
         handleUnsupported("query for active backends");
         return new ArrayList<String>();
     }
+
+    @Override
+    public void annMediaServer(InetAddress address) throws IOException
+    {
+        handleUnsupported("announce as media server");
+        annSlaveBackend(address);
+    }
 }

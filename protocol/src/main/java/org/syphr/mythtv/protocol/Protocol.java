@@ -135,6 +135,19 @@ public interface Protocol
     public void annSlaveBackend(InetAddress address, Program... recordings) throws IOException;
 
     /**
+     * Announce this connection to the backend as a media server. This should be
+     * the first command sent to the backend after {@link #mythProtoVersion()}.
+     * 
+     * @param address
+     *            the address of this host
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * 
+     * @since 72
+     */
+    public void annMediaServer(InetAddress address) throws IOException;
+
+    /**
      * Announce this connection to the backend with the intention of
      * transferring a file (read or write). This should be the first command
      * sent to the backend after {@link #mythProtoVersion()}.<br>
