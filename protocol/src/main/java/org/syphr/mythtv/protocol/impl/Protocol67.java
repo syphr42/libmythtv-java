@@ -16,6 +16,7 @@
 package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 import org.syphr.mythtv.util.socket.SocketManager;
@@ -45,6 +46,12 @@ public class Protocol67 extends Protocol66
                 return "0G0G0G0";
             }
         }.send(getSocketManager());
+    }
+
+    @Override
+    public void annMediaServer(InetAddress address) throws IOException
+    {
+        new Command67AnnMediaServer(getTranslator(), getParser(), address).send(getSocketManager());
     }
 
     @Override

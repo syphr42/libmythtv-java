@@ -143,7 +143,7 @@ public interface Protocol
      * @throws IOException
      *             if there is a communication or protocol error
      * 
-     * @since 72
+     * @since 67
      */
     public void annMediaServer(InetAddress address) throws IOException;
 

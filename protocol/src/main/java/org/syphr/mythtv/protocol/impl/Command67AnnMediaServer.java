@@ -20,11 +20,11 @@ import java.net.InetAddress;
 import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.mythtv.util.translate.Translator;
 
-/* default */class Command72AnnMediaServer extends AbstractCommandOkResponse
+/* default */class Command67AnnMediaServer extends AbstractCommandOkResponse
 {
     private final InetAddress address;
 
-    public Command72AnnMediaServer(Translator translator, Parser parser, InetAddress address)
+    public Command67AnnMediaServer(Translator translator, Parser parser, InetAddress address)
     {
         super(translator, parser);
 
