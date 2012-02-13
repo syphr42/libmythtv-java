@@ -691,6 +691,12 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
     }
 
     @Override
+    public void annMediaServer(InetAddress address) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public QueryFileTransfer annFileTransfer(String host,
                                              FileTransferType type,
                                              boolean readAhead,
