@@ -208,6 +208,12 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
     }
 
     @Override
+    public SocketManager getSocketManager()
+    {
+        return delegate.getSocketManager();
+    }
+
+    @Override
     public void allowShutdown() throws IOException
     {
         connectIfNecessary();
@@ -710,12 +716,6 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
 
     @Override
     public void done() throws IOException
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SocketManager getSocketManager()
     {
         throw new UnsupportedOperationException();
     }
