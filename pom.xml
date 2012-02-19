@@ -66,7 +66,7 @@
 	<modules>
 		<module>test</module>
 
-		<module>util</module>
+		<module>commons</module>
 		<module>data</module>
 
 		<module>protocol</module>

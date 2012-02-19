@@ -18,7 +18,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>libmythtv-util</artifactId>
+	<artifactId>libmythtv-commons</artifactId>
 	<packaging>jar</packaging>
 
 	<parent>
@@ -27,8 +27,8 @@
 		<version>0.2-SNAPSHOT</version>
 	</parent>
 
-	<name>Utilities</name>
-	<description>Common utilities that are used by other modules.</description>
+	<name>Commons</name>
+	<description>Common functionality that is reusable across the project.</description>
 
 	<build>
 		<plugins>
