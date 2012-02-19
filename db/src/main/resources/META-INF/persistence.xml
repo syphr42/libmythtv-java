@@ -48,6 +48,8 @@
 		<class>org.syphr.mythtv.db.schema.impl._0_24.TvChain1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.TvChainId1264</class>
 		
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			
@@ -84,6 +86,8 @@
 		<class>org.syphr.mythtv.db.schema.impl._0_24.SettingsId1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.TvChain1264</class>
 		<class>org.syphr.mythtv.db.schema.impl._0_24.TvChainId1264</class>
+		
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
