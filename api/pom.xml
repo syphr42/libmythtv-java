@@ -14,43 +14,29 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>libmythtv-api</artifactId>
 	<packaging>jar</packaging>
 
-    <parent>
-        <groupId>org.syphr</groupId>
-        <artifactId>libmythtv-java</artifactId>
-        <version>0.2-SNAPSHOT</version>
-    </parent>
+	<parent>
+		<groupId>org.syphr</groupId>
+		<artifactId>libmythtv-java</artifactId>
+		<version>0.2-SNAPSHOT</version>
+	</parent>
 
-    <name>High-level API</name>
-    <description>This library provides a high-level abstract Java API to the MythTV ecosystem.</description>
-    
+	<name>High-level API</name>
+	<description>This library provides a high-level abstract Java API to the MythTV ecosystem.</description>
+
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-			</plugin>
-			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
@@ -59,43 +45,43 @@
 	</build>
 
 	<dependencies>
-        <dependency>
-            <groupId>org.syphr</groupId>
-            <artifactId>libmythtv-protocol</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.syphr</groupId>
-            <artifactId>libmythtv-control</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.syphr</groupId>
-            <artifactId>libmythtv-http</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.syphr</groupId>
-            <artifactId>libmythtv-db</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.syphr</groupId>
-            <artifactId>libmythtv-test</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-            <scope>test</scope>
-        </dependency>
-        
+		<dependency>
+			<groupId>org.syphr</groupId>
+			<artifactId>libmythtv-protocol</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.syphr</groupId>
+			<artifactId>libmythtv-control</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.syphr</groupId>
+			<artifactId>libmythtv-http</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.syphr</groupId>
+			<artifactId>libmythtv-db</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.syphr</groupId>
+			<artifactId>libmythtv-test</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
