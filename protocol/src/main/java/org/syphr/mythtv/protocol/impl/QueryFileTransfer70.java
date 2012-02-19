@@ -17,10 +17,10 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.types.FileTransferType;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 public class QueryFileTransfer70 extends QueryFileTransfer66
 {

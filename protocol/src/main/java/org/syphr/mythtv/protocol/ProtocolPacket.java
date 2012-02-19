@@ -24,7 +24,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.syphr.mythtv.util.socket.Packet;
+import org.syphr.mythtv.commons.socket.Packet;
 
 /**
  * This class represents the lowest level socket communication between the client and a

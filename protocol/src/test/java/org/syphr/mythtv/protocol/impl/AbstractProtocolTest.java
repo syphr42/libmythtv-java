@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol.impl;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
-import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.commons.socket.SocketManager;
 
 public abstract class AbstractProtocolTest
 {

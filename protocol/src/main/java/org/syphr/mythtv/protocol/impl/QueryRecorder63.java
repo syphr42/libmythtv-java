@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.ChannelQuery;
 import org.syphr.mythtv.data.InputInfo;
@@ -29,9 +32,6 @@ import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
 import org.syphr.mythtv.types.ChannelChangeDirection;
 import org.syphr.mythtv.types.PictureAdjustType;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRecorder
 {

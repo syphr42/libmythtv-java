@@ -17,9 +17,9 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 
 /* default */class Command63QueryUptime extends AbstractProtocolCommand<Long>
 {

@@ -21,12 +21,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.data.PixMap;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.RecorderLocation;
 import org.syphr.mythtv.data.VideoEditInfo;
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.util.exception.CommandException;
 
 public class Recording
 {

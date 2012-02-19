@@ -18,6 +18,7 @@ package org.syphr.mythtv.protocol.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.syphr.mythtv.commons.translate.AbstractTranslator;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.types.AudioProperty;
@@ -41,7 +42,6 @@ import org.syphr.mythtv.types.TvState;
 import org.syphr.mythtv.types.Verbose;
 import org.syphr.mythtv.types.VideoEditMark;
 import org.syphr.mythtv.types.VideoProperty;
-import org.syphr.mythtv.util.translate.AbstractTranslator;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;

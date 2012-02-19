@@ -18,13 +18,13 @@ package org.syphr.mythtv.control.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.socket.AbstractCommand;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.types.Verbose;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24SetVerbose extends AbstractCommand<Void>
 {

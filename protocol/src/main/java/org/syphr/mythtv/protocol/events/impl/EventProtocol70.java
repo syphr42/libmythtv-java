@@ -19,14 +19,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.protocol.events.BackendEventListener63;
 import org.syphr.mythtv.protocol.events.EventProtocol;
 import org.syphr.mythtv.protocol.events.SystemEvent;
 import org.syphr.mythtv.protocol.events.SystemEventData;
 import org.syphr.mythtv.protocol.impl.Parser;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class EventProtocol70 extends AbstractEventProtocol<BackendEventListener63>
 {

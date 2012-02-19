@@ -26,9 +26,9 @@ import junit.framework.Assert;
 
 import org.easymock.EasyMock;
 import org.junit.Test;
+import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
-import org.syphr.mythtv.util.exception.CommandException;
 
 public class Command63QueryCheckFileTest extends AbstractProtocolTest
 {

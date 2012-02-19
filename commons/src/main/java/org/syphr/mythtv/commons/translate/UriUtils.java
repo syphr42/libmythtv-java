@@ -13,23 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.util.unsupported;
+package org.syphr.mythtv.commons.translate;
 
-/**
- * This interface represents the contract to handle unsupported functionality.
- * Common implementations are to throw an {@link UnsupportedOperationException}
- * or log the event.
- * 
- * @author Gregory P. Moyer
- */
-public interface UnsupportedHandler 
+import java.net.URI;
+import java.net.URISyntaxException;
+
+public class UriUtils
 {
-	/**
-	 * Handle the unsupported operation event.
-	 * 
-	 * @param opDescription
-	 *            a description of the operation that was attempted, but not
-	 *            supported
-	 */
-	public void handle(String opDescription);
+    public static URI toUri(String uri) throws URISyntaxException
+    {
+        return new URI(uri.replace(" ", "%20"));
+    }
+
+    public static String toString(URI uri)
+    {
+        return uri.toString().replace("%20", " ");
+    }
+
+    public static String toPathString(URI uri)
+    {
+        return uri.getPath().replace("%20", " ");
+    }
+
+    private UriUtils()
+    {
+        /*
+         * Static utility class
+         */
+    }
 }

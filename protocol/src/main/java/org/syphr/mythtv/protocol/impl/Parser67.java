@@ -23,6 +23,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.AudioProperty;
@@ -33,9 +36,6 @@ import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.RecordingType;
 import org.syphr.mythtv.types.SubtitleType;
 import org.syphr.mythtv.types.VideoProperty;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class Parser67 extends Parser66
 {

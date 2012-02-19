@@ -19,13 +19,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.types.FileTransferType;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 /* default */class Command63AnnFileTransfer extends AbstractProtocolCommand<QueryFileTransfer>
 {

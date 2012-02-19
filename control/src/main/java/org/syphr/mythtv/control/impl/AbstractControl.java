@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.syphr.mythtv.commons.socket.Interceptor;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandlerLog;
 import org.syphr.mythtv.control.Control;
-import org.syphr.mythtv.util.socket.Interceptor;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandlerLog;
 
 public abstract class AbstractControl implements Control
 {

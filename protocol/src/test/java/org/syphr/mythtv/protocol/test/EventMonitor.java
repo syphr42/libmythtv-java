@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.TunerStatus;
@@ -24,8 +26,6 @@ import org.syphr.mythtv.protocol.events.BackendEventListener68;
 import org.syphr.mythtv.protocol.events.SystemEvent;
 import org.syphr.mythtv.protocol.events.SystemEventData;
 import org.syphr.mythtv.test.Settings;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
 public class EventMonitor

@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.commons.translate.Translator;
 
 public abstract class AbstractParser implements Parser
 {

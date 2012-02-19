@@ -25,14 +25,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.control.test.Utils;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.PlaybackInfo;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.SeekTarget;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.exception.ProtocolException;
 import org.syphr.prom.PropertiesManager;
 
 public class ControlPlayChannelIT

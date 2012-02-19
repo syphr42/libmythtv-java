@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.protocol;
 
-import org.syphr.mythtv.util.socket.DefaultSocketManager;
-import org.syphr.mythtv.util.socket.SocketManager;
+import org.syphr.mythtv.commons.socket.DefaultSocketManager;
+import org.syphr.mythtv.commons.socket.SocketManager;
 
 /**
  * This class provides a {@link SocketManager} that is tailored for use by the

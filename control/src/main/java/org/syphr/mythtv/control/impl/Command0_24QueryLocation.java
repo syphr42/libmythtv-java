@@ -17,10 +17,10 @@ package org.syphr.mythtv.control.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.commons.socket.AbstractCommand;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.types.FrontendLocation;
-import org.syphr.mythtv.util.socket.AbstractCommand;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryLocation extends AbstractCommand<FrontendLocation>
 {

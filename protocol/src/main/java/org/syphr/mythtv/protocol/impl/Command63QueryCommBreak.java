@@ -17,8 +17,8 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.util.Date;
 
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryCommBreak extends AbstractCommand63QueryVideoEditMarks
 {

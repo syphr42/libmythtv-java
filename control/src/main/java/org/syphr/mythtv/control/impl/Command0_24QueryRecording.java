@@ -19,11 +19,11 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import org.syphr.mythtv.commons.socket.AbstractCommand;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.DateUtils;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Program;
-import org.syphr.mythtv.util.socket.AbstractCommand;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.DateUtils;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command0_24QueryRecording extends AbstractCommand<Program>
 {

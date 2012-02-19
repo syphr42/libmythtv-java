@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.util.socket;
+package org.syphr.mythtv.commons.socket;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.syphr.mythtv.util.exception.ResponseTimeoutException;
+import org.syphr.mythtv.commons.exception.ResponseTimeoutException;
 
 /**
  * This class manages a low-level network connection. It provides the necessary

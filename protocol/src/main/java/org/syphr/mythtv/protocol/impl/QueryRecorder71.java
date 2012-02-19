@@ -19,10 +19,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.InputInfo;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class QueryRecorder71 extends QueryRecorder66
 {

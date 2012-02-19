@@ -25,12 +25,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
 import org.syphr.mythtv.control.test.Utils;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.FrontendLocation;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
 import org.syphr.prom.PropertiesManager;
 
 public class ControlPlayMusicIT

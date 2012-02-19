@@ -23,6 +23,9 @@ import java.nio.channels.ByteChannel;
 import java.util.Date;
 import java.util.List;
 
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.data.FileEntry;
@@ -41,9 +44,6 @@ import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.types.Verbose;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 /**
  * This interface represents the combined API of all MythTV protocols that are

@@ -17,11 +17,11 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.net.URI;
 
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.types.FileTransferType;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 /* default */class Command70AnnFileTransfer extends Command66AnnFileTransfer
 {

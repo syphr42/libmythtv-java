@@ -21,12 +21,12 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.ReadableByteChannel;
 
+import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.SeekOrigin;
-import org.syphr.mythtv.util.exception.CommandException;
 
 public class RecordingByteChannel implements ReadableByteChannel
 {

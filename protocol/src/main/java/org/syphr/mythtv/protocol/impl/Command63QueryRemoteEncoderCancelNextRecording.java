@@ -15,9 +15,9 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.socket.CommandUtils;
-import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.socket.CommandUtils;
+import org.syphr.mythtv.commons.translate.Translator;
 
 /* default */class Command63QueryRemoteEncoderCancelNextRecording extends AbstractCommand63QueryRemoteEncoder<Void>
 {

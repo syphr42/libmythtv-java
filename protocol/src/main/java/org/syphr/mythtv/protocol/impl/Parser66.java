@@ -19,10 +19,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.DriveInfo;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class Parser66 extends Parser63
 {

@@ -13,24 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.util.socket;
+package org.syphr.mythtv.commons.unsupported;
 
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.translate.Translator;
-
-public abstract class AbstractCommand<T> implements Command<T>
+/**
+ * This interface represents the contract to handle unsupported functionality.
+ * Common implementations are to throw an {@link UnsupportedOperationException}
+ * or log the event.
+ * 
+ * @author Gregory P. Moyer
+ */
+public interface UnsupportedHandler 
 {
-    private final Translator translator;
-
-    public AbstractCommand(Translator translator)
-    {
-        this.translator = translator;
-    }
-
-    protected Translator getTranslator()
-    {
-        return translator;
-    }
-
-    protected abstract String getMessage() throws ProtocolException;
+	/**
+	 * Handle the unsupported operation event.
+	 * 
+	 * @param opDescription
+	 *            a description of the operation that was attempted, but not
+	 *            supported
+	 */
+	public void handle(String opDescription);
 }

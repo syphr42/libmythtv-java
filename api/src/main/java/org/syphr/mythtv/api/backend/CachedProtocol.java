@@ -27,6 +27,9 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.api.util.AbstractCachedConnection;
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.data.FileEntry;
@@ -54,9 +57,6 @@ import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.types.Verbose;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 /**
  * This class maintains cached connection information to automatically connect

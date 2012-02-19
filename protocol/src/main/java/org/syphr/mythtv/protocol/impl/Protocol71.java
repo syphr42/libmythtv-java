@@ -17,10 +17,10 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
-import org.syphr.mythtv.util.socket.SocketManager;
 
 public class Protocol71 extends Protocol70
 {

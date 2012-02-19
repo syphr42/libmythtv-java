@@ -17,9 +17,9 @@ package org.syphr.mythtv.control.impl;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.util.socket.AbstractCommand;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.commons.socket.AbstractCommand;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 
 /* default */class Command0_24Exit extends AbstractCommand<Void>
 {

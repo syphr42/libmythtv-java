@@ -25,6 +25,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.translate.DateUtils;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.TunerStatus;
@@ -35,10 +39,6 @@ import org.syphr.mythtv.protocol.events.SystemEvent;
 import org.syphr.mythtv.protocol.events.SystemEventData;
 import org.syphr.mythtv.protocol.impl.Parser;
 import org.syphr.mythtv.types.TunerStatusCategory;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.translate.DateUtils;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener63>
 {

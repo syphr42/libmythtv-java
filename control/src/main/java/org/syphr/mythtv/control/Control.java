@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
@@ -32,8 +34,6 @@ import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.types.Verbose;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 /**
  * This interface represents the combined frontend control API of all MythTV versions that

@@ -17,11 +17,11 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.util.List;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.UpcomingRecordings;
-import org.syphr.mythtv.util.exception.ProtocolException;
 
 public interface Parser
 {

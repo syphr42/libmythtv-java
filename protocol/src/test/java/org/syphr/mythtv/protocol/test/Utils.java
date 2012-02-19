@@ -23,6 +23,8 @@ import java.net.InetAddress;
 import java.nio.channels.ByteChannel;
 import java.nio.channels.FileChannel;
 
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.Protocol;
@@ -31,8 +33,6 @@ import org.syphr.mythtv.protocol.ProtocolSocketManager;
 import org.syphr.mythtv.protocol.ProtocolVersion;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.test.Settings;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
 public class Utils

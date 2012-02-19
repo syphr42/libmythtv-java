@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.api.Database;
 import org.syphr.mythtv.api.MythVersion;
+import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.db.DatabaseException;
@@ -38,7 +39,6 @@ import org.syphr.mythtv.protocol.ProtocolFactory;
 import org.syphr.mythtv.protocol.ProtocolVersion;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.types.RecordingCategory;
-import org.syphr.mythtv.util.exception.CommandException;
 
 public class Backend
 {

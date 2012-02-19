@@ -18,12 +18,12 @@ package org.syphr.mythtv.control.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.syphr.mythtv.commons.translate.AbstractTranslator;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.PlaybackType;
 import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.types.Verbose;
-import org.syphr.mythtv.util.translate.AbstractTranslator;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;

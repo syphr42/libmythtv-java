@@ -13,18 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.util.unsupported;
+package org.syphr.mythtv.commons.socket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.translate.Translator;
 
-public class UnsupportedHandlerLog implements UnsupportedHandler
+public abstract class AbstractCommand<T> implements Command<T>
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UnsupportedHandlerLog.class);
+    private final Translator translator;
 
-    @Override
-    public void handle(String opDescription)
+    public AbstractCommand(Translator translator)
     {
-        LOGGER.warn("Unsupported functionality: {}", opDescription);
+        this.translator = translator;
     }
+
+    protected Translator getTranslator()
+    {
+        return translator;
+    }
+
+    protected abstract String getMessage() throws ProtocolException;
 }

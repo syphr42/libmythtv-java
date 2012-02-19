@@ -20,6 +20,9 @@ import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.data.VideoEditInfo;
@@ -29,9 +32,6 @@ import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
 import org.syphr.mythtv.types.FileTransferType;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class Protocol66 extends Protocol65
 {

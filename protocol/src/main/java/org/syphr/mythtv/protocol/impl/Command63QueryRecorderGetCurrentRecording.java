@@ -17,10 +17,10 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.util.List;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.RecordingType;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderGetCurrentRecording extends AbstractCommand63QueryRecorder<Program>
 {

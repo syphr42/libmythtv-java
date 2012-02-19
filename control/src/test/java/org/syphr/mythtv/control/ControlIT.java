@@ -27,6 +27,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.control.test.Utils;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
@@ -35,7 +36,6 @@ import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.types.Verbose;
-import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.prom.PropertiesManager;
 
 public class ControlIT

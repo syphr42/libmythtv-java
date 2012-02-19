@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol.events;
 
 import java.util.List;
 
-import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException;
 
 public interface EventProtocol
 {

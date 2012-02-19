@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.types.PictureAdjustType;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderChangeContrast extends AbstractCommand63QueryRecorderChangePictureAttr
 {

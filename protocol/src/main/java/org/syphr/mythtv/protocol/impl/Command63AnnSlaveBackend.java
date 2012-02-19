@@ -19,9 +19,9 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Program;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63AnnSlaveBackend extends AbstractCommandOkResponse
 {

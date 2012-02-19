@@ -23,6 +23,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.api.util.AbstractCachedConnection;
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.control.Control;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
@@ -35,8 +37,6 @@ import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.SeekTarget;
 import org.syphr.mythtv.types.Verbose;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
 
 /**
  * This class maintains cached connection information to automatically connect

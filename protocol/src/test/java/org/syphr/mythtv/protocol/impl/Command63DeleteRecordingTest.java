@@ -20,9 +20,9 @@ import java.util.Date;
 
 import org.easymock.EasyMock;
 import org.junit.Test;
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.translate.DateUtils;
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.translate.DateUtils;
 
 public class Command63DeleteRecordingTest extends AbstractProtocolTest
 {

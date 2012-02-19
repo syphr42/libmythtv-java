@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.ChannelQuery;
 import org.syphr.mythtv.data.InputInfo;
@@ -28,7 +29,6 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
 import org.syphr.mythtv.types.ChannelChangeDirection;
 import org.syphr.mythtv.types.PictureAdjustType;
-import org.syphr.mythtv.util.exception.CommandException;
 
 /**
  * This interface is a sub-protocol to {@link Protocol} and represents the

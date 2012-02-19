@@ -17,10 +17,10 @@ package org.syphr.mythtv.control.test;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.commons.socket.Interceptor;
+import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.control.impl.ControlSocketManager;
 import org.syphr.mythtv.test.Settings;
-import org.syphr.mythtv.util.socket.Interceptor;
-import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
 public class CommandRunner

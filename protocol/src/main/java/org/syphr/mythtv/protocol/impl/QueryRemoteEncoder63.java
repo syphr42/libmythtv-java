@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.InputInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.TunedInputInfo;
@@ -28,9 +31,6 @@ import org.syphr.mythtv.types.RecorderFlag;
 import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.SleepStatus;
 import org.syphr.mythtv.types.TvState;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class QueryRemoteEncoder63 extends AbstractRecorderProtocol implements QueryRemoteEncoder
 {

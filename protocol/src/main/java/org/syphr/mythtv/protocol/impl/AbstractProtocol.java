@@ -20,13 +20,13 @@ import java.nio.channels.ByteChannel;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.syphr.mythtv.commons.socket.Interceptor;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandlerLog;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
-import org.syphr.mythtv.util.socket.Interceptor;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandlerLog;
 
 public abstract class AbstractProtocol implements Protocol
 {

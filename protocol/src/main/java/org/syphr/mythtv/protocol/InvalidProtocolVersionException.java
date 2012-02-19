@@ -17,7 +17,7 @@ package org.syphr.mythtv.protocol;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.commons.exception.CommandException;
 
 /**
  * This exception indicates that an attempt was made to connect to a backend

@@ -15,8 +15,8 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.util.socket.AbstractCommand;
-import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.commons.socket.AbstractCommand;
+import org.syphr.mythtv.commons.translate.Translator;
 
 public abstract class AbstractProtocolCommand<T> extends AbstractCommand<T>
 {

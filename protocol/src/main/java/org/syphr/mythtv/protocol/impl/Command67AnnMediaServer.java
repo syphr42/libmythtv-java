@@ -17,8 +17,8 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.net.InetAddress;
 
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.translate.Translator;
 
 /* default */class Command67AnnMediaServer extends AbstractCommandOkResponse
 {

@@ -26,6 +26,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.InputInfo;
 import org.syphr.mythtv.data.Program;
@@ -33,8 +35,6 @@ import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.protocol.test.Utils;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
 public class QueryRecorderIT

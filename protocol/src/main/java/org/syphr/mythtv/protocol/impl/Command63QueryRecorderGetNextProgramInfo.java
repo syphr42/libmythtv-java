@@ -19,13 +19,13 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.translate.DateUtils;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.translate.DateUtils;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryRecorderGetNextProgramInfo extends AbstractCommand63QueryRecorder<Program>
 {

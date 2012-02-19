@@ -19,12 +19,12 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.AbstractCommand;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.DateUtils;
-import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.socket.AbstractCommand;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.DateUtils;
+import org.syphr.mythtv.commons.translate.Translator;
 
 /* default */class Command0_24QueryTime extends AbstractCommand<Date>
 {

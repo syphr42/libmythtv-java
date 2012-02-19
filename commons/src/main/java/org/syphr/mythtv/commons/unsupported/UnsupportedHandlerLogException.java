@@ -13,32 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.util.translate;
+package org.syphr.mythtv.commons.unsupported;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-public class UriUtils
+public class UnsupportedHandlerLogException implements UnsupportedHandler
 {
-    public static URI toUri(String uri) throws URISyntaxException
-    {
-        return new URI(uri.replace(" ", "%20"));
-    }
+    private final UnsupportedHandler logStrategy = new UnsupportedHandlerLog();
+    private final UnsupportedHandler exceptionStrategy = new UnsupportedHandlerException();
 
-    public static String toString(URI uri)
+    @Override
+    public void handle(String opDescription)
     {
-        return uri.toString().replace("%20", " ");
-    }
-
-    public static String toPathString(URI uri)
-    {
-        return uri.getPath().replace("%20", " ");
-    }
-
-    private UriUtils()
-    {
-        /*
-         * Static utility class
-         */
+        logStrategy.handle(opDescription);
+        exceptionStrategy.handle(opDescription);
     }
 }

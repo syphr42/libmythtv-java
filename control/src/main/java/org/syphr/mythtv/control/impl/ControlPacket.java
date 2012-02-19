@@ -17,7 +17,7 @@ package org.syphr.mythtv.control.impl;
 
 import java.util.regex.Pattern;
 
-import org.syphr.mythtv.util.socket.DefaultPacket;
+import org.syphr.mythtv.commons.socket.DefaultPacket;
 
 /**
  * This class represents the lowest level socket communication between the client and a

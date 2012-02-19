@@ -21,10 +21,10 @@ import java.net.InetAddress;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.syphr.mythtv.api.backend.Backend;
+import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.db.DatabaseException;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.test.Settings;
-import org.syphr.mythtv.util.exception.CommandException;
 import org.syphr.prom.PropertiesManager;
 
 public class BackendIT

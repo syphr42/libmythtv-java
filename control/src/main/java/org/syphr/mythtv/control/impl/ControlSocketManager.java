@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import org.syphr.mythtv.util.socket.DefaultSocketManager;
+import org.syphr.mythtv.commons.socket.DefaultSocketManager;
 
 public class ControlSocketManager extends DefaultSocketManager
 {

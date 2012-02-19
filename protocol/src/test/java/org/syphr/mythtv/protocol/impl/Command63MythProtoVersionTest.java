@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.easymock.EasyMock;
 import org.junit.Test;
-import org.syphr.mythtv.util.exception.CommandException;
+import org.syphr.mythtv.commons.exception.CommandException;
 
 public class Command63MythProtoVersionTest extends AbstractProtocolTest
 {

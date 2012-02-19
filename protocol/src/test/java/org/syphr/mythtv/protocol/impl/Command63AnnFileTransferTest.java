@@ -24,11 +24,11 @@ import junit.framework.Assert;
 
 import org.easymock.EasyMock;
 import org.junit.Test;
+import org.syphr.mythtv.commons.translate.Translator;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandlerLog;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.types.FileTransferType;
-import org.syphr.mythtv.util.translate.Translator;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandler;
-import org.syphr.mythtv.util.unsupported.UnsupportedHandlerLog;
 
 public class Command63AnnFileTransferTest extends AbstractProtocolTest
 {

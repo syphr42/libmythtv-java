@@ -20,10 +20,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.InputInfo;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command71QueryRecorderRemoteEncoderGetFreeInputs extends
                                                                     Command63QueryRecorderRemoteEncoderGetFreeInputs

@@ -18,14 +18,14 @@ package org.syphr.mythtv.protocol.events.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.VideoListChange;
 import org.syphr.mythtv.protocol.events.BackendEventListener68;
 import org.syphr.mythtv.protocol.events.EventProtocol;
 import org.syphr.mythtv.protocol.impl.Parser;
 import org.syphr.mythtv.types.VideoListChangeType;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class EventProtocol68 extends AbstractEventProtocol<BackendEventListener68>
 {

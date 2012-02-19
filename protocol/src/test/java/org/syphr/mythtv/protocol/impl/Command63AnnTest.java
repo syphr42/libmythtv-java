@@ -19,9 +19,9 @@ import java.io.IOException;
 
 import org.easymock.EasyMock;
 import org.junit.Test;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class Command63AnnTest extends AbstractProtocolTest
 {

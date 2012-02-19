@@ -18,9 +18,9 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.DriveInfo;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command66QueryFreeSpace extends Command63QueryFreeSpace
 {

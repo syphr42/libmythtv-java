@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.util.exception;
+package org.syphr.mythtv.commons.exception;
 
 /**
  * This exception indicates that an error occurred while processing a request. This is

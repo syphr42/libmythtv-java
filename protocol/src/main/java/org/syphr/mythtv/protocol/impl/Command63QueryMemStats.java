@@ -19,12 +19,12 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.MemStats;
 import org.syphr.mythtv.types.MemStatCategory;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
 
 /* default */class Command63QueryMemStats extends AbstractProtocolCommand<MemStats>
 {

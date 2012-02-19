@@ -24,10 +24,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.data.PixMap;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.util.exception.CommandException;
 
 public class ViewerPanel extends JPanel
 {

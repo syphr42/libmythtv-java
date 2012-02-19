@@ -17,9 +17,9 @@ package org.syphr.mythtv.protocol.impl;
 
 import java.io.IOException;
 
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class Protocol64 extends Protocol63
 {

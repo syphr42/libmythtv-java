@@ -15,10 +15,10 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.exception.ProtocolException;
-import org.syphr.mythtv.util.exception.ProtocolException.Direction;
-import org.syphr.mythtv.util.translate.Translator;
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.translate.Translator;
 
 // TODO - the documentation and the code completely disagree on this method - looks like all the code
 // does is issue a tuning request, nothing to do with signal monitoring rate

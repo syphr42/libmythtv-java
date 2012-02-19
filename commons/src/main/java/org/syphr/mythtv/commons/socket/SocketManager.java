@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.util.socket;
+package org.syphr.mythtv.commons.socket;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

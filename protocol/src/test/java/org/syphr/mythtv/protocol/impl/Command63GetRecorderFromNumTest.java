@@ -23,8 +23,8 @@ import junit.framework.Assert;
 
 import org.easymock.EasyMock;
 import org.junit.Test;
+import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.data.RecorderLocation;
-import org.syphr.mythtv.util.exception.CommandException;
 
 public class Command63GetRecorderFromNumTest extends AbstractProtocolTest
 {

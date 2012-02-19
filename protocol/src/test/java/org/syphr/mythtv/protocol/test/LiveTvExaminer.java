@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Date;
 
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.RecorderLocation;
 import org.syphr.mythtv.protocol.ConnectionType;
@@ -29,8 +31,6 @@ import org.syphr.mythtv.protocol.ProtocolSocketManager;
 import org.syphr.mythtv.protocol.ProtocolVersion;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.test.Settings;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
 import org.syphr.prom.PropertiesManager;
 
 public class LiveTvExaminer

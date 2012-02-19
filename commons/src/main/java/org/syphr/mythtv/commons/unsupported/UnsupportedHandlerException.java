@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.util.unsupported;
+package org.syphr.mythtv.commons.unsupported;
 
-public class UnsupportedHandlerLogException implements UnsupportedHandler
+public class UnsupportedHandlerException implements UnsupportedHandler
 {
-    private final UnsupportedHandler logStrategy = new UnsupportedHandlerLog();
-    private final UnsupportedHandler exceptionStrategy = new UnsupportedHandlerException();
-
     @Override
     public void handle(String opDescription)
     {
-        logStrategy.handle(opDescription);
-        exceptionStrategy.handle(opDescription);
+        throw new UnsupportedOperationException("Unsupported functionality: "
+                                                + opDescription);
     }
 }

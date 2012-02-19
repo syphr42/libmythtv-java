@@ -18,12 +18,12 @@ package org.syphr.mythtv.protocol.impl;
 import java.io.IOException;
 import java.net.URI;
 
+import org.syphr.mythtv.commons.exception.CommandException;
+import org.syphr.mythtv.commons.socket.SocketManager;
+import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 import org.syphr.mythtv.protocol.events.EventProtocol;
 import org.syphr.mythtv.protocol.events.impl.EventProtocol69;
-import org.syphr.mythtv.util.exception.CommandException;
-import org.syphr.mythtv.util.socket.SocketManager;
-import org.syphr.mythtv.util.translate.Translator;
 
 public class Protocol69 extends Protocol68
 {

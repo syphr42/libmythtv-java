@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.util.translate;
+package org.syphr.mythtv.commons.translate;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import org.syphr.mythtv.util.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException;
 
 public interface Translator
 {
