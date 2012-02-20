@@ -65,19 +65,14 @@
 
 	<modules>
 		<module>test</module>
-
 		<module>commons</module>
 		<module>data</module>
-
 		<module>protocol</module>
 		<module>control</module>
 		<module>http</module>
 		<module>db</module>
-
 		<module>api</module>
-
 		<module>example</module>
-
 		<module>assembly</module>
 	</modules>
 
