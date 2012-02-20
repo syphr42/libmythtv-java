@@ -25,6 +25,7 @@
 		<groupId>org.syphr</groupId>
 		<artifactId>libmythtv-java</artifactId>
 		<version>0.2-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<name>Testing Utilities</name>
