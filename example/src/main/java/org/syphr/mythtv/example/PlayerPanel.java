@@ -43,6 +43,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.api.backend.RecordingByteChannel;
 
+import com.google.common.io.ByteStreams;
+
 public class PlayerPanel extends JPanel
 {
     /**
@@ -187,13 +189,7 @@ public class PlayerPanel extends JPanel
                     {
                         try
                         {
-                            long read = 0;
-                            long size = channel.size();
-
-                            while (read < size)
-                            {
-                                read += out.transferFrom(channel, read, Math.min(BUFFER_SIZE, size - read));
-                            }
+                            ByteStreams.copy(channel, out);
                         }
                         finally
                         {
