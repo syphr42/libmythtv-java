@@ -57,4 +57,10 @@ public enum ProtocolVersion
                 ? ProtocolVersion.valueOf("_" + version)
                 : ProtocolVersion.valueOf(version);
     }
+    
+    @Override
+    public String toString()
+    {
+        return name().replace("_", "");
+    }
 }
