@@ -76,6 +76,8 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
      */
     private Protocol delegate;
 
+    private final SocketManager socketManager;
+
     /**
      * The name of the local machine.
      */
@@ -100,6 +102,7 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
     {
         super(timeout, unit);
         this.delegate = protocol;
+        this.socketManager = new AutoReConnectingSocketManager(delegate.getSocketManager());
     }
 
     public synchronized void setConnectionParameters(String localHost,
@@ -141,7 +144,6 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
             /*
              * Make sure the socket manager is fully disconnected.
              */
-            SocketManager socketManager = delegate.getSocketManager();
             socketManager.disconnect();
 
             /*
@@ -210,7 +212,7 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
     @Override
     public SocketManager getSocketManager()
     {
-        return delegate.getSocketManager();
+        return socketManager;
     }
 
     @Override
