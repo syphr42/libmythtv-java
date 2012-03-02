@@ -18,6 +18,7 @@ package org.syphr.mythtv.control.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Verbose;
 
 import com.google.common.collect.BiMap;
@@ -25,6 +26,46 @@ import com.google.common.collect.EnumHashBiMap;
 
 public class Translator0_25 extends Translator0_24
 {
+    private static final BiMap<FrontendLocation, String> FE_LOCATION_MAP = EnumHashBiMap.create(FrontendLocation.class);
+    static
+    {
+        FE_LOCATION_MAP.put(FrontendLocation.CHANNEL_PRIORITIES, "channelpriorities");
+        FE_LOCATION_MAP.put(FrontendLocation.CHANNEL_REC_PRIORITY, "channelrecpriority");
+        FE_LOCATION_MAP.put(FrontendLocation.DELETE_BOX, "deletebox");
+        FE_LOCATION_MAP.put(FrontendLocation.DELETE_RECORDINGS, "deleterecordings");
+        FE_LOCATION_MAP.put(FrontendLocation.GUIDE_GRID, "guidegrid");
+        FE_LOCATION_MAP.put(FrontendLocation.LIVE_TV, "livetv");
+        FE_LOCATION_MAP.put(FrontendLocation.LIVE_TV_IN_GUIDE, "livetvinguide");
+        FE_LOCATION_MAP.put(FrontendLocation.MAIN_MENU, "mainmenu");
+        FE_LOCATION_MAP.put(FrontendLocation.MANAGE_RECORDINGS, "managerecordings");
+        FE_LOCATION_MAP.put(FrontendLocation.MUSIC_PLAYLISTS, "musicplaylists");
+        FE_LOCATION_MAP.put(FrontendLocation.MYTH_GALLERY, "mythgallery");
+        FE_LOCATION_MAP.put(FrontendLocation.MYTH_GAME, "mythgame");
+        FE_LOCATION_MAP.put(FrontendLocation.MYTH_NEWS, "mythnews");
+        FE_LOCATION_MAP.put(FrontendLocation.MYTH_VIDEO, "mythvideo");
+        FE_LOCATION_MAP.put(FrontendLocation.MYTH_WEATHER, "mythweather");
+        FE_LOCATION_MAP.put(FrontendLocation.PLAYBACK_BOX, "playbackbox");
+        FE_LOCATION_MAP.put(FrontendLocation.PLAYBACK_RECORDINGS, "playbackrecordings");
+        FE_LOCATION_MAP.put(FrontendLocation.PLAY_DVD, "playdvd");
+        FE_LOCATION_MAP.put(FrontendLocation.PLAY_MUSIC, "playmusic");
+        FE_LOCATION_MAP.put(FrontendLocation.PREVIOUS_BOX, "previousbox");
+        FE_LOCATION_MAP.put(FrontendLocation.PROG_FINDER, "progfinder");
+        FE_LOCATION_MAP.put(FrontendLocation.PROGRAM_FINDER, "programfinder");
+        FE_LOCATION_MAP.put(FrontendLocation.PROGRAM_GUIDE, "programguide");
+        FE_LOCATION_MAP.put(FrontendLocation.PROGRAM_REC_PRIORITY, "programrecpriority");
+        FE_LOCATION_MAP.put(FrontendLocation.RECORDING_PRIORITIES, "recordingpriorities");
+        FE_LOCATION_MAP.put(FrontendLocation.RIP_CD, "ripcd");
+        FE_LOCATION_MAP.put(FrontendLocation.STATUS_BOX, "statusbox");
+        FE_LOCATION_MAP.put(FrontendLocation.VIDEO_BROWSER, "videobrowser");
+        FE_LOCATION_MAP.put(FrontendLocation.VIDEO_GALLERY, "videogallery");
+        FE_LOCATION_MAP.put(FrontendLocation.VIDEO_LISTINGS, "videolistings");
+        FE_LOCATION_MAP.put(FrontendLocation.VIDEO_MANAGER, "videomanager");
+        FE_LOCATION_MAP.put(FrontendLocation.VIEW_SCHEDULED, "viewscheduled");
+        FE_LOCATION_MAP.put(FrontendLocation.ZONEMINDER_CONSOLE, "zoneminderconsole");
+        FE_LOCATION_MAP.put(FrontendLocation.ZONEMINDER_EVENTS, "zoneminderevents");
+        FE_LOCATION_MAP.put(FrontendLocation.ZONEMINDER_LIVE_VIEW, "zoneminderliveview");
+    }
+
     private static final BiMap<Verbose, String> LOG_OPTION_MAP = EnumHashBiMap.create(Verbose.class);
     static
     {
@@ -98,6 +139,7 @@ public class Translator0_25 extends Translator0_24
     private static final Map<Class<? extends Enum>, BiMap<? extends Enum, String>> MAPS = new HashMap<Class<? extends Enum>, BiMap<? extends Enum, String>>();
     static
     {
+        MAPS.put(FrontendLocation.class, FE_LOCATION_MAP);
         MAPS.put(Verbose.class, LOG_OPTION_MAP);
     }
 
@@ -110,6 +152,6 @@ public class Translator0_25 extends Translator0_24
             return super.getMap(type);
         }
 
-        return (BiMap) MAPS.get(type);
+        return (BiMap)MAPS.get(type);
     }
 }

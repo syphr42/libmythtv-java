@@ -21,20 +21,14 @@ public enum FrontendLocation
     CHANNEL_REC_PRIORITY,
     DELETE_BOX,
     DELETE_RECORDINGS,
-    FLIX_BROWSE,
-    FLIX_HISTORY,
-    FLIX_QUEUE,
     GUIDE_GRID,
     LIVE_TV,
     LIVE_TV_IN_GUIDE,
     MAIN_MENU,
     MANAGE_RECORDINGS,
-    MANUAL_BOX,
-    MANUAL_RECORDING,
     MUSIC_PLAYLISTS,
     MYTH_GALLERY,
     MYTH_GAME,
-    MYTH_MOVIETIME,
     MYTH_NEWS,
     MYTH_VIDEO,
     MYTH_WEATHER,
@@ -49,8 +43,6 @@ public enum FrontendLocation
     PROGRAM_REC_PRIORITY,
     RECORDING_PRIORITIES,
     RIP_CD,
-    RIP_DVD,
-    SNAPSHOT,
     STATUS_BOX,
     VIDEO_BROWSER,
     VIDEO_GALLERY,
@@ -60,6 +52,62 @@ public enum FrontendLocation
     ZONEMINDER_CONSOLE,
     ZONEMINDER_EVENTS,
     ZONEMINDER_LIVE_VIEW,
+
+    /**
+     * @since 0.24
+     * @deprecated 0.25
+     */
+    @Deprecated
+    FLIX_BROWSE,
+
+    /**
+     * @since 0.24
+     * @deprecated 0.25
+     */
+    @Deprecated
+    FLIX_HISTORY,
+
+    /**
+     * @since 0.24
+     * @deprecated 0.25
+     */
+    @Deprecated
+    FLIX_QUEUE,
+
+    /**
+     * @since 0.24
+     * @deprecated 0.25
+     */
+    @Deprecated
+    MANUAL_RECORDING,
+
+    /**
+     * @since 0.24
+     * @deprecated 0.25
+     */
+    @Deprecated
+    MANUAL_BOX,
+
+    /**
+     * @since 0.24
+     * @deprecated 0.25
+     */
+    @Deprecated
+    MYTH_MOVIETIME,
+
+    /**
+     * @since 0.24
+     * @deprecated 0.25
+     */
+    @Deprecated
+    RIP_DVD,
+
+    /**
+     * @since 0.24
+     * @deprecated 0.25
+     */
+    @Deprecated
+    SNAPSHOT,
 
     /**
      * The playback location is special in that it is not valid as a jump
