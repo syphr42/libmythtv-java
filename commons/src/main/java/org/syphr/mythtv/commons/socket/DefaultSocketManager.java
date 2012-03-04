@@ -407,6 +407,8 @@ public class DefaultSocketManager implements SocketManager
     @Override
     public void send(String message) throws IOException
     {
+        confirmConnected();
+
         logger.trace("Sending message: {}", message);
 
         if (writeSelector.select() != 1 || Thread.interrupted())
@@ -485,6 +487,14 @@ public class DefaultSocketManager implements SocketManager
         }
     }
 
+    private void confirmConnected() throws IOException
+    {
+        if (!isConnected())
+        {
+            throw new IOException("not connected");
+        }
+    }
+
     private enum Lock
     {
         SEND_AND_WAIT, REDIRECT_CHANNEL
@@ -515,14 +525,14 @@ public class DefaultSocketManager implements SocketManager
         @Override
         public int read(ByteBuffer dst) throws IOException
         {
-            checkClosed();
+            confirmOpen();
             return socket.read(dst);
         }
 
         @Override
         public int write(ByteBuffer src) throws IOException
         {
-            checkClosed();
+            confirmOpen();
             return socket.write(src);
         }
 
@@ -532,7 +542,7 @@ public class DefaultSocketManager implements SocketManager
             return !closed;
         }
 
-        private void checkClosed() throws IOException
+        private void confirmOpen() throws IOException
         {
             if (!isOpen())
             {
