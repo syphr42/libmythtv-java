@@ -35,21 +35,18 @@ import org.syphr.mythtv.http.backend.ConnectionManager;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.ProtocolFactory;
 import org.syphr.mythtv.protocol.ProtocolVersion;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.types.RecordingCategory;
 
 public class Backend
 {
-    // TODO is ConnectionType necessary here?
-
     private static Logger LOGGER = LoggerFactory.getLogger(Backend.class);
 
     private static final int DEFAULT_PROTOCOL_PORT = 6543;
     private static final int DEFAULT_HTTP_PORT = 6544;
 
-    private final CachedProtocol protocol;
+    private final AutomaticProtocol protocol;
 
     private final Database database;
 
@@ -66,9 +63,7 @@ public class Backend
 
     public Backend(ProtocolVersion protocolVersion, SchemaVersion schemaVersion)
     {
-        protocol = new CachedProtocol(ProtocolFactory.createInstance(protocolVersion),
-                                      1L,
-                                      TimeUnit.MINUTES);
+        protocol = new AutomaticProtocol(protocolVersion, 1L, TimeUnit.MINUTES);
         database = new Database(schemaVersion);
     }
 
@@ -77,14 +72,13 @@ public class Backend
         protocol.setTimeout(timeout, unit);
     }
 
-    public void autoConfigure(ConnectionType connectionType) throws IOException, DatabaseException
+    public void autoConfigure() throws IOException, DatabaseException
     {
         String localHost = InetAddress.getLocalHost().getHostName();
 
         setBackendConnectionParameters(localHost,
                                        localHost,
                                        DEFAULT_PROTOCOL_PORT,
-                                       connectionType,
                                        DEFAULT_HTTP_PORT);
 
         database.load();
@@ -93,14 +87,13 @@ public class Backend
     public void setBackendConnectionParameters(String localHost,
                                                String backendHost,
                                                int protocolPort,
-                                               ConnectionType connectionType,
-                                               int httpPort)
+                                               int httpPort) throws IOException
     {
         this.host = backendHost;
 
         protocol.setConnectionParameters(localHost, backendHost, protocolPort == 0
                 ? DEFAULT_PROTOCOL_PORT
-                : protocolPort, connectionType);
+                : protocolPort);
 
         connMan = new ConnectionManager(backendHost, httpPort == 0 ? DEFAULT_HTTP_PORT : httpPort);
     }

@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.syphr.mythtv.api.backend.Backend;
 import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.db.DatabaseException;
-import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.prom.PropertiesManager;
 
@@ -40,7 +39,6 @@ public class BackendIT
         backend.setBackendConnectionParameters(InetAddress.getLocalHost().getHostName(),
                                                settings.getProperty(Settings.BACKEND_HOST),
                                                settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_PORT),
-                                               ConnectionType.MONITOR,
                                                settings.getIntegerProperty(Settings.BACKEND_HTTP_PORT));
     }
 

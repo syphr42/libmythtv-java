@@ -131,6 +131,7 @@ public abstract class AbstractCachedConnection
      */
     public void shutdownConnection()
     {
+        disconnect();
         executor.shutdownNow();
     }
 

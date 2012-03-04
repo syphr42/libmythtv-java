@@ -49,6 +49,7 @@ import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolFactory;
+import org.syphr.mythtv.protocol.ProtocolSocketManager;
 import org.syphr.mythtv.protocol.ProtocolVersion;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.QueryRecorder;
@@ -64,19 +65,19 @@ import org.syphr.mythtv.types.Verbose;
  * 
  * @author Gregory P. Moyer
  */
-public class CachedProtocol extends AbstractCachedConnection implements Protocol
+public class AutomaticProtocol extends AbstractCachedConnection implements Protocol
 {
     /**
      * Standard logging facility.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(CachedProtocol.class);
-
-    /**
-     * The protocol for actual communication with the server.
-     */
-    private Protocol delegate;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AutomaticProtocol.class);
 
     private final SocketManager socketManager;
+
+    /**
+     * The protocol in use.
+     */
+    private Protocol delegate;
 
     /**
      * The name of the local machine.
@@ -93,27 +94,31 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
      */
     private int remotePort;
 
-    /**
-     * The type of connection to create.
-     */
-    private ConnectionType connectionType;
+    public AutomaticProtocol(long timeout, TimeUnit unit)
+    {
+        this(ProtocolVersion.values()[0], timeout, unit);
+    }
 
-    public CachedProtocol(Protocol protocol, long timeout, TimeUnit unit)
+    public AutomaticProtocol(ProtocolVersion version, long timeout, TimeUnit unit)
     {
         super(timeout, unit);
-        this.delegate = protocol;
-        this.socketManager = new AutoReConnectingSocketManager(delegate.getSocketManager());
+
+        socketManager = new AutoReConnectingSocketManager(new ProtocolSocketManager());
+        delegate = ProtocolFactory.createInstance(version, socketManager);
     }
 
     public synchronized void setConnectionParameters(String localHost,
                                                      String remoteHost,
-                                                     int remotePort,
-                                                     ConnectionType connectionType)
+                                                     int remotePort) throws IOException
     {
         this.localHost = localHost;
         this.remoteHost = remoteHost;
         this.remotePort = remotePort;
-        this.connectionType = connectionType;
+
+        /*
+         * Confirm connection works by attempting now.
+         */
+        connectIfNecessary();
     }
 
     private synchronized void connectIfNecessary() throws IOException
@@ -142,7 +147,7 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
             }
 
             /*
-             * Make sure the socket manager is fully disconnected.
+             * Make sure the auto-socket manager is fully disconnected.
              */
             socketManager.disconnect();
 
@@ -166,7 +171,13 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
                 throw new IOException(e2);
             }
         }
-        delegate.ann(connectionType, localHost, EventLevel.NONE);
+
+        /*
+         * Playback is the only sane choice here since this protocol instance
+         * automatically disconnects when not in use (which would make it
+         * useless for monitoring events).
+         */
+        delegate.ann(ConnectionType.PLAYBACK, localHost, EventLevel.NONE);
     }
 
     @Override
@@ -213,6 +224,17 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
     public SocketManager getSocketManager()
     {
         return socketManager;
+    }
+
+    @Override
+    public synchronized void done() throws IOException
+    {
+        if (isConnected())
+        {
+            return;
+        }
+
+        delegate.done();
     }
 
     @Override
@@ -712,12 +734,6 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
                                              URI uri,
                                              String storageGroup,
                                              Protocol commandProtocol) throws IOException
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void done() throws IOException
     {
         throw new UnsupportedOperationException();
     }
