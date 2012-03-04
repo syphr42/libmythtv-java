@@ -31,7 +31,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 import org.syphr.mythtv.api.backend.AutomaticProtocol;
-import org.syphr.mythtv.apps.commander.CommanderOption;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.data.TunerStatus;
@@ -122,14 +121,14 @@ public class Main
         protocol.addBackendEventListener(eventListener63);
         protocol.addBackendEventListener(eventListener68);
 
-        int port = CommanderOption.PORT.hasOption(cl)
-                ? CommanderOption.PORT.getNumberValue(cl).intValue()
+        int port = InformantOption.PORT.hasOption(cl)
+                ? InformantOption.PORT.getNumberValue(cl).intValue()
                 : 6543;
-        long timeout = CommanderOption.TIMEOUT.hasOption(cl)
-                ? CommanderOption.TIMEOUT.getNumberValue(cl).longValue()
+        long timeout = InformantOption.TIMEOUT.hasOption(cl)
+                ? InformantOption.TIMEOUT.getNumberValue(cl).longValue()
                 : TimeUnit.SECONDS.toMillis(10);
 
-        protocol.connect(CommanderOption.HOST.getValue(cl), port, timeout);
+        protocol.connect(InformantOption.HOST.getValue(cl), port, timeout);
 
         return protocol;
     }
