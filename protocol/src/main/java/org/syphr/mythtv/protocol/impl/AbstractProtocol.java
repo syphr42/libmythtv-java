@@ -115,6 +115,15 @@ public abstract class AbstractProtocol implements Protocol
         listeners.remove(l);
     }
 
+    @Override
+    public void copyBackendEventListeners(Protocol protocol)
+    {
+        for (BackendEventListener l : listeners)
+        {
+            protocol.addBackendEventListener(l);
+        }
+    }
+
     protected List<BackendEventListener> getListeners()
     {
         return listeners;

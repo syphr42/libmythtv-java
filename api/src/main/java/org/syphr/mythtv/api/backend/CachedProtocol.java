@@ -17,15 +17,14 @@ package org.syphr.mythtv.api.backend;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URL;
 import java.nio.channels.ByteChannel;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.api.util.AbstractCachedConnection;
 import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
@@ -47,7 +46,6 @@ import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.ProtocolFactory;
 import org.syphr.mythtv.protocol.ProtocolSocketManager;
 import org.syphr.mythtv.protocol.ProtocolVersion;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
@@ -59,137 +57,112 @@ import org.syphr.mythtv.types.RecordingCategory;
 import org.syphr.mythtv.types.Verbose;
 
 /**
- * This class provides a protocol that will automatically work with any
- * supported backend version.
+ * This class maintains cached connection information to automatically connect
+ * and disconnect as necessary to fulfill protocol requests.
  * 
  * @author Gregory P. Moyer
  */
-public class AutomaticProtocol implements Protocol
+public class CachedProtocol extends AbstractCachedConnection implements Protocol
 {
     /**
-     * Standard logging facility.
+     * The socket manager that controls the underlying connection.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(AutomaticProtocol.class);
+    private final SocketManager socketManager;
 
     /**
      * The protocol in use.
      */
-    private Protocol delegate;
+    private final Protocol delegate;
 
-    public AutomaticProtocol()
+    /**
+     * The name of the local machine.
+     */
+    private String localHost;
+
+    /**
+     * The name of the server.
+     */
+    private String remoteHost;
+
+    /**
+     * The port on the server that is accepting protocol connections.
+     */
+    private int remotePort;
+
+    public CachedProtocol(long timeout, TimeUnit unit)
     {
-        this(ProtocolVersion.values()[0], new ProtocolSocketManager());
+        this(ProtocolVersion.values()[0], timeout, unit);
     }
 
-    public AutomaticProtocol(ProtocolVersion version)
+    public CachedProtocol(ProtocolVersion version, long timeout, TimeUnit unit)
     {
-        this(version, new ProtocolSocketManager());
+        super(timeout, unit);
+
+        socketManager = new AutoReConnectingSocketManager(new ProtocolSocketManager());
+        delegate = new AutomaticProtocol(version, socketManager);
     }
 
-    public AutomaticProtocol(SocketManager socketManager)
+    public synchronized void setConnectionParameters(String localHost,
+                                                     String remoteHost,
+                                                     int remotePort) throws IOException
     {
-        this(ProtocolVersion.values()[0], socketManager);
+        this.localHost = localHost;
+        this.remoteHost = remoteHost;
+        this.remotePort = remotePort;
+
+        /*
+         * Confirm connection works by attempting now.
+         */
+        connectIfNecessary();
     }
 
-    public AutomaticProtocol(ProtocolVersion version, SocketManager socketManager)
+    private synchronized void connectIfNecessary() throws IOException
     {
-        delegate = ProtocolFactory.createInstance(version, socketManager);
-    }
+        if (isConnectionShutdown())
+        {
+            throw new IOException("Connection has been permanently shutdown");
+        }
 
-    @Override
-    public void connect(String host, int port, long timeout) throws IOException
-    {
-        delegate.connect(host, port, timeout);
-    }
+        if (isConnected())
+        {
+            return;
+        }
 
-    @Override
-    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException
-    {
-        SocketManager socketManager = getSocketManager();
-        InetSocketAddress server = socketManager.getConnectedAddress();
-
+        delegate.connect(remoteHost, remotePort, getTimeout() / 2L);
         try
         {
             delegate.mythProtoVersion();
         }
-        catch (InvalidProtocolVersionException e1)
+        catch (InvalidProtocolVersionException e)
         {
-            ProtocolVersion supported = e1.getSupportedVersion();
-            if (supported == null)
-            {
-                throw new IOException(e1);
-            }
+            throw new IOException(e);
+        }
 
+        /*
+         * Playback is the only sane choice here since this protocol instance
+         * automatically disconnects when not in use (which would make it
+         * useless for monitoring events).
+         */
+        delegate.ann(ConnectionType.PLAYBACK, localHost, EventLevel.NONE);
+    }
+
+    @Override
+    protected synchronized void disconnect()
+    {
+        try
+        {
+            delegate.done();
+        }
+        catch (IOException e)
+        {
             /*
-             * The specified protocol version is incorrect, but the proper
-             * version has been detected and is fully supported by this
-             * framework. Therefore, try again with the correct version.
+             * Ignore this - it's time to get rid of the connection anyway.
              */
-            LOGGER.warn("Attempted backend connection using incorrect protocol version ({}), automatically retrying with correct version ({})",
-                        e1.getAttemptedVersionStr(),
-                        e1.getSupportedVersionStr());
-
-            Protocol newDelegate = ProtocolFactory.createInstance(supported, socketManager);
-            delegate.copyBackendEventListeners(newDelegate);
-            delegate = newDelegate;
-
-            socketManager.connect(server, 0);
-
-            try
-            {
-                delegate.mythProtoVersion();
-            }
-            catch (InvalidProtocolVersionException e2)
-            {
-                throw new IOException(e2);
-            }
         }
     }
 
     @Override
-    public void ann(ConnectionType connectionType, String host, EventLevel level) throws IOException
-    {
-        delegate.ann(connectionType, host, level);
-    }
-
-    @Override
-    public void annSlaveBackend(InetAddress address, Program... recordings) throws IOException
-    {
-        delegate.annSlaveBackend(address, recordings);
-    }
-
-    @Override
-    public void annMediaServer(InetAddress address) throws IOException
-    {
-        delegate.annMediaServer(address);
-    }
-
-    @Override
-    public QueryFileTransfer annFileTransfer(String host,
-                                             FileTransferType type,
-                                             boolean readAhead,
-                                             long timeout,
-                                             URI uri,
-                                             String storageGroup,
-                                             Protocol commandProtocol) throws IOException
-    {
-        return delegate.annFileTransfer(host,
-                                        type,
-                                        readAhead,
-                                        timeout,
-                                        uri,
-                                        storageGroup,
-                                        commandProtocol);
-    }
-
-    @Override
-    public ByteChannel getChannel()
-    {
-        return delegate.getChannel();
-    }
-
-    @Override
-    public boolean isConnected()
+    public synchronized boolean isConnected()
     {
         return delegate.isConnected();
     }
@@ -209,42 +182,52 @@ public class AutomaticProtocol implements Protocol
     @Override
     public Protocol newProtocol() throws IOException
     {
+        connectIfNecessary();
         return delegate.newProtocol();
     }
 
     @Override
     public SocketManager getSocketManager()
     {
-        return delegate.getSocketManager();
+        return socketManager;
     }
 
     @Override
-    public void done() throws IOException
+    public synchronized void done() throws IOException
     {
+        if (isConnected())
+        {
+            return;
+        }
+
         delegate.done();
     }
 
     @Override
     public void allowShutdown() throws IOException
     {
+        connectIfNecessary();
         delegate.allowShutdown();
     }
 
     @Override
     public void blockShutdown() throws IOException
     {
+        connectIfNecessary();
         delegate.blockShutdown();
     }
 
     @Override
     public int checkRecording(Program program) throws IOException
     {
+        connectIfNecessary();
         return delegate.checkRecording(program);
     }
 
     @Override
     public boolean deleteFile(URI filename, String storageGroup) throws IOException
     {
+        connectIfNecessary();
         return delegate.deleteFile(filename, storageGroup);
     }
 
@@ -252,6 +235,7 @@ public class AutomaticProtocol implements Protocol
     public void deleteRecording(Channel channel, Date recStartTs, boolean force, boolean forget) throws IOException,
                                                                                                 CommandException
     {
+        connectIfNecessary();
         delegate.deleteRecording(channel, recStartTs, force, forget);
     }
 
@@ -259,6 +243,7 @@ public class AutomaticProtocol implements Protocol
     public URI downloadFile(URL url, String storageGroup, URI filename) throws IOException,
                                                                        CommandException
     {
+        connectIfNecessary();
         return delegate.downloadFile(url, storageGroup, filename);
     }
 
@@ -266,120 +251,140 @@ public class AutomaticProtocol implements Protocol
     public URI downloadFileNow(URL url, String storageGroup, URI filename) throws IOException,
                                                                           CommandException
     {
+        connectIfNecessary();
         return delegate.downloadFileNow(url, storageGroup, filename);
     }
 
     @Override
     public Program fillProgramInfo(String host, Program program) throws IOException
     {
+        connectIfNecessary();
         return delegate.fillProgramInfo(host, program);
     }
 
     @Override
     public void forgetRecording(Program program) throws IOException
     {
+        connectIfNecessary();
         delegate.forgetRecording(program);
     }
 
     @Override
     public boolean freeTuner(int recorderId) throws IOException
     {
+        connectIfNecessary();
         return delegate.freeTuner(recorderId);
     }
 
     @Override
     public RecorderLocation getFreeRecorder() throws IOException
     {
+        connectIfNecessary();
         return delegate.getFreeRecorder();
     }
 
     @Override
     public int getFreeRecorderCount() throws IOException
     {
+        connectIfNecessary();
         return delegate.getFreeRecorderCount();
     }
 
     @Override
     public List<Integer> getFreeRecorderList() throws IOException
     {
+        connectIfNecessary();
         return delegate.getFreeRecorderList();
     }
 
     @Override
     public RecorderLocation getNextFreeRecorder(RecorderLocation from) throws IOException
     {
+        connectIfNecessary();
         return delegate.getNextFreeRecorder(from);
     }
 
     @Override
     public RecorderLocation getRecorderFromNum(int recorderId) throws IOException, CommandException
     {
+        connectIfNecessary();
         return delegate.getRecorderFromNum(recorderId);
     }
 
     @Override
     public RecorderLocation getRecorderNum(Program program) throws IOException
     {
+        connectIfNecessary();
         return delegate.getRecorderNum(program);
     }
 
     @Override
     public void goToSleep() throws IOException, CommandException
     {
+        connectIfNecessary();
         delegate.goToSleep();
     }
 
     @Override
     public RecorderDevice lockTuner(int recorderId) throws IOException, CommandException
     {
+        connectIfNecessary();
         return delegate.lockTuner(recorderId);
     }
 
     @Override
     public void messageClearSettingsCache() throws IOException
     {
+        connectIfNecessary();
         delegate.messageClearSettingsCache();
     }
 
     @Override
     public void messageResetIdleTime() throws IOException
     {
+        connectIfNecessary();
         delegate.messageResetIdleTime();
     }
 
     @Override
     public void messageSetVerbose(List<Verbose> options) throws IOException, CommandException
     {
+        connectIfNecessary();
         delegate.messageSetVerbose(options);
     }
 
     @Override
     public long queryBookmark(Channel channel, Date recStartTs) throws IOException
     {
+        connectIfNecessary();
         return delegate.queryBookmark(channel, recStartTs);
     }
 
     @Override
     public URI queryCheckFile(boolean checkSlaves, Program program) throws IOException
     {
+        connectIfNecessary();
         return delegate.queryCheckFile(checkSlaves, program);
     }
 
     @Override
     public List<VideoEditInfo> queryCommBreak(Channel channel, Date recStartTs) throws IOException
     {
+        connectIfNecessary();
         return delegate.queryCommBreak(channel, recStartTs);
     }
 
     @Override
     public List<VideoEditInfo> queryCutList(Channel channel, Date recStartTs) throws IOException
     {
+        connectIfNecessary();
         return delegate.queryCutList(channel, recStartTs);
     }
 
     @Override
     public FileInfo queryFileExists(URI filename, String storageGroup) throws IOException
     {
+        connectIfNecessary();
         return delegate.queryFileExists(filename, storageGroup);
     }
 
@@ -387,6 +392,7 @@ public class AutomaticProtocol implements Protocol
     public String queryFileHash(URI filename, String storageGroup) throws IOException,
                                                                   CommandException
     {
+        connectIfNecessary();
         return delegate.queryFileHash(filename, storageGroup);
     }
 
@@ -394,90 +400,105 @@ public class AutomaticProtocol implements Protocol
     public String queryFileHash(URI filename, String storageGroup, String host) throws IOException,
                                                                                CommandException
     {
+        connectIfNecessary();
         return delegate.queryFileHash(filename, storageGroup, host);
     }
 
     @Override
     public List<DriveInfo> queryFreeSpace() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryFreeSpace();
     }
 
     @Override
     public DriveInfo queryFreeSpaceSummary() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryFreeSpaceSummary();
     }
 
     @Override
     public void queryGenPixMap2(String id, Program program) throws IOException, CommandException
     {
+        connectIfNecessary();
         delegate.queryGenPixMap2(id, program);
     }
 
     @Override
     public UpcomingRecordings queryGetAllPending() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryGetAllPending();
     }
 
     @Override
     public List<Program> queryGetAllScheduled() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryGetAllScheduled();
     }
 
     @Override
     public List<Program> queryGetConflicting(Program program) throws IOException
     {
+        connectIfNecessary();
         return delegate.queryGetConflicting(program);
     }
 
     @Override
     public List<Program> queryGetExpiring() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryGetExpiring();
     }
 
     @Override
     public Date queryGuideDataThrough() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryGuideDataThrough();
     }
 
     @Override
     public String queryHostname() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryHostname();
     }
 
     @Override
     public boolean queryIsActiveBackend(String hostname) throws IOException
     {
+        connectIfNecessary();
         return delegate.queryIsActiveBackend(hostname);
     }
 
     @Override
     public List<String> queryActiveBackends() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryActiveBackends();
     }
 
     @Override
     public RecordingsInProgress queryIsRecording() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryIsRecording();
     }
 
     @Override
     public Load queryLoad() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryLoad();
     }
 
     @Override
     public MemStats queryMemStats() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryMemStats();
     }
 
@@ -485,24 +506,28 @@ public class AutomaticProtocol implements Protocol
     public PixMap queryPixMapGetIfModified(Date timestamp, int maxFileSize, Program program) throws IOException,
                                                                                             CommandException
     {
+        connectIfNecessary();
         return delegate.queryPixMapGetIfModified(timestamp, maxFileSize, program);
     }
 
     @Override
     public Date queryPixMapLastModified(Program program) throws IOException
     {
+        connectIfNecessary();
         return delegate.queryPixMapLastModified(program);
     }
 
     @Override
     public QueryRecorder queryRecorder(int recorderId)
     {
+        // TODO need cached version
         return delegate.queryRecorder(recorderId);
     }
 
     @Override
     public Program queryRecordingBasename(String basename) throws IOException, CommandException
     {
+        connectIfNecessary();
         return delegate.queryRecordingBasename(basename);
     }
 
@@ -510,24 +535,28 @@ public class AutomaticProtocol implements Protocol
     public Program queryRecordingTimeslot(Channel channel, Date recStartTs) throws IOException,
                                                                            CommandException
     {
+        connectIfNecessary();
         return delegate.queryRecordingTimeslot(channel, recStartTs);
     }
 
     @Override
     public List<Program> queryRecordings(RecordingCategory recCategory) throws IOException
     {
+        connectIfNecessary();
         return delegate.queryRecordings(recCategory);
     }
 
     @Override
     public QueryRemoteEncoder queryRemoteEncoder(int recorderId)
     {
+        // TODO need cached version
         return delegate.queryRemoteEncoder(recorderId);
     }
 
     @Override
     public String querySetting(String host, String name) throws IOException
     {
+        connectIfNecessary();
         return delegate.querySetting(host, name);
     }
 
@@ -535,6 +564,7 @@ public class AutomaticProtocol implements Protocol
     public FileInfo querySgFileQuery(String host, String storageGroup, String path) throws IOException,
                                                                                    CommandException
     {
+        connectIfNecessary();
         return delegate.querySgFileQuery(host, storageGroup, path);
     }
 
@@ -542,36 +572,42 @@ public class AutomaticProtocol implements Protocol
     public List<FileEntry> querySgGetFileList(String host, String storageGroup, String path) throws IOException,
                                                                                             CommandException
     {
+        connectIfNecessary();
         return delegate.querySgGetFileList(host, storageGroup, path);
     }
 
     @Override
     public TimeInfo queryTimeZone() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryTimeZone();
     }
 
     @Override
     public long queryUptime() throws IOException
     {
+        connectIfNecessary();
         return delegate.queryUptime();
     }
 
     @Override
     public void refreshBackend() throws IOException
     {
+        connectIfNecessary();
         delegate.refreshBackend();
     }
 
     @Override
     public void rescheduleRecordings(int recorderId) throws IOException
     {
+        connectIfNecessary();
         delegate.rescheduleRecordings(recorderId);
     }
 
     @Override
     public void scanVideos() throws IOException
     {
+        connectIfNecessary();
         delegate.scanVideos();
     }
 
@@ -579,6 +615,7 @@ public class AutomaticProtocol implements Protocol
     public boolean setBookmark(Channel channel, Date recStartTs, long location) throws IOException,
                                                                                CommandException
     {
+        connectIfNecessary();
         return delegate.setBookmark(channel, recStartTs, location);
     }
 
@@ -586,54 +623,108 @@ public class AutomaticProtocol implements Protocol
     public void setChannelInfo(Channel oldChannel, Channel newChannel) throws IOException,
                                                                       CommandException
     {
+        connectIfNecessary();
         delegate.setChannelInfo(oldChannel, newChannel);
     }
 
     @Override
     public void setNextLiveTvDir(int recorderId, String path) throws IOException, CommandException
     {
+        connectIfNecessary();
         delegate.setNextLiveTvDir(recorderId, path);
     }
 
     @Override
     public void setSetting(String host, String name, String value) throws IOException
     {
+        connectIfNecessary();
         delegate.setSetting(host, name, value);
     }
 
     @Override
     public void shutdownNow(String command) throws IOException
     {
+        connectIfNecessary();
         delegate.shutdownNow(command);
     }
 
     @Override
     public int stopRecording(Program program) throws IOException
     {
+        connectIfNecessary();
         return delegate.stopRecording(program);
     }
 
     @Override
     public boolean undeleteRecording(Program program) throws IOException
     {
+        connectIfNecessary();
         return delegate.undeleteRecording(program);
+    }
+
+    @Override
+    public void connect(String host, int port, long timeout) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void ann(ConnectionType connectionType, String host, EventLevel level) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void annSlaveBackend(InetAddress address, Program... recordings) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void annMediaServer(InetAddress address) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public QueryFileTransfer annFileTransfer(String host,
+                                             FileTransferType type,
+                                             boolean readAhead,
+                                             long timeout,
+                                             URI uri,
+                                             String storageGroup,
+                                             Protocol commandProtocol) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ByteChannel getChannel()
+    {
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void addBackendEventListener(BackendEventListener l)
     {
-        delegate.addBackendEventListener(l);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void removeBackendEventListener(BackendEventListener l)
     {
-        delegate.removeBackendEventListener(l);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void copyBackendEventListeners(Protocol protocol)
     {
-        delegate.copyBackendEventListeners(protocol);
+        throw new UnsupportedOperationException();
     }
 }

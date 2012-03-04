@@ -46,7 +46,7 @@ public class Backend
     private static final int DEFAULT_PROTOCOL_PORT = 6543;
     private static final int DEFAULT_HTTP_PORT = 6544;
 
-    private final AutomaticProtocol protocol;
+    private final CachedProtocol protocol;
 
     private final Database database;
 
@@ -63,7 +63,7 @@ public class Backend
 
     public Backend(ProtocolVersion protocolVersion, SchemaVersion schemaVersion)
     {
-        protocol = new AutomaticProtocol(protocolVersion, 1L, TimeUnit.MINUTES);
+        protocol = new CachedProtocol(protocolVersion, 1L, TimeUnit.MINUTES);
         database = new Database(schemaVersion);
     }
 

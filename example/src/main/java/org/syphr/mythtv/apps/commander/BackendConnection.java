@@ -17,9 +17,11 @@ package org.syphr.mythtv.apps.commander;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.api.backend.AutomaticProtocol;
+import org.syphr.mythtv.protocol.ConnectionType;
+import org.syphr.mythtv.protocol.EventLevel;
+import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 
 public class BackendConnection implements Connection
 {
@@ -28,14 +30,38 @@ public class BackendConnection implements Connection
     @Override
     public void connect(String host, int port, long timeout) throws IOException
     {
-        protocol = new AutomaticProtocol(timeout, TimeUnit.MILLISECONDS);
-        protocol.setConnectionParameters(InetAddress.getLocalHost().getHostName(), host, port);
+        protocol = new AutomaticProtocol();
+        protocol.connect(host, port, timeout);
+
+        try
+        {
+            protocol.mythProtoVersion();
+            protocol.ann(ConnectionType.PLAYBACK,
+                         InetAddress.getLocalHost().getHostName(),
+                         EventLevel.NONE);
+        }
+        catch (InvalidProtocolVersionException e)
+        {
+            /*
+             * No need to pass the nested exception along here because the cause
+             * of the problem is clear.
+             */
+            throw new IOException("Host speaks unsupported protocol version "
+                    + e.getSupportedVersionStr());
+        }
     }
 
     @Override
     public void disconnect()
     {
-        protocol.shutdownConnection();
+        try
+        {
+            protocol.done();
+        }
+        catch (IOException e)
+        {
+            // ignore failure on disconnect
+        }
     }
 
     @Override

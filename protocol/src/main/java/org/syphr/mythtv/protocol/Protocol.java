@@ -1235,4 +1235,13 @@ public interface Protocol
      *            the listener to remove
      */
     public void removeBackendEventListener(BackendEventListener l);
+
+    /**
+     * Copy all backend event listeners from this protocol to the given
+     * protocol.
+     * 
+     * @param protocol
+     *            the destination protocol
+     */
+    public void copyBackendEventListeners(Protocol protocol);
 }
