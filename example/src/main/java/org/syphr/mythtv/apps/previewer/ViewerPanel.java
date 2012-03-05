@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.test.previews;
+package org.syphr.mythtv.apps.previewer;
 
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
@@ -38,14 +38,14 @@ public class ViewerPanel extends JPanel
 
     private static final String SELECTED_PROGRAM = "Selected Program: ";
 
-    private final Protocol proto;
+    private final Protocol protocol;
 
     private final JLabel selectedProgram = new JLabel(SELECTED_PROGRAM);
     private final ImagePanel imagePanel = new ImagePanel();
 
-    public ViewerPanel(Protocol proto)
+    public ViewerPanel(Protocol protocol)
     {
-        this.proto = proto;
+        this.protocol = protocol;
         initGUI();
     }
 
@@ -77,7 +77,7 @@ public class ViewerPanel extends JPanel
 
         try
         {
-            PixMap pixMap = proto.queryPixMapGetIfModified(null,
+            PixMap pixMap = protocol.queryPixMapGetIfModified(null,
                                                            Integer.MAX_VALUE,
                                                            program);
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.test.previews;
+package org.syphr.mythtv.apps.previewer;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -45,10 +45,10 @@ public class ImagePanel extends JPanel
             int imageWidth = image.getWidth(this);
             int imageHeight = image.getHeight(this);
 
-            int centerWidth = getWidth() / 2;
-            int centerHeight = getHeight() / 2;
+            int centerX = getWidth() / 2;
+            int centerY = getHeight() / 2;
 
-            g.drawImage(image, centerWidth - imageWidth / 2, centerHeight - imageHeight / 2, this);
+            g.drawImage(image, centerX - imageWidth / 2, centerY - imageHeight / 2, this);
         }
     }
 }

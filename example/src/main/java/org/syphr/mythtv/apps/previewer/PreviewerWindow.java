@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.test.previews;
+package org.syphr.mythtv.apps.previewer;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -22,8 +22,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,52 +34,53 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.syphr.mythtv.commons.exception.CommandException;
-import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.data.Program;
-import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.Protocol;
-import org.syphr.mythtv.protocol.test.Utils;
-import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.types.RecordingCategory;
-import org.syphr.prom.PropertiesManager;
 
 /**
  * This class provides a quick way to examine preview images for existing
  * recordings. It is not meant to be re-used in application code as it takes
- * many shortcuts around the proper Swing way and does no caching of images.
+ * many shortcuts around the proper Swing way, including making network calls
+ * directly inside UI event handlers! If this little app proves useful, I will
+ * clean it up.
  * 
  * @author Gregory P. Moyer
  */
-public class PreviewImageViewer
+public class PreviewerWindow extends JFrame
 {
-    public static void main(String[] args) throws IOException, CommandException
+    /**
+     * Serialization ID
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Standard logging facility.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(PreviewerWindow.class);
+
+    private final Protocol protocol;
+
+    public PreviewerWindow(Protocol protocol)
     {
-        final Logger logger = LoggerFactory.getLogger(PreviewImageViewer.class);
+        this.protocol = protocol;
+        initGUI();
+    }
 
-        PropertiesManager<Settings> settings = Settings.createSettings();
+    private void initGUI()
+    {
+        setTitle("Preview Image Viewer");
 
-        final SocketManager socketManager = Utils.connect(settings);
-        final Protocol proto = Utils.announceMonitor(settings, socketManager, EventLevel.NONE);
+        setLayout(new BorderLayout());
 
-        try
-        {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }
-        catch (Exception e)
-        {
-            logger.warn("Unable to set system look & feel", e);
-        }
-
-        final ViewerPanel viewerPanel = new ViewerPanel(proto);
+        final ViewerPanel viewerPanel = new ViewerPanel(protocol);
         viewerPanel.setBorder(BorderFactory.createTitledBorder("Preview Image"));
+        add(viewerPanel, BorderLayout.CENTER);
 
-        final JComboBox programsComboBox = new JComboBox();
+        final JComboBox<Program> programsComboBox = new JComboBox<Program>();
         programsComboBox.setRenderer(new DefaultListCellRenderer()
         {
             /**
@@ -109,7 +108,7 @@ public class PreviewImageViewer
                 }
                 else
                 {
-                    label.setText(value.toString());
+                    label.setText("<No program selected>");
                 }
 
                 return label;
@@ -138,7 +137,8 @@ public class PreviewImageViewer
             }
         });
 
-        JComboBox categoriesComboBox = new JComboBox(proto.getAvailableTypes(RecordingCategory.class).toArray());
+        List<RecordingCategory> categories = protocol.getAvailableTypes(RecordingCategory.class);
+        JComboBox<RecordingCategory> categoriesComboBox = new JComboBox<RecordingCategory>(categories.toArray(new RecordingCategory[categories.size()]));
         categoriesComboBox.addItemListener(new ItemListener()
         {
             @Override
@@ -149,22 +149,21 @@ public class PreviewImageViewer
                     return;
                 }
 
-                List<Object> programs = new ArrayList<Object>();
-                programs.add("<No program selected>");
+                List<Program> programs = new ArrayList<Program>();
+                programs.add(null);
 
                 RecordingCategory category = (RecordingCategory)event.getItem();
                 try
                 {
-                    programs.addAll(proto.queryRecordings(category));
+                    programs.addAll(protocol.queryRecordings(category));
                 }
                 catch (IOException e)
                 {
-                    logger.error("Unable to retrieve programs of type " + category, e);
+                    LOGGER.error("Unable to retrieve programs of type " + category, e);
                 }
 
-                programsComboBox.setModel(new DefaultComboBoxModel(programs.toArray()));
+                programsComboBox.setModel(new DefaultComboBoxModel<Program>(programs.toArray(new Program[programs.size()])));
                 programsComboBox.setSelectedItem(null);
-                programsComboBox.setSelectedIndex(0);
             }
         });
 
@@ -222,34 +221,6 @@ public class PreviewImageViewer
                                                                     0,
                                                                     0));
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(selectionPanel, BorderLayout.NORTH);
-        mainPanel.add(viewerPanel, BorderLayout.CENTER);
-
-        JFrame frame = new JFrame("Preview Image Viewer");
-        frame.setContentPane(mainPanel);
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        frame.addWindowListener(new WindowAdapter()
-        {
-            @Override
-            public void windowClosed(WindowEvent event)
-            {
-                try
-                {
-                    proto.done();
-                }
-                catch (IOException e)
-                {
-                    logger.error("Failed to close connection gracefully", e);
-                }
-
-                socketManager.disconnect();
-            }
-        });
-
-        frame.setVisible(true);
+        add(selectionPanel, BorderLayout.NORTH);
     }
 }
