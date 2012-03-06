@@ -104,6 +104,17 @@ public class CachedControl extends AbstractCachedConnection implements Control
     }
 
     @Override
+    public synchronized void exit() throws IOException
+    {
+        if (!isConnected())
+        {
+            return;
+        }
+
+        delegate.exit();
+    }
+
+    @Override
     public synchronized boolean isConnected()
     {
         return delegate.isConnected();
@@ -455,12 +466,6 @@ public class CachedControl extends AbstractCachedConnection implements Control
 
     @Override
     public void connect(String host, int port, long timeout) throws IOException
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void exit() throws IOException
     {
         throw new UnsupportedOperationException();
     }
