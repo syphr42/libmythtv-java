@@ -195,7 +195,7 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
     @Override
     public synchronized void done() throws IOException
     {
-        if (isConnected())
+        if (!isConnected())
         {
             return;
         }
