@@ -65,7 +65,7 @@ public class DefaultSocketManager implements SocketManager
 
     private ByteChannel redirect;
 
-    private long defaultTimeout;
+    private volatile long defaultTimeout = 10000;
 
     /**
      * Construct a new socket manager that is not connected to a server.
