@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.api;
+package org.syphr.mythtv.api.commons;
 
 import java.io.IOException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import org.syphr.mythtv.api.commons.MythConfig.DatabaseInfo;
 import org.syphr.mythtv.db.DatabaseException;
 import org.syphr.mythtv.db.DbUtils;
 import org.syphr.mythtv.db.SchemaVersion;
@@ -35,23 +36,23 @@ public class Database
         this.version = version;
     }
 
-    public void load() throws DatabaseException, IOException
+    public void load(DatabaseInfo dbInfo) throws DatabaseException, IOException
     {
-        factory = DbUtils.getEntityManagerFactory(version);
+        load(dbInfo.getHost(),
+             dbInfo.getPort(),
+             dbInfo.getDatabase(),
+             dbInfo.getUser(),
+             dbInfo.getPassword());
     }
 
-    public void load(String host,
-                     int port,
-                     String database,
-                     String user,
-                     String password) throws DatabaseException
+    public void load(String host, int port, String database, String user, String password) throws DatabaseException
     {
-        factory = DbUtils.getEntityManagerFactory(version,
-                                                  host,
-                                                  port,
-                                                  database,
-                                                  user,
-                                                  password);
+        if (isLoaded())
+        {
+            unload();
+        }
+
+        factory = DbUtils.createEntityManagerFactory(version, host, port, database, user, password);
     }
 
     public boolean isLoaded()
@@ -59,7 +60,18 @@ public class Database
         return factory != null && factory.isOpen();
     }
 
-    public EntityManager getEntityManager() throws IllegalStateException
+    public void unload()
+    {
+        if (!isLoaded())
+        {
+            return;
+        }
+
+        factory.close();
+        factory = null;
+    }
+
+    public EntityManager createEntityManager() throws IllegalStateException
     {
         if (!isLoaded())
         {

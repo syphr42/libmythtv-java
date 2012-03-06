@@ -62,13 +62,13 @@ public class DbSchemaIT
         settings = org.syphr.mythtv.test.Settings.createSettings();
         logger = LoggerFactory.getLogger(DbSchemaIT.class);
 
-        factory = DbUtils.getEntityManagerFactory(settings.getEnumProperty(org.syphr.mythtv.test.Settings.DB_SCHEMA,
-                                                                           SchemaVersion.class),
-                                                  settings.getProperty(org.syphr.mythtv.test.Settings.DB_HOST),
-                                                  settings.getIntegerProperty(org.syphr.mythtv.test.Settings.DB_PORT),
-                                                  settings.getProperty(org.syphr.mythtv.test.Settings.DB_INSTANCE),
-                                                  settings.getProperty(org.syphr.mythtv.test.Settings.DB_USER),
-                                                  settings.getProperty(org.syphr.mythtv.test.Settings.DB_PASSWORD));
+        factory = DbUtils.createEntityManagerFactory(settings.getEnumProperty(org.syphr.mythtv.test.Settings.DB_SCHEMA,
+                                                                              SchemaVersion.class),
+                                                     settings.getProperty(org.syphr.mythtv.test.Settings.DB_HOST),
+                                                     settings.getIntegerProperty(org.syphr.mythtv.test.Settings.DB_PORT),
+                                                     settings.getProperty(org.syphr.mythtv.test.Settings.DB_INSTANCE),
+                                                     settings.getProperty(org.syphr.mythtv.test.Settings.DB_USER),
+                                                     settings.getProperty(org.syphr.mythtv.test.Settings.DB_PASSWORD));
     }
 
     @Before

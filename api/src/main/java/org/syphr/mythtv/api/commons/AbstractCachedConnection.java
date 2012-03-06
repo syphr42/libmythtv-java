@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.api.util;
+package org.syphr.mythtv.api.commons;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

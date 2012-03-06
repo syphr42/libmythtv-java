@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.syphr.mythtv.api.util.AbstractCachedConnection;
+import org.syphr.mythtv.api.commons.AbstractCachedConnection;
 import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.control.Control;

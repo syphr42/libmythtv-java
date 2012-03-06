@@ -24,8 +24,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.syphr.mythtv.api.Database;
 import org.syphr.mythtv.api.MythVersion;
+import org.syphr.mythtv.api.commons.Database;
+import org.syphr.mythtv.api.commons.MythConfig;
 import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
@@ -74,14 +75,21 @@ public class Backend
 
     public void autoConfigure() throws IOException, DatabaseException
     {
+        if (!MythConfig.hasDefaultConfiguration())
+        {
+            throw new DatabaseException("Unable to find the default MythTV configuration file");
+        }
+        MythConfig config = new MythConfig();
+        config.parse();
+
+        database.load(config.getDatabaseInfo());
+
         String localHost = InetAddress.getLocalHost().getHostName();
 
         setBackendConnectionParameters(localHost,
                                        localHost,
                                        DEFAULT_PROTOCOL_PORT,
                                        DEFAULT_HTTP_PORT);
-
-        database.load();
     }
 
     public void setBackendConnectionParameters(String localHost,
