@@ -32,7 +32,9 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.db.DatabaseException;
 import org.syphr.mythtv.db.SchemaVersion;
-import org.syphr.mythtv.http.backend.ConnectionManager;
+import org.syphr.mythtv.http.ServiceFactory;
+import org.syphr.mythtv.http.ServiceVersion;
+import org.syphr.mythtv.http.backend.BackendService;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.Protocol;
@@ -45,13 +47,12 @@ public class Backend
     private static Logger LOGGER = LoggerFactory.getLogger(Backend.class);
 
     private static final int DEFAULT_PROTOCOL_PORT = 6543;
-    private static final int DEFAULT_HTTP_PORT = 6544;
 
     private final CachedProtocol protocol;
 
     private final Database database;
 
-    private ConnectionManager connMan;
+    private BackendService service;
 
     private Protocol eventMonitor;
 
@@ -59,13 +60,20 @@ public class Backend
 
     public Backend(MythVersion version)
     {
-        this(version.getProtocol(), version.getSchema());
+        this(version.getProtocol(), version.getSchema(), version.getService());
     }
 
-    public Backend(ProtocolVersion protocolVersion, SchemaVersion schemaVersion)
+    public Backend(ProtocolVersion protocolVersion,
+                   SchemaVersion schemaVersion,
+                   ServiceVersion serviceVersion)
     {
         protocol = new CachedProtocol(protocolVersion, 1L, TimeUnit.MINUTES);
         database = new Database(schemaVersion);
+
+        if (serviceVersion != null)
+        {
+            service = ServiceFactory.getBackendInstance(serviceVersion);
+        }
     }
 
     public void setConnectionTimeout(long timeout, TimeUnit unit)
@@ -86,10 +94,7 @@ public class Backend
 
         String localHost = InetAddress.getLocalHost().getHostName();
 
-        setBackendConnectionParameters(localHost,
-                                       localHost,
-                                       DEFAULT_PROTOCOL_PORT,
-                                       DEFAULT_HTTP_PORT);
+        setBackendConnectionParameters(localHost, localHost, 0, 0);
     }
 
     public void setBackendConnectionParameters(String localHost,
@@ -99,11 +104,14 @@ public class Backend
     {
         this.host = backendHost;
 
-        protocol.setConnectionParameters(localHost, backendHost, protocolPort == 0
+        protocol.setConnectionParameters(localHost, backendHost, protocolPort <= 0
                 ? DEFAULT_PROTOCOL_PORT
                 : protocolPort);
 
-        connMan = new ConnectionManager(backendHost, httpPort == 0 ? DEFAULT_HTTP_PORT : httpPort);
+        if (service != null)
+        {
+            service.configure(backendHost, httpPort);
+        }
     }
 
     public void setDatabaseConnectionParameters(String host,
@@ -119,7 +127,8 @@ public class Backend
     {
         protocol.shutdownConnection();
         stopEventMonitor();
-        connMan = null;
+        database.unload();
+        service = null;
     }
 
     public void startEventMonitor(String localHost, EventLevel level) throws IOException,

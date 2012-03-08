@@ -28,7 +28,7 @@ import org.syphr.prom.PropertiesManagers;
 
 public enum Settings implements Defaultable
 {
-    MYTH_VERSION("_0_24"),
+    MYTH_VERSION("_0_25"),
 
     BACKEND_HOST("localhost"),
     BACKEND_SLAVE_HOST("localhost"),
@@ -38,12 +38,14 @@ public enum Settings implements Defaultable
 
     BACKEND_PROTOCOL_PORT("6543"),
     BACKEND_PROTOCOL_TIMEOUT("10000"),
-    BACKEND_PROTOCOL_VERSION("_63"),
+    BACKEND_PROTOCOL_VERSION("_72"),
+
+    BACKEND_WS_VERSION("_0_25"),
 
     DB_HOST("localhost"),
     DB_PORT("3306"),
     DB_INSTANCE("mythconverg"),
-    DB_SCHEMA("_1264"),
+    DB_SCHEMA("_1293"),
     DB_USER("mythtv"),
     DB_PASSWORD("mythtv"),
 
@@ -53,7 +55,7 @@ public enum Settings implements Defaultable
 
     FRONTEND_CONTROL_PORT("6546"),
     FRONTEND_CONTROL_TIMEOUT("25000"),
-    FRONTEND_CONTROL_VERSION("_0_24"),
+    FRONTEND_CONTROL_VERSION("_0_25"),
 
     BUFFER_SIZE("8192"),
 

@@ -13,13 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.backend;
+package org.syphr.mythtv.http.impl;
 
-import java.io.IOException;
-
-public interface Myth
+public class ServiceUtils
 {
-    public static final String PATH = "Myth";
+    public static boolean toPrimitive(Boolean b)
+    {
+        if (b == null)
+        {
+            return false;
+        }
 
-    public ConnectionInfo getConnectionInfo() throws IOException;
+        return b.booleanValue();
+    }
+
+    private ServiceUtils()
+    {
+        /*
+         * Static utilities
+         */
+    }
 }

@@ -13,9 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.backend;
+package org.syphr.mythtv.http.frontend.impl;
 
-public interface Guide
+public class FrontendService0_25 extends AbstractFrontendService
 {
-    public static final String PATH = "Guide";
+    @Override
+    public void configure(String host)
+    {
+        configure(host, 0);
+    }
+
+    @Override
+    public void configure(String host, int port)
+    {
+        // TODO getPort(port)
+    }
 }

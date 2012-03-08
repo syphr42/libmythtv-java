@@ -13,9 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.backend;
+package org.syphr.mythtv.http.frontend.impl;
 
-public interface Content
+import org.syphr.mythtv.http.frontend.FrontendService;
+
+public abstract class AbstractFrontendService implements FrontendService
 {
-    public static final String PATH = "Content";
+    private static final int DEFAULT_PORT = 6547;
+
+    protected int getPort(int port)
+    {
+        if (port <= 0)
+        {
+            return DEFAULT_PORT;
+        }
+
+        return port;
+    }
 }

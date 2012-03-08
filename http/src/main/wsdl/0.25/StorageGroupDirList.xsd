@@ -1,0 +1,10 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:include schemaLocation="ArrayOfStorageGroupDir.xsd"/>
+<xs:complexType name="StorageGroupDirList">
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ArrayOfStorageGroupDir" name="StorageGroupDirs"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:StorageGroupDirList" nillable="true" name="StorageGroupDirList"/>
+</xs:schema>

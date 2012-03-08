@@ -15,15 +15,27 @@
  */
 package org.syphr.mythtv.http.backend.impl;
 
-import org.syphr.mythtv.http.backend.ConnectionManager;
-import org.syphr.mythtv.http.backend.Dvr;
+import org.syphr.mythtv.http.backend.MythService;
 
-public class Dvr1_0 implements Dvr
+public class BackendService0_25 extends AbstractBackendService
 {
-    private final ConnectionManager connMan;
+    private MythService mythService;
 
-    public Dvr1_0(ConnectionManager connMan)
+    @Override
+    public void configure(String host)
     {
-        this.connMan = connMan;
+        configure(host, 0);
+    }
+
+    @Override
+    public void configure(String host, int port)
+    {
+        mythService = new MythService0_25(host, getPort(port));
+    }
+
+    @Override
+    public MythService getMythService()
+    {
+        return mythService;
     }
 }

@@ -1,0 +1,13 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType name="VersionInfo">
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="Version"/>
+<xs:element minOccurs="0" type="xs:string" name="Branch"/>
+<xs:element minOccurs="0" type="xs:string" name="Protocol"/>
+<xs:element minOccurs="0" type="xs:string" name="Binary"/>
+<xs:element minOccurs="0" type="xs:string" name="Schema"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:VersionInfo" nillable="true" name="VersionInfo"/>
+</xs:schema>

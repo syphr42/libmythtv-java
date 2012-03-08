@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.backend;
+package org.syphr.mythtv.http.frontend;
 
-public interface Wol
+public interface FrontendService
 {
-    public boolean isEnabled();
+    public void configure(String host);
 
-    public int getReconnect();
-
-    public int getRetry();
-
-    public String getCommand();
+    public void configure(String host, int port);
 }

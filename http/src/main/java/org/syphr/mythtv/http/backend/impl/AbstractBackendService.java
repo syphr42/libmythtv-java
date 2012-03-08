@@ -13,11 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.backend;
+package org.syphr.mythtv.http.backend.impl;
 
-public interface ConnectionInfo
+import org.syphr.mythtv.http.backend.BackendService;
+
+public abstract class AbstractBackendService implements BackendService
 {
-    public Database getDatabase();
+    private static final int DEFAULT_PORT = 6544;
 
-    public Wol getWol();
+    protected int getPort(int port)
+    {
+        if (port <= 0)
+        {
+            return DEFAULT_PORT;
+        }
+
+        return port;
+    }
 }

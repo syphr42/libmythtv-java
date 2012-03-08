@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.backend.impl;
+package org.syphr.mythtv.http;
 
-import org.syphr.mythtv.http.backend.ConnectionManager;
-import org.syphr.mythtv.http.backend.Content;
-
-public class Content1_0 implements Content
+/**
+ * This enum represents the implemented versions of the frontend and backend web
+ * services.
+ * 
+ * @author Gregory P. Moyer
+ */
+public enum ServiceVersion
 {
-    private final ConnectionManager connMan;
-
-    public Content1_0(ConnectionManager connMan)
-    {
-        this.connMan = connMan;
-    }
+    _0_25;
 }

@@ -17,27 +17,36 @@ package org.syphr.mythtv.api;
 
 import org.syphr.mythtv.control.ControlVersion;
 import org.syphr.mythtv.db.SchemaVersion;
+import org.syphr.mythtv.http.ServiceVersion;
 import org.syphr.mythtv.protocol.ProtocolVersion;
 
 public enum MythVersion
 {
-    _0_24(ProtocolVersion._63, ControlVersion._0_24, SchemaVersion._1264, "0.24"),
-    _0_25(ProtocolVersion._72, ControlVersion._0_25, SchemaVersion._1293, "0.25");
+    _0_24(ProtocolVersion._63, ControlVersion._0_24, SchemaVersion._1264, null, "0.24"),
+
+    _0_25(ProtocolVersion._72,
+          ControlVersion._0_25,
+          SchemaVersion._1293,
+          ServiceVersion._0_25,
+          "0.25");
 
     private final ProtocolVersion protocol;
     private final ControlVersion control;
     private final SchemaVersion schema;
+    private final ServiceVersion service;
 
     private final String display;
 
     private MythVersion(ProtocolVersion protocol,
                         ControlVersion control,
                         SchemaVersion schema,
+                        ServiceVersion service,
                         String display)
     {
         this.protocol = protocol;
         this.control = control;
         this.schema = schema;
+        this.service = service;
         this.display = display;
     }
 
@@ -54,6 +63,16 @@ public enum MythVersion
     public SchemaVersion getSchema()
     {
         return schema;
+    }
+
+    public ServiceVersion getService()
+    {
+        return service;
+    }
+
+    public boolean isServiceSupported()
+    {
+        return service != null;
     }
 
     public String getDisplay()

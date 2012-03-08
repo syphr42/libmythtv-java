@@ -37,21 +37,100 @@
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.jvnet.jax-ws-commons</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>2.2</version>
+
+				<executions>
+					<execution>
+						<id>0.25</id>
+
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+
+						<configuration>
+							<packageName>org.syphr.mythtv.http.backend.impl._0_25</packageName>
+							<wsdlDirectory>src/main/wsdl/0.25</wsdlDirectory>
+						</configuration>
+					</execution>
+				</executions>
+
+				<configuration>
+					<target>2.1</target>
+                    <bindingDirectory>src/main/jaxws</bindingDirectory>
+
+                    <!--
+					<xjcArgs>
+						<xjcArg>-Xequals</xjcArg>
+						<xjcArg>-XhashCode</xjcArg>
+						<xjcArg>-XtoString</xjcArg>
+					</xjcArgs>
+					-->
+				</configuration>
+
+				<dependencies>
+					<dependency>
+						<groupId>org.jvnet.jaxb2_commons</groupId>
+						<artifactId>jaxb2-basics</artifactId>
+						<version>0.6.3</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.jvnet.jax-ws-commons
+										</groupId>
+										<artifactId>
+											jaxws-maven-plugin
+										</artifactId>
+										<versionRange>
+											[2.2,)
+										</versionRange>
+										<goals>
+											<goal>wsimport</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<dependencies>
+        <dependency>
+            <groupId>org.syphr</groupId>
+            <artifactId>libmythtv-data</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+	
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.wink</groupId>
-			<artifactId>wink-client</artifactId>
-			<version>1.1.3-incubating</version>
-			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 

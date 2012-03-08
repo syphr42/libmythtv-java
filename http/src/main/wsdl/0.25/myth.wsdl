@@ -1,0 +1,748 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://mythtv.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mythtv.org" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" name="MythServices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<types>
+<xs:schema targetNamespace="http://MythTV.org/Imports">
+<xs:import namespace="http://mythtv.org" schemaLocation="ArrayOfString.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="ConnectionInfo.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="LogMessageList.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="SettingList.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="StorageGroupDirList.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="TimeZoneInfo.xsd"/>
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org">
+<xs:element name="AddStorageGroupDir">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="GroupName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="DirName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="HostName" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="AddStorageGroupDirResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="AddStorageGroupDirResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="BackupDatabase">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="BackupDatabaseResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="BackupDatabaseResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ChangePassword">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="UserName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="OldPassword" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="NewPassword" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ChangePasswordResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="ChangePasswordResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="CheckDatabase">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="Repair" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="CheckDatabaseResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="CheckDatabaseResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetConnectionInfo">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="Pin" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetConnectionInfoResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ConnectionInfo" name="GetConnectionInfoResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetHostName">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetHostNameResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="GetHostNameResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetHosts">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetHostsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ArrayOfString" name="GetHostsResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetKeys">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetKeysResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ArrayOfString" name="GetKeysResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetLogs">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="HostName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Application" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="PID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="TID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Thread" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Filename" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Line" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Function" nillable="1"/>
+<xs:element minOccurs="0" type="xs:dateTime" name="FromTime" nillable="1"/>
+<xs:element minOccurs="0" type="xs:dateTime" name="ToTime" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Level" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="MsgContains" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetLogsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:LogMessageList" name="GetLogsResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetSetting">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="HostName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Key" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Default" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetSettingResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:SettingList" name="GetSettingResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetStorageGroupDirs">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="GroupName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="HostName" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetStorageGroupDirsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:StorageGroupDirList" name="GetStorageGroupDirsResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTimeZone">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTimeZoneResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:TimeZoneInfo" name="GetTimeZoneResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ProfileDelete">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="ProfileDeleteResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="ProfileDeleteResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ProfileSubmit">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="ProfileSubmitResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="ProfileSubmitResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ProfileText">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="ProfileTextResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="ProfileTextResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ProfileURL">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="ProfileURLResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="ProfileURLResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ProfileUpdated">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="ProfileUpdatedResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="ProfileUpdatedResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="PutSetting">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="HostName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Key" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Value" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="PutSettingResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="PutSettingResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RemoveStorageGroupDir">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="GroupName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="DirName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="HostName" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RemoveStorageGroupDirResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="RemoveStorageGroupDirResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SendMessage">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="Message" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Address" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="udpPort" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Timeout" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SendMessageResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="SendMessageResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="TestDBSettings">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="HostName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="UserName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Password" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="DBName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="dbPort" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="TestDBSettingsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="TestDBSettingsResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+</types>
+<message name="Myth_AddStorageGroupDir_InputMessage">
+<part element="tns:AddStorageGroupDir" name="parameters"/>
+</message>
+<message name="Myth_AddStorageGroupDir_OutputMessage">
+<part element="tns:AddStorageGroupDirResponse" name="parameters"/>
+</message>
+<message name="Myth_BackupDatabase_InputMessage">
+<part element="tns:BackupDatabase" name="parameters"/>
+</message>
+<message name="Myth_BackupDatabase_OutputMessage">
+<part element="tns:BackupDatabaseResponse" name="parameters"/>
+</message>
+<message name="Myth_ChangePassword_InputMessage">
+<part element="tns:ChangePassword" name="parameters"/>
+</message>
+<message name="Myth_ChangePassword_OutputMessage">
+<part element="tns:ChangePasswordResponse" name="parameters"/>
+</message>
+<message name="Myth_CheckDatabase_InputMessage">
+<part element="tns:CheckDatabase" name="parameters"/>
+</message>
+<message name="Myth_CheckDatabase_OutputMessage">
+<part element="tns:CheckDatabaseResponse" name="parameters"/>
+</message>
+<message name="Myth_GetConnectionInfo_InputMessage">
+<part element="tns:GetConnectionInfo" name="parameters"/>
+</message>
+<message name="Myth_GetConnectionInfo_OutputMessage">
+<part element="tns:GetConnectionInfoResponse" name="parameters"/>
+</message>
+<message name="Myth_GetHostName_InputMessage">
+<part element="tns:GetHostName" name="parameters"/>
+</message>
+<message name="Myth_GetHostName_OutputMessage">
+<part element="tns:GetHostNameResponse" name="parameters"/>
+</message>
+<message name="Myth_GetHosts_InputMessage">
+<part element="tns:GetHosts" name="parameters"/>
+</message>
+<message name="Myth_GetHosts_OutputMessage">
+<part element="tns:GetHostsResponse" name="parameters"/>
+</message>
+<message name="Myth_GetKeys_InputMessage">
+<part element="tns:GetKeys" name="parameters"/>
+</message>
+<message name="Myth_GetKeys_OutputMessage">
+<part element="tns:GetKeysResponse" name="parameters"/>
+</message>
+<message name="Myth_GetLogs_InputMessage">
+<part element="tns:GetLogs" name="parameters"/>
+</message>
+<message name="Myth_GetLogs_OutputMessage">
+<part element="tns:GetLogsResponse" name="parameters"/>
+</message>
+<message name="Myth_GetSetting_InputMessage">
+<part element="tns:GetSetting" name="parameters"/>
+</message>
+<message name="Myth_GetSetting_OutputMessage">
+<part element="tns:GetSettingResponse" name="parameters"/>
+</message>
+<message name="Myth_GetStorageGroupDirs_InputMessage">
+<part element="tns:GetStorageGroupDirs" name="parameters"/>
+</message>
+<message name="Myth_GetStorageGroupDirs_OutputMessage">
+<part element="tns:GetStorageGroupDirsResponse" name="parameters"/>
+</message>
+<message name="Myth_GetTimeZone_InputMessage">
+<part element="tns:GetTimeZone" name="parameters"/>
+</message>
+<message name="Myth_GetTimeZone_OutputMessage">
+<part element="tns:GetTimeZoneResponse" name="parameters"/>
+</message>
+<message name="Myth_ProfileDelete_InputMessage">
+<part element="tns:ProfileDelete" name="parameters"/>
+</message>
+<message name="Myth_ProfileDelete_OutputMessage">
+<part element="tns:ProfileDeleteResponse" name="parameters"/>
+</message>
+<message name="Myth_ProfileSubmit_InputMessage">
+<part element="tns:ProfileSubmit" name="parameters"/>
+</message>
+<message name="Myth_ProfileSubmit_OutputMessage">
+<part element="tns:ProfileSubmitResponse" name="parameters"/>
+</message>
+<message name="Myth_ProfileText_InputMessage">
+<part element="tns:ProfileText" name="parameters"/>
+</message>
+<message name="Myth_ProfileText_OutputMessage">
+<part element="tns:ProfileTextResponse" name="parameters"/>
+</message>
+<message name="Myth_ProfileURL_InputMessage">
+<part element="tns:ProfileURL" name="parameters"/>
+</message>
+<message name="Myth_ProfileURL_OutputMessage">
+<part element="tns:ProfileURLResponse" name="parameters"/>
+</message>
+<message name="Myth_ProfileUpdated_InputMessage">
+<part element="tns:ProfileUpdated" name="parameters"/>
+</message>
+<message name="Myth_ProfileUpdated_OutputMessage">
+<part element="tns:ProfileUpdatedResponse" name="parameters"/>
+</message>
+<message name="Myth_PutSetting_InputMessage">
+<part element="tns:PutSetting" name="parameters"/>
+</message>
+<message name="Myth_PutSetting_OutputMessage">
+<part element="tns:PutSettingResponse" name="parameters"/>
+</message>
+<message name="Myth_RemoveStorageGroupDir_InputMessage">
+<part element="tns:RemoveStorageGroupDir" name="parameters"/>
+</message>
+<message name="Myth_RemoveStorageGroupDir_OutputMessage">
+<part element="tns:RemoveStorageGroupDirResponse" name="parameters"/>
+</message>
+<message name="Myth_SendMessage_InputMessage">
+<part element="tns:SendMessage" name="parameters"/>
+</message>
+<message name="Myth_SendMessage_OutputMessage">
+<part element="tns:SendMessageResponse" name="parameters"/>
+</message>
+<message name="Myth_TestDBSettings_InputMessage">
+<part element="tns:TestDBSettings" name="parameters"/>
+</message>
+<message name="Myth_TestDBSettings_OutputMessage">
+<part element="tns:TestDBSettingsResponse" name="parameters"/>
+</message>
+<portType name="Myth">
+<operation name="AddStorageGroupDir">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/AddStorageGroupDir" message="tns:Myth_AddStorageGroupDir_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/AddStorageGroupDirResponse" message="tns:Myth_AddStorageGroupDir_OutputMessage"/>
+</operation>
+<operation name="BackupDatabase">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/BackupDatabase" message="tns:Myth_BackupDatabase_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/BackupDatabaseResponse" message="tns:Myth_BackupDatabase_OutputMessage"/>
+</operation>
+<operation name="ChangePassword">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/ChangePassword" message="tns:Myth_ChangePassword_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/ChangePasswordResponse" message="tns:Myth_ChangePassword_OutputMessage"/>
+</operation>
+<operation name="CheckDatabase">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/CheckDatabase" message="tns:Myth_CheckDatabase_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/CheckDatabaseResponse" message="tns:Myth_CheckDatabase_OutputMessage"/>
+</operation>
+<operation name="GetConnectionInfo">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/GetConnectionInfo" message="tns:Myth_GetConnectionInfo_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/GetConnectionInfoResponse" message="tns:Myth_GetConnectionInfo_OutputMessage"/>
+</operation>
+<operation name="GetHostName">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/GetHostName" message="tns:Myth_GetHostName_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/GetHostNameResponse" message="tns:Myth_GetHostName_OutputMessage"/>
+</operation>
+<operation name="GetHosts">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/GetHosts" message="tns:Myth_GetHosts_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/GetHostsResponse" message="tns:Myth_GetHosts_OutputMessage"/>
+</operation>
+<operation name="GetKeys">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/GetKeys" message="tns:Myth_GetKeys_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/GetKeysResponse" message="tns:Myth_GetKeys_OutputMessage"/>
+</operation>
+<operation name="GetLogs">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/GetLogs" message="tns:Myth_GetLogs_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/GetLogsResponse" message="tns:Myth_GetLogs_OutputMessage"/>
+</operation>
+<operation name="GetSetting">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/GetSetting" message="tns:Myth_GetSetting_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/GetSettingResponse" message="tns:Myth_GetSetting_OutputMessage"/>
+</operation>
+<operation name="GetStorageGroupDirs">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/GetStorageGroupDirs" message="tns:Myth_GetStorageGroupDirs_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/GetStorageGroupDirsResponse" message="tns:Myth_GetStorageGroupDirs_OutputMessage"/>
+</operation>
+<operation name="GetTimeZone">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/GetTimeZone" message="tns:Myth_GetTimeZone_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/GetTimeZoneResponse" message="tns:Myth_GetTimeZone_OutputMessage"/>
+</operation>
+<operation name="ProfileDelete">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/ProfileDelete" message="tns:Myth_ProfileDelete_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/ProfileDeleteResponse" message="tns:Myth_ProfileDelete_OutputMessage"/>
+</operation>
+<operation name="ProfileSubmit">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/ProfileSubmit" message="tns:Myth_ProfileSubmit_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/ProfileSubmitResponse" message="tns:Myth_ProfileSubmit_OutputMessage"/>
+</operation>
+<operation name="ProfileText">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/ProfileText" message="tns:Myth_ProfileText_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/ProfileTextResponse" message="tns:Myth_ProfileText_OutputMessage"/>
+</operation>
+<operation name="ProfileURL">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/ProfileURL" message="tns:Myth_ProfileURL_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/ProfileURLResponse" message="tns:Myth_ProfileURL_OutputMessage"/>
+</operation>
+<operation name="ProfileUpdated">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/ProfileUpdated" message="tns:Myth_ProfileUpdated_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/ProfileUpdatedResponse" message="tns:Myth_ProfileUpdated_OutputMessage"/>
+</operation>
+<operation name="PutSetting">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/PutSetting" message="tns:Myth_PutSetting_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/PutSettingResponse" message="tns:Myth_PutSetting_OutputMessage"/>
+</operation>
+<operation name="RemoveStorageGroupDir">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/RemoveStorageGroupDir" message="tns:Myth_RemoveStorageGroupDir_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/RemoveStorageGroupDirResponse" message="tns:Myth_RemoveStorageGroupDir_OutputMessage"/>
+</operation>
+<operation name="SendMessage">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/SendMessage" message="tns:Myth_SendMessage_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/SendMessageResponse" message="tns:Myth_SendMessage_OutputMessage"/>
+</operation>
+<operation name="TestDBSettings">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Myth/TestDBSettings" message="tns:Myth_TestDBSettings_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Myth/TestDBSettingsResponse" message="tns:Myth_TestDBSettings_OutputMessage"/>
+</operation>
+</portType>
+<binding type="tns:Myth" name="BasicHttpBinding_Myth">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="AddStorageGroupDir">
+<soap:operation soapAction="http://mythtv.org/Myth/AddStorageGroupDir" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="BackupDatabase">
+<soap:operation soapAction="http://mythtv.org/Myth/BackupDatabase" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="ChangePassword">
+<soap:operation soapAction="http://mythtv.org/Myth/ChangePassword" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="CheckDatabase">
+<soap:operation soapAction="http://mythtv.org/Myth/CheckDatabase" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetConnectionInfo">
+<soap:operation soapAction="http://mythtv.org/Myth/GetConnectionInfo" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetHostName">
+<soap:operation soapAction="http://mythtv.org/Myth/GetHostName" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetHosts">
+<soap:operation soapAction="http://mythtv.org/Myth/GetHosts" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetKeys">
+<soap:operation soapAction="http://mythtv.org/Myth/GetKeys" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetLogs">
+<soap:operation soapAction="http://mythtv.org/Myth/GetLogs" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetSetting">
+<soap:operation soapAction="http://mythtv.org/Myth/GetSetting" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetStorageGroupDirs">
+<soap:operation soapAction="http://mythtv.org/Myth/GetStorageGroupDirs" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTimeZone">
+<soap:operation soapAction="http://mythtv.org/Myth/GetTimeZone" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="ProfileDelete">
+<soap:operation soapAction="http://mythtv.org/Myth/ProfileDelete" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="ProfileSubmit">
+<soap:operation soapAction="http://mythtv.org/Myth/ProfileSubmit" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="ProfileText">
+<soap:operation soapAction="http://mythtv.org/Myth/ProfileText" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="ProfileURL">
+<soap:operation soapAction="http://mythtv.org/Myth/ProfileURL" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="ProfileUpdated">
+<soap:operation soapAction="http://mythtv.org/Myth/ProfileUpdated" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="PutSetting">
+<soap:operation soapAction="http://mythtv.org/Myth/PutSetting" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="RemoveStorageGroupDir">
+<soap:operation soapAction="http://mythtv.org/Myth/RemoveStorageGroupDir" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="SendMessage">
+<soap:operation soapAction="http://mythtv.org/Myth/SendMessage" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="TestDBSettings">
+<soap:operation soapAction="http://mythtv.org/Myth/TestDBSettings" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="MythServices">
+<documentation>Interface Version 1.04 - </documentation>
+<port binding="tns:BasicHttpBinding_Myth" name="BasicHttpBinding_Myth">
+<soap:address location="http://localhost:6544/Myth"/>
+</port>
+</service>
+</definitions>

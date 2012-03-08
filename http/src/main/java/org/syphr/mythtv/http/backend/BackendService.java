@@ -13,27 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.backend.impl;
+package org.syphr.mythtv.http.backend;
 
-import java.io.IOException;
-
-import org.syphr.mythtv.http.backend.ConnectionInfo;
-import org.syphr.mythtv.http.backend.ConnectionManager;
-import org.syphr.mythtv.http.backend.Myth;
-
-public class Myth1_04 implements Myth
+public interface BackendService
 {
-    private final ConnectionManager connMan;
+    public void configure(String host);
 
-    public Myth1_04(ConnectionManager connMan)
-    {
-        this.connMan = connMan;
-    }
+    public void configure(String host, int port);
 
-    @Override
-    public ConnectionInfo getConnectionInfo() throws IOException
-    {
-        String xml = connMan.getXml("GetConnectionInfo");
-        return ConnectionInfo1_0.parse(xml);
-    }
+    public MythService getMythService();
 }

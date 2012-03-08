@@ -21,43 +21,42 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.syphr.mythtv.http.ServiceFactory;
+import org.syphr.mythtv.http.ServiceVersion;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.prom.PropertiesManager;
 
-public class MythTest
+public class MythServiceIT
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MythTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MythServiceIT.class);
 
     private static PropertiesManager<Settings> settings;
 
-    private static Myth myth;
+    private static MythService myth;
 
     @BeforeClass
     public static void setUpBeforeClass() throws IOException
     {
         settings = Settings.createSettings();
 
-        ConnectionManager connMan = new ConnectionManager(settings.getProperty(Settings.BACKEND_HOST),
-                                                          settings.getIntegerProperty(Settings.BACKEND_HTTP_PORT));
-
         try
         {
-            myth = BackendFactory.getMyth(connMan);
+            BackendService backendService = ServiceFactory.getBackendInstance(settings.getEnumProperty(Settings.BACKEND_WS_VERSION,
+                                                                                                       ServiceVersion.class));
+            backendService.configure(settings.getProperty(Settings.BACKEND_HOST),
+                                     settings.getIntegerProperty(Settings.BACKEND_HTTP_PORT));
+
+            myth = backendService.getMythService();
         }
-        catch (ContentException e)
+        catch (IllegalArgumentException e)
         {
-            LOGGER.warn("Backend HTTP test are disabled: " + e.getMessage());
+            LOGGER.info("Services are not available prior to version 0.25");
         }
     }
 
     @Test
-    public void testGetConnectionInfo() throws IOException
+    public void testGetHostName()
     {
-        if (myth == null)
-        {
-            return;
-        }
-
-        LOGGER.debug(myth.getConnectionInfo().toString());
+        LOGGER.debug("Host name: {}", myth.getHostName());
     }
 }

@@ -1,0 +1,13 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:include schemaLocation="ArrayOfLabelValue.xsd"/>
+<xs:include schemaLocation="ArrayOfLogMessage.xsd"/>
+<xs:complexType name="LogMessageList">
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ArrayOfLabelValue" name="HostNames"/>
+<xs:element minOccurs="0" type="tns:ArrayOfLabelValue" name="Applications"/>
+<xs:element minOccurs="0" type="tns:ArrayOfLogMessage" name="LogMessages"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:LogMessageList" nillable="true" name="LogMessageList"/>
+</xs:schema>
