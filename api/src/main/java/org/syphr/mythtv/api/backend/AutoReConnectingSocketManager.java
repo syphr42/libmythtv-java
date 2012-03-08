@@ -50,15 +50,15 @@ public class AutoReConnectingSocketManager implements SocketManager
     }
 
     @Override
-    public void setDefaultTimeout(long time, TimeUnit unit)
+    public void setDefaultMessageTimeout(long time, TimeUnit unit)
     {
-        delegate.setDefaultTimeout(time, unit);
+        delegate.setDefaultMessageTimeout(time, unit);
     }
 
     @Override
-    public long getDefaultTimeout(TimeUnit unit)
+    public long getDefaultMessageTimeout(TimeUnit unit)
     {
-        return delegate.getDefaultTimeout(unit);
+        return delegate.getDefaultMessageTimeout(unit);
     }
 
     @Override

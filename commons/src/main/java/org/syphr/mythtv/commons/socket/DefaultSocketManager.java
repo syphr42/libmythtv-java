@@ -65,7 +65,7 @@ public class DefaultSocketManager implements SocketManager
 
     private ByteChannel redirect;
 
-    private volatile long defaultTimeout = 10000;
+    private volatile long defaultMessageTimeout = 10000;
 
     /**
      * Construct a new socket manager that is not connected to a server.
@@ -113,15 +113,15 @@ public class DefaultSocketManager implements SocketManager
     }
 
     @Override
-    public void setDefaultTimeout(long time, TimeUnit unit)
+    public void setDefaultMessageTimeout(long time, TimeUnit unit)
     {
-        this.defaultTimeout = unit.toMillis(time);
+        this.defaultMessageTimeout = unit.toMillis(time);
     }
 
     @Override
-    public long getDefaultTimeout(TimeUnit unit)
+    public long getDefaultMessageTimeout(TimeUnit unit)
     {
-        return unit.convert(defaultTimeout, TimeUnit.MILLISECONDS);
+        return unit.convert(defaultMessageTimeout, TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -426,7 +426,7 @@ public class DefaultSocketManager implements SocketManager
     @Override
     public String sendAndWait(String message) throws ResponseTimeoutException, IOException
     {
-        return sendAndWait(message, defaultTimeout, TimeUnit.MILLISECONDS);
+        return sendAndWait(message, defaultMessageTimeout, TimeUnit.MILLISECONDS);
     }
 
     @Override
