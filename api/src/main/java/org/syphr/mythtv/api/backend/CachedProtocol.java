@@ -727,4 +727,10 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
     {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public void copyUnsupportedHandler(Protocol protocol)
+    {
+        throw new UnsupportedOperationException();
+    }
 }

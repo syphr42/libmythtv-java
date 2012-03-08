@@ -131,6 +131,7 @@ public class AutomaticProtocol implements Protocol
 
             Protocol newDelegate = ProtocolFactory.createInstance(supported, socketManager);
             delegate.copyBackendEventListeners(newDelegate);
+            delegate.copyUnsupportedHandler(newDelegate);
             delegate = newDelegate;
 
             socketManager.connect(server, 0);
@@ -635,5 +636,11 @@ public class AutomaticProtocol implements Protocol
     public void copyBackendEventListeners(Protocol protocol)
     {
         delegate.copyBackendEventListeners(protocol);
+    }
+
+    @Override
+    public void copyUnsupportedHandler(Protocol protocol)
+    {
+        delegate.copyUnsupportedHandler(protocol);
     }
 }

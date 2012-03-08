@@ -65,6 +65,12 @@ public abstract class AbstractProtocol implements Protocol
     }
 
     @Override
+    public void copyUnsupportedHandler(Protocol protocol)
+    {
+        protocol.setUnsupportedHandler(unsupported);
+    }
+
+    @Override
     public Protocol newProtocol() throws IOException
     {
         SocketManager newManager = getSocketManager().newConnection();

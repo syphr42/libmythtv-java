@@ -1244,4 +1244,13 @@ public interface Protocol
      *            the destination protocol
      */
     public void copyBackendEventListeners(Protocol protocol);
+
+    /**
+     * Copy the current unsupported operation handler from this protocol to the
+     * given protocol.
+     * 
+     * @param protocol
+     *            the destination protocol
+     */
+    public void copyUnsupportedHandler(Protocol protocol);
 }
