@@ -1,0 +1,55 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType name="RecRule">
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="Id"/>
+<xs:element minOccurs="0" type="xs:int" name="ParentId"/>
+<xs:element minOccurs="0" type="xs:boolean" name="Inactive"/>
+<xs:element minOccurs="0" type="xs:string" name="Title"/>
+<xs:element minOccurs="0" type="xs:string" name="SubTitle"/>
+<xs:element minOccurs="0" type="xs:string" name="Description"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Season"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Episode"/>
+<xs:element minOccurs="0" type="xs:string" name="Category"/>
+<xs:element minOccurs="0" type="xs:dateTime" nillable="1" name="StartTime"/>
+<xs:element minOccurs="0" type="xs:dateTime" nillable="1" name="EndTime"/>
+<xs:element minOccurs="0" type="xs:string" name="SeriesId"/>
+<xs:element minOccurs="0" type="xs:string" name="ProgramId"/>
+<xs:element minOccurs="0" type="xs:string" name="Inetref"/>
+<xs:element minOccurs="0" type="xs:int" name="ChanId"/>
+<xs:element minOccurs="0" type="xs:string" name="CallSign"/>
+<xs:element minOccurs="0" type="xs:int" name="Day"/>
+<xs:element minOccurs="0" type="xs:time" nillable="1" name="Time"/>
+<xs:element minOccurs="0" type="xs:int" name="FindId"/>
+<xs:element minOccurs="0" type="xs:string" name="Type"/>
+<xs:element minOccurs="0" type="xs:string" name="SearchType"/>
+<xs:element minOccurs="0" type="xs:int" name="RecPriority"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="PreferredInput"/>
+<xs:element minOccurs="0" type="xs:int" name="StartOffset"/>
+<xs:element minOccurs="0" type="xs:int" name="EndOffset"/>
+<xs:element minOccurs="0" type="xs:string" name="DupMethod"/>
+<xs:element minOccurs="0" type="xs:string" name="DupIn"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Filter"/>
+<xs:element minOccurs="0" type="xs:string" name="RecProfile"/>
+<xs:element minOccurs="0" type="xs:string" name="RecGroup"/>
+<xs:element minOccurs="0" type="xs:string" name="StorageGroup"/>
+<xs:element minOccurs="0" type="xs:string" name="PlayGroup"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoExpire"/>
+<xs:element minOccurs="0" type="xs:int" name="MaxEpisodes"/>
+<xs:element minOccurs="0" type="xs:boolean" name="MaxNewest"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoCommflag"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoTranscode"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoMetaLookup"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoUserJob1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoUserJob2"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoUserJob3"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoUserJob4"/>
+<xs:element minOccurs="0" type="xs:int" name="Transcoder"/>
+<xs:element minOccurs="0" type="xs:dateTime" nillable="1" name="NextRecording"/>
+<xs:element minOccurs="0" type="xs:dateTime" nillable="1" name="LastRecorded"/>
+<xs:element minOccurs="0" type="xs:dateTime" nillable="1" name="LastDeleted"/>
+<xs:element minOccurs="0" type="xs:int" name="AverageDelay"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:RecRule" nillable="true" name="RecRule"/>
+</xs:schema>

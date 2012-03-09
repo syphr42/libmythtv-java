@@ -1,0 +1,544 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/service.xslt"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://mythtv.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mythtv.org" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" name="DvrServices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<types>
+<xs:schema targetNamespace="http://MythTV.org/Imports">
+<xs:import namespace="http://mythtv.org" schemaLocation="EncoderList.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="Program.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="ProgramList.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="RecRule.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="RecRuleList.xsd"/>
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org">
+<xs:element name="AddRecordSchedule">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="ChanId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:dateTime" name="StartTime" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="ParentId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="Inactive" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Season" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Episode" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Inetref" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="FindId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Type" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="SearchType" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="RecPriority" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="PreferredInput" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="StartOffset" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="EndOffset" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="DupMethod" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="DupIn" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Filter" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="RecProfile" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="RecGroup" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="StorageGroup" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="PlayGroup" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoExpire" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="MaxEpisodes" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="MaxNewest" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoCommflag" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoTranscode" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoMetaLookup" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoUserJob1" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoUserJob2" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoUserJob3" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="AutoUserJob4" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Transcoder" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="AddRecordScheduleResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="AddRecordScheduleResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="DisableRecordSchedule">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="RecordId" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="DisableRecordScheduleResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="DisableRecordScheduleResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="EnableRecordSchedule">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="RecordId" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="EnableRecordScheduleResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="EnableRecordScheduleResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetConflictList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="StartIndex" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Count" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetConflictListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ProgramList" name="GetConflictListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetEncoderList">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetEncoderListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:EncoderList" name="GetEncoderListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetExpiringList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="StartIndex" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Count" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetExpiringListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ProgramList" name="GetExpiringListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetFilteredRecordedList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="Descending" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="StartIndex" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Count" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="TitleRegEx" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="RecGroup" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="StorageGroup" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetFilteredRecordedListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ProgramList" name="GetFilteredRecordedListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetRecordSchedule">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="RecordId" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetRecordScheduleResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:RecRule" name="GetRecordScheduleResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetRecordScheduleList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="StartIndex" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Count" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetRecordScheduleListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:RecRuleList" name="GetRecordScheduleListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetRecorded">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="ChanId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:dateTime" name="StartTime" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetRecordedResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:Program" name="GetRecordedResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetRecordedList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="Descending" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="StartIndex" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Count" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetRecordedListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ProgramList" name="GetRecordedListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetUpcomingList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="StartIndex" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Count" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="ShowAll" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetUpcomingListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ProgramList" name="GetUpcomingListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RemoveRecordSchedule">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="RecordId" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RemoveRecordScheduleResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="RemoveRecordScheduleResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RemoveRecorded">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="ChanId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:dateTime" name="StartTime" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RemoveRecordedResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="RemoveRecordedResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+</types>
+<message name="Dvr_AddRecordSchedule_InputMessage">
+<part element="tns:AddRecordSchedule" name="parameters"/>
+</message>
+<message name="Dvr_AddRecordSchedule_OutputMessage">
+<part element="tns:AddRecordScheduleResponse" name="parameters"/>
+</message>
+<message name="Dvr_DisableRecordSchedule_InputMessage">
+<part element="tns:DisableRecordSchedule" name="parameters"/>
+</message>
+<message name="Dvr_DisableRecordSchedule_OutputMessage">
+<part element="tns:DisableRecordScheduleResponse" name="parameters"/>
+</message>
+<message name="Dvr_EnableRecordSchedule_InputMessage">
+<part element="tns:EnableRecordSchedule" name="parameters"/>
+</message>
+<message name="Dvr_EnableRecordSchedule_OutputMessage">
+<part element="tns:EnableRecordScheduleResponse" name="parameters"/>
+</message>
+<message name="Dvr_GetConflictList_InputMessage">
+<part element="tns:GetConflictList" name="parameters"/>
+</message>
+<message name="Dvr_GetConflictList_OutputMessage">
+<part element="tns:GetConflictListResponse" name="parameters"/>
+</message>
+<message name="Dvr_GetEncoderList_InputMessage">
+<part element="tns:GetEncoderList" name="parameters"/>
+</message>
+<message name="Dvr_GetEncoderList_OutputMessage">
+<part element="tns:GetEncoderListResponse" name="parameters"/>
+</message>
+<message name="Dvr_GetExpiringList_InputMessage">
+<part element="tns:GetExpiringList" name="parameters"/>
+</message>
+<message name="Dvr_GetExpiringList_OutputMessage">
+<part element="tns:GetExpiringListResponse" name="parameters"/>
+</message>
+<message name="Dvr_GetFilteredRecordedList_InputMessage">
+<part element="tns:GetFilteredRecordedList" name="parameters"/>
+</message>
+<message name="Dvr_GetFilteredRecordedList_OutputMessage">
+<part element="tns:GetFilteredRecordedListResponse" name="parameters"/>
+</message>
+<message name="Dvr_GetRecordSchedule_InputMessage">
+<part element="tns:GetRecordSchedule" name="parameters"/>
+</message>
+<message name="Dvr_GetRecordSchedule_OutputMessage">
+<part element="tns:GetRecordScheduleResponse" name="parameters"/>
+</message>
+<message name="Dvr_GetRecordScheduleList_InputMessage">
+<part element="tns:GetRecordScheduleList" name="parameters"/>
+</message>
+<message name="Dvr_GetRecordScheduleList_OutputMessage">
+<part element="tns:GetRecordScheduleListResponse" name="parameters"/>
+</message>
+<message name="Dvr_GetRecorded_InputMessage">
+<part element="tns:GetRecorded" name="parameters"/>
+</message>
+<message name="Dvr_GetRecorded_OutputMessage">
+<part element="tns:GetRecordedResponse" name="parameters"/>
+</message>
+<message name="Dvr_GetRecordedList_InputMessage">
+<part element="tns:GetRecordedList" name="parameters"/>
+</message>
+<message name="Dvr_GetRecordedList_OutputMessage">
+<part element="tns:GetRecordedListResponse" name="parameters"/>
+</message>
+<message name="Dvr_GetUpcomingList_InputMessage">
+<part element="tns:GetUpcomingList" name="parameters"/>
+</message>
+<message name="Dvr_GetUpcomingList_OutputMessage">
+<part element="tns:GetUpcomingListResponse" name="parameters"/>
+</message>
+<message name="Dvr_RemoveRecordSchedule_InputMessage">
+<part element="tns:RemoveRecordSchedule" name="parameters"/>
+</message>
+<message name="Dvr_RemoveRecordSchedule_OutputMessage">
+<part element="tns:RemoveRecordScheduleResponse" name="parameters"/>
+</message>
+<message name="Dvr_RemoveRecorded_InputMessage">
+<part element="tns:RemoveRecorded" name="parameters"/>
+</message>
+<message name="Dvr_RemoveRecorded_OutputMessage">
+<part element="tns:RemoveRecordedResponse" name="parameters"/>
+</message>
+<portType name="Dvr">
+<operation name="AddRecordSchedule">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/AddRecordSchedule" message="tns:Dvr_AddRecordSchedule_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/AddRecordScheduleResponse" message="tns:Dvr_AddRecordSchedule_OutputMessage"/>
+</operation>
+<operation name="DisableRecordSchedule">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/DisableRecordSchedule" message="tns:Dvr_DisableRecordSchedule_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/DisableRecordScheduleResponse" message="tns:Dvr_DisableRecordSchedule_OutputMessage"/>
+</operation>
+<operation name="EnableRecordSchedule">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/EnableRecordSchedule" message="tns:Dvr_EnableRecordSchedule_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/EnableRecordScheduleResponse" message="tns:Dvr_EnableRecordSchedule_OutputMessage"/>
+</operation>
+<operation name="GetConflictList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/GetConflictList" message="tns:Dvr_GetConflictList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/GetConflictListResponse" message="tns:Dvr_GetConflictList_OutputMessage"/>
+</operation>
+<operation name="GetEncoderList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/GetEncoderList" message="tns:Dvr_GetEncoderList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/GetEncoderListResponse" message="tns:Dvr_GetEncoderList_OutputMessage"/>
+</operation>
+<operation name="GetExpiringList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/GetExpiringList" message="tns:Dvr_GetExpiringList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/GetExpiringListResponse" message="tns:Dvr_GetExpiringList_OutputMessage"/>
+</operation>
+<operation name="GetFilteredRecordedList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/GetFilteredRecordedList" message="tns:Dvr_GetFilteredRecordedList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/GetFilteredRecordedListResponse" message="tns:Dvr_GetFilteredRecordedList_OutputMessage"/>
+</operation>
+<operation name="GetRecordSchedule">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/GetRecordSchedule" message="tns:Dvr_GetRecordSchedule_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/GetRecordScheduleResponse" message="tns:Dvr_GetRecordSchedule_OutputMessage"/>
+</operation>
+<operation name="GetRecordScheduleList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/GetRecordScheduleList" message="tns:Dvr_GetRecordScheduleList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/GetRecordScheduleListResponse" message="tns:Dvr_GetRecordScheduleList_OutputMessage"/>
+</operation>
+<operation name="GetRecorded">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/GetRecorded" message="tns:Dvr_GetRecorded_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/GetRecordedResponse" message="tns:Dvr_GetRecorded_OutputMessage"/>
+</operation>
+<operation name="GetRecordedList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/GetRecordedList" message="tns:Dvr_GetRecordedList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/GetRecordedListResponse" message="tns:Dvr_GetRecordedList_OutputMessage"/>
+</operation>
+<operation name="GetUpcomingList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/GetUpcomingList" message="tns:Dvr_GetUpcomingList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/GetUpcomingListResponse" message="tns:Dvr_GetUpcomingList_OutputMessage"/>
+</operation>
+<operation name="RemoveRecordSchedule">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/RemoveRecordSchedule" message="tns:Dvr_RemoveRecordSchedule_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/RemoveRecordScheduleResponse" message="tns:Dvr_RemoveRecordSchedule_OutputMessage"/>
+</operation>
+<operation name="RemoveRecorded">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Dvr/RemoveRecorded" message="tns:Dvr_RemoveRecorded_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Dvr/RemoveRecordedResponse" message="tns:Dvr_RemoveRecorded_OutputMessage"/>
+</operation>
+</portType>
+<binding type="tns:Dvr" name="BasicHttpBinding_Dvr">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="AddRecordSchedule">
+<soap:operation soapAction="http://mythtv.org/Dvr/AddRecordSchedule" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="DisableRecordSchedule">
+<soap:operation soapAction="http://mythtv.org/Dvr/DisableRecordSchedule" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="EnableRecordSchedule">
+<soap:operation soapAction="http://mythtv.org/Dvr/EnableRecordSchedule" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetConflictList">
+<soap:operation soapAction="http://mythtv.org/Dvr/GetConflictList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetEncoderList">
+<soap:operation soapAction="http://mythtv.org/Dvr/GetEncoderList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetExpiringList">
+<soap:operation soapAction="http://mythtv.org/Dvr/GetExpiringList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetFilteredRecordedList">
+<soap:operation soapAction="http://mythtv.org/Dvr/GetFilteredRecordedList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetRecordSchedule">
+<soap:operation soapAction="http://mythtv.org/Dvr/GetRecordSchedule" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetRecordScheduleList">
+<soap:operation soapAction="http://mythtv.org/Dvr/GetRecordScheduleList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetRecorded">
+<soap:operation soapAction="http://mythtv.org/Dvr/GetRecorded" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetRecordedList">
+<soap:operation soapAction="http://mythtv.org/Dvr/GetRecordedList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetUpcomingList">
+<soap:operation soapAction="http://mythtv.org/Dvr/GetUpcomingList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="RemoveRecordSchedule">
+<soap:operation soapAction="http://mythtv.org/Dvr/RemoveRecordSchedule" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="RemoveRecorded">
+<soap:operation soapAction="http://mythtv.org/Dvr/RemoveRecorded" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="DvrServices">
+<documentation>Interface Version 1.4 - </documentation>
+<port binding="tns:BasicHttpBinding_Dvr" name="BasicHttpBinding_Dvr">
+<soap:address location="http://localhost:6544/Dvr"/>
+</port>
+</service>
+</definitions>

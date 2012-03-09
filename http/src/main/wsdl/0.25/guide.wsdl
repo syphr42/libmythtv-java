@@ -1,0 +1,131 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/service.xslt"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://mythtv.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mythtv.org" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" name="GuideServices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<types>
+<xs:schema targetNamespace="http://MythTV.org/Imports">
+<xs:import namespace="http://mythtv.org" schemaLocation="Program.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="ProgramGuide.xsd"/>
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org">
+<xs:element name="GetChannelIcon">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="ChanId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Width" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Height" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetChannelIconResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="GetChannelIconResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetProgramDetails">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="ChanId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:dateTime" name="StartTime" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetProgramDetailsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:Program" name="GetProgramDetailsResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetProgramGuide">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:dateTime" name="StartTime" nillable="1"/>
+<xs:element minOccurs="0" type="xs:dateTime" name="EndTime" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="StartChanId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="NumChannels" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="Details" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetProgramGuideResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ProgramGuide" name="GetProgramGuideResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+</types>
+<message name="Guide_GetChannelIcon_InputMessage">
+<part element="tns:GetChannelIcon" name="parameters"/>
+</message>
+<message name="Guide_GetChannelIcon_OutputMessage">
+<part element="tns:GetChannelIconResponse" name="parameters"/>
+</message>
+<message name="Guide_GetProgramDetails_InputMessage">
+<part element="tns:GetProgramDetails" name="parameters"/>
+</message>
+<message name="Guide_GetProgramDetails_OutputMessage">
+<part element="tns:GetProgramDetailsResponse" name="parameters"/>
+</message>
+<message name="Guide_GetProgramGuide_InputMessage">
+<part element="tns:GetProgramGuide" name="parameters"/>
+</message>
+<message name="Guide_GetProgramGuide_OutputMessage">
+<part element="tns:GetProgramGuideResponse" name="parameters"/>
+</message>
+<portType name="Guide">
+<operation name="GetChannelIcon">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Guide/GetChannelIcon" message="tns:Guide_GetChannelIcon_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Guide/GetChannelIconResponse" message="tns:Guide_GetChannelIcon_OutputMessage"/>
+</operation>
+<operation name="GetProgramDetails">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Guide/GetProgramDetails" message="tns:Guide_GetProgramDetails_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Guide/GetProgramDetailsResponse" message="tns:Guide_GetProgramDetails_OutputMessage"/>
+</operation>
+<operation name="GetProgramGuide">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Guide/GetProgramGuide" message="tns:Guide_GetProgramGuide_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Guide/GetProgramGuideResponse" message="tns:Guide_GetProgramGuide_OutputMessage"/>
+</operation>
+</portType>
+<binding type="tns:Guide" name="BasicHttpBinding_Guide">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="GetChannelIcon">
+<soap:operation soapAction="http://mythtv.org/Guide/GetChannelIcon" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetProgramDetails">
+<soap:operation soapAction="http://mythtv.org/Guide/GetProgramDetails" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetProgramGuide">
+<soap:operation soapAction="http://mythtv.org/Guide/GetProgramGuide" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="GuideServices">
+<documentation>Interface Version 1.0 - </documentation>
+<port binding="tns:BasicHttpBinding_Guide" name="BasicHttpBinding_Guide">
+<soap:address location="http://localhost:6544/Guide"/>
+</port>
+</service>
+</definitions>

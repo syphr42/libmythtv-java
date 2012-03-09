@@ -1,0 +1,10 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:include schemaLocation="VideoMetadataInfo.xsd"/>
+<xs:complexType name="ArrayOfVideoMetadataInfo">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" type="tns:VideoMetadataInfo" nillable="true" name="VideoMetadataInfo"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:ArrayOfVideoMetadataInfo" nillable="true" name="ArrayOfVideoMetadataInfo"/>
+</xs:schema>

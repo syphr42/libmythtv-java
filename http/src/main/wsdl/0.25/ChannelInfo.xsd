@@ -1,0 +1,36 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:include schemaLocation="ArrayOfProgram.xsd"/>
+<xs:complexType name="ChannelInfo">
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ChanId"/>
+<xs:element minOccurs="0" type="xs:string" name="ChanNum"/>
+<xs:element minOccurs="0" type="xs:string" name="CallSign"/>
+<xs:element minOccurs="0" type="xs:string" name="IconURL"/>
+<xs:element minOccurs="0" type="xs:string" name="ChannelName"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="MplexId"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="TransportId"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ServiceId"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="NetworkId"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ATSCMajorChan"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ATSCMinorChan"/>
+<xs:element minOccurs="0" type="xs:string" name="Format"/>
+<xs:element minOccurs="0" type="xs:string" name="Modulation"/>
+<xs:element minOccurs="0" type="xs:long" name="Frequency"/>
+<xs:element minOccurs="0" type="xs:string" name="FrequencyId"/>
+<xs:element minOccurs="0" type="xs:string" name="FrequencyTable"/>
+<xs:element minOccurs="0" type="xs:int" name="FineTune"/>
+<xs:element minOccurs="0" type="xs:string" name="SIStandard"/>
+<xs:element minOccurs="0" type="xs:string" name="ChanFilters"/>
+<xs:element minOccurs="0" type="xs:int" name="SourceId"/>
+<xs:element minOccurs="0" type="xs:int" name="InputId"/>
+<xs:element minOccurs="0" type="xs:int" name="CommFree"/>
+<xs:element minOccurs="0" type="xs:boolean" name="UseEIT"/>
+<xs:element minOccurs="0" type="xs:boolean" name="Visible"/>
+<xs:element minOccurs="0" type="xs:string" name="XMLTVID"/>
+<xs:element minOccurs="0" type="xs:string" name="DefaultAuth"/>
+<xs:element minOccurs="0" type="tns:ArrayOfProgram" name="Programs"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:ChannelInfo" nillable="true" name="ChannelInfo"/>
+</xs:schema>

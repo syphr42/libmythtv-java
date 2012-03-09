@@ -1,0 +1,12 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType name="ArtworkInfo">
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="URL"/>
+<xs:element minOccurs="0" type="xs:string" name="FileName"/>
+<xs:element minOccurs="0" type="xs:string" name="StorageGroup"/>
+<xs:element minOccurs="0" type="xs:string" name="Type"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:ArtworkInfo" nillable="true" name="ArtworkInfo"/>
+</xs:schema>

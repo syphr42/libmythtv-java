@@ -1,0 +1,591 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/service.xslt"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://mythtv.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mythtv.org" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" name="ChannelServices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<types>
+<xs:schema targetNamespace="http://MythTV.org/Imports">
+<xs:import namespace="http://mythtv.org" schemaLocation="ArrayOfString.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="ChannelInfo.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="ChannelInfoList.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="LineupList.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="VideoMultiplex.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="VideoMultiplexList.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="VideoSource.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="VideoSourceList.xsd"/>
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org">
+<xs:element name="AddDBChannel">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="MplexID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="SourceID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ChannelID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="CallSign" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="ChannelName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="ChannelNumber" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ServiceID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ATSCMajorChannel" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ATSCMinorChannel" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="UseEIT" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="visible" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="FrequencyID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Icon" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Format" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="XMLTVID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="DefaultAuthority" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="AddDBChannelResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="AddDBChannelResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="AddVideoSource">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="SourceName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Grabber" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="UserId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="FreqTable" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="LineupId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Password" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="UseEIT" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="ConfigPath" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="NITId" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="AddVideoSourceResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="AddVideoSourceResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="FetchChannelsFromSource">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="SourceId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="CardId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="WaitForFinish" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="FetchChannelsFromSourceResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="FetchChannelsFromSourceResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetChannelInfo">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="ChanID" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetChannelInfoResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ChannelInfo" name="GetChannelInfoResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetChannelInfoList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="SourceID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="StartIndex" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Count" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetChannelInfoListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ChannelInfoList" name="GetChannelInfoListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetDDLineupList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="Source" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="UserId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Password" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetDDLineupListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:LineupList" name="GetDDLineupListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetVideoMultiplex">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="MplexID" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetVideoMultiplexResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:VideoMultiplex" name="GetVideoMultiplexResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetVideoMultiplexList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="SourceID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="StartIndex" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="Count" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetVideoMultiplexListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:VideoMultiplexList" name="GetVideoMultiplexListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetVideoSource">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="SourceID" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetVideoSourceResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:VideoSource" name="GetVideoSourceResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetVideoSourceList">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetVideoSourceListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:VideoSourceList" name="GetVideoSourceListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetXMLTVIdList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="SourceID" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetXMLTVIdListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ArrayOfString" name="GetXMLTVIdListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RemoveDBChannel">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ChannelID" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RemoveDBChannelResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="RemoveDBChannelResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RemoveVideoSource">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="SourceID" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RemoveVideoSourceResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="RemoveVideoSourceResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateDBChannel">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="MplexID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="SourceID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ChannelID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="CallSign" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="ChannelName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="ChannelNumber" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ServiceID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ATSCMajorChannel" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ATSCMinorChannel" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="UseEIT" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="visible" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="FrequencyID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Icon" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Format" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="XMLTVID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="DefaultAuthority" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateDBChannelResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="UpdateDBChannelResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateVideoSource">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="SourceID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="SourceName" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Grabber" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="UserId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="FreqTable" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="LineupId" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Password" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="UseEIT" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="ConfigPath" nillable="1"/>
+<xs:element minOccurs="0" type="xs:int" name="NITId" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateVideoSourceResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="UpdateVideoSourceResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+</types>
+<message name="Channel_AddDBChannel_InputMessage">
+<part element="tns:AddDBChannel" name="parameters"/>
+</message>
+<message name="Channel_AddDBChannel_OutputMessage">
+<part element="tns:AddDBChannelResponse" name="parameters"/>
+</message>
+<message name="Channel_AddVideoSource_InputMessage">
+<part element="tns:AddVideoSource" name="parameters"/>
+</message>
+<message name="Channel_AddVideoSource_OutputMessage">
+<part element="tns:AddVideoSourceResponse" name="parameters"/>
+</message>
+<message name="Channel_FetchChannelsFromSource_InputMessage">
+<part element="tns:FetchChannelsFromSource" name="parameters"/>
+</message>
+<message name="Channel_FetchChannelsFromSource_OutputMessage">
+<part element="tns:FetchChannelsFromSourceResponse" name="parameters"/>
+</message>
+<message name="Channel_GetChannelInfo_InputMessage">
+<part element="tns:GetChannelInfo" name="parameters"/>
+</message>
+<message name="Channel_GetChannelInfo_OutputMessage">
+<part element="tns:GetChannelInfoResponse" name="parameters"/>
+</message>
+<message name="Channel_GetChannelInfoList_InputMessage">
+<part element="tns:GetChannelInfoList" name="parameters"/>
+</message>
+<message name="Channel_GetChannelInfoList_OutputMessage">
+<part element="tns:GetChannelInfoListResponse" name="parameters"/>
+</message>
+<message name="Channel_GetDDLineupList_InputMessage">
+<part element="tns:GetDDLineupList" name="parameters"/>
+</message>
+<message name="Channel_GetDDLineupList_OutputMessage">
+<part element="tns:GetDDLineupListResponse" name="parameters"/>
+</message>
+<message name="Channel_GetVideoMultiplex_InputMessage">
+<part element="tns:GetVideoMultiplex" name="parameters"/>
+</message>
+<message name="Channel_GetVideoMultiplex_OutputMessage">
+<part element="tns:GetVideoMultiplexResponse" name="parameters"/>
+</message>
+<message name="Channel_GetVideoMultiplexList_InputMessage">
+<part element="tns:GetVideoMultiplexList" name="parameters"/>
+</message>
+<message name="Channel_GetVideoMultiplexList_OutputMessage">
+<part element="tns:GetVideoMultiplexListResponse" name="parameters"/>
+</message>
+<message name="Channel_GetVideoSource_InputMessage">
+<part element="tns:GetVideoSource" name="parameters"/>
+</message>
+<message name="Channel_GetVideoSource_OutputMessage">
+<part element="tns:GetVideoSourceResponse" name="parameters"/>
+</message>
+<message name="Channel_GetVideoSourceList_InputMessage">
+<part element="tns:GetVideoSourceList" name="parameters"/>
+</message>
+<message name="Channel_GetVideoSourceList_OutputMessage">
+<part element="tns:GetVideoSourceListResponse" name="parameters"/>
+</message>
+<message name="Channel_GetXMLTVIdList_InputMessage">
+<part element="tns:GetXMLTVIdList" name="parameters"/>
+</message>
+<message name="Channel_GetXMLTVIdList_OutputMessage">
+<part element="tns:GetXMLTVIdListResponse" name="parameters"/>
+</message>
+<message name="Channel_RemoveDBChannel_InputMessage">
+<part element="tns:RemoveDBChannel" name="parameters"/>
+</message>
+<message name="Channel_RemoveDBChannel_OutputMessage">
+<part element="tns:RemoveDBChannelResponse" name="parameters"/>
+</message>
+<message name="Channel_RemoveVideoSource_InputMessage">
+<part element="tns:RemoveVideoSource" name="parameters"/>
+</message>
+<message name="Channel_RemoveVideoSource_OutputMessage">
+<part element="tns:RemoveVideoSourceResponse" name="parameters"/>
+</message>
+<message name="Channel_UpdateDBChannel_InputMessage">
+<part element="tns:UpdateDBChannel" name="parameters"/>
+</message>
+<message name="Channel_UpdateDBChannel_OutputMessage">
+<part element="tns:UpdateDBChannelResponse" name="parameters"/>
+</message>
+<message name="Channel_UpdateVideoSource_InputMessage">
+<part element="tns:UpdateVideoSource" name="parameters"/>
+</message>
+<message name="Channel_UpdateVideoSource_OutputMessage">
+<part element="tns:UpdateVideoSourceResponse" name="parameters"/>
+</message>
+<portType name="Channel">
+<operation name="AddDBChannel">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/AddDBChannel" message="tns:Channel_AddDBChannel_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/AddDBChannelResponse" message="tns:Channel_AddDBChannel_OutputMessage"/>
+</operation>
+<operation name="AddVideoSource">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/AddVideoSource" message="tns:Channel_AddVideoSource_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/AddVideoSourceResponse" message="tns:Channel_AddVideoSource_OutputMessage"/>
+</operation>
+<operation name="FetchChannelsFromSource">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/FetchChannelsFromSource" message="tns:Channel_FetchChannelsFromSource_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/FetchChannelsFromSourceResponse" message="tns:Channel_FetchChannelsFromSource_OutputMessage"/>
+</operation>
+<operation name="GetChannelInfo">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/GetChannelInfo" message="tns:Channel_GetChannelInfo_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/GetChannelInfoResponse" message="tns:Channel_GetChannelInfo_OutputMessage"/>
+</operation>
+<operation name="GetChannelInfoList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/GetChannelInfoList" message="tns:Channel_GetChannelInfoList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/GetChannelInfoListResponse" message="tns:Channel_GetChannelInfoList_OutputMessage"/>
+</operation>
+<operation name="GetDDLineupList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/GetDDLineupList" message="tns:Channel_GetDDLineupList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/GetDDLineupListResponse" message="tns:Channel_GetDDLineupList_OutputMessage"/>
+</operation>
+<operation name="GetVideoMultiplex">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/GetVideoMultiplex" message="tns:Channel_GetVideoMultiplex_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/GetVideoMultiplexResponse" message="tns:Channel_GetVideoMultiplex_OutputMessage"/>
+</operation>
+<operation name="GetVideoMultiplexList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/GetVideoMultiplexList" message="tns:Channel_GetVideoMultiplexList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/GetVideoMultiplexListResponse" message="tns:Channel_GetVideoMultiplexList_OutputMessage"/>
+</operation>
+<operation name="GetVideoSource">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/GetVideoSource" message="tns:Channel_GetVideoSource_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/GetVideoSourceResponse" message="tns:Channel_GetVideoSource_OutputMessage"/>
+</operation>
+<operation name="GetVideoSourceList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/GetVideoSourceList" message="tns:Channel_GetVideoSourceList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/GetVideoSourceListResponse" message="tns:Channel_GetVideoSourceList_OutputMessage"/>
+</operation>
+<operation name="GetXMLTVIdList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/GetXMLTVIdList" message="tns:Channel_GetXMLTVIdList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/GetXMLTVIdListResponse" message="tns:Channel_GetXMLTVIdList_OutputMessage"/>
+</operation>
+<operation name="RemoveDBChannel">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/RemoveDBChannel" message="tns:Channel_RemoveDBChannel_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/RemoveDBChannelResponse" message="tns:Channel_RemoveDBChannel_OutputMessage"/>
+</operation>
+<operation name="RemoveVideoSource">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/RemoveVideoSource" message="tns:Channel_RemoveVideoSource_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/RemoveVideoSourceResponse" message="tns:Channel_RemoveVideoSource_OutputMessage"/>
+</operation>
+<operation name="UpdateDBChannel">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/UpdateDBChannel" message="tns:Channel_UpdateDBChannel_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/UpdateDBChannelResponse" message="tns:Channel_UpdateDBChannel_OutputMessage"/>
+</operation>
+<operation name="UpdateVideoSource">
+<documentation>POST </documentation>
+<input wsaw:Action="http://mythtv.org/Channel/UpdateVideoSource" message="tns:Channel_UpdateVideoSource_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Channel/UpdateVideoSourceResponse" message="tns:Channel_UpdateVideoSource_OutputMessage"/>
+</operation>
+</portType>
+<binding type="tns:Channel" name="BasicHttpBinding_Channel">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="AddDBChannel">
+<soap:operation soapAction="http://mythtv.org/Channel/AddDBChannel" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="AddVideoSource">
+<soap:operation soapAction="http://mythtv.org/Channel/AddVideoSource" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="FetchChannelsFromSource">
+<soap:operation soapAction="http://mythtv.org/Channel/FetchChannelsFromSource" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetChannelInfo">
+<soap:operation soapAction="http://mythtv.org/Channel/GetChannelInfo" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetChannelInfoList">
+<soap:operation soapAction="http://mythtv.org/Channel/GetChannelInfoList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetDDLineupList">
+<soap:operation soapAction="http://mythtv.org/Channel/GetDDLineupList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetVideoMultiplex">
+<soap:operation soapAction="http://mythtv.org/Channel/GetVideoMultiplex" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetVideoMultiplexList">
+<soap:operation soapAction="http://mythtv.org/Channel/GetVideoMultiplexList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetVideoSource">
+<soap:operation soapAction="http://mythtv.org/Channel/GetVideoSource" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetVideoSourceList">
+<soap:operation soapAction="http://mythtv.org/Channel/GetVideoSourceList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetXMLTVIdList">
+<soap:operation soapAction="http://mythtv.org/Channel/GetXMLTVIdList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="RemoveDBChannel">
+<soap:operation soapAction="http://mythtv.org/Channel/RemoveDBChannel" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="RemoveVideoSource">
+<soap:operation soapAction="http://mythtv.org/Channel/RemoveVideoSource" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="UpdateDBChannel">
+<soap:operation soapAction="http://mythtv.org/Channel/UpdateDBChannel" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="UpdateVideoSource">
+<soap:operation soapAction="http://mythtv.org/Channel/UpdateVideoSource" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="ChannelServices">
+<documentation>Interface Version 1.2 - </documentation>
+<port binding="tns:BasicHttpBinding_Channel" name="BasicHttpBinding_Channel">
+<soap:address location="http://localhost:6544/Channel"/>
+</port>
+</service>
+</definitions>

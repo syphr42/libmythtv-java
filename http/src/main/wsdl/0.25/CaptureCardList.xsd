@@ -1,0 +1,10 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:include schemaLocation="ArrayOfCaptureCard.xsd"/>
+<xs:complexType name="CaptureCardList">
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ArrayOfCaptureCard" name="CaptureCards"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:CaptureCardList" nillable="true" name="CaptureCardList"/>
+</xs:schema>

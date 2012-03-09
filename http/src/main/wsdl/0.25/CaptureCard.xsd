@@ -1,0 +1,33 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType name="CaptureCard">
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="CardId"/>
+<xs:element minOccurs="0" type="xs:string" name="VideoDevice"/>
+<xs:element minOccurs="0" type="xs:string" name="AudioDevice"/>
+<xs:element minOccurs="0" type="xs:string" name="VBIDevice"/>
+<xs:element minOccurs="0" type="xs:string" name="CardType"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="AudioRateLimit"/>
+<xs:element minOccurs="0" type="xs:string" name="HostName"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="DVBSWFilter"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="DVBSatType"/>
+<xs:element minOccurs="0" type="xs:boolean" name="DVBWaitForSeqStart"/>
+<xs:element minOccurs="0" type="xs:boolean" name="SkipBTAudio"/>
+<xs:element minOccurs="0" type="xs:boolean" name="DVBOnDemand"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="DVBDiSEqCType"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="FirewireSpeed"/>
+<xs:element minOccurs="0" type="xs:string" name="FirewireModel"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="FirewireConnection"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="SignalTimeout"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="ChannelTimeout"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="DVBTuningDelay"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Contrast"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Brightness"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Colour"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Hue"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="DiSEqCId"/>
+<xs:element minOccurs="0" type="xs:boolean" name="DVBEITScan"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:CaptureCard" nillable="true" name="CaptureCard"/>
+</xs:schema>

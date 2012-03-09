@@ -1,0 +1,10 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:include schemaLocation="Encoder.xsd"/>
+<xs:complexType name="ArrayOfEncoder">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" type="tns:Encoder" nillable="true" name="Encoder"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:ArrayOfEncoder" nillable="true" name="ArrayOfEncoder"/>
+</xs:schema>

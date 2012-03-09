@@ -1,0 +1,17 @@
+<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:include schemaLocation="Program.xsd"/>
+<xs:complexType name="Encoder">
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="Id"/>
+<xs:element minOccurs="0" type="xs:string" name="HostName"/>
+<xs:element minOccurs="0" type="xs:boolean" name="Local"/>
+<xs:element minOccurs="0" type="xs:boolean" name="Connected"/>
+<xs:element minOccurs="0" type="xs:int" name="State"/>
+<xs:element minOccurs="0" type="xs:int" name="SleepStatus"/>
+<xs:element minOccurs="0" type="xs:boolean" name="LowOnFreeSpace"/>
+<xs:element minOccurs="0" type="tns:Program" nillable="1" name="Recording"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element type="tns:Encoder" nillable="true" name="Encoder"/>
+</xs:schema>
