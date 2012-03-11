@@ -212,7 +212,7 @@ public class MythService0_25 implements MythService
 
         if (stringArray != null)
         {
-            list.addAll(stringArray.getString());
+            list.addAll(stringArray.getStrings());
         }
 
         return list;
