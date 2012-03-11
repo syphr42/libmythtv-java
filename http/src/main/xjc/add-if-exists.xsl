@@ -39,4 +39,15 @@
 			<xsl:apply-templates />
 		</xsl:element>
 	</xsl:template>
+	
+	<!-- Change the map setting from false to true. Without this step, wsimport refuses to 
+	     process any WSDL elements. However, with this step, each service ObjectFactory
+	     contains entries duplicated from the common ObjectFactory (yet there are no 
+	     duplicate classes generated). Looks like wsimport is broken. -->
+    <xsl:template match="//jxb:schemaBindings">
+        <xsl:element name="{name()}">
+            <xsl:attribute name="map">true</xsl:attribute>
+            <xsl:apply-templates />
+        </xsl:element>
+    </xsl:template>
 </xsl:stylesheet>
