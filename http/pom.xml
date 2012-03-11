@@ -32,6 +32,8 @@
 	<description>This library provides a Java interface to the MythTV backend and frontend HTTP web services.</description>
 
 	<properties>
+		<jaxbTarget>2.1</jaxbTarget>
+
 		<backendPackagePrefix>org.syphr.mythtv.http.backend.impl</backendPackagePrefix>
 		<frontendPackagePrefix>org.syphr.mythtv.http.frontend.impl</frontendPackagePrefix>
 
@@ -70,7 +72,8 @@
 				</executions>
 
 				<configuration>
-					<specVersion>2.1</specVersion>
+					<specVersion>${jaxbTarget}</specVersion>
+					<extension>true</extension>
 					<schemaDirectory>${backendWsdlDirectoryPrefix}/_0_25</schemaDirectory>
 					<generatePackage>${backendPackagePrefix}._0_25.common</generatePackage>
 					<bindingDirectory>src/main/jaxws</bindingDirectory>
@@ -84,7 +87,7 @@
 
 				<executions>
 					<execution>
-						<id>0.25-fix-episode</id>
+						<id>0.25-common-fix-episode</id>
 
 						<phase>generate-sources</phase>
 						<goals>
@@ -100,7 +103,8 @@
 							<outputDir>${project.build.directory}/generated-sources/xjc/META-INF</outputDir>
 							<stylesheet>src/main/xjc/add-if-exists.xsl</stylesheet>
 							<fileMappers>
-								<fileMapper implementation="org.codehaus.plexus.components.io.filemappers.IdentityMapper"/>
+								<fileMapper
+									implementation="org.codehaus.plexus.components.io.filemappers.IdentityMapper" />
 							</fileMappers>
 						</transformationSet>
 					</transformationSets>
@@ -228,15 +232,13 @@
 				</executions>
 
 				<configuration>
-					<target>2.1</target>
+					<target>${jaxbTarget}</target>
 					<bindingDirectory>src/main/jaxws</bindingDirectory>
 					<bindingFiles>
 						<bindingFile>bindings.xjb</bindingFile>
 <!-- 						<bindingFile>${project.build.directory}/generated-sources/xjc/META-INF/sun-jaxb.episode</bindingFile> -->
 					</bindingFiles>
-					
-                    <verbose>true</verbose> 
-                    <xdebug>true</xdebug> 
+					<extension>true</extension>
 				</configuration>
 			</plugin>
 		</plugins>
