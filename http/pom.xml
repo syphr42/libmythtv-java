@@ -31,17 +31,81 @@
 	<name>HTTP</name>
 	<description>This library provides a Java interface to the MythTV backend and frontend HTTP web services.</description>
 
+	<properties>
+		<backendPackagePrefix>org.syphr.mythtv.http.backend.impl</backendPackagePrefix>
+		<frontendPackagePrefix>org.syphr.mythtv.http.frontend.impl</frontendPackagePrefix>
+
+		<backendWsdlLocationPrefix>/org/syphr/mythtv/http/backend/wsdl</backendWsdlLocationPrefix>
+		<frontendWsdlLocationPrefix>/org/syphr/mythtv/http/frontend/wsdl</frontendWsdlLocationPrefix>
+
+		<backendWsdlDirectoryPrefix>src/main/resources/org/syphr/mythtv/http/backend/wsdl</backendWsdlDirectoryPrefix>
+		<frontendWsdlDirectoryPrefix>src/main/resources/org/syphr/mythtv/http/frontend/wsdl</frontendWsdlDirectoryPrefix>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 			</plugin>
-			
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-            </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>0.8.1</version>
+
+				<executions>
+					<execution>
+						<id>0.25-common</id>
+
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<specVersion>2.1</specVersion>
+					<schemaDirectory>${backendWsdlDirectoryPrefix}/_0_25</schemaDirectory>
+					<generatePackage>${backendPackagePrefix}._0_25.common</generatePackage>
+					<bindingDirectory>src/main/jaxws</bindingDirectory>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xml-maven-plugin</artifactId>
+				<version>1.0</version>
+
+				<executions>
+					<execution>
+						<id>0.25-fix-episode</id>
+
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>transform</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<transformationSets>
+						<transformationSet>
+							<dir>${project.build.directory}/generated-sources/xjc/META-INF</dir>
+							<outputDir>${project.build.directory}/generated-sources/xjc/META-INF</outputDir>
+							<stylesheet>src/main/xjc/add-if-exists.xsl</stylesheet>
+							<fileMappers>
+								<fileMapper implementation="org.codehaus.plexus.components.io.filemappers.IdentityMapper"/>
+							</fileMappers>
+						</transformationSet>
+					</transformationSets>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>org.jvnet.jax-ws-commons</groupId>
@@ -50,39 +114,130 @@
 
 				<executions>
 					<execution>
-						<id>0.25</id>
+						<id>0.25-capture</id>
 
 						<goals>
 							<goal>wsimport</goal>
 						</goals>
 
 						<configuration>
-							<packageName>org.syphr.mythtv.http.backend.impl._0_25</packageName>
-							<wsdlDirectory>src/main/wsdl/0.25</wsdlDirectory>
+							<packageName>${backendPackagePrefix}._0_25.capture</packageName>
+							<wsdlLocation>${backendWsdlLocationPrefix}/_0_25/capture.wsdl</wsdlLocation>
+							<wsdlDirectory>${backendWsdlDirectoryPrefix}/_0_25</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>capture.wsdl</wsdlFile>
+							</wsdlFiles>
+						</configuration>
+					</execution>
+					<execution>
+						<id>0.25-channel</id>
+
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+
+						<configuration>
+							<packageName>${backendPackagePrefix}._0_25.channel</packageName>
+							<wsdlLocation>${backendWsdlLocationPrefix}/_0_25/channel.wsdl</wsdlLocation>
+							<wsdlDirectory>${backendWsdlDirectoryPrefix}/_0_25</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>channel.wsdl</wsdlFile>
+							</wsdlFiles>
+						</configuration>
+					</execution>
+					<execution>
+						<id>0.25-content</id>
+
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+
+						<configuration>
+							<packageName>${backendPackagePrefix}._0_25.content</packageName>
+							<wsdlLocation>${backendWsdlLocationPrefix}/_0_25/content.wsdl</wsdlLocation>
+							<wsdlDirectory>${backendWsdlDirectoryPrefix}/_0_25</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>content.wsdl</wsdlFile>
+							</wsdlFiles>
+						</configuration>
+					</execution>
+					<execution>
+						<id>0.25-dvr</id>
+
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+
+						<configuration>
+							<packageName>${backendPackagePrefix}._0_25.dvr</packageName>
+							<wsdlLocation>${backendWsdlLocationPrefix}/_0_25/dvr.wsdl</wsdlLocation>
+							<wsdlDirectory>${backendWsdlDirectoryPrefix}/_0_25</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>dvr.wsdl</wsdlFile>
+							</wsdlFiles>
+						</configuration>
+					</execution>
+					<execution>
+						<id>0.25-guide</id>
+
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+
+						<configuration>
+							<packageName>${backendPackagePrefix}._0_25.guide</packageName>
+							<wsdlLocation>${backendWsdlLocationPrefix}/_0_25/guide.wsdl</wsdlLocation>
+							<wsdlDirectory>${backendWsdlDirectoryPrefix}/_0_25</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>guide.wsdl</wsdlFile>
+							</wsdlFiles>
+						</configuration>
+					</execution>
+					<execution>
+						<id>0.25-myth</id>
+
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+
+						<configuration>
+							<packageName>${backendPackagePrefix}._0_25.myth</packageName>
+							<wsdlLocation>${backendWsdlLocationPrefix}/_0_25/myth.wsdl</wsdlLocation>
+							<wsdlDirectory>${backendWsdlDirectoryPrefix}/_0_25</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>myth.wsdl</wsdlFile>
+							</wsdlFiles>
+						</configuration>
+					</execution>
+					<execution>
+						<id>0.25-video</id>
+
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+
+						<configuration>
+							<packageName>${backendPackagePrefix}._0_25.video</packageName>
+							<wsdlLocation>${backendWsdlLocationPrefix}/_0_25/video.wsdl</wsdlLocation>
+							<wsdlDirectory>${backendWsdlDirectoryPrefix}/_0_25</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>video.wsdl</wsdlFile>
+							</wsdlFiles>
 						</configuration>
 					</execution>
 				</executions>
 
 				<configuration>
 					<target>2.1</target>
-                    <bindingDirectory>src/main/jaxws</bindingDirectory>
-
-                    <!--
-					<xjcArgs>
-						<xjcArg>-Xequals</xjcArg>
-						<xjcArg>-XhashCode</xjcArg>
-						<xjcArg>-XtoString</xjcArg>
-					</xjcArgs>
-					-->
+					<bindingDirectory>src/main/jaxws</bindingDirectory>
+					<bindingFiles>
+						<bindingFile>bindings.xjb</bindingFile>
+<!-- 						<bindingFile>${project.build.directory}/generated-sources/xjc/META-INF/sun-jaxb.episode</bindingFile> -->
+					</bindingFiles>
+					
+                    <verbose>true</verbose> 
+                    <xdebug>true</xdebug> 
 				</configuration>
-
-				<dependencies>
-					<dependency>
-						<groupId>org.jvnet.jaxb2_commons</groupId>
-						<artifactId>jaxb2-basics</artifactId>
-						<version>0.6.3</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 
@@ -116,6 +271,44 @@
 										<ignore></ignore>
 									</action>
 								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											com.sun.tools.xjc.maven2
+										</groupId>
+										<artifactId>
+											maven-jaxb-plugin
+										</artifactId>
+										<versionRange>
+											[1.1.1,)
+										</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											xml-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.0,)
+										</versionRange>
+										<goals>
+											<goal>transform</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
@@ -125,14 +318,14 @@
 	</build>
 
 	<dependencies>
-        <dependency>
-            <groupId>org.syphr</groupId>
-            <artifactId>libmythtv-data</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-	
+		<dependency>
+			<groupId>org.syphr</groupId>
+			<artifactId>libmythtv-data</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>

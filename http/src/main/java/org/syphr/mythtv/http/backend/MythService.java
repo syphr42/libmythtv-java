@@ -19,10 +19,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.syphr.mythtv.data.TimeInfo;
-import org.syphr.mythtv.http.backend.impl._0_25.ConnectionInfo;
-import org.syphr.mythtv.http.backend.impl._0_25.LogMessageList;
-import org.syphr.mythtv.http.backend.impl._0_25.SettingList;
-import org.syphr.mythtv.http.backend.impl._0_25.StorageGroupDirList;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.ConnectionInfo;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.LogMessageList;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.SettingList;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.StorageGroupDirList;
 
 public interface MythService
 {

@@ -24,14 +24,14 @@ import javax.xml.ws.BindingProvider;
 
 import org.syphr.mythtv.data.TimeInfo;
 import org.syphr.mythtv.http.backend.MythService;
-import org.syphr.mythtv.http.backend.impl._0_25.ArrayOfString;
-import org.syphr.mythtv.http.backend.impl._0_25.ConnectionInfo;
-import org.syphr.mythtv.http.backend.impl._0_25.LogMessageList;
-import org.syphr.mythtv.http.backend.impl._0_25.Myth;
-import org.syphr.mythtv.http.backend.impl._0_25.MythServices;
-import org.syphr.mythtv.http.backend.impl._0_25.SettingList;
-import org.syphr.mythtv.http.backend.impl._0_25.StorageGroupDirList;
-import org.syphr.mythtv.http.backend.impl._0_25.TimeZoneInfo;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.ArrayOfString;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.ConnectionInfo;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.LogMessageList;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.Myth;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.MythServices;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.SettingList;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.StorageGroupDirList;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.TimeZoneInfo;
 import org.syphr.mythtv.http.impl.ServiceUtils;
 
 public class MythService0_25 implements MythService
