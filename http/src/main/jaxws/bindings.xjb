@@ -14,8 +14,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.0"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" extensionBindingPrefixes="xjc">
 
 	<globalBindings>
 		<javaType name="java.util.Calendar" xmlType="xs:date"
@@ -24,5 +25,7 @@
 		<javaType name="java.util.Calendar" xmlType="xs:dateTime"
 			parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
 			printMethod="javax.xml.bind.DatatypeConverter.printDateTime" />
+			
+        <xjc:simple />
 	</globalBindings>
 </bindings>
