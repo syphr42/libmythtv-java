@@ -1,4 +1,3 @@
-<?xml-stylesheet type="text/xsl" href="/xslt/service.xslt"?>
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://mythtv.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mythtv.org" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" name="ContentServices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 <types>
 <xs:schema targetNamespace="http://MythTV.org/Imports">

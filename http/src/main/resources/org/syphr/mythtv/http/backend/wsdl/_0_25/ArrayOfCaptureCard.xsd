@@ -1,4 +1,3 @@
-<?xml-stylesheet type="text/xsl" href="/xslt/class.xslt"?>
 <xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org" attributeFormDefault="unqualified" xmlns:tns="http://mythtv.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 <xs:include schemaLocation="CaptureCard.xsd"/>
 <xs:complexType name="ArrayOfCaptureCard">
