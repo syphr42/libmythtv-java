@@ -26,11 +26,11 @@ import org.syphr.mythtv.data.TimeInfo;
 import org.syphr.mythtv.http.backend.MythService;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.ArrayOfString;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.ConnectionInfo;
-import org.syphr.mythtv.http.backend.impl._0_25.myth.LogMessageList;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.LogMessage;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.Myth;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.MythServices;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.SettingList;
-import org.syphr.mythtv.http.backend.impl._0_25.myth.StorageGroupDirList;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.StorageGroupDir;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.TimeZoneInfo;
 import org.syphr.mythtv.http.impl.ServiceUtils;
 
@@ -100,18 +100,18 @@ public class MythService0_25 implements MythService
     }
 
     @Override
-    public LogMessageList getLogs(String hostName,
-                                  String application,
-                                  Integer pid,
-                                  Integer tid,
-                                  String thread,
-                                  String filename,
-                                  Integer line,
-                                  String function,
-                                  Calendar fromTime,
-                                  Calendar toTime,
-                                  String level,
-                                  String msgContains)
+    public List<LogMessage> getLogs(String hostName,
+                                    String application,
+                                    Integer pid,
+                                    Integer tid,
+                                    String thread,
+                                    String filename,
+                                    Integer line,
+                                    String function,
+                                    Calendar fromTime,
+                                    Calendar toTime,
+                                    String level,
+                                    String msgContains)
     {
         // TODO Auto-generated method stub
         return null;
@@ -125,7 +125,7 @@ public class MythService0_25 implements MythService
     }
 
     @Override
-    public StorageGroupDirList getStorageGroupDirs(String groupName, String hostName)
+    public List<StorageGroupDir> getStorageGroupDirs(String groupName, String hostName)
     {
         // TODO Auto-generated method stub
         return null;

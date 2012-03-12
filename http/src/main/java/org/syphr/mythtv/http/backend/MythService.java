@@ -20,9 +20,9 @@ import java.util.List;
 
 import org.syphr.mythtv.data.TimeInfo;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.ConnectionInfo;
-import org.syphr.mythtv.http.backend.impl._0_25.myth.LogMessageList;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.LogMessage;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.SettingList;
-import org.syphr.mythtv.http.backend.impl._0_25.myth.StorageGroupDirList;
+import org.syphr.mythtv.http.backend.impl._0_25.myth.StorageGroupDir;
 
 public interface MythService
 {
@@ -42,22 +42,22 @@ public interface MythService
 
     public List<String> getKeys();
 
-    public LogMessageList getLogs(String hostName,
-                                  String application,
-                                  Integer pid,
-                                  Integer tid,
-                                  String thread,
-                                  String filename,
-                                  Integer line,
-                                  String function,
-                                  Calendar fromTime,
-                                  Calendar toTime,
-                                  String level,
-                                  String msgContains);
+    public List<LogMessage> getLogs(String hostName,
+                                    String application,
+                                    Integer pid,
+                                    Integer tid,
+                                    String thread,
+                                    String filename,
+                                    Integer line,
+                                    String function,
+                                    Calendar fromTime,
+                                    Calendar toTime,
+                                    String level,
+                                    String msgContains);
 
     public SettingList getSetting(String hostName, String key, String _default);
 
-    public StorageGroupDirList getStorageGroupDirs(String groupName, String hostName);
+    public List<StorageGroupDir> getStorageGroupDirs(String groupName, String hostName);
 
     public TimeInfo getTimeZone();
 
