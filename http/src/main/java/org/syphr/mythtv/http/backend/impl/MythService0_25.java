@@ -16,7 +16,6 @@
 package org.syphr.mythtv.http.backend.impl;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -35,11 +34,12 @@ import org.syphr.mythtv.http.backend.impl._0_25.myth.MythServices;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.SettingList;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.StorageGroupDir;
 import org.syphr.mythtv.http.backend.impl._0_25.myth.TimeZoneInfo;
+import org.syphr.mythtv.http.impl.AbstractService;
 import org.syphr.mythtv.http.impl.ServiceUtils;
 
-public class MythService0_25 implements MythService
+public class MythService0_25 extends AbstractService implements MythService
 {
-    private static final String URI_PATH = "/Myth";
+    private static final String NAME = "Myth";
 
     private static final String VERSION = "1.04";
 
@@ -50,13 +50,19 @@ public class MythService0_25 implements MythService
         MythServices locator = new MythServices();
         service = locator.getBasicHttpBindingMyth();
 
-        URI uri = URI.create("http://" + host + ":" + port + URI_PATH);
+        configureAndVerify(host, port, (BindingProvider)service);
+    }
 
-        BindingProvider bindingProvider = (BindingProvider)service;
-        bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                                                uri.toString());
+    @Override
+    protected String getName()
+    {
+        return NAME;
+    }
 
-        ServiceUtils.verifyVersion(uri, VERSION);
+    @Override
+    protected String getVersion()
+    {
+        return VERSION;
     }
 
     @Override

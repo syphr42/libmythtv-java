@@ -50,14 +50,16 @@ public class ServiceUtils
         return b.booleanValue();
     }
 
-    public static void verifyVersion(URI serviceBaseUri, String expectedVersion) throws ServiceVersionException,
-                                                                                IOException
+    public static void verifyVersion(URI serviceBaseUri, String expectedVersion, String name) throws ServiceVersionException,
+                                                                                             IOException
     {
         String serviceVersion = getVersion(serviceBaseUri);
 
         if (!serviceVersion.equals(expectedVersion))
         {
-            throw new ServiceVersionException("Service supports version "
+            throw new ServiceVersionException("Remote service "
+                    + name
+                    + " supports version "
                     + serviceVersion
                     + "; this client supports version "
                     + expectedVersion);

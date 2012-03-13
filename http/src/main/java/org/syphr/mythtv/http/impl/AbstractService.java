@@ -13,19 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.backend;
+package org.syphr.mythtv.http.impl;
 
 import java.io.IOException;
+import java.net.URI;
+
+import javax.xml.ws.BindingProvider;
 
 import org.syphr.mythtv.http.ServiceVersionException;
 
-public interface BackendServices
+public abstract class AbstractService
 {
-    public void configure(String host) throws ServiceVersionException, IOException;
+    protected void configureAndVerify(String host, int port, BindingProvider provider) throws ServiceVersionException,
+                                                                                      IOException
+    {
+        URI uri = URI.create("http://" + host + ":" + port + "/" + getName());
 
-    public void configure(String host, int port) throws ServiceVersionException, IOException;
+        provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, uri.toString());
+        ServiceUtils.verifyVersion(uri, getVersion(), getName());
+    }
 
-    public CaptureService getCaptureService();
+    protected abstract String getName();
 
-    public MythService getMythService();
+    protected abstract String getVersion();
 }
