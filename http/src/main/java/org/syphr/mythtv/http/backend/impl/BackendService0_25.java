@@ -15,6 +15,9 @@
  */
 package org.syphr.mythtv.http.backend.impl;
 
+import java.io.IOException;
+
+import org.syphr.mythtv.http.ServiceVersionException;
 import org.syphr.mythtv.http.backend.MythService;
 
 public class BackendService0_25 extends AbstractBackendServices
@@ -22,13 +25,13 @@ public class BackendService0_25 extends AbstractBackendServices
     private MythService mythService;
 
     @Override
-    public void configure(String host)
+    public void configure(String host) throws ServiceVersionException, IOException
     {
         configure(host, 0);
     }
 
     @Override
-    public void configure(String host, int port)
+    public void configure(String host, int port) throws ServiceVersionException, IOException
     {
         mythService = new MythService0_25(host, getPort(port));
     }

@@ -13,17 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.backend;
+package org.syphr.mythtv.http;
 
 import java.io.IOException;
 
-import org.syphr.mythtv.http.ServiceVersionException;
-
-public interface BackendServices
+public class ServiceVersionException extends IOException
 {
-    public void configure(String host) throws ServiceVersionException, IOException;
+    /**
+     * Serialization ID
+     */
+    private static final long serialVersionUID = 1L;
 
-    public void configure(String host, int port) throws ServiceVersionException, IOException;
+    public ServiceVersionException()
+    {
+        super();
+    }
 
-    public MythService getMythService();
+    public ServiceVersionException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
+
+    public ServiceVersionException(String message)
+    {
+        super(message);
+    }
+
+    public ServiceVersionException(Throwable cause)
+    {
+        super(cause);
+    }
 }

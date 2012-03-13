@@ -15,9 +15,13 @@
  */
 package org.syphr.mythtv.http.frontend;
 
+import java.io.IOException;
+
+import org.syphr.mythtv.http.ServiceVersionException;
+
 public interface FrontendServices
 {
-    public void configure(String host);
+    public void configure(String host) throws ServiceVersionException, IOException;
 
-    public void configure(String host, int port);
+    public void configure(String host, int port) throws ServiceVersionException, IOException;
 }
