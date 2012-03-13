@@ -21,6 +21,7 @@ import org.syphr.mythtv.http.ServiceVersionException;
 import org.syphr.mythtv.http.backend.CaptureService;
 import org.syphr.mythtv.http.backend.ChannelService;
 import org.syphr.mythtv.http.backend.ContentService;
+import org.syphr.mythtv.http.backend.DvrService;
 import org.syphr.mythtv.http.backend.MythService;
 
 public class BackendService0_25 extends AbstractBackendServices
@@ -28,6 +29,7 @@ public class BackendService0_25 extends AbstractBackendServices
     private CaptureService captureService;
     private ChannelService channelService;
     private ContentService contentService;
+    private DvrService dvrService;
     private MythService mythService;
 
     @Override
@@ -42,6 +44,7 @@ public class BackendService0_25 extends AbstractBackendServices
         captureService = new CaptureService0_25(host, getPort(port));
         channelService = new ChannelService0_25(host, getPort(port));
         contentService = new ContentService0_25(host, getPort(port));
+        dvrService = new DvrService0_25(host, getPort(port));
         mythService = new MythService0_25(host, getPort(port));
     }
 
@@ -61,6 +64,12 @@ public class BackendService0_25 extends AbstractBackendServices
     public ContentService getContentService()
     {
         return contentService;
+    }
+
+    @Override
+    public DvrService getDvrService()
+    {
+        return dvrService;
     }
 
     @Override

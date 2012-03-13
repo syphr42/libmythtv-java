@@ -31,5 +31,7 @@ public interface BackendServices
 
     public ContentService getContentService();
 
+    public DvrService getDvrService();
+
     public MythService getMythService();
 }
