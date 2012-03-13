@@ -26,7 +26,7 @@ import org.syphr.mythtv.http.backend.GuideService;
 import org.syphr.mythtv.http.backend.MythService;
 import org.syphr.mythtv.http.backend.VideoService;
 
-public class BackendService0_25 extends AbstractBackendServices
+public class BackendServices0_25 extends AbstractBackendServices
 {
     private CaptureService captureService;
     private ChannelService channelService;

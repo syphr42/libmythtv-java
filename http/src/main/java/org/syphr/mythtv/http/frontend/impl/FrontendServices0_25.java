@@ -15,7 +15,7 @@
  */
 package org.syphr.mythtv.http.frontend.impl;
 
-public class FrontendService0_25 extends AbstractFrontendServices
+public class FrontendServices0_25 extends AbstractFrontendServices
 {
     @Override
     public void configure(String host)
