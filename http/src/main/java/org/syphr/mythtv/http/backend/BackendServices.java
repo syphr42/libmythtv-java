@@ -33,5 +33,7 @@ public interface BackendServices
 
     public DvrService getDvrService();
 
+    public GuideService getGuideService();
+
     public MythService getMythService();
 }
