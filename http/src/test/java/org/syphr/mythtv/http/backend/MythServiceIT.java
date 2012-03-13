@@ -41,12 +41,12 @@ public class MythServiceIT
 
         try
         {
-            BackendService backendService = ServiceFactory.getBackendInstance(settings.getEnumProperty(Settings.BACKEND_WS_VERSION,
-                                                                                                       ServiceVersion.class));
-            backendService.configure(settings.getProperty(Settings.BACKEND_HOST),
-                                     settings.getIntegerProperty(Settings.BACKEND_HTTP_PORT));
+            BackendServices services = ServiceFactory.getBackendInstance(settings.getEnumProperty(Settings.BACKEND_WS_VERSION,
+                                                                                                  ServiceVersion.class));
+            services.configure(settings.getProperty(Settings.BACKEND_HOST),
+                               settings.getIntegerProperty(Settings.BACKEND_HTTP_PORT));
 
-            myth = backendService.getMythService();
+            myth = services.getMythService();
         }
         catch (IllegalArgumentException e)
         {

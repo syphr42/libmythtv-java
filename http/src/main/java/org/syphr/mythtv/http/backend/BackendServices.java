@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.frontend;
+package org.syphr.mythtv.http.backend;
 
-public interface FrontendService
+public interface BackendServices
 {
     public void configure(String host);
 
     public void configure(String host, int port);
+
+    public MythService getMythService();
 }

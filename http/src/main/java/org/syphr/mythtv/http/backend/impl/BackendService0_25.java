@@ -17,7 +17,7 @@ package org.syphr.mythtv.http.backend.impl;
 
 import org.syphr.mythtv.http.backend.MythService;
 
-public class BackendService0_25 extends AbstractBackendService
+public class BackendService0_25 extends AbstractBackendServices
 {
     private MythService mythService;
 

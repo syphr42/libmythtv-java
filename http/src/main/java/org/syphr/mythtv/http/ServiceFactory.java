@@ -15,14 +15,14 @@
  */
 package org.syphr.mythtv.http;
 
-import org.syphr.mythtv.http.backend.BackendService;
+import org.syphr.mythtv.http.backend.BackendServices;
 import org.syphr.mythtv.http.backend.impl.BackendService0_25;
-import org.syphr.mythtv.http.frontend.FrontendService;
+import org.syphr.mythtv.http.frontend.FrontendServices;
 import org.syphr.mythtv.http.frontend.impl.FrontendService0_25;
 
 public class ServiceFactory
 {
-    public static BackendService getBackendInstance(ServiceVersion version)
+    public static BackendServices getBackendInstance(ServiceVersion version)
     {
         switch (version)
         {
@@ -34,7 +34,7 @@ public class ServiceFactory
         }
     }
 
-    public static FrontendService getFrontendInstance(ServiceVersion version)
+    public static FrontendServices getFrontendInstance(ServiceVersion version)
     {
         switch (version)
         {

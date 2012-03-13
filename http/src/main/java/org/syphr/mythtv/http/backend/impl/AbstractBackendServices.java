@@ -13,13 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.http.backend;
+package org.syphr.mythtv.http.backend.impl;
 
-public interface BackendService
+import org.syphr.mythtv.http.backend.BackendServices;
+
+public abstract class AbstractBackendServices implements BackendServices
 {
-    public void configure(String host);
+    private static final int DEFAULT_PORT = 6544;
 
-    public void configure(String host, int port);
+    protected int getPort(int port)
+    {
+        if (port <= 0)
+        {
+            return DEFAULT_PORT;
+        }
 
-    public MythService getMythService();
+        return port;
+    }
 }

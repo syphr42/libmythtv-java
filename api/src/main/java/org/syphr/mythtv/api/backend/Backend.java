@@ -34,7 +34,7 @@ import org.syphr.mythtv.db.DatabaseException;
 import org.syphr.mythtv.db.SchemaVersion;
 import org.syphr.mythtv.http.ServiceFactory;
 import org.syphr.mythtv.http.ServiceVersion;
-import org.syphr.mythtv.http.backend.BackendService;
+import org.syphr.mythtv.http.backend.BackendServices;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.Protocol;
@@ -52,7 +52,7 @@ public class Backend
 
     private final Database database;
 
-    private BackendService service;
+    private BackendServices services;
 
     private Protocol eventMonitor;
 
@@ -72,7 +72,7 @@ public class Backend
 
         if (serviceVersion != null)
         {
-            service = ServiceFactory.getBackendInstance(serviceVersion);
+            services = ServiceFactory.getBackendInstance(serviceVersion);
         }
     }
 
@@ -108,9 +108,9 @@ public class Backend
                 ? DEFAULT_PROTOCOL_PORT
                 : protocolPort);
 
-        if (service != null)
+        if (services != null)
         {
-            service.configure(backendHost, httpPort);
+            services.configure(backendHost, httpPort);
         }
     }
 
@@ -128,7 +128,7 @@ public class Backend
         protocol.shutdownConnection();
         stopEventMonitor();
         database.unload();
-        service = null;
+        services = null;
     }
 
     public void startEventMonitor(String localHost, EventLevel level) throws IOException,

@@ -15,9 +15,9 @@
  */
 package org.syphr.mythtv.http.frontend.impl;
 
-import org.syphr.mythtv.http.frontend.FrontendService;
+import org.syphr.mythtv.http.frontend.FrontendServices;
 
-public abstract class AbstractFrontendService implements FrontendService
+public abstract class AbstractFrontendServices implements FrontendServices
 {
     private static final int DEFAULT_PORT = 6547;
 
