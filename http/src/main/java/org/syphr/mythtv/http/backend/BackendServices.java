@@ -27,5 +27,7 @@ public interface BackendServices
 
     public CaptureService getCaptureService();
 
+    public ChannelService getChannelService();
+
     public MythService getMythService();
 }

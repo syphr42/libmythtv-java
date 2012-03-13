@@ -19,11 +19,13 @@ import java.io.IOException;
 
 import org.syphr.mythtv.http.ServiceVersionException;
 import org.syphr.mythtv.http.backend.CaptureService;
+import org.syphr.mythtv.http.backend.ChannelService;
 import org.syphr.mythtv.http.backend.MythService;
 
 public class BackendService0_25 extends AbstractBackendServices
 {
     private CaptureService captureService;
+    private ChannelService channelService;
     private MythService mythService;
 
     @Override
@@ -36,6 +38,7 @@ public class BackendService0_25 extends AbstractBackendServices
     public void configure(String host, int port) throws ServiceVersionException, IOException
     {
         captureService = new CaptureService0_25(host, getPort(port));
+        channelService = new ChannelService0_25(host, getPort(port));
         mythService = new MythService0_25(host, getPort(port));
     }
 
@@ -43,6 +46,12 @@ public class BackendService0_25 extends AbstractBackendServices
     public CaptureService getCaptureService()
     {
         return captureService;
+    }
+
+    @Override
+    public ChannelService getChannelService()
+    {
+        return channelService;
     }
 
     @Override
