@@ -15,17 +15,30 @@
  */
 package org.syphr.mythtv.http.frontend.impl;
 
+import java.io.IOException;
+
+import org.syphr.mythtv.http.ServiceVersionException;
+import org.syphr.mythtv.http.frontend.FrontendService;
+
 public class FrontendServices0_25 extends AbstractFrontendServices
 {
+    private FrontendService frontendService;
+
     @Override
-    public void configure(String host)
+    public void configure(String host) throws ServiceVersionException, IOException
     {
         configure(host, 0);
     }
 
     @Override
-    public void configure(String host, int port)
+    public void configure(String host, int port) throws ServiceVersionException, IOException
     {
-        // TODO getPort(port)
+        frontendService = new FrontendService0_25(host, getPort(port));
+    }
+
+    @Override
+    public FrontendService getFrontendService()
+    {
+        return frontendService;
     }
 }

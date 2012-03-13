@@ -24,4 +24,6 @@ public interface FrontendServices
     public void configure(String host) throws ServiceVersionException, IOException;
 
     public void configure(String host, int port) throws ServiceVersionException, IOException;
+
+    public FrontendService getFrontendService();
 }

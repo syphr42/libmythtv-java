@@ -35,12 +35,11 @@ public enum Settings implements Defaultable
     BACKEND_MEDIA_SERVER_HOST("localhost"),
 
     BACKEND_HTTP_PORT("6544"),
+    BACKEND_WS_VERSION("_0_25"),
 
     BACKEND_PROTOCOL_PORT("6543"),
     BACKEND_PROTOCOL_TIMEOUT("10000"),
     BACKEND_PROTOCOL_VERSION("_72"),
-
-    BACKEND_WS_VERSION("_0_25"),
 
     DB_HOST("localhost"),
     DB_PORT("3306"),
@@ -51,7 +50,8 @@ public enum Settings implements Defaultable
 
     FRONTEND_HOST("localhost"),
 
-    FRONTEND_HTTP_PORT("6544"),
+    FRONTEND_HTTP_PORT("6547"),
+    FRONTEND_WS_VERSION("_0_25"),
 
     FRONTEND_CONTROL_PORT("6546"),
     FRONTEND_CONTROL_TIMEOUT("25000"),
