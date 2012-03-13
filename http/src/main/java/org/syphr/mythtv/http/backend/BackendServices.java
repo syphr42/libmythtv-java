@@ -29,5 +29,7 @@ public interface BackendServices
 
     public ChannelService getChannelService();
 
+    public ContentService getContentService();
+
     public MythService getMythService();
 }
