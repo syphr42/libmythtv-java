@@ -56,6 +56,8 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 			</plugin>
 
+            <!-- These two plug-ins are disabled due to unresolved bugs in JAXB. -->
+            <!--
 			<plugin>
 				<groupId>org.jvnet.jaxb2.maven2</groupId>
 				<artifactId>maven-jaxb2-plugin</artifactId>
@@ -110,6 +112,7 @@
 					</transformationSets>
 				</configuration>
 			</plugin>
+			-->
 
 			<plugin>
 				<groupId>org.jvnet.jax-ws-commons</groupId>
@@ -229,6 +232,22 @@
 							</wsdlFiles>
 						</configuration>
 					</execution>
+                    <execution>
+                        <id>0.25-frontend</id>
+
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+
+                        <configuration>
+                            <packageName>${frontendPackagePrefix}._0_25.frontend</packageName>
+                            <wsdlLocation>${frontendWsdlLocationPrefix}/_0_25/frontend.wsdl</wsdlLocation>
+                            <wsdlDirectory>${frontendWsdlDirectoryPrefix}/_0_25</wsdlDirectory>
+                            <wsdlFiles>
+                                <wsdlFile>frontend.wsdl</wsdlFile>
+                            </wsdlFiles>
+                        </configuration>
+                    </execution>
 				</executions>
 
 				<configuration>

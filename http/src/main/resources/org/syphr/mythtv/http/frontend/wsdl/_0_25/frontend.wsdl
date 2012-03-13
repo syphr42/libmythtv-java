@@ -1,0 +1,262 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://mythtv.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mythtv.org" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" name="FrontendServices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<types>
+<xs:schema targetNamespace="http://MythTV.org/Imports">
+<xs:import namespace="http://mythtv.org" schemaLocation="ArrayOfString.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="FrontendActionList.xsd"/>
+<xs:import namespace="http://mythtv.org" schemaLocation="FrontendStatus.xsd"/>
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://mythtv.org">
+<xs:element name="GetActionList">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="Context" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetActionListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:FrontendActionList" name="GetActionListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetContextList">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetContextListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:ArrayOfString" name="GetContextListResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetStatus">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetStatusResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="tns:FrontendStatus" name="GetStatusResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="PlayRecording">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:int" name="ChanID" nillable="1"/>
+<xs:element minOccurs="0" type="xs:dateTime" name="StartTime" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="PlayRecordingResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="PlayRecordingResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="PlayVideo">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="Id" nillable="1"/>
+<xs:element minOccurs="0" type="xs:boolean" name="UseBookmark" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="PlayVideoResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="PlayVideoResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SendAction">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="Action" nillable="1"/>
+<xs:element minOccurs="0" type="xs:string" name="Value" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Width" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Height" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SendActionResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="SendActionResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SendMessage">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:string" name="Message" nillable="1"/>
+<xs:element minOccurs="0" type="xs:unsignedInt" name="Timeout" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SendMessageResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" type="xs:boolean" name="SendMessageResult" nillable="1"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+</types>
+<message name="Frontend_GetActionList_InputMessage">
+<part element="tns:GetActionList" name="parameters"/>
+</message>
+<message name="Frontend_GetActionList_OutputMessage">
+<part element="tns:GetActionListResponse" name="parameters"/>
+</message>
+<message name="Frontend_GetContextList_InputMessage">
+<part element="tns:GetContextList" name="parameters"/>
+</message>
+<message name="Frontend_GetContextList_OutputMessage">
+<part element="tns:GetContextListResponse" name="parameters"/>
+</message>
+<message name="Frontend_GetStatus_InputMessage">
+<part element="tns:GetStatus" name="parameters"/>
+</message>
+<message name="Frontend_GetStatus_OutputMessage">
+<part element="tns:GetStatusResponse" name="parameters"/>
+</message>
+<message name="Frontend_PlayRecording_InputMessage">
+<part element="tns:PlayRecording" name="parameters"/>
+</message>
+<message name="Frontend_PlayRecording_OutputMessage">
+<part element="tns:PlayRecordingResponse" name="parameters"/>
+</message>
+<message name="Frontend_PlayVideo_InputMessage">
+<part element="tns:PlayVideo" name="parameters"/>
+</message>
+<message name="Frontend_PlayVideo_OutputMessage">
+<part element="tns:PlayVideoResponse" name="parameters"/>
+</message>
+<message name="Frontend_SendAction_InputMessage">
+<part element="tns:SendAction" name="parameters"/>
+</message>
+<message name="Frontend_SendAction_OutputMessage">
+<part element="tns:SendActionResponse" name="parameters"/>
+</message>
+<message name="Frontend_SendMessage_InputMessage">
+<part element="tns:SendMessage" name="parameters"/>
+</message>
+<message name="Frontend_SendMessage_OutputMessage">
+<part element="tns:SendMessageResponse" name="parameters"/>
+</message>
+<portType name="Frontend">
+<operation name="GetActionList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Frontend/GetActionList" message="tns:Frontend_GetActionList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Frontend/GetActionListResponse" message="tns:Frontend_GetActionList_OutputMessage"/>
+</operation>
+<operation name="GetContextList">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Frontend/GetContextList" message="tns:Frontend_GetContextList_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Frontend/GetContextListResponse" message="tns:Frontend_GetContextList_OutputMessage"/>
+</operation>
+<operation name="GetStatus">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Frontend/GetStatus" message="tns:Frontend_GetStatus_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Frontend/GetStatusResponse" message="tns:Frontend_GetStatus_OutputMessage"/>
+</operation>
+<operation name="PlayRecording">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Frontend/PlayRecording" message="tns:Frontend_PlayRecording_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Frontend/PlayRecordingResponse" message="tns:Frontend_PlayRecording_OutputMessage"/>
+</operation>
+<operation name="PlayVideo">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Frontend/PlayVideo" message="tns:Frontend_PlayVideo_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Frontend/PlayVideoResponse" message="tns:Frontend_PlayVideo_OutputMessage"/>
+</operation>
+<operation name="SendAction">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Frontend/SendAction" message="tns:Frontend_SendAction_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Frontend/SendActionResponse" message="tns:Frontend_SendAction_OutputMessage"/>
+</operation>
+<operation name="SendMessage">
+<documentation>GET </documentation>
+<input wsaw:Action="http://mythtv.org/Frontend/SendMessage" message="tns:Frontend_SendMessage_InputMessage"/>
+<output wsaw:Action="http://mythtv.org/Frontend/SendMessageResponse" message="tns:Frontend_SendMessage_OutputMessage"/>
+</operation>
+</portType>
+<binding type="tns:Frontend" name="BasicHttpBinding_Frontend">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="GetActionList">
+<soap:operation soapAction="http://mythtv.org/Frontend/GetActionList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetContextList">
+<soap:operation soapAction="http://mythtv.org/Frontend/GetContextList" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetStatus">
+<soap:operation soapAction="http://mythtv.org/Frontend/GetStatus" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="PlayRecording">
+<soap:operation soapAction="http://mythtv.org/Frontend/PlayRecording" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="PlayVideo">
+<soap:operation soapAction="http://mythtv.org/Frontend/PlayVideo" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="SendAction">
+<soap:operation soapAction="http://mythtv.org/Frontend/SendAction" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="SendMessage">
+<soap:operation soapAction="http://mythtv.org/Frontend/SendMessage" style="document"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="FrontendServices">
+<documentation>Interface Version 1.0 - </documentation>
+<port binding="tns:BasicHttpBinding_Frontend" name="BasicHttpBinding_Frontend">
+<soap:address location="http://localhost:6547/Frontend"/>
+</port>
+</service>
+</definitions>
