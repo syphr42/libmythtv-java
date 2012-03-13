@@ -35,7 +35,7 @@ import org.apache.commons.cli.PosixParser;
 import org.syphr.mythtv.api.backend.AutomaticProtocol;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
-import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 
 public class Main
 {
@@ -86,7 +86,7 @@ public class Main
 
                 frame.setVisible(true);
             }
-            catch (InvalidProtocolVersionException e)
+            catch (ProtocolVersionException e)
             {
                 System.out.println("Host speaks unsupported protocol version "
                         + e.getSupportedVersionStr());

@@ -22,7 +22,7 @@ import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
 import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.translate.Translator;
-import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 
 /* default */class Command63MythProtoVersion extends AbstractProtocolCommand<Void>
 {
@@ -45,7 +45,7 @@ import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 
     @Override
     public Void send(SocketManager socketManager) throws IOException,
-                                                 InvalidProtocolVersionException
+                                                 ProtocolVersionException
     {
         String response = socketManager.sendAndWait(getMessage());
 
@@ -62,7 +62,7 @@ import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
 
         if ("REJECT".equals(args.get(0)))
         {
-            throw new InvalidProtocolVersionException(getVersion(), args.get(1));
+            throw new ProtocolVersionException(getVersion(), args.get(1));
         }
 
         throw new ProtocolException(response, Direction.RECEIVE);

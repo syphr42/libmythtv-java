@@ -45,7 +45,7 @@ import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.data.VideoEditInfo;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
-import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolFactory;
 import org.syphr.mythtv.protocol.ProtocolSocketManager;
@@ -103,7 +103,7 @@ public class AutomaticProtocol implements Protocol
     }
 
     @Override
-    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException
+    public void mythProtoVersion() throws IOException, ProtocolVersionException
     {
         SocketManager socketManager = getSocketManager();
         InetSocketAddress server = socketManager.getConnectedAddress();
@@ -112,7 +112,7 @@ public class AutomaticProtocol implements Protocol
         {
             delegate.mythProtoVersion();
         }
-        catch (InvalidProtocolVersionException e1)
+        catch (ProtocolVersionException e1)
         {
             ProtocolVersion supported = e1.getSupportedVersion();
             if (supported == null)
@@ -140,7 +140,7 @@ public class AutomaticProtocol implements Protocol
             {
                 delegate.mythProtoVersion();
             }
-            catch (InvalidProtocolVersionException e2)
+            catch (ProtocolVersionException e2)
             {
                 throw new IOException(e2);
             }

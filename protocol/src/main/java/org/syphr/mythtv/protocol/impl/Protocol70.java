@@ -20,7 +20,7 @@ import java.net.URI;
 
 import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.translate.Translator;
-import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.events.EventProtocol;
@@ -35,7 +35,7 @@ public class Protocol70 extends Protocol69
     }
 
     @Override
-    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException
+    public void mythProtoVersion() throws IOException, ProtocolVersionException
     {
         new Command63MythProtoVersion(getTranslator(), getParser())
         {

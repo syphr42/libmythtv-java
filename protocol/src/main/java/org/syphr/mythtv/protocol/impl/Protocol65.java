@@ -21,7 +21,7 @@ import java.net.URI;
 import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.FileInfo;
-import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 
 public class Protocol65 extends Protocol64
 {
@@ -31,7 +31,7 @@ public class Protocol65 extends Protocol64
     }
 
     @Override
-    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException
+    public void mythProtoVersion() throws IOException, ProtocolVersionException
     {
         new Command63MythProtoVersion(getTranslator(), getParser())
         {

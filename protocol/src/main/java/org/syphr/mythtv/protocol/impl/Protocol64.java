@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.translate.Translator;
-import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 
 public class Protocol64 extends Protocol63
 {
@@ -29,7 +29,7 @@ public class Protocol64 extends Protocol63
     }
 
     @Override
-    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException
+    public void mythProtoVersion() throws IOException, ProtocolVersionException
     {
         new Command63MythProtoVersion(getTranslator(), getParser())
         {

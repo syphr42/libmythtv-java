@@ -37,7 +37,7 @@ import org.syphr.mythtv.data.TunerStatus;
 import org.syphr.mythtv.data.VideoListChange;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
-import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.protocol.events.BackendEventListener63;
 import org.syphr.mythtv.protocol.events.BackendEventListener68;
@@ -96,7 +96,7 @@ public class Main
                     protocol.done();
                 }
             }
-            catch (InvalidProtocolVersionException e)
+            catch (ProtocolVersionException e)
             {
                 System.out.println("Host speaks unsupported protocol version "
                         + e.getSupportedVersionStr());

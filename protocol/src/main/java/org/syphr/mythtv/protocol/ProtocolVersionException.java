@@ -25,7 +25,7 @@ import org.syphr.mythtv.commons.exception.CommandException;
  * 
  * @author Gregory P. Moyer
  */
-public class InvalidProtocolVersionException extends CommandException
+public class ProtocolVersionException extends CommandException
 {
     /**
      * Serialization ID
@@ -35,7 +35,7 @@ public class InvalidProtocolVersionException extends CommandException
     /**
      * Standard logging facility.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(InvalidProtocolVersionException.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProtocolVersionException.class);
 
     /**
      * The exact attempted version as sent to the remote server.
@@ -68,7 +68,7 @@ public class InvalidProtocolVersionException extends CommandException
      * @param supportedVersionStr
      *            the exact supported version as announced by the remote server
      */
-    public InvalidProtocolVersionException(String attemptedVersionStr, String supportedVersionStr)
+    public ProtocolVersionException(String attemptedVersionStr, String supportedVersionStr)
     {
         super("Attempted version "
                 + attemptedVersionStr

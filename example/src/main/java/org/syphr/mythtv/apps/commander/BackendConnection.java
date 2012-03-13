@@ -21,7 +21,7 @@ import java.net.InetAddress;
 import org.syphr.mythtv.api.backend.AutomaticProtocol;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
-import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 
 public class BackendConnection implements Connection
 {
@@ -40,7 +40,7 @@ public class BackendConnection implements Connection
                          InetAddress.getLocalHost().getHostName(),
                          EventLevel.NONE);
         }
-        catch (InvalidProtocolVersionException e)
+        catch (ProtocolVersionException e)
         {
             /*
              * No need to pass the nested exception along here because the cause

@@ -44,7 +44,7 @@ import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.data.VideoEditInfo;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
-import org.syphr.mythtv.protocol.InvalidProtocolVersionException;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolSocketManager;
 import org.syphr.mythtv.protocol.ProtocolVersion;
@@ -133,7 +133,7 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
         {
             delegate.mythProtoVersion();
         }
-        catch (InvalidProtocolVersionException e)
+        catch (ProtocolVersionException e)
         {
             throw new IOException(e);
         }
@@ -669,7 +669,7 @@ public class CachedProtocol extends AbstractCachedConnection implements Protocol
     }
 
     @Override
-    public void mythProtoVersion() throws IOException, InvalidProtocolVersionException
+    public void mythProtoVersion() throws IOException, ProtocolVersionException
     {
         throw new UnsupportedOperationException();
     }
