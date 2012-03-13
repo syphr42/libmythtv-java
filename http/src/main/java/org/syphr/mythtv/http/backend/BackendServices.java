@@ -36,4 +36,6 @@ public interface BackendServices
     public GuideService getGuideService();
 
     public MythService getMythService();
+
+    public VideoService getVideoService();
 }

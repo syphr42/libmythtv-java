@@ -23,7 +23,7 @@ import org.syphr.mythtv.http.backend.impl._0_25.video.VideoMetadataInfo;
 
 public interface VideoService
 {
-    public Boolean addVideo(String fileName, String hostName);
+    public boolean addVideo(String fileName, String hostName);
 
     public BlurayInfo getBluray(String path);
 

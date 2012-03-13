@@ -24,6 +24,7 @@ import org.syphr.mythtv.http.backend.ContentService;
 import org.syphr.mythtv.http.backend.DvrService;
 import org.syphr.mythtv.http.backend.GuideService;
 import org.syphr.mythtv.http.backend.MythService;
+import org.syphr.mythtv.http.backend.VideoService;
 
 public class BackendService0_25 extends AbstractBackendServices
 {
@@ -33,6 +34,7 @@ public class BackendService0_25 extends AbstractBackendServices
     private DvrService dvrService;
     private GuideService guideService;
     private MythService mythService;
+    private VideoService videoService;
 
     @Override
     public void configure(String host) throws ServiceVersionException, IOException
@@ -49,6 +51,7 @@ public class BackendService0_25 extends AbstractBackendServices
         dvrService = new DvrService0_25(host, getPort(port));
         guideService = new GuideService0_25(host, getPort(port));
         mythService = new MythService0_25(host, getPort(port));
+        videoService = new VideoService0_25(host, getPort(port));
     }
 
     @Override
@@ -85,5 +88,11 @@ public class BackendService0_25 extends AbstractBackendServices
     public MythService getMythService()
     {
         return mythService;
+    }
+
+    @Override
+    public VideoService getVideoService()
+    {
+        return videoService;
     }
 }
