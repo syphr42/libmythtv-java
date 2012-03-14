@@ -16,14 +16,17 @@
 package org.syphr.mythtv.http.backend.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.ws.BindingProvider;
 
+import org.syphr.mythtv.data.CaptureCard;
 import org.syphr.mythtv.http.ServiceVersionException;
 import org.syphr.mythtv.http.backend.CaptureService;
+import org.syphr.mythtv.http.backend.impl._0_25.capture.ArrayOfCaptureCard;
 import org.syphr.mythtv.http.backend.impl._0_25.capture.Capture;
-import org.syphr.mythtv.http.backend.impl._0_25.capture.CaptureCard;
+import org.syphr.mythtv.http.backend.impl._0_25.capture.CaptureCardList;
 import org.syphr.mythtv.http.backend.impl._0_25.capture.CaptureServices;
 import org.syphr.mythtv.http.impl.AbstractService;
 import org.syphr.mythtv.http.impl.ServiceUtils;
@@ -57,55 +60,32 @@ public class CaptureService0_25 extends AbstractService implements CaptureServic
     }
 
     @Override
-    public Integer addCaptureCard(String videoDevice,
-                                  String audioDevice,
-                                  String vbiDevice,
-                                  String cardType,
-                                  Long audioRateLimit,
-                                  String hostName,
-                                  Long dvbswFilter,
-                                  Long dvbSatType,
-                                  Boolean dvbWaitForSeqStart,
-                                  Boolean skipBTAudio,
-                                  Boolean dvbOnDemand,
-                                  Long dvbDiSEqCType,
-                                  Long firewireSpeed,
-                                  String firewireModel,
-                                  Long firewireConnection,
-                                  Long signalTimeout,
-                                  Long channelTimeout,
-                                  Long dvbTuningDelay,
-                                  Long contrast,
-                                  Long brightness,
-                                  Long colour,
-                                  Long hue,
-                                  Long diSEqCId,
-                                  Boolean dvbeitScan)
+    public Integer addCaptureCard(CaptureCard card)
     {
-        return service.addCaptureCard(videoDevice,
-                                      audioDevice,
-                                      vbiDevice,
-                                      cardType,
-                                      audioRateLimit,
-                                      hostName,
-                                      dvbswFilter,
-                                      dvbSatType,
-                                      dvbWaitForSeqStart,
-                                      skipBTAudio,
-                                      dvbOnDemand,
-                                      dvbDiSEqCType,
-                                      firewireSpeed,
-                                      firewireModel,
-                                      firewireConnection,
-                                      signalTimeout,
-                                      channelTimeout,
-                                      dvbTuningDelay,
-                                      contrast,
-                                      brightness,
-                                      colour,
-                                      hue,
-                                      diSEqCId,
-                                      dvbeitScan);
+        return service.addCaptureCard(card.getVideoDevice(),
+                                      card.getAudioDevice(),
+                                      card.getVbiDevice(),
+                                      card.getCardType(),
+                                      card.getAudioRateLimit(),
+                                      card.getHostName(),
+                                      card.getDvbswFilter(),
+                                      card.getDvbSatType(),
+                                      card.getDvbWaitForSeqStart(),
+                                      card.getSkipBTAudio(),
+                                      card.getDvbOnDemand(),
+                                      card.getDvbDiSEqCType(),
+                                      card.getFirewireSpeed(),
+                                      card.getFirewireModel(),
+                                      card.getFirewireConnection(),
+                                      card.getSignalTimeout(),
+                                      card.getChannelTimeout(),
+                                      card.getDvbTuningDelay(),
+                                      card.getContrast(),
+                                      card.getBrightness(),
+                                      card.getColour(),
+                                      card.getHue(),
+                                      card.getDiSEqCId(),
+                                      card.getDvbeitScan());
     }
 
     @Override
@@ -143,39 +123,105 @@ public class CaptureService0_25 extends AbstractService implements CaptureServic
     }
 
     @Override
-    public CaptureCard getCaptureCard(Integer cardId)
+    public CaptureCard getCaptureCard(int cardId)
     {
-        return service.getCaptureCard(cardId);
+        return convert(service.getCaptureCard(cardId));
     }
 
     @Override
-    public List<CaptureCard> getCaptureCardList(String hostName, String cardType)
+    public List<CaptureCard> getCaptureCards(String hostName, String cardType)
     {
-        // TODO
-        return null; //service.getCaptureCardList(hostName, cardType);
+        List<CaptureCard> cards = new ArrayList<CaptureCard>();
+
+        CaptureCardList result = service.getCaptureCardList(hostName, cardType);
+        if (result == null)
+        {
+            return cards;
+        }
+
+        ArrayOfCaptureCard array = result.getCaptureCards();
+        if (array == null)
+        {
+            return cards;
+        }
+
+        List<org.syphr.mythtv.http.backend.impl._0_25.capture.CaptureCard> list = array.getCaptureCards();
+        if (list == null)
+        {
+            return cards;
+        }
+
+        for (org.syphr.mythtv.http.backend.impl._0_25.capture.CaptureCard rCard : list)
+        {
+            CaptureCard card = convert(rCard);
+
+            if (card != null)
+            {
+                cards.add(card);
+            }
+        }
+
+        return cards;
     }
 
     @Override
-    public boolean removeCaptureCard(Integer cardId)
+    public boolean removeCaptureCard(int cardId)
     {
         return ServiceUtils.toPrimitive(service.removeCaptureCard(cardId));
     }
 
     @Override
-    public boolean removeCardInput(Integer cardInputId)
+    public boolean removeCardInput(int cardInputId)
     {
         return ServiceUtils.toPrimitive(service.removeCardInput(cardInputId));
     }
 
     @Override
-    public boolean updateCaptureCard(Integer cardId, String setting, String value)
+    public boolean updateCaptureCard(int cardId, String setting, String value)
     {
         return ServiceUtils.toPrimitive(service.updateCaptureCard(cardId, setting, value));
     }
 
     @Override
-    public boolean updateCardInput(Integer cardInputId, String setting, String value)
+    public boolean updateCardInput(int cardInputId, String setting, String value)
     {
         return ServiceUtils.toPrimitive(service.updateCardInput(cardInputId, setting, value));
+    }
+
+    private CaptureCard convert(org.syphr.mythtv.http.backend.impl._0_25.capture.CaptureCard rCard)
+    {
+        if (rCard == null)
+        {
+            return null;
+        }
+
+        CaptureCard card = new CaptureCard();
+        card.setCardId(rCard.getCardId());
+        card.setVideoDevice(rCard.getVideoDevice());
+        card.setAudioDevice(rCard.getAudioDevice());
+        card.setVbiDevice(rCard.getVBIDevice());
+        card.setCardType(rCard.getCardType());
+        card.setAudioRateLimit(rCard.getAudioRateLimit());
+        card.setHostName(rCard.getHostName());
+        card.setDvbswFilter(rCard.getDVBSWFilter());
+        card.setDvbSatType(rCard.getDVBSatType());
+        card.setDvbWaitForSeqStart(rCard.isDVBWaitForSeqStart());
+        card.setSkipBTAudio(rCard.isSkipBTAudio());
+        card.setDvbOnDemand(rCard.isDVBOnDemand());
+        card.setDvbDiSEqCType(rCard.getDVBDiSEqCType());
+        card.setFirewireSpeed(rCard.getFirewireSpeed());
+        card.setFirewireModel(rCard.getFirewireModel());
+        card.setFirewireConnection(rCard.getFirewireConnection());
+        card.setSignalTimeout(rCard.getSignalTimeout());
+        card.setChannelTimeout(rCard.getChannelTimeout());
+        card.setDvbTuningDelay(rCard.getDVBTuningDelay());
+        card.setContrast(rCard.getContrast());
+        card.setBrightness(rCard.getBrightness());
+        card.setColour(rCard.getColour());
+        card.setHue(rCard.getHue());
+        card.setDiSEqCId(rCard.getDiSEqCId());
+        card.setDvbeitScan(rCard.isDVBEITScan());
+
+        return card;
     }
 }

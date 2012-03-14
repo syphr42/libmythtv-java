@@ -17,34 +17,11 @@ package org.syphr.mythtv.http.backend;
 
 import java.util.List;
 
-import org.syphr.mythtv.http.backend.impl._0_25.capture.CaptureCard;
+import org.syphr.mythtv.data.CaptureCard;
 
 public interface CaptureService
 {
-    public Integer addCaptureCard(String videoDevice,
-                                  String audioDevice,
-                                  String vbiDevice,
-                                  String cardType,
-                                  Long audioRateLimit,
-                                  String hostName,
-                                  Long dvbswFilter,
-                                  Long dvbSatType,
-                                  Boolean dvbWaitForSeqStart,
-                                  Boolean skipBTAudio,
-                                  Boolean dvbOnDemand,
-                                  Long dvbDiSEqCType,
-                                  Long firewireSpeed,
-                                  String firewireModel,
-                                  Long firewireConnection,
-                                  Long signalTimeout,
-                                  Long channelTimeout,
-                                  Long dvbTuningDelay,
-                                  Long contrast,
-                                  Long brightness,
-                                  Long colour,
-                                  Long hue,
-                                  Long diSEqCId,
-                                  Boolean dvbeitScan);
+    public Integer addCaptureCard(CaptureCard card);
 
     public Integer addCardInput(Long cardId,
                                 Long sourceId,
@@ -62,15 +39,15 @@ public interface CaptureService
                                 Long schedOrder,
                                 Long liveTVOrder);
 
-    public CaptureCard getCaptureCard(Integer cardId);
+    public CaptureCard getCaptureCard(int cardId);
 
-    public List<CaptureCard> getCaptureCardList(String hostName, String cardType);
+    public List<CaptureCard> getCaptureCards(String hostName, String cardType);
 
-    public boolean removeCaptureCard(Integer cardId);
+    public boolean removeCaptureCard(int cardId);
 
-    public boolean removeCardInput(Integer cardInputId);
+    public boolean removeCardInput(int cardInputId);
 
-    public boolean updateCaptureCard(Integer cardId, String setting, String value);
+    public boolean updateCaptureCard(int cardId, String setting, String value);
 
-    public boolean updateCardInput(Integer cardInputId, String setting, String value);
+    public boolean updateCardInput(int cardInputId, String setting, String value);
 }
