@@ -28,12 +28,12 @@ import org.syphr.mythtv.commons.translate.Translator;
 
 /* default */class Command0_24PlayProgram extends AbstractCommand<Void>
 {
-    private final int channelId;
+    private final long channelId;
     private final Date recStartTs;
     private final boolean resume;
 
     public Command0_24PlayProgram(Translator translator,
-                                  int channelId,
+                                  long channelId,
                                   Date recStartTs,
                                   boolean resume)
     {
@@ -47,13 +47,16 @@ import org.syphr.mythtv.commons.translate.Translator;
     @Override
     protected String getMessage()
     {
-        return "play program " + channelId + " " + DateUtils.getIsoDateFormat().format(recStartTs)
-               + " " + getTranslator().toString(resume);
+        return "play program "
+                + channelId
+                + " "
+                + DateUtils.getIsoDateFormat().format(recStartTs)
+                + " "
+                + getTranslator().toString(resume);
     }
 
     @Override
-    public Void send(SocketManager socketManager) throws IOException,
-                                                 CommandException
+    public Void send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
 

@@ -81,7 +81,7 @@ import org.syphr.mythtv.types.ChannelBrowseDirection;
             String callsign = args.get(i++);
             String iconPath = args.get(i++);
             String channelname = args.get(i++);
-            int channelId = Integer.parseInt(args.get(i++));
+            long channelId = Long.parseLong(args.get(i++));
             String seriesId = args.get(i++);
             String programId = args.get(i++);
 

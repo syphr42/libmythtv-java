@@ -27,10 +27,10 @@ import org.syphr.mythtv.data.Program;
 
 /* default */class Command0_24QueryRecording extends AbstractCommand<Program>
 {
-    private final int channelId;
+    private final long channelId;
     private final Date recStartTs;
 
-    public Command0_24QueryRecording(Translator translator, int channelId, Date recStartTs)
+    public Command0_24QueryRecording(Translator translator, long channelId, Date recStartTs)
     {
         super(translator);
 
@@ -42,9 +42,9 @@ import org.syphr.mythtv.data.Program;
     protected String getMessage()
     {
         return "query recording "
-               + channelId
-               + " "
-               + DateUtils.getIsoDateFormat().format(recStartTs);
+                + channelId
+                + " "
+                + DateUtils.getIsoDateFormat().format(recStartTs);
     }
 
     @Override

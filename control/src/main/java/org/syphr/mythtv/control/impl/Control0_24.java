@@ -86,7 +86,7 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playChannel(int channelId) throws IOException, CommandException
+    public void playChannel(long channelId) throws IOException, CommandException
     {
         new Command0_24PlayChannel(getTranslator(), channelId).send(getSocketManager());
     }
@@ -98,7 +98,8 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException, CommandException
+    public void playProgram(long channelId, Date recStartTs, boolean resume) throws IOException,
+                                                                            CommandException
     {
         new Command0_24PlayProgram(getTranslator(), channelId, recStartTs, resume).send(getSocketManager());
     }
@@ -116,7 +117,8 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void playSavePreview(String filename, int width, int height) throws IOException, CommandException
+    public void playSavePreview(String filename, int width, int height) throws IOException,
+                                                                       CommandException
     {
         new Command0_24PlaySavePreview(getTranslator(), filename, width, height).send(getSocketManager());
     }
@@ -226,7 +228,7 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public Program queryRecording(int channelId, Date recStartTs) throws IOException
+    public Program queryRecording(long channelId, Date recStartTs) throws IOException
     {
         return new Command0_24QueryRecording(getTranslator(), channelId, recStartTs).send(getSocketManager());
     }
@@ -238,7 +240,7 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public Program queryLiveTv(int channelId) throws IOException
+    public Program queryLiveTv(long channelId) throws IOException
     {
         return new Command0_24QueryLiveTvChannel(getTranslator(), channelId).send(getSocketManager());
     }
@@ -316,7 +318,8 @@ public class Control0_24 extends AbstractControl
     }
 
     @Override
-    public void screenshot(String filename, int width, int height) throws IOException, CommandException
+    public void screenshot(String filename, int width, int height) throws IOException,
+                                                                  CommandException
     {
         new Command0_24Screenshot(getTranslator(), filename, width, height).send(getSocketManager());
     }

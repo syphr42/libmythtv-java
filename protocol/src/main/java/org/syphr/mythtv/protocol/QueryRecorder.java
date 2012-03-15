@@ -290,7 +290,7 @@ public interface QueryRecorder
      * 
      * @since 63
      */
-    public Channel getChannelInfo(int channelId) throws IOException, CommandException;
+    public Channel getChannelInfo(long channelId) throws IOException, CommandException;
 
     /**
      * Get the current color value for this recorder. This command is likely to

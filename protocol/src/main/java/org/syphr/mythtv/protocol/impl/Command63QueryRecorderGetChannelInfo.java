@@ -19,11 +19,15 @@ import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Channel;
 
-/* default */class Command63QueryRecorderGetChannelInfo extends AbstractCommand63QueryRecorder<Channel>
+/* default */class Command63QueryRecorderGetChannelInfo extends
+                                                        AbstractCommand63QueryRecorder<Channel>
 {
-    private final int channelId;
+    private final long channelId;
 
-    public Command63QueryRecorderGetChannelInfo(Translator translator, Parser parser, int recorderId, int channelId)
+    public Command63QueryRecorderGetChannelInfo(Translator translator,
+                                                Parser parser,
+                                                int recorderId,
+                                                long channelId)
     {
         super(translator, parser, recorderId);
         this.channelId = channelId;

@@ -19,10 +19,10 @@ import org.syphr.mythtv.commons.translate.Translator;
 
 /* default */class Command0_24PlayChannel extends AbstractCommand0_24Play
 {
-    private int id;
+    private long id;
     private String number;
 
-    public Command0_24PlayChannel(Translator translator, int id)
+    public Command0_24PlayChannel(Translator translator, long id)
     {
         super(translator);
 

@@ -64,7 +64,7 @@ public class Control0_24Utils
 
             try
             {
-                int channelId = Integer.parseInt(matcher.group(1));
+                long channelId = Long.parseLong(matcher.group(1));
                 Date recStartTs = DateUtils.getIsoDateFormat().parse(matcher.group(2));
                 String title = matcher.group(3);
                 String subtitle = matcher.groupCount() == 5 ? matcher.group(5) : null;
@@ -106,7 +106,7 @@ public class Control0_24Utils
 
             try
             {
-                int channelId = Integer.parseInt(matcher.group(1));
+                long channelId = Long.parseLong(matcher.group(1));
                 Date startTime = DateUtils.getIsoDateFormat().parse(matcher.group(2));
                 Date endTime = DateUtils.getIsoDateFormat().parse(matcher.group(3));
                 String title = matcher.group(4);
@@ -162,7 +162,7 @@ public class Control0_24Utils
                     checkedCount = true;
                 }
 
-                int channelId = Integer.parseInt(matcher.group(2));
+                long channelId = Long.parseLong(matcher.group(2));
                 String callsign = matcher.group(3);
                 String channelName = matcher.group(4);
 

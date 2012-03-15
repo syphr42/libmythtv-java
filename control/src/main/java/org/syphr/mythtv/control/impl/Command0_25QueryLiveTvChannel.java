@@ -24,7 +24,7 @@ import org.syphr.mythtv.data.Program;
 
 /* default */class Command0_25QueryLiveTvChannel extends Command0_24QueryLiveTvChannel
 {
-    public Command0_25QueryLiveTvChannel(Translator translator, int channelId)
+    public Command0_25QueryLiveTvChannel(Translator translator, long channelId)
     {
         super(translator, channelId);
     }

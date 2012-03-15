@@ -157,7 +157,7 @@ public class QueryRecorder63 extends AbstractRecorderProtocol implements QueryRe
     }
 
     @Override
-    public Channel getChannelInfo(int channelId) throws IOException, CommandException
+    public Channel getChannelInfo(long channelId) throws IOException, CommandException
     {
         return new Command63QueryRecorderGetChannelInfo(getTranslator(),
                                                         getParser(),

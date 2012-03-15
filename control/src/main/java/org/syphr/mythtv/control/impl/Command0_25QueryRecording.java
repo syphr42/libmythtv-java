@@ -25,9 +25,7 @@ import org.syphr.mythtv.data.Program;
 
 /* default */class Command0_25QueryRecording extends Command0_24QueryRecording
 {
-    public Command0_25QueryRecording(Translator translator,
-                                     int channelId,
-                                     Date recStartTs)
+    public Command0_25QueryRecording(Translator translator, long channelId, Date recStartTs)
     {
         super(translator, channelId, recStartTs);
     }

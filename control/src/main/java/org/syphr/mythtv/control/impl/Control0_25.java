@@ -20,8 +20,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.MusicInfo;
@@ -29,8 +27,6 @@ import org.syphr.mythtv.data.Program;
 
 public class Control0_25 extends Control0_24
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Control0_25.class);
-
     @Override
     public List<Program> queryLiveTv() throws IOException
     {
@@ -38,13 +34,13 @@ public class Control0_25 extends Control0_24
     }
 
     @Override
-    public Program queryLiveTv(int channelId) throws IOException
+    public Program queryLiveTv(long channelId) throws IOException
     {
         return new Command0_25QueryLiveTvChannel(getTranslator(), channelId).send(getSocketManager());
     }
 
     @Override
-    public Program queryRecording(int channelId, Date recStartTs) throws IOException
+    public Program queryRecording(long channelId, Date recStartTs) throws IOException
     {
         return new Command0_25QueryRecording(getTranslator(), channelId, recStartTs).send(getSocketManager());
     }

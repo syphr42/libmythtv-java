@@ -25,9 +25,9 @@ import org.syphr.mythtv.data.Program;
 
 /* default */class Command0_24QueryLiveTvChannel extends AbstractCommand<Program>
 {
-    private final int channelId;
+    private final long channelId;
 
-    public Command0_24QueryLiveTvChannel(Translator translator, int channelId)
+    public Command0_24QueryLiveTvChannel(Translator translator, long channelId)
     {
         super(translator);
 

@@ -182,7 +182,7 @@ public class CachedControl extends AbstractCachedConnection implements Control
     }
 
     @Override
-    public void playChannel(int channelId) throws IOException, CommandException
+    public void playChannel(long channelId) throws IOException, CommandException
     {
         connectIfNecessary();
         delegate.playChannel(channelId);
@@ -196,8 +196,8 @@ public class CachedControl extends AbstractCachedConnection implements Control
     }
 
     @Override
-    public void playProgram(int channelId, Date recStartTs, boolean resume) throws IOException,
-                                                                           CommandException
+    public void playProgram(long channelId, Date recStartTs, boolean resume) throws IOException,
+                                                                            CommandException
     {
         connectIfNecessary();
         delegate.playProgram(channelId, recStartTs, resume);
@@ -345,7 +345,7 @@ public class CachedControl extends AbstractCachedConnection implements Control
     }
 
     @Override
-    public Program queryRecording(int channelId, Date recStartTs) throws IOException
+    public Program queryRecording(long channelId, Date recStartTs) throws IOException
     {
         connectIfNecessary();
         return delegate.queryRecording(channelId, recStartTs);
@@ -359,7 +359,7 @@ public class CachedControl extends AbstractCachedConnection implements Control
     }
 
     @Override
-    public Program queryLiveTv(int channelId) throws IOException
+    public Program queryLiveTv(long channelId) throws IOException
     {
         connectIfNecessary();
         return delegate.queryLiveTv(channelId);
