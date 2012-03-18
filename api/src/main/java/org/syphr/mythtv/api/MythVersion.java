@@ -22,7 +22,11 @@ import org.syphr.mythtv.ws.ServiceVersion;
 
 public enum MythVersion
 {
-    _0_24(ProtocolVersion._63, ControlVersion._0_24, SchemaVersion._1264, null, "0.24"),
+    _0_24(ProtocolVersion._63,
+          ControlVersion._0_24,
+          SchemaVersion._1264,
+          ServiceVersion._0_24,
+          "0.24"),
 
     _0_25(ProtocolVersion._72,
           ControlVersion._0_25,

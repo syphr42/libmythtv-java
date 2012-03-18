@@ -18,35 +18,12 @@ package org.syphr.mythtv.ws.frontend.impl;
 import java.io.IOException;
 
 import org.syphr.mythtv.ws.ServiceVersionException;
-import org.syphr.mythtv.ws.frontend.FrontendService;
 
 public class FrontendServices0_24 extends AbstractFrontendServices
 {
-    private final FrontendService frontendService;
-
-    public FrontendServices0_24()
-    {
-        /*
-         * Services are unsupported in 0.24 so there is no actual functionality.
-         */
-        frontendService = new FrontendService0_24();
-    }
-
-    @Override
-    public void configure(String host) throws ServiceVersionException, IOException
-    {
-        configure(host, 0);
-    }
-
     @Override
     public void configure(String host, int port) throws ServiceVersionException, IOException
     {
-        // NOOP
-    }
-
-    @Override
-    public FrontendService getFrontendService()
-    {
-        return frontendService;
+        setFrontendService(new FrontendService0_24());
     }
 }

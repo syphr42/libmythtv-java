@@ -18,81 +18,18 @@ package org.syphr.mythtv.ws.backend.impl;
 import java.io.IOException;
 
 import org.syphr.mythtv.ws.ServiceVersionException;
-import org.syphr.mythtv.ws.backend.CaptureService;
-import org.syphr.mythtv.ws.backend.ChannelService;
-import org.syphr.mythtv.ws.backend.ContentService;
-import org.syphr.mythtv.ws.backend.DvrService;
-import org.syphr.mythtv.ws.backend.GuideService;
-import org.syphr.mythtv.ws.backend.MythService;
-import org.syphr.mythtv.ws.backend.VideoService;
 
 public class BackendServices0_25 extends AbstractBackendServices
 {
-    private CaptureService captureService;
-    private ChannelService channelService;
-    private ContentService contentService;
-    private DvrService dvrService;
-    private GuideService guideService;
-    private MythService mythService;
-    private VideoService videoService;
-
-    @Override
-    public void configure(String host) throws ServiceVersionException, IOException
-    {
-        configure(host, 0);
-    }
-
     @Override
     public void configure(String host, int port) throws ServiceVersionException, IOException
     {
-        captureService = new CaptureService0_25(host, getPort(port));
-        channelService = new ChannelService0_25(host, getPort(port));
-        contentService = new ContentService0_25(host, getPort(port));
-        dvrService = new DvrService0_25(host, getPort(port));
-        guideService = new GuideService0_25(host, getPort(port));
-        mythService = new MythService0_25(host, getPort(port));
-        videoService = new VideoService0_25(host, getPort(port));
-    }
-
-    @Override
-    public CaptureService getCaptureService()
-    {
-        return captureService;
-    }
-
-    @Override
-    public ChannelService getChannelService()
-    {
-        return channelService;
-    }
-
-    @Override
-    public ContentService getContentService()
-    {
-        return contentService;
-    }
-
-    @Override
-    public DvrService getDvrService()
-    {
-        return dvrService;
-    }
-
-    @Override
-    public GuideService getGuideService()
-    {
-        return guideService;
-    }
-
-    @Override
-    public MythService getMythService()
-    {
-        return mythService;
-    }
-
-    @Override
-    public VideoService getVideoService()
-    {
-        return videoService;
+        setCaptureService(new CaptureService0_25(host, getPort(port)));
+        setChannelService(new ChannelService0_25(host, getPort(port)));
+        setContentService(new ContentService0_25(host, getPort(port)));
+        setDvrService(new DvrService0_25(host, getPort(port)));
+        setGuideService(new GuideService0_25(host, getPort(port)));
+        setMythService(new MythService0_25(host, getPort(port)));
+        setVideoService(new VideoService0_25(host, getPort(port)));
     }
 }

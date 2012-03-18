@@ -15,11 +15,17 @@
  */
 package org.syphr.mythtv.ws.frontend.impl;
 
+import java.io.IOException;
+
+import org.syphr.mythtv.ws.ServiceVersionException;
+import org.syphr.mythtv.ws.frontend.FrontendService;
 import org.syphr.mythtv.ws.frontend.FrontendServices;
 
 public abstract class AbstractFrontendServices implements FrontendServices
 {
     private static final int DEFAULT_PORT = 6547;
+
+    private FrontendService frontendService;
 
     protected int getPort(int port)
     {
@@ -29,5 +35,28 @@ public abstract class AbstractFrontendServices implements FrontendServices
         }
 
         return port;
+    }
+
+    @Override
+    public void configure(String host) throws ServiceVersionException, IOException
+    {
+        configure(host, 0);
+    }
+
+    @Override
+    public void removeConfiguration()
+    {
+        setFrontendService(null);
+    }
+
+    @Override
+    public FrontendService getFrontendService()
+    {
+        return frontendService;
+    }
+
+    protected void setFrontendService(FrontendService frontendService)
+    {
+        this.frontendService = frontendService;
     }
 }

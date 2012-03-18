@@ -25,6 +25,8 @@ public interface BackendServices
 
     public void configure(String host, int port) throws ServiceVersionException, IOException;
 
+    public void removeConfiguration();
+
     public CaptureService getCaptureService();
 
     public ChannelService getChannelService();

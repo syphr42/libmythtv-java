@@ -52,7 +52,7 @@ public class Backend
 
     private final Database database;
 
-    private BackendServices services;
+    private final BackendServices services;
 
     private Protocol eventMonitor;
 
@@ -69,11 +69,7 @@ public class Backend
     {
         protocol = new CachedProtocol(protocolVersion, 1L, TimeUnit.MINUTES);
         database = new Database(schemaVersion);
-
-        if (serviceVersion != null)
-        {
-            services = ServiceFactory.getBackendInstance(serviceVersion);
-        }
+        services = ServiceFactory.getBackendInstance(serviceVersion);
     }
 
     public void setConnectionTimeout(long timeout, TimeUnit unit)
@@ -107,11 +103,7 @@ public class Backend
         protocol.setConnectionParameters(localHost, backendHost, protocolPort <= 0
                 ? DEFAULT_PROTOCOL_PORT
                 : protocolPort);
-
-        if (services != null)
-        {
-            services.configure(backendHost, httpPort);
-        }
+        services.configure(backendHost, httpPort);
     }
 
     public void setDatabaseConnectionParameters(String host,
@@ -128,7 +120,7 @@ public class Backend
         protocol.shutdownConnection();
         stopEventMonitor();
         database.unload();
-        services = null;
+        services.removeConfiguration();
     }
 
     public void startEventMonitor(String localHost, EventLevel level) throws IOException,
