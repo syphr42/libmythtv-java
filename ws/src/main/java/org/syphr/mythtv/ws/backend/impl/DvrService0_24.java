@@ -16,6 +16,7 @@
 package org.syphr.mythtv.ws.backend.impl;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import org.syphr.mythtv.ws.backend.impl._0_25.dvr.Encoder;
@@ -80,21 +81,21 @@ public class DvrService0_24 extends AbstractDvrService
     public List<Program> getConflictList(Integer startIndex, Integer count)
     {
         handleUnsupported("get conflict list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public List<Encoder> getEncoderList()
     {
         handleUnsupported("get encoder list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public List<Program> getExpiringList(Integer startIndex, Integer count)
     {
         handleUnsupported("get expiring list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -106,7 +107,7 @@ public class DvrService0_24 extends AbstractDvrService
                                                  String storageGroup)
     {
         handleUnsupported("get filtered recorded list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -120,7 +121,7 @@ public class DvrService0_24 extends AbstractDvrService
     public List<RecRule> getRecordScheduleList(Integer startIndex, Integer count)
     {
         handleUnsupported("get record schedule list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -134,14 +135,14 @@ public class DvrService0_24 extends AbstractDvrService
     public List<Program> getRecordedList(Boolean descending, Integer startIndex, Integer count)
     {
         handleUnsupported("get recorded list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public List<Program> getUpcomingList(Integer startIndex, Integer count, Boolean showAll)
     {
         handleUnsupported("get upcoming list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

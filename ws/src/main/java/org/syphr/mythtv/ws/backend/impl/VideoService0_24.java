@@ -15,6 +15,7 @@
  */
 package org.syphr.mythtv.ws.backend.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.syphr.mythtv.ws.backend.impl._0_25.video.BlurayInfo;
@@ -57,7 +58,7 @@ public class VideoService0_24 extends AbstractVideoService
                                                 Integer count)
     {
         handleUnsupported("get video list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -70,7 +71,7 @@ public class VideoService0_24 extends AbstractVideoService
                                          Boolean allowGeneric)
     {
         handleUnsupported("lookup video");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

@@ -16,6 +16,7 @@
 package org.syphr.mythtv.ws.backend.impl;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import org.syphr.mythtv.data.TimeInfo;
@@ -72,14 +73,14 @@ public class MythService0_24 extends AbstractMythService
     public List<String> getHosts()
     {
         handleUnsupported("get hosts");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public List<String> getKeys()
     {
         handleUnsupported("get keys");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -97,7 +98,7 @@ public class MythService0_24 extends AbstractMythService
                                     String msgContains)
     {
         handleUnsupported("get logs");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -111,7 +112,7 @@ public class MythService0_24 extends AbstractMythService
     public List<StorageGroupDir> getStorageGroupDirs(String groupName, String hostName)
     {
         handleUnsupported("get storage group dirs");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

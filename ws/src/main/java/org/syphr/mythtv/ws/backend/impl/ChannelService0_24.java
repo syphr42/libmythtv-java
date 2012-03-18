@@ -15,6 +15,7 @@
  */
 package org.syphr.mythtv.ws.backend.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.syphr.mythtv.data.Channel;
@@ -57,14 +58,14 @@ public class ChannelService0_24 extends AbstractChannelService
     public List<ChannelInfo> getChannelInfoList(int sourceId, int startIndex, int count)
     {
         handleUnsupported("get channel info list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public List<Lineup> getDDLineupList(String source, String userId, String password)
     {
         handleUnsupported("get DD lineup list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -78,7 +79,7 @@ public class ChannelService0_24 extends AbstractChannelService
     public List<VideoMultiplex> getVideoMultiplexList(int sourceId, int startIndex, int count)
     {
         handleUnsupported("get video multiplex list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -92,14 +93,14 @@ public class ChannelService0_24 extends AbstractChannelService
     public List<VideoSource> getVideoSourceList()
     {
         handleUnsupported("get video sources list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public List<String> getXMLTVIdList(int sourceId)
     {
         handleUnsupported("get XMLTV ID list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

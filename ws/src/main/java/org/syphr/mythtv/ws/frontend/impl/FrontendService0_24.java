@@ -16,6 +16,7 @@
 package org.syphr.mythtv.ws.frontend.impl;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendActionList;
@@ -34,7 +35,7 @@ public class FrontendService0_24 extends AbstractFrontendService
     public List<String> getContextList()
     {
         handleUnsupported("get context list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

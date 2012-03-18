@@ -15,6 +15,7 @@
  */
 package org.syphr.mythtv.ws.backend.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.syphr.mythtv.data.CaptureCard;
@@ -60,7 +61,7 @@ public class CaptureService0_24 extends AbstractCaptureService
     public List<CaptureCard> getCaptureCardList(String hostName, String cardType)
     {
         handleUnsupported("get capture card list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

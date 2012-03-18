@@ -16,6 +16,7 @@
 package org.syphr.mythtv.ws.backend.impl;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import org.syphr.mythtv.ws.backend.impl._0_25.content.ArtworkInfo;
@@ -90,14 +91,14 @@ public class ContentService0_24 extends AbstractContentService
     public List<String> getFileList(String storageGroup)
     {
         handleUnsupported("get file list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public List<LiveStreamInfo> getFilteredLiveStreamList(String fileName)
     {
         handleUnsupported("get filtered live stream list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -125,7 +126,7 @@ public class ContentService0_24 extends AbstractContentService
     public List<LiveStreamInfo> getLiveStreamList()
     {
         handleUnsupported("get live stream list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -150,7 +151,7 @@ public class ContentService0_24 extends AbstractContentService
     public List<ArtworkInfo> getProgramArtworkList(String inetref, Integer season)
     {
         handleUnsupported("get program artwork list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -175,7 +176,7 @@ public class ContentService0_24 extends AbstractContentService
     public List<ArtworkInfo> getRecordingArtworkList(Integer chanId, Calendar startTime)
     {
         handleUnsupported("get recording artwork list");
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
