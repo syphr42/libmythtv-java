@@ -17,89 +17,41 @@ package org.syphr.mythtv.http.backend;
 
 import java.util.List;
 
-import org.syphr.mythtv.http.backend.impl._0_25.channel.ChannelInfo;
-import org.syphr.mythtv.http.backend.impl._0_25.channel.Lineup;
+import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.ChannelInfo;
+import org.syphr.mythtv.data.Lineup;
+import org.syphr.mythtv.data.VideoSource;
 import org.syphr.mythtv.http.backend.impl._0_25.channel.VideoMultiplex;
-import org.syphr.mythtv.http.backend.impl._0_25.channel.VideoSource;
 
 public interface ChannelService
 {
-    public boolean addDBChannel(Long mplexID,
-                                Long sourceID,
-                                Long channelID,
-                                String callSign,
-                                String channelName,
-                                String channelNumber,
-                                Long serviceID,
-                                Long atscMajorChannel,
-                                Long atscMinorChannel,
-                                Boolean useEIT,
-                                Boolean visible,
-                                String frequencyID,
-                                String icon,
-                                String format,
-                                String xmltvid,
-                                String defaultAuthority);
+    public boolean addDBChannel(Channel channel);
 
-    public Integer addVideoSource(String sourceName,
-                                  String grabber,
-                                  String userId,
-                                  String freqTable,
-                                  String lineupId,
-                                  String password,
-                                  Boolean useEIT,
-                                  String configPath,
-                                  Integer nitId);
+    public Integer addVideoSource(VideoSource videoSource);
 
-    public Integer fetchChannelsFromSource(Long sourceId, Long cardId, Boolean waitForFinish);
+    public Integer fetchChannelsFromSource(long sourceId, long cardId, boolean waitForFinish);
 
-    public ChannelInfo getChannelInfo(Integer chanID);
+    public ChannelInfo getChannelInfo(int channelId);
 
-    public List<ChannelInfo> getChannelInfoList(Integer sourceID, Integer startIndex, Integer count);
+    public List<ChannelInfo> getChannelInfoList(int sourceId, int startIndex, int count);
 
     public List<Lineup> getDDLineupList(String source, String userId, String password);
 
-    public VideoMultiplex getVideoMultiplex(Integer mplexID);
+    public VideoMultiplex getVideoMultiplex(int mplexId);
 
-    public List<VideoMultiplex> getVideoMultiplexList(Integer sourceID,
-                                                      Integer startIndex,
-                                                      Integer count);
+    public List<VideoMultiplex> getVideoMultiplexList(int sourceId, int startIndex, int count);
 
-    public VideoSource getVideoSource(Long sourceID);
+    public VideoSource getVideoSource(long sourceId);
 
     public List<VideoSource> getVideoSourceList();
 
-    public List<String> getXMLTVIdList(Integer sourceID);
+    public List<String> getXMLTVIdList(int sourceId);
 
-    public boolean removeDBChannel(Long channelID);
+    public boolean removeDBChannel(long channelId);
 
-    public boolean removeVideoSource(Long sourceID);
+    public boolean removeVideoSource(long sourceId);
 
-    public boolean updateDBChannel(Long mplexID,
-                                   Long sourceID,
-                                   Long channelID,
-                                   String callSign,
-                                   String channelName,
-                                   String channelNumber,
-                                   Long serviceID,
-                                   Long atscMajorChannel,
-                                   Long atscMinorChannel,
-                                   Boolean useEIT,
-                                   Boolean visible,
-                                   String frequencyID,
-                                   String icon,
-                                   String format,
-                                   String xmltvid,
-                                   String defaultAuthority);
+    public boolean updateDBChannel(Channel channel);
 
-    public boolean updateVideoSource(Long sourceID,
-                                     String sourceName,
-                                     String grabber,
-                                     String userId,
-                                     String freqTable,
-                                     String lineupId,
-                                     String password,
-                                     Boolean useEIT,
-                                     String configPath,
-                                     Integer nitId);
+    public boolean updateVideoSource(VideoSource videoSource);
 }

@@ -20,14 +20,16 @@ import java.util.List;
 
 import javax.xml.ws.BindingProvider;
 
+import org.syphr.mythtv.data.ChannelInfo;
+import org.syphr.mythtv.data.Lineup;
+import org.syphr.mythtv.data.Program;
+import org.syphr.mythtv.data.VideoSource;
 import org.syphr.mythtv.http.ServiceVersionException;
 import org.syphr.mythtv.http.backend.ChannelService;
+import org.syphr.mythtv.http.backend.impl._0_25.channel.ArrayOfProgram;
 import org.syphr.mythtv.http.backend.impl._0_25.channel.Channel;
-import org.syphr.mythtv.http.backend.impl._0_25.channel.ChannelInfo;
 import org.syphr.mythtv.http.backend.impl._0_25.channel.ChannelServices;
-import org.syphr.mythtv.http.backend.impl._0_25.channel.Lineup;
 import org.syphr.mythtv.http.backend.impl._0_25.channel.VideoMultiplex;
-import org.syphr.mythtv.http.backend.impl._0_25.channel.VideoSource;
 import org.syphr.mythtv.http.impl.AbstractService;
 import org.syphr.mythtv.http.impl.ServiceUtils;
 
@@ -60,80 +62,57 @@ public class ChannelService0_25 extends AbstractService implements ChannelServic
     }
 
     @Override
-    public boolean addDBChannel(Long mplexID,
-                                Long sourceID,
-                                Long channelID,
-                                String callSign,
-                                String channelName,
-                                String channelNumber,
-                                Long serviceID,
-                                Long atscMajorChannel,
-                                Long atscMinorChannel,
-                                Boolean useEIT,
-                                Boolean visible,
-                                String frequencyID,
-                                String icon,
-                                String format,
-                                String xmltvid,
-                                String defaultAuthority)
+    public boolean addDBChannel(org.syphr.mythtv.data.Channel channel)
     {
-        return ServiceUtils.toPrimitive(service.addDBChannel(mplexID,
-                                                             sourceID,
-                                                             channelID,
-                                                             callSign,
-                                                             channelName,
-                                                             channelNumber,
-                                                             serviceID,
-                                                             atscMajorChannel,
-                                                             atscMinorChannel,
-                                                             useEIT,
-                                                             visible,
-                                                             frequencyID,
-                                                             icon,
-                                                             format,
-                                                             xmltvid,
-                                                             defaultAuthority));
+        return ServiceUtils.toPrimitive(service.addDBChannel(channel.getMplexId(),
+                                                             channel.getSourceId(),
+                                                             channel.getId(),
+                                                             channel.getCallsign(),
+                                                             channel.getName(),
+                                                             channel.getNumber(),
+                                                             channel.getServiceId(),
+                                                             channel.getAtscMajorChan(),
+                                                             channel.getAtscMinorChan(),
+                                                             channel.isUseEIT(),
+                                                             channel.isVisible(),
+                                                             channel.getFrequencyId(),
+                                                             channel.getIconPath(),
+                                                             channel.getFormat(),
+                                                             channel.getXmltvId(),
+                                                             channel.getDefaultAuth()));
     }
 
     @Override
-    public Integer addVideoSource(String sourceName,
-                                  String grabber,
-                                  String userId,
-                                  String freqTable,
-                                  String lineupId,
-                                  String password,
-                                  Boolean useEIT,
-                                  String configPath,
-                                  Integer nitId)
+    public Integer addVideoSource(VideoSource videoSource)
     {
-        return service.addVideoSource(sourceName,
-                                      grabber,
-                                      userId,
-                                      freqTable,
-                                      lineupId,
-                                      password,
-                                      useEIT,
-                                      configPath,
-                                      nitId);
+        return service.addVideoSource(videoSource.getSourceName(),
+                                      videoSource.getGrabber(),
+                                      videoSource.getUserId(),
+                                      videoSource.getFreqTable(),
+                                      videoSource.getLineupId(),
+                                      videoSource.getPassword(),
+                                      videoSource.isUseEIT(),
+                                      videoSource.getConfigPath(),
+                                      videoSource.getNitId());
     }
 
     @Override
-    public Integer fetchChannelsFromSource(Long sourceId, Long cardId, Boolean waitForFinish)
+    public Integer fetchChannelsFromSource(long sourceId, long cardId, boolean waitForFinish)
     {
         return service.fetchChannelsFromSource(sourceId, cardId, waitForFinish);
     }
 
     @Override
-    public ChannelInfo getChannelInfo(Integer chanID)
+    public ChannelInfo getChannelInfo(int channelId)
     {
-        return service.getChannelInfo(chanID);
+        return convert(service.getChannelInfo(channelId));
     }
 
     @Override
-    public List<ChannelInfo> getChannelInfoList(Integer sourceID, Integer startIndex, Integer count)
+    public List<ChannelInfo> getChannelInfoList(int sourceId, int startIndex, int count)
     {
         // TODO
-        return null;//service.getChannelInfoList(sourceID, startIndex, count);
+        return null;//service.getChannelInfoList(sourceId, startIndex, count);
     }
 
     @Override
@@ -144,24 +123,23 @@ public class ChannelService0_25 extends AbstractService implements ChannelServic
     }
 
     @Override
-    public VideoMultiplex getVideoMultiplex(Integer mplexID)
+    public VideoMultiplex getVideoMultiplex(int mplexId)
     {
-        return service.getVideoMultiplex(mplexID);
+        return service.getVideoMultiplex(mplexId);
     }
 
     @Override
-    public List<VideoMultiplex> getVideoMultiplexList(Integer sourceID,
-                                                      Integer startIndex,
-                                                      Integer count)
+    public List<VideoMultiplex> getVideoMultiplexList(int sourceId, int startIndex, int count)
     {
         // TODO
         return null;//service.getVideoMultiplexList(sourceID, startIndex, count);
     }
 
     @Override
-    public VideoSource getVideoSource(Long sourceID)
+    public VideoSource getVideoSource(long sourceId)
     {
-        return service.getVideoSource(sourceID);
+        // TODO
+        return null;//service.getVideoSource(sourceId);
     }
 
     @Override
@@ -172,81 +150,127 @@ public class ChannelService0_25 extends AbstractService implements ChannelServic
     }
 
     @Override
-    public List<String> getXMLTVIdList(Integer sourceID)
+    public List<String> getXMLTVIdList(int sourceId)
     {
         // TODO
         return null;//service.getXMLTVIdList(sourceID);
     }
 
     @Override
-    public boolean removeDBChannel(Long channelID)
+    public boolean removeDBChannel(long channelId)
     {
-        return ServiceUtils.toPrimitive(service.removeDBChannel(channelID));
+        return ServiceUtils.toPrimitive(service.removeDBChannel(channelId));
     }
 
     @Override
-    public boolean removeVideoSource(Long sourceID)
+    public boolean removeVideoSource(long sourceId)
     {
-        return ServiceUtils.toPrimitive(service.removeVideoSource(sourceID));
+        return ServiceUtils.toPrimitive(service.removeVideoSource(sourceId));
     }
 
     @Override
-    public boolean updateDBChannel(Long mplexID,
-                                   Long sourceID,
-                                   Long channelID,
-                                   String callSign,
-                                   String channelName,
-                                   String channelNumber,
-                                   Long serviceID,
-                                   Long atscMajorChannel,
-                                   Long atscMinorChannel,
-                                   Boolean useEIT,
-                                   Boolean visible,
-                                   String frequencyID,
-                                   String icon,
-                                   String format,
-                                   String xmltvid,
-                                   String defaultAuthority)
+    public boolean updateDBChannel(org.syphr.mythtv.data.Channel channel)
     {
-        return ServiceUtils.toPrimitive(service.updateDBChannel(mplexID,
-                                                                sourceID,
-                                                                channelID,
-                                                                callSign,
-                                                                channelName,
-                                                                channelNumber,
-                                                                serviceID,
-                                                                atscMajorChannel,
-                                                                atscMinorChannel,
-                                                                useEIT,
-                                                                visible,
-                                                                frequencyID,
-                                                                icon,
-                                                                format,
-                                                                xmltvid,
-                                                                defaultAuthority));
+        return ServiceUtils.toPrimitive(service.updateDBChannel(channel.getMplexId(),
+                                                                channel.getSourceId(),
+                                                                channel.getId(),
+                                                                channel.getCallsign(),
+                                                                channel.getName(),
+                                                                channel.getNumber(),
+                                                                channel.getServiceId(),
+                                                                channel.getAtscMajorChan(),
+                                                                channel.getAtscMinorChan(),
+                                                                channel.isUseEIT(),
+                                                                channel.isVisible(),
+                                                                channel.getFrequencyId(),
+                                                                channel.getIconPath(),
+                                                                channel.getFormat(),
+                                                                channel.getXmltvId(),
+                                                                channel.getDefaultAuth()));
     }
 
     @Override
-    public boolean updateVideoSource(Long sourceID,
-                                     String sourceName,
-                                     String grabber,
-                                     String userId,
-                                     String freqTable,
-                                     String lineupId,
-                                     String password,
-                                     Boolean useEIT,
-                                     String configPath,
-                                     Integer nitId)
+    public boolean updateVideoSource(VideoSource videoSource)
     {
-        return ServiceUtils.toPrimitive(service.updateVideoSource(sourceID,
-                                                                  sourceName,
-                                                                  grabber,
-                                                                  userId,
-                                                                  freqTable,
-                                                                  lineupId,
-                                                                  password,
-                                                                  useEIT,
-                                                                  configPath,
-                                                                  nitId));
+        return ServiceUtils.toPrimitive(service.updateVideoSource(videoSource.getId(),
+                                                                  videoSource.getSourceName(),
+                                                                  videoSource.getGrabber(),
+                                                                  videoSource.getUserId(),
+                                                                  videoSource.getFreqTable(),
+                                                                  videoSource.getLineupId(),
+                                                                  videoSource.getPassword(),
+                                                                  videoSource.isUseEIT(),
+                                                                  videoSource.getConfigPath(),
+                                                                  videoSource.getNitId()));
+    }
+
+    private ChannelInfo convert(org.syphr.mythtv.http.backend.impl._0_25.channel.ChannelInfo rChannelInfo)
+    {
+        if (rChannelInfo == null)
+        {
+            return null;
+        }
+
+        ChannelInfo channelInfo = new ChannelInfo();
+
+        org.syphr.mythtv.data.Channel channel = new org.syphr.mythtv.data.Channel();
+        channel.setId(rChannelInfo.getChanId());
+        channel.setSourceId(rChannelInfo.getSourceId());
+        channel.setNumber(rChannelInfo.getChanNum());
+        channel.setCallsign(rChannelInfo.getCallSign());
+        channel.setIconPath(rChannelInfo.getIconURL());
+        channel.setName(rChannelInfo.getChannelName());
+        channel.setMplexId(rChannelInfo.getMplexId());
+        channel.setTransportId(rChannelInfo.getTransportId());
+        channel.setServiceId(rChannelInfo.getServiceId());
+        channel.setNetworkId(rChannelInfo.getNetworkId());
+        channel.setAtscMajorChan(rChannelInfo.getATSCMajorChan());
+        channel.setAtscMinorChan(rChannelInfo.getATSCMinorChan());
+        channel.setFormat(rChannelInfo.getFormat());
+        channel.setModulation(rChannelInfo.getModulation());
+        channel.setFrequency(rChannelInfo.getFrequency());
+        channel.setFrequencyId(rChannelInfo.getFrequencyId());
+        channel.setFrequencyTable(rChannelInfo.getFrequencyTable());
+        channel.setFineTune(rChannelInfo.getFineTune());
+        channel.setSiStandard(rChannelInfo.getSIStandard());
+        channel.setChanFilters(rChannelInfo.getChanFilters());
+        channel.setInputId(rChannelInfo.getInputId());
+        channel.setCommFree(rChannelInfo.getCommFree());
+        channel.setUseEIT(rChannelInfo.isUseEIT());
+        channel.setVisible(rChannelInfo.isVisible());
+        channel.setXmltvId(rChannelInfo.getXMLTVID());
+        channel.setDefaultAuth(rChannelInfo.getDefaultAuth());
+        channelInfo.setChannel(channel);
+
+        ArrayOfProgram array = rChannelInfo.getPrograms();
+        if (array != null)
+        {
+            List<org.syphr.mythtv.http.backend.impl._0_25.channel.Program> rPrograms = array.getPrograms();
+            if (rPrograms != null)
+            {
+                for (org.syphr.mythtv.http.backend.impl._0_25.channel.Program rProgram : rPrograms)
+                {
+                    channelInfo.getPrograms().add(convert(rProgram, channel));
+                }
+            }
+        }
+
+        return channelInfo;
+    }
+
+    private Program convert(org.syphr.mythtv.http.backend.impl._0_25.channel.Program rProgram,
+                            org.syphr.mythtv.data.Channel channel)
+    {
+        if (rProgram == null)
+        {
+            return null;
+        }
+
+        // TODO
+        return new Program(rProgram.getTitle(),
+                           rProgram.getSubTitle(),
+                           channel,
+                           rProgram.getStartTime().getValue().getTime(),
+                           rProgram.getEndTime().getValue().getTime());
     }
 }
