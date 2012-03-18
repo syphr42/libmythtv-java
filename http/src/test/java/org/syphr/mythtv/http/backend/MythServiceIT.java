@@ -39,19 +39,12 @@ public class MythServiceIT
     {
         settings = Settings.createSettings();
 
-        try
-        {
-            BackendServices services = ServiceFactory.getBackendInstance(settings.getEnumProperty(Settings.BACKEND_WS_VERSION,
-                                                                                                  ServiceVersion.class));
-            services.configure(settings.getProperty(Settings.BACKEND_HOST),
-                               settings.getIntegerProperty(Settings.BACKEND_HTTP_PORT));
+        BackendServices services = ServiceFactory.getBackendInstance(settings.getEnumProperty(Settings.BACKEND_WS_VERSION,
+                                                                                              ServiceVersion.class));
+        services.configure(settings.getProperty(Settings.BACKEND_HOST),
+                           settings.getIntegerProperty(Settings.BACKEND_HTTP_PORT));
 
-            myth = services.getMythService();
-        }
-        catch (IllegalArgumentException e)
-        {
-            LOGGER.info("Services are not available prior to version 0.25");
-        }
+        myth = services.getMythService();
     }
 
     @Test

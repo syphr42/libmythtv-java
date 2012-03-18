@@ -39,19 +39,12 @@ public class FrontendServiceIT
     {
         settings = Settings.createSettings();
 
-        try
-        {
-            FrontendServices services = ServiceFactory.getFrontendInstance(settings.getEnumProperty(Settings.FRONTEND_WS_VERSION,
-                                                                                                    ServiceVersion.class));
-            services.configure(settings.getProperty(Settings.FRONTEND_HOST),
-                               settings.getIntegerProperty(Settings.FRONTEND_HTTP_PORT));
+        FrontendServices services = ServiceFactory.getFrontendInstance(settings.getEnumProperty(Settings.FRONTEND_WS_VERSION,
+                                                                                                ServiceVersion.class));
+        services.configure(settings.getProperty(Settings.FRONTEND_HOST),
+                           settings.getIntegerProperty(Settings.FRONTEND_HTTP_PORT));
 
-            frontend = services.getFrontendService();
-        }
-        catch (IllegalArgumentException e)
-        {
-            LOGGER.info("Services are not available prior to version 0.25");
-        }
+        frontend = services.getFrontendService();
     }
 
     @Test

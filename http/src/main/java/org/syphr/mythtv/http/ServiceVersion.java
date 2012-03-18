@@ -23,5 +23,5 @@ package org.syphr.mythtv.http;
  */
 public enum ServiceVersion
 {
-    _0_25;
+    _0_24, _0_25;
 }

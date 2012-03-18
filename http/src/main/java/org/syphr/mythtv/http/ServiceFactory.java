@@ -16,8 +16,10 @@
 package org.syphr.mythtv.http;
 
 import org.syphr.mythtv.http.backend.BackendServices;
+import org.syphr.mythtv.http.backend.impl.BackendServices0_24;
 import org.syphr.mythtv.http.backend.impl.BackendServices0_25;
 import org.syphr.mythtv.http.frontend.FrontendServices;
+import org.syphr.mythtv.http.frontend.impl.FrontendServices0_24;
 import org.syphr.mythtv.http.frontend.impl.FrontendServices0_25;
 
 public class ServiceFactory
@@ -26,6 +28,9 @@ public class ServiceFactory
     {
         switch (version)
         {
+            case _0_24:
+                return new BackendServices0_24();
+
             case _0_25:
                 return new BackendServices0_25();
 
@@ -38,6 +43,9 @@ public class ServiceFactory
     {
         switch (version)
         {
+            case _0_24:
+                return new FrontendServices0_24();
+
             case _0_25:
                 return new FrontendServices0_25();
 
