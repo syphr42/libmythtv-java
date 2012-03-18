@@ -32,15 +32,15 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.db.DatabaseException;
 import org.syphr.mythtv.db.SchemaVersion;
-import org.syphr.mythtv.http.ServiceFactory;
-import org.syphr.mythtv.http.ServiceVersion;
-import org.syphr.mythtv.http.backend.BackendServices;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolVersion;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.types.RecordingCategory;
+import org.syphr.mythtv.ws.ServiceFactory;
+import org.syphr.mythtv.ws.ServiceVersion;
+import org.syphr.mythtv.ws.backend.BackendServices;
 
 public class Backend
 {
