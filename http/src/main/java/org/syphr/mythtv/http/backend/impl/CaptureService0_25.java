@@ -23,18 +23,14 @@ import javax.xml.ws.BindingProvider;
 
 import org.syphr.mythtv.data.CaptureCard;
 import org.syphr.mythtv.http.ServiceVersionException;
-import org.syphr.mythtv.http.backend.CaptureService;
 import org.syphr.mythtv.http.backend.impl._0_25.capture.ArrayOfCaptureCard;
 import org.syphr.mythtv.http.backend.impl._0_25.capture.Capture;
 import org.syphr.mythtv.http.backend.impl._0_25.capture.CaptureCardList;
 import org.syphr.mythtv.http.backend.impl._0_25.capture.CaptureServices;
-import org.syphr.mythtv.http.impl.AbstractService;
 import org.syphr.mythtv.http.impl.ServiceUtils;
 
-public class CaptureService0_25 extends AbstractService implements CaptureService
+public class CaptureService0_25 extends AbstractCaptureService
 {
-    private static final String NAME = "Capture";
-
     private static final String VERSION = "1.4";
 
     private final Capture service;
@@ -45,12 +41,6 @@ public class CaptureService0_25 extends AbstractService implements CaptureServic
         service = locator.getBasicHttpBindingCapture();
 
         configureAndVerify(host, port, (BindingProvider)service);
-    }
-
-    @Override
-    protected String getName()
-    {
-        return NAME;
     }
 
     @Override
@@ -129,7 +119,7 @@ public class CaptureService0_25 extends AbstractService implements CaptureServic
     }
 
     @Override
-    public List<CaptureCard> getCaptureCards(String hostName, String cardType)
+    public List<CaptureCard> getCaptureCardList(String hostName, String cardType)
     {
         List<CaptureCard> cards = new ArrayList<CaptureCard>();
 
@@ -196,7 +186,7 @@ public class CaptureService0_25 extends AbstractService implements CaptureServic
         }
 
         CaptureCard card = new CaptureCard();
-        card.setCardId(rCard.getCardId());
+        card.setId(rCard.getCardId());
         card.setVideoDevice(rCard.getVideoDevice());
         card.setAudioDevice(rCard.getAudioDevice());
         card.setVbiDevice(rCard.getVBIDevice());
@@ -220,7 +210,7 @@ public class CaptureService0_25 extends AbstractService implements CaptureServic
         card.setColour(rCard.getColour());
         card.setHue(rCard.getHue());
         card.setDiSEqCId(rCard.getDiSEqCId());
-        card.setDvbeitScan(rCard.isDVBEITScan());
+        card.setDvbeitScan(ServiceUtils.toPrimitive(rCard.isDVBEITScan()));
 
         return card;
     }

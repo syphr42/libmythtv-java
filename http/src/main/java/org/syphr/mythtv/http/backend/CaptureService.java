@@ -41,7 +41,7 @@ public interface CaptureService
 
     public CaptureCard getCaptureCard(int cardId);
 
-    public List<CaptureCard> getCaptureCards(String hostName, String cardType);
+    public List<CaptureCard> getCaptureCardList(String hostName, String cardType);
 
     public boolean removeCaptureCard(int cardId);
 

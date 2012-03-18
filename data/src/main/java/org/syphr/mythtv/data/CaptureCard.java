@@ -17,7 +17,7 @@ package org.syphr.mythtv.data;
 
 public class CaptureCard
 {
-    private Long cardId;
+    private long id;
     private String videoDevice;
     private String audioDevice;
     private String vbiDevice;
@@ -41,16 +41,16 @@ public class CaptureCard
     private Long colour;
     private Long hue;
     private Long diSEqCId;
-    private Boolean dvbeitScan;
+    private boolean dvbeitScan;
 
-    public Long getCardId()
+    public long getId()
     {
-        return cardId;
+        return id;
     }
 
-    public void setCardId(Long cardId)
+    public void setId(long id)
     {
-        this.cardId = cardId;
+        this.id = id;
     }
 
     public String getVideoDevice()
@@ -291,5 +291,95 @@ public class CaptureCard
     public void setDvbeitScan(Boolean dvbeitScan)
     {
         this.dvbeitScan = dvbeitScan;
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("CaptureCard [id=");
+        builder.append(id);
+        builder.append(", videoDevice=");
+        builder.append(videoDevice);
+        builder.append(", audioDevice=");
+        builder.append(audioDevice);
+        builder.append(", vbiDevice=");
+        builder.append(vbiDevice);
+        builder.append(", cardType=");
+        builder.append(cardType);
+        builder.append(", audioRateLimit=");
+        builder.append(audioRateLimit);
+        builder.append(", hostName=");
+        builder.append(hostName);
+        builder.append(", dvbswFilter=");
+        builder.append(dvbswFilter);
+        builder.append(", dvbSatType=");
+        builder.append(dvbSatType);
+        builder.append(", dvbWaitForSeqStart=");
+        builder.append(dvbWaitForSeqStart);
+        builder.append(", skipBTAudio=");
+        builder.append(skipBTAudio);
+        builder.append(", dvbOnDemand=");
+        builder.append(dvbOnDemand);
+        builder.append(", dvbDiSEqCType=");
+        builder.append(dvbDiSEqCType);
+        builder.append(", firewireSpeed=");
+        builder.append(firewireSpeed);
+        builder.append(", firewireModel=");
+        builder.append(firewireModel);
+        builder.append(", firewireConnection=");
+        builder.append(firewireConnection);
+        builder.append(", signalTimeout=");
+        builder.append(signalTimeout);
+        builder.append(", channelTimeout=");
+        builder.append(channelTimeout);
+        builder.append(", dvbTuningDelay=");
+        builder.append(dvbTuningDelay);
+        builder.append(", contrast=");
+        builder.append(contrast);
+        builder.append(", brightness=");
+        builder.append(brightness);
+        builder.append(", colour=");
+        builder.append(colour);
+        builder.append(", hue=");
+        builder.append(hue);
+        builder.append(", diSEqCId=");
+        builder.append(diSEqCId);
+        builder.append(", dvbeitScan=");
+        builder.append(dvbeitScan);
+        builder.append("]");
+        return builder.toString();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int)(id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof CaptureCard))
+        {
+            return false;
+        }
+        CaptureCard other = (CaptureCard)obj;
+        if (id != other.id)
+        {
+            return false;
+        }
+        return true;
     }
 }
