@@ -69,7 +69,7 @@
 		<module>data</module>
 		<module>protocol</module>
 		<module>control</module>
-		<module>http</module>
+		<module>ws</module>
 		<module>db</module>
 		<module>api</module>
 		<module>example</module>
