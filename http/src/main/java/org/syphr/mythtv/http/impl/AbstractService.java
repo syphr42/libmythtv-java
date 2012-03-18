@@ -20,10 +20,20 @@ import java.net.URI;
 
 import javax.xml.ws.BindingProvider;
 
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
+import org.syphr.mythtv.commons.unsupported.UnsupportedHandlerLog;
+import org.syphr.mythtv.http.Service;
 import org.syphr.mythtv.http.ServiceVersionException;
 
-public abstract class AbstractService
+public abstract class AbstractService implements Service
 {
+    private UnsupportedHandler unsupported;
+
+    public AbstractService()
+    {
+        unsupported = new UnsupportedHandlerLog();
+    }
+
     protected void configureAndVerify(String host, int port, BindingProvider provider) throws ServiceVersionException,
                                                                                       IOException
     {
@@ -31,6 +41,22 @@ public abstract class AbstractService
 
         provider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, uri.toString());
         ServiceUtils.verifyVersion(uri, getVersion(), getName());
+    }
+
+    @Override
+    public void setUnsupportedHandler(UnsupportedHandler unsupported)
+    {
+        this.unsupported = unsupported;
+    }
+
+    protected UnsupportedHandler getUnsupportedHandler()
+    {
+        return unsupported;
+    }
+
+    protected void handleUnsupported(String opDescription)
+    {
+        unsupported.handle(opDescription);
     }
 
     protected abstract String getName();
