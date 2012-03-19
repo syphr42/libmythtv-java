@@ -39,7 +39,7 @@
 				<include>org.syphr:libmythtv-db</include>
 				<include>org.syphr:libmythtv-ws</include>
 				<include>org.syphr:libmythtv-protocol</include>
-				<include>org.syphr:libmythtv-util</include>
+				<include>org.syphr:libmythtv-commons</include>
 			</includes>
 
 			<binaries>

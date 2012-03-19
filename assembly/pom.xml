@@ -81,7 +81,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.syphr</groupId>
-			<artifactId>libmythtv-util</artifactId>
+			<artifactId>libmythtv-commons</artifactId>
 			<version>${project.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
