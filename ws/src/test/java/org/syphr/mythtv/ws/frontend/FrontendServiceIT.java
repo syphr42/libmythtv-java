@@ -24,8 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.test.Settings;
 import org.syphr.mythtv.ws.ServiceFactory;
 import org.syphr.mythtv.ws.ServiceVersion;
-import org.syphr.mythtv.ws.frontend.FrontendService;
-import org.syphr.mythtv.ws.frontend.FrontendServices;
 import org.syphr.prom.PropertiesManager;
 
 public class FrontendServiceIT
@@ -47,6 +45,18 @@ public class FrontendServiceIT
                            settings.getIntegerProperty(Settings.FRONTEND_HTTP_PORT));
 
         frontend = services.getFrontendService();
+    }
+
+    @Test
+    public void testGetActionList()
+    {
+        LOGGER.debug("Action list: {}", frontend.getActionList(frontend.getContextList().get(0)));
+    }
+
+    @Test
+    public void testGetContextList()
+    {
+        LOGGER.debug("Context list: {}", frontend.getContextList());
     }
 
     @Test

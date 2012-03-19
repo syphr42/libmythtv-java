@@ -18,12 +18,12 @@ package org.syphr.mythtv.ws.frontend;
 import java.util.Calendar;
 import java.util.List;
 
-import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendActionList;
+import org.syphr.mythtv.ws.data.Action;
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendStatus;
 
 public interface FrontendService
 {
-    public FrontendActionList getActionList(String context);
+    public List<Action> getActionList(String context);
 
     public List<String> getContextList();
 

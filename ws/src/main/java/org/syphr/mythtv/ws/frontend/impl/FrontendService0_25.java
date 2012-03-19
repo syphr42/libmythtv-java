@@ -16,17 +16,21 @@
 package org.syphr.mythtv.ws.frontend.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.xml.ws.BindingProvider;
 
 import org.syphr.mythtv.ws.ServiceVersionException;
+import org.syphr.mythtv.ws.data.Action;
 import org.syphr.mythtv.ws.frontend.FrontendService;
+import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.ArrayOfString;
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.Frontend;
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendActionList;
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendServices;
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendStatus;
+import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.MapOfStringAction;
 import org.syphr.mythtv.ws.impl.AbstractService;
 import org.syphr.mythtv.ws.impl.ServiceUtils;
 
@@ -59,16 +63,15 @@ public class FrontendService0_25 extends AbstractService implements FrontendServ
     }
 
     @Override
-    public FrontendActionList getActionList(String context)
+    public List<Action> getActionList(String context)
     {
-        return service.getActionList(context);
+        return toActionList(service.getActionList(context));
     }
 
     @Override
     public List<String> getContextList()
     {
-        // TODO
-        return null;//service.getContextList();
+        return toStringList(service.getContextList());
     }
 
     @Override
@@ -99,5 +102,57 @@ public class FrontendService0_25 extends AbstractService implements FrontendServ
     public boolean sendMessage(String message, Long timeout)
     {
         return ServiceUtils.toPrimitive(service.sendMessage(message, timeout));
+    }
+
+    protected List<Action> toActionList(FrontendActionList frontendActionList)
+    {
+        List<Action> list = new ArrayList<Action>();
+
+        if (frontendActionList == null)
+        {
+            return list;
+        }
+
+        MapOfStringAction mapOfStringAction = frontendActionList.getActionList();
+        if (mapOfStringAction == null)
+        {
+            return list;
+        }
+
+        List<org.syphr.mythtv.ws.frontend.impl._0_25.frontend.MapOfStringAction.Action> actions = mapOfStringAction.getActions();
+        if (actions == null)
+        {
+            return list;
+        }
+
+        for (org.syphr.mythtv.ws.frontend.impl._0_25.frontend.MapOfStringAction.Action rAction : actions)
+        {
+            Action action = new Action();
+            action.setValue(rAction.getKey());
+            action.setDescription(rAction.getValue());
+
+            list.add(action);
+        }
+
+        return list;
+    }
+
+    protected List<String> toStringList(ArrayOfString arrayOfString)
+    {
+        List<String> list = new ArrayList<String>();
+
+        if (arrayOfString == null)
+        {
+            return list;
+        }
+
+        List<String> strings = arrayOfString.getStrings();
+        if (strings == null)
+        {
+            return list;
+        }
+
+        list.addAll(strings);
+        return list;
     }
 }
