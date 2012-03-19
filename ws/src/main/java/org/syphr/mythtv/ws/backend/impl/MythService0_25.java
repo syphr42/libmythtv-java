@@ -105,13 +105,13 @@ public class MythService0_25 extends AbstractService implements MythService
     @Override
     public List<String> getHosts()
     {
-        return toList(service.getHosts());
+        return toStringList(service.getHosts());
     }
 
     @Override
     public List<String> getKeys()
     {
-        return toList(service.getKeys());
+        return toStringList(service.getKeys());
     }
 
     @Override
@@ -221,15 +221,22 @@ public class MythService0_25 extends AbstractService implements MythService
                                                                dbPort));
     }
 
-    protected List<String> toList(ArrayOfString stringArray)
+    protected List<String> toStringList(ArrayOfString arrayOfString)
     {
         List<String> list = new ArrayList<String>();
 
-        if (stringArray != null)
+        if (arrayOfString == null)
         {
-            list.addAll(stringArray.getStrings());
+            return list;
         }
 
+        List<String> strings = arrayOfString.getStrings();
+        if (strings == null)
+        {
+            return list;
+        }
+
+        list.addAll(strings);
         return list;
     }
 }
