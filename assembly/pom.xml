@@ -103,7 +103,6 @@
 						
 							<descriptors>
 								<descriptor>src/main/assembly/bin.xml</descriptor>
-								<descriptor>src/main/assembly/bin-example.xml</descriptor>
 								<descriptor>src/main/assembly/src.xml</descriptor>
 							</descriptors>
 						</configuration>

@@ -32,15 +32,9 @@
 		<moduleSet>
 			<useAllReactorProjects>true</useAllReactorProjects>
 
-			<includes>
-				<include>org.syphr:libmythtv-api</include>
-				<include>org.syphr:libmythtv-control</include>
-				<include>org.syphr:libmythtv-data</include>
-				<include>org.syphr:libmythtv-db</include>
-				<include>org.syphr:libmythtv-ws</include>
-				<include>org.syphr:libmythtv-protocol</include>
-				<include>org.syphr:libmythtv-commons</include>
-			</includes>
+            <includes>
+                <include>org.syphr:libmythtv-*</include>
+            </includes>
 
 			<binaries>
 				<outputDirectory>${project.parent.artifactId}-${project.parent.version}/lib</outputDirectory>

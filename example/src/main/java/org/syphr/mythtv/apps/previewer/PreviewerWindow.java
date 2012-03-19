@@ -80,7 +80,7 @@ public class PreviewerWindow extends JFrame
         viewerPanel.setBorder(BorderFactory.createTitledBorder("Preview Image"));
         add(viewerPanel, BorderLayout.CENTER);
 
-        final JComboBox<Program> programsComboBox = new JComboBox<Program>();
+        final JComboBox programsComboBox = new JComboBox();
         programsComboBox.setRenderer(new DefaultListCellRenderer()
         {
             /**
@@ -138,7 +138,7 @@ public class PreviewerWindow extends JFrame
         });
 
         List<RecordingCategory> categories = protocol.getAvailableTypes(RecordingCategory.class);
-        JComboBox<RecordingCategory> categoriesComboBox = new JComboBox<RecordingCategory>(categories.toArray(new RecordingCategory[categories.size()]));
+        JComboBox categoriesComboBox = new JComboBox(categories.toArray(new RecordingCategory[categories.size()]));
         categoriesComboBox.addItemListener(new ItemListener()
         {
             @Override
@@ -162,7 +162,7 @@ public class PreviewerWindow extends JFrame
                     LOGGER.error("Unable to retrieve programs of type " + category, e);
                 }
 
-                programsComboBox.setModel(new DefaultComboBoxModel<Program>(programs.toArray(new Program[programs.size()])));
+                programsComboBox.setModel(new DefaultComboBoxModel(programs.toArray(new Program[programs.size()])));
                 programsComboBox.setSelectedItem(null);
             }
         });
