@@ -15,14 +15,10 @@
  */
 package org.syphr.mythtv.ws.backend.impl;
 
-import java.io.IOException;
-
-import org.syphr.mythtv.ws.ServiceVersionException;
-
 public class BackendServices0_24 extends AbstractBackendServices
 {
     @Override
-    public void configure(String host, int port) throws ServiceVersionException, IOException
+    public void configure(String host, int port)
     {
         setCaptureService(new CaptureService0_24());
         setChannelService(new ChannelService0_24());
