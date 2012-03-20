@@ -17,20 +17,25 @@ package org.syphr.mythtv.ws.frontend.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.ws.BindingProvider;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.syphr.mythtv.ws.ServiceVersionException;
 import org.syphr.mythtv.ws.data.Action;
+import org.syphr.mythtv.ws.data.FrontendStatus;
 import org.syphr.mythtv.ws.frontend.FrontendService;
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.ArrayOfString;
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.Frontend;
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendActionList;
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendServices;
-import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendStatus;
 import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.MapOfStringAction;
+import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.MapOfStringString;
+import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.MapOfStringTrack;
+import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.MapOfStringTrack.Track;
 import org.syphr.mythtv.ws.impl.AbstractService;
 import org.syphr.mythtv.ws.impl.ServiceUtils;
 
@@ -77,13 +82,14 @@ public class FrontendService0_25 extends AbstractService implements FrontendServ
     @Override
     public FrontendStatus getStatus()
     {
-        return service.getStatus();
+        return toFrontendStatus(service.getStatus());
     }
 
     @Override
-    public boolean playRecording(Integer chanID, Calendar startTime)
+    public boolean playRecording(long chanId, Date startTime)
     {
-        return ServiceUtils.toPrimitive(service.playRecording(chanID, startTime));
+        return ServiceUtils.toPrimitive(service.playRecording(Integer.valueOf((int)chanId),
+                                                              DateUtils.toCalendar(startTime)));
     }
 
     @Override
@@ -154,5 +160,61 @@ public class FrontendService0_25 extends AbstractService implements FrontendServ
 
         list.addAll(strings);
         return list;
+    }
+
+    private FrontendStatus toFrontendStatus(org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendStatus rFrontendStatus)
+    {
+        FrontendStatus frontendStatus = new FrontendStatus();
+
+        if (rFrontendStatus == null)
+        {
+            return frontendStatus;
+        }
+
+        frontendStatus.getChapterTimes().addAll(toStringList(rFrontendStatus.getChapterTimes()));
+
+        fillMap(rFrontendStatus.getState(), frontendStatus.getState());
+        fillMap(rFrontendStatus.getAudioTracks(), frontendStatus.getAudioTracks());
+        fillMap(rFrontendStatus.getSubtitleTracks(), frontendStatus.getSubtitleTracks());
+
+        return frontendStatus;
+    }
+
+    private void fillMap(MapOfStringString mapOfStringString, Map<String, String> map)
+    {
+        if (mapOfStringString == null)
+        {
+            return;
+        }
+
+        List<org.syphr.mythtv.ws.frontend.impl._0_25.frontend.MapOfStringString.String> strings = mapOfStringString.getStrings();
+        if (strings == null)
+        {
+            return;
+        }
+
+        for (org.syphr.mythtv.ws.frontend.impl._0_25.frontend.MapOfStringString.String string : strings)
+        {
+            map.put(string.getKey(), string.getValue());
+        }
+    }
+
+    private void fillMap(MapOfStringTrack mapOfStringTrack, Map<String, String> map)
+    {
+        if (mapOfStringTrack == null)
+        {
+            return;
+        }
+
+        List<Track> tracks = mapOfStringTrack.getTracks();
+        if (tracks == null)
+        {
+            return;
+        }
+
+        for (Track track : tracks)
+        {
+            map.put(track.getKey(), track.getValue());
+        }
     }
 }

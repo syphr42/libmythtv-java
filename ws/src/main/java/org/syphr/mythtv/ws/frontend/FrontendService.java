@@ -15,11 +15,11 @@
  */
 package org.syphr.mythtv.ws.frontend;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.syphr.mythtv.ws.data.Action;
-import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendStatus;
+import org.syphr.mythtv.ws.data.FrontendStatus;
 
 public interface FrontendService
 {
@@ -29,7 +29,7 @@ public interface FrontendService
 
     public FrontendStatus getStatus();
 
-    public boolean playRecording(Integer chanID, Calendar startTime);
+    public boolean playRecording(long chanId, Date startTime);
 
     public boolean playVideo(String id, Boolean useBookmark);
 

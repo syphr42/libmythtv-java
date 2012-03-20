@@ -16,12 +16,14 @@
 package org.syphr.mythtv.ws.frontend;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.test.Settings;
+import org.syphr.mythtv.test.Utils;
 import org.syphr.mythtv.ws.ServiceFactory;
 import org.syphr.mythtv.ws.ServiceVersion;
 import org.syphr.prom.PropertiesManager;
@@ -50,7 +52,13 @@ public class FrontendServiceIT
     @Test
     public void testGetActionList()
     {
-        LOGGER.debug("Action list: {}", frontend.getActionList(frontend.getContextList().get(0)));
+        List<String> contextList = frontend.getContextList();
+        if (contextList.isEmpty())
+        {
+            return;
+        }
+
+        LOGGER.debug("Action list: {}", frontend.getActionList(contextList.get(0)));
     }
 
     @Test
@@ -63,5 +71,14 @@ public class FrontendServiceIT
     public void testGetStatus()
     {
         LOGGER.debug("Status: {}", frontend.getStatus());
+    }
+
+    @Test
+    public void testSendMessage()
+    {
+        if (frontend.sendMessage("test", 2L))
+        {
+            Utils.waitSeconds(4, "remove frontend message dialog");
+        }
     }
 }

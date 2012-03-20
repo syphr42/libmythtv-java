@@ -15,12 +15,12 @@
  */
 package org.syphr.mythtv.ws.frontend.impl;
 
-import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.syphr.mythtv.ws.data.Action;
-import org.syphr.mythtv.ws.frontend.impl._0_25.frontend.FrontendStatus;
+import org.syphr.mythtv.ws.data.FrontendStatus;
 
 public class FrontendService0_24 extends AbstractFrontendService
 {
@@ -46,7 +46,7 @@ public class FrontendService0_24 extends AbstractFrontendService
     }
 
     @Override
-    public boolean playRecording(Integer chanID, Calendar startTime)
+    public boolean playRecording(long chanId, Date startTime)
     {
         handleUnsupported("play recording");
         return false;

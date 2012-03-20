@@ -39,4 +39,16 @@ public class Action
     {
         this.description = description;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Action [value=");
+        builder.append(value);
+        builder.append(", description=");
+        builder.append(description);
+        builder.append("]");
+        return builder.toString();
+    }
 }
