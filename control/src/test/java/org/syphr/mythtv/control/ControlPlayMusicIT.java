@@ -47,7 +47,7 @@ public class ControlPlayMusicIT
         control = Utils.connect(settings);
 
         control.jump(FrontendLocation.PLAY_MUSIC);
-        Utils.waitSeconds(10, "start music player");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "start music player");
 
         if (!FrontendLocation.PLAY_MUSIC.equals(control.queryLocation()))
         {
@@ -62,7 +62,7 @@ public class ControlPlayMusicIT
     public static void tearDownAfterClass() throws IOException, CommandException
     {
         control.playMusicStop();
-        Utils.waitSeconds(5, "stop playing music");
+        org.syphr.mythtv.test.Utils.waitSeconds(5, "stop playing music");
 
         control.jump(FrontendLocation.MAIN_MENU);
         control.exit();
@@ -72,21 +72,21 @@ public class ControlPlayMusicIT
     public void testPlayMusicPause() throws IOException, CommandException
     {
         control.playMusicPause();
-        Utils.waitSeconds(2, "pause music");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "pause music");
     }
 
     @Test
     public void testPlayMusicPlay() throws IOException, CommandException
     {
         control.playMusicPlay();
-        Utils.waitSeconds(5, "play music");
+        org.syphr.mythtv.test.Utils.waitSeconds(5, "play music");
     }
 
     @Test
     public void testPlayMusicSetVolume() throws IOException, CommandException
     {
         control.playMusicSetVolume(50);
-        Utils.waitSeconds(2, "set music volume to 50%");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "set music volume to 50%");
     }
 
     @Test(expected = ProtocolException.class)
@@ -99,7 +99,7 @@ public class ControlPlayMusicIT
         }
 
         control.playMusicSetVolume(-1);
-        Utils.waitSeconds(2, "set music volume to -1%");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "set music volume to -1%");
     }
 
     @Test(expected = ProtocolException.class)
@@ -112,7 +112,7 @@ public class ControlPlayMusicIT
         }
 
         control.playMusicSetVolume(101);
-        Utils.waitSeconds(2, "set music volume to 101%");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "set music volume to 101%");
     }
 
     @Test
@@ -131,21 +131,21 @@ public class ControlPlayMusicIT
     public void testPlayMusicFile() throws IOException, CommandException
     {
         control.playMusicFile("/var/lib/mythtv/music/test with spaces.mp3");
-        Utils.waitSeconds(5, "play music file");
+        org.syphr.mythtv.test.Utils.waitSeconds(5, "play music file");
     }
 
     @Test
     public void testPlayMusicTrack() throws IOException, CommandException
     {
         control.playMusicTrack(1);
-        Utils.waitSeconds(5, "play music track");
+        org.syphr.mythtv.test.Utils.waitSeconds(5, "play music track");
     }
 
     @Test
     public void testPlayMusicUrl() throws IOException, CommandException
     {
         control.playMusicUrl(new URL("http://scfire-mtc-aa05.stream.aol.com:80/stream/1010"));
-        Utils.waitSeconds(5, "play music url");
+        org.syphr.mythtv.test.Utils.waitSeconds(5, "play music url");
     }
 
     private boolean isVersionBefore(ControlVersion version)

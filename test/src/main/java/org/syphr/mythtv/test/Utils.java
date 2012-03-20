@@ -18,26 +18,41 @@ package org.syphr.mythtv.test;
 import java.util.Iterator;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Utils
 {
-    public static <T> void printFirstFive(Iterable<T> iterable, Logger logger)
+    private static Logger LOGGER = LoggerFactory.getLogger(Utils.class);
+
+    public static <T> void printFirstFive(Iterable<T> iterable)
     {
         int counter = 0;
         Iterator<T> iter = iterable.iterator();
 
         if (!iter.hasNext())
         {
-            logger.debug("No values to display.");
+            LOGGER.debug("No values to display.");
             return;
         }
 
-        logger.debug("(Up to) the first five:");
+        LOGGER.debug("(Up to) the first five:");
 
         while (iter.hasNext() && counter < 5)
         {
-            logger.debug(String.valueOf(iter.next()));
+            LOGGER.debug(String.valueOf(iter.next()));
             counter++;
+        }
+    }
+
+    public static void waitSeconds(int seconds, String message)
+    {
+        try
+        {
+            Thread.sleep(seconds * 1000);
+        }
+        catch (InterruptedException e)
+        {
+            LOGGER.warn("Interrupted while waiting for frontend to " + message, e);
         }
     }
 }

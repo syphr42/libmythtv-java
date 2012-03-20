@@ -55,7 +55,7 @@ public class ControlIT
          * Make sure the tests start at the main menu.
          */
         control.jump(FrontendLocation.MAIN_MENU);
-        Utils.waitSeconds(2, "jump to the main menu");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "jump to the main menu");
     }
 
     @AfterClass
@@ -68,18 +68,18 @@ public class ControlIT
     public void testJump() throws IOException
     {
         control.jump(FrontendLocation.MYTH_VIDEO);
-        Utils.waitSeconds(2, "jump to myth video");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "jump to myth video");
         control.jump(FrontendLocation.MAIN_MENU);
-        Utils.waitSeconds(2, "jump to the main menu");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "jump to the main menu");
     }
 
     @Test
     public void testKey() throws IOException
     {
         control.key('m');
-        Utils.waitSeconds(1, "show the context menu");
+        org.syphr.mythtv.test.Utils.waitSeconds(1, "show the context menu");
         control.key(Key.ESCAPE);
-        Utils.waitSeconds(1, "escape the context menu");
+        org.syphr.mythtv.test.Utils.waitSeconds(1, "escape the context menu");
     }
 
     @Test(expected = CommandException.class)
@@ -116,12 +116,12 @@ public class ControlIT
      * This test is commented out because there is no way to retrieve a valid
      * myth:// URI or local filename through the frontend control socket.
      */
-//    @Test
-//    public void testPlayFile() throws IOException, CommandException
-//    {
-//        control.playFile("/tmp/test-file.mpg");
-//        Utils.waitSeconds(10, "play file");
-//    }
+    //    @Test
+    //    public void testPlayFile() throws IOException, CommandException
+    //    {
+    //        control.playFile("/tmp/test-file.mpg");
+    //        Utils.waitSeconds(10, "play file");
+    //    }
 
     @Test
     public void testPlayProgram() throws IOException, CommandException
@@ -135,10 +135,10 @@ public class ControlIT
 
         Program recording = recordings.get(0);
         control.playProgram(recording.getChannel().getId(), recording.getRecStartTs(), false);
-        Utils.waitSeconds(10, "play program");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "play program");
 
         control.jump(FrontendLocation.MAIN_MENU);
-        Utils.waitSeconds(2, "jump to the main menu");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "jump to the main menu");
     }
 
     @Test(expected = CommandException.class)
@@ -211,8 +211,7 @@ public class ControlIT
     @Test
     public void testQueryRecordings() throws IOException
     {
-        org.syphr.mythtv.test.Utils.printFirstFive(control.queryRecordings(),
-                                                   LOGGER);
+        org.syphr.mythtv.test.Utils.printFirstFive(control.queryRecordings());
     }
 
     @Test
@@ -227,7 +226,8 @@ public class ControlIT
         }
 
         Program request = recordings.get(recordings.size() - 1);
-        Program response = control.queryRecording(request.getChannel().getId(), request.getRecStartTs());
+        Program response = control.queryRecording(request.getChannel().getId(),
+                                                  request.getRecStartTs());
 
         Assert.assertEquals(request, response);
     }
@@ -242,8 +242,7 @@ public class ControlIT
     @Test
     public void testQueryLiveTv() throws IOException
     {
-        org.syphr.mythtv.test.Utils.printFirstFive(control.queryLiveTv(),
-                                                   LOGGER);
+        org.syphr.mythtv.test.Utils.printFirstFive(control.queryLiveTv());
     }
 
     @Test
@@ -329,8 +328,19 @@ public class ControlIT
     @SuppressWarnings("serial")
     public void testSetVerbose() throws IOException, CommandException
     {
-        control.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.AUDIO); add(Verbose.PLAYBACK); }});
-        control.setVerbose(new ArrayList<Verbose>() {{ add(Verbose.DEFAULT); }});
+        control.setVerbose(new ArrayList<Verbose>()
+        {
+            {
+                add(Verbose.AUDIO);
+                add(Verbose.PLAYBACK);
+            }
+        });
+        control.setVerbose(new ArrayList<Verbose>()
+        {
+            {
+                add(Verbose.DEFAULT);
+            }
+        });
     }
 
     @Test
@@ -343,7 +353,7 @@ public class ControlIT
     public void testMessage() throws IOException
     {
         control.message("This is a test message!");
-        Utils.waitSeconds(2, "message prompt");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "message prompt");
 
         control.jump(FrontendLocation.MAIN_MENU);
     }

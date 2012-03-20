@@ -356,7 +356,7 @@ public class ProtocolIT
 
         LOGGER.debug("Conflicts? {}", upcoming.isConflicted());
         LOGGER.debug("Upcoming count: {}", upcoming.size());
-        org.syphr.mythtv.test.Utils.printFirstFive(upcoming, LOGGER);
+        org.syphr.mythtv.test.Utils.printFirstFive(upcoming);
     }
 
     @Test
@@ -364,7 +364,7 @@ public class ProtocolIT
     {
         List<Program> scheduled = proto.queryGetAllScheduled();
         LOGGER.debug("Scheduled count: {}", scheduled.size());
-        org.syphr.mythtv.test.Utils.printFirstFive(scheduled, LOGGER);
+        org.syphr.mythtv.test.Utils.printFirstFive(scheduled);
     }
 
     @Test
@@ -397,7 +397,7 @@ public class ProtocolIT
 
         List<Program> conflicted = proto.queryGetConflicting(program);
         LOGGER.debug("Conflicted count: {}", conflicted.size());
-        org.syphr.mythtv.test.Utils.printFirstFive(conflicted, LOGGER);
+        org.syphr.mythtv.test.Utils.printFirstFive(conflicted);
     }
 
     @Test
@@ -405,7 +405,7 @@ public class ProtocolIT
     {
         List<Program> expiring = proto.queryGetExpiring();
         LOGGER.debug("Expiring count: {}", expiring.size());
-        org.syphr.mythtv.test.Utils.printFirstFive(expiring, LOGGER);
+        org.syphr.mythtv.test.Utils.printFirstFive(expiring);
     }
 
     @Test
@@ -499,7 +499,7 @@ public class ProtocolIT
         {
             List<Program> list = proto.queryRecordings(category);
             LOGGER.debug("{} count: {}", category.toString(), list.size());
-            org.syphr.mythtv.test.Utils.printFirstFive(list, LOGGER);
+            org.syphr.mythtv.test.Utils.printFirstFive(list);
         }
     }
 

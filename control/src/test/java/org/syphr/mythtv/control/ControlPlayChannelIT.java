@@ -49,7 +49,7 @@ public class ControlPlayChannelIT
         control = Utils.connect(settings);
 
         control.jump(FrontendLocation.LIVE_TV);
-        Utils.waitSeconds(10, "start live TV");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "start live TV");
 
         PlaybackInfo pbInfo = control.queryPlaybackInfo();
         if (pbInfo == null)
@@ -65,7 +65,7 @@ public class ControlPlayChannelIT
     public static void tearDownAfterClass() throws IOException, CommandException
     {
         control.playStop();
-        Utils.waitSeconds(5, "stop playing video");
+        org.syphr.mythtv.test.Utils.waitSeconds(5, "stop playing video");
 
         control.jump(FrontendLocation.MAIN_MENU);
         control.exit();
@@ -75,35 +75,35 @@ public class ControlPlayChannelIT
     public void testPlayVolume() throws IOException, CommandException
     {
         control.playVolume(50);
-        Utils.waitSeconds(2, "set volume to 50%");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "set volume to 50%");
     }
 
     @Test(expected = ProtocolException.class)
     public void testPlayVolumeTooLow() throws IOException, CommandException
     {
         control.playVolume(-1);
-        Utils.waitSeconds(2, "set volume to -1%");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "set volume to -1%");
     }
 
     @Test(expected = ProtocolException.class)
     public void testPlayVolumeTooHigh() throws IOException, CommandException
     {
         control.playVolume(101);
-        Utils.waitSeconds(2, "set volume to 101%");
+        org.syphr.mythtv.test.Utils.waitSeconds(2, "set volume to 101%");
     }
 
     @Test
     public void testPlayChannelUp() throws IOException, CommandException
     {
         control.playChannelUp();
-        Utils.waitSeconds(10, "channel up");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "channel up");
     }
 
     @Test
     public void testPlayChannelDown() throws IOException, CommandException
     {
         control.playChannelDown();
-        Utils.waitSeconds(10, "channel down");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "channel down");
     }
 
     /*
@@ -130,7 +130,7 @@ public class ControlPlayChannelIT
         Channel channel = channels.get(0);
         control.playChannel(channel.getId());
 
-        Utils.waitSeconds(10, "change channels");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "change channels");
     }
 
     @Test
@@ -157,7 +157,7 @@ public class ControlPlayChannelIT
         for (SeekTarget target : SeekTarget.values())
         {
             control.playSeek(target);
-            Utils.waitSeconds(10, "seek to " + target);
+            org.syphr.mythtv.test.Utils.waitSeconds(10, "seek to " + target);
         }
     }
 
@@ -165,41 +165,41 @@ public class ControlPlayChannelIT
     public void testPlaySeekTime() throws IOException, CommandException
     {
         control.playSeek(0, 0, 10);
-        Utils.waitSeconds(10, "seek to 10 seconds past the start");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "seek to 10 seconds past the start");
     }
 
     @Test
     public void testPlaySpeedPause() throws IOException, CommandException
     {
         control.playSpeed(0);
-        Utils.waitSeconds(10, "pause");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "pause");
     }
 
     @Test
     public void testPlaySpeedFast() throws IOException, CommandException
     {
         control.playSpeed(1.5f);
-        Utils.waitSeconds(10, "play at 1.5x speed");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "play at 1.5x speed");
     }
 
     @Test(expected = ProtocolException.class)
     public void testPlaySpeedBackInvalid() throws IOException, CommandException
     {
         control.playSpeed(-0.5f);
-        Utils.waitSeconds(10, "play at -0.5x speed");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "play at -0.5x speed");
     }
 
     @Test
     public void testPlaySpeedBack() throws IOException, CommandException
     {
         control.playSpeed(-3.0f);
-        Utils.waitSeconds(10, "play at -3.0x speed");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "play at -3.0x speed");
     }
 
     @Test
     public void testPlaySpeedNormal() throws IOException, CommandException
     {
         control.playSpeed(1.0f);
-        Utils.waitSeconds(10, "play at normal speed");
+        org.syphr.mythtv.test.Utils.waitSeconds(10, "play at normal speed");
     }
 }

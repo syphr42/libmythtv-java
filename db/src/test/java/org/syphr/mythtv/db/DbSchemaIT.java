@@ -195,6 +195,6 @@ public class DbSchemaIT
                                                   entityType);
         query.setMaxResults(5);
 
-        Utils.printFirstFive(query.getResultList(), logger);
+        Utils.printFirstFive(query.getResultList());
     }
 }
