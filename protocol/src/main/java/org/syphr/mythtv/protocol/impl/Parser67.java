@@ -15,6 +15,7 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import java.io.File;
 import java.net.URI;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,6 +28,7 @@ import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
 import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.DriveInfo;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.AudioProperty;
 import org.syphr.mythtv.types.ProgramFlag;
@@ -37,11 +39,49 @@ import org.syphr.mythtv.types.RecordingType;
 import org.syphr.mythtv.types.SubtitleType;
 import org.syphr.mythtv.types.VideoProperty;
 
-public class Parser67 extends Parser66
+public class Parser67 extends Parser63
 {
     public Parser67(Translator translator)
     {
         super(translator);
+    }
+
+    @Override
+    public List<DriveInfo> parseDriveInfo(String value) throws ProtocolException
+    {
+        List<DriveInfo> drives = new ArrayList<DriveInfo>();
+
+        try
+        {
+            List<String> args = splitArguments(value);
+
+            for (int i = 0; i < args.size();)
+            {
+                String hostname = args.get(i++);
+                File driveRoot = new File(args.get(i++));
+                boolean local = "1".equals(args.get(i++));
+                long driveNumber = Long.parseLong(args.get(i++));
+                long storageGroupId = Long.parseLong(args.get(i++));
+                long blockSize = Long.parseLong(args.get(i++));
+                long totalSpace = Long.parseLong(args.get(i++));
+                long usedSpace = Long.parseLong(args.get(i++));
+
+                drives.add(new DriveInfo(hostname,
+                                         driveRoot,
+                                         local,
+                                         driveNumber,
+                                         storageGroupId,
+                                         blockSize,
+                                         totalSpace,
+                                         usedSpace));
+            }
+        }
+        catch (RuntimeException e)
+        {
+            throw new ProtocolException(value, Direction.RECEIVE, e);
+        }
+
+        return drives;
     }
 
     @Override
