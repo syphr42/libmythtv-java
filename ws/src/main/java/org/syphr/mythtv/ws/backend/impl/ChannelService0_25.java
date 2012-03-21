@@ -16,20 +16,23 @@
 package org.syphr.mythtv.ws.backend.impl;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.xml.ws.BindingProvider;
 
-import org.syphr.mythtv.data.ChannelInfo;
+import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Lineup;
 import org.syphr.mythtv.data.Program;
+import org.syphr.mythtv.data.VideoMultiplex;
 import org.syphr.mythtv.data.VideoSource;
 import org.syphr.mythtv.ws.ServiceVersionException;
 import org.syphr.mythtv.ws.backend.ChannelService;
+import org.syphr.mythtv.ws.backend.impl._0_25.channel.ArrayOfChannelInfo;
 import org.syphr.mythtv.ws.backend.impl._0_25.channel.ArrayOfProgram;
-import org.syphr.mythtv.ws.backend.impl._0_25.channel.Channel;
 import org.syphr.mythtv.ws.backend.impl._0_25.channel.ChannelServices;
-import org.syphr.mythtv.ws.backend.impl._0_25.channel.VideoMultiplex;
+import org.syphr.mythtv.ws.data.ChannelInfo;
+import org.syphr.mythtv.ws.data.ChannelInfoList;
 import org.syphr.mythtv.ws.impl.AbstractService;
 import org.syphr.mythtv.ws.impl.ServiceUtils;
 
@@ -39,7 +42,7 @@ public class ChannelService0_25 extends AbstractService implements ChannelServic
 
     private static final String VERSION = "1.2";
 
-    private final Channel service;
+    private final org.syphr.mythtv.ws.backend.impl._0_25.channel.Channel service;
 
     public ChannelService0_25(String host, int port) throws ServiceVersionException, IOException
     {
@@ -62,7 +65,7 @@ public class ChannelService0_25 extends AbstractService implements ChannelServic
     }
 
     @Override
-    public boolean addDBChannel(org.syphr.mythtv.data.Channel channel)
+    public boolean addDBChannel(Channel channel)
     {
         return ServiceUtils.toPrimitive(service.addDBChannel(channel.getMplexId(),
                                                              channel.getSourceId(),
@@ -109,10 +112,9 @@ public class ChannelService0_25 extends AbstractService implements ChannelServic
     }
 
     @Override
-    public List<ChannelInfo> getChannelInfoList(int sourceId, int startIndex, int count)
+    public ChannelInfoList getChannelInfoList(int sourceId, int startIndex, int count)
     {
-        // TODO
-        return null;//service.getChannelInfoList(sourceId, startIndex, count);
+        return convert(service.getChannelInfoList(sourceId, startIndex, count));
     }
 
     @Override
@@ -125,7 +127,8 @@ public class ChannelService0_25 extends AbstractService implements ChannelServic
     @Override
     public VideoMultiplex getVideoMultiplex(int mplexId)
     {
-        return service.getVideoMultiplex(mplexId);
+        // TODO
+        return null;//service.getVideoMultiplex(mplexId);
     }
 
     @Override
@@ -202,6 +205,49 @@ public class ChannelService0_25 extends AbstractService implements ChannelServic
                                                                   videoSource.isUseEIT(),
                                                                   videoSource.getConfigPath(),
                                                                   videoSource.getNitId()));
+    }
+
+    private ChannelInfoList convert(org.syphr.mythtv.ws.backend.impl._0_25.channel.ChannelInfoList rChannelInfoList)
+    {
+        ChannelInfoList channelInfoList = new ChannelInfoList();
+
+        if (rChannelInfoList == null)
+        {
+            return channelInfoList;
+        }
+
+        channelInfoList.setStartIndex(rChannelInfoList.getStartIndex());
+        channelInfoList.setCount(rChannelInfoList.getCount());
+        channelInfoList.setCurrentPage(rChannelInfoList.getCurrentPage());
+        channelInfoList.setTotalPages(rChannelInfoList.getTotalPages());
+        channelInfoList.setTotalAvailable(rChannelInfoList.getTotalAvailable());
+        channelInfoList.setVersion(rChannelInfoList.getVersion());
+        channelInfoList.setProtoVer(rChannelInfoList.getProtoVer());
+
+        Calendar asOf = rChannelInfoList.getAsOf().getValue();
+        if (asOf != null)
+        {
+            channelInfoList.setAsOf(asOf.getTime());
+        }
+
+        ArrayOfChannelInfo arrayOfChannelInfo = rChannelInfoList.getChannelInfos();
+        if (arrayOfChannelInfo == null)
+        {
+            return channelInfoList;
+        }
+
+        List<org.syphr.mythtv.ws.backend.impl._0_25.channel.ChannelInfo> channelInfos = arrayOfChannelInfo.getChannelInfos();
+        if (channelInfos == null)
+        {
+            return channelInfoList;
+        }
+
+        for (org.syphr.mythtv.ws.backend.impl._0_25.channel.ChannelInfo channelInfo : channelInfos)
+        {
+            channelInfoList.getChannelInfos().add(convert(channelInfo));
+        }
+
+        return channelInfoList;
     }
 
     private ChannelInfo convert(org.syphr.mythtv.ws.backend.impl._0_25.channel.ChannelInfo rChannelInfo)

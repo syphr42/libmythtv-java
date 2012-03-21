@@ -18,10 +18,11 @@ package org.syphr.mythtv.ws.backend;
 import java.util.List;
 
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.data.ChannelInfo;
 import org.syphr.mythtv.data.Lineup;
+import org.syphr.mythtv.data.VideoMultiplex;
 import org.syphr.mythtv.data.VideoSource;
-import org.syphr.mythtv.ws.backend.impl._0_25.channel.VideoMultiplex;
+import org.syphr.mythtv.ws.data.ChannelInfo;
+import org.syphr.mythtv.ws.data.ChannelInfoList;
 
 public interface ChannelService
 {
@@ -33,7 +34,7 @@ public interface ChannelService
 
     public ChannelInfo getChannelInfo(int channelId);
 
-    public List<ChannelInfo> getChannelInfoList(int sourceId, int startIndex, int count);
+    public ChannelInfoList getChannelInfoList(int sourceId, int startIndex, int count);
 
     public List<Lineup> getDDLineupList(String source, String userId, String password);
 

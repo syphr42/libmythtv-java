@@ -19,10 +19,11 @@ import java.util.Collections;
 import java.util.List;
 
 import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.data.ChannelInfo;
 import org.syphr.mythtv.data.Lineup;
+import org.syphr.mythtv.data.VideoMultiplex;
 import org.syphr.mythtv.data.VideoSource;
-import org.syphr.mythtv.ws.backend.impl._0_25.channel.VideoMultiplex;
+import org.syphr.mythtv.ws.data.ChannelInfo;
+import org.syphr.mythtv.ws.data.ChannelInfoList;
 
 public class ChannelService0_24 extends AbstractChannelService
 {
@@ -55,10 +56,10 @@ public class ChannelService0_24 extends AbstractChannelService
     }
 
     @Override
-    public List<ChannelInfo> getChannelInfoList(int sourceId, int startIndex, int count)
+    public ChannelInfoList getChannelInfoList(int sourceId, int startIndex, int count)
     {
         handleUnsupported("get channel info list");
-        return Collections.emptyList();
+        return null;
     }
 
     @Override

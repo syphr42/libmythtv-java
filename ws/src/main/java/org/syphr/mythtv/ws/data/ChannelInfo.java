@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.data;
+package org.syphr.mythtv.ws.data;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.syphr.mythtv.data.Channel;
+import org.syphr.mythtv.data.Program;
 
 public class ChannelInfo
 {
@@ -41,11 +44,6 @@ public class ChannelInfo
         }
 
         return programs;
-    }
-
-    public void setPrograms(List<Program> programs)
-    {
-        this.programs = programs;
     }
 
     @Override
