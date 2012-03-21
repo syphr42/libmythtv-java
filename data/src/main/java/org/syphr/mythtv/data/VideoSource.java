@@ -17,16 +17,16 @@ package org.syphr.mythtv.data;
 
 public class VideoSource
 {
-    protected long id;
-    protected String sourceName;
-    protected String grabber;
-    protected String userId;
-    protected String freqTable;
-    protected String lineupId;
-    protected String password;
-    protected boolean useEIT;
-    protected String configPath;
-    protected Integer nitId;
+    private long id;
+    private String sourceName;
+    private String grabber;
+    private String userId;
+    private String freqTable;
+    private String lineupId;
+    private String password;
+    private boolean useEIT;
+    private String configPath;
+    private Integer nitId;
 
     public long getId()
     {
