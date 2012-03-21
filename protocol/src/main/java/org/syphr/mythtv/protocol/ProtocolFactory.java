@@ -17,14 +17,6 @@ package org.syphr.mythtv.protocol;
 
 import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.protocol.impl.Protocol63;
-import org.syphr.mythtv.protocol.impl.Protocol64;
-import org.syphr.mythtv.protocol.impl.Protocol65;
-import org.syphr.mythtv.protocol.impl.Protocol66;
-import org.syphr.mythtv.protocol.impl.Protocol67;
-import org.syphr.mythtv.protocol.impl.Protocol68;
-import org.syphr.mythtv.protocol.impl.Protocol69;
-import org.syphr.mythtv.protocol.impl.Protocol70;
-import org.syphr.mythtv.protocol.impl.Protocol71;
 import org.syphr.mythtv.protocol.impl.Protocol72;
 
 /**
@@ -66,30 +58,6 @@ public class ProtocolFactory
         {
             case _63:
                 return new Protocol63(socketManager);
-
-            case _64:
-                return new Protocol64(socketManager);
-
-            case _65:
-                return new Protocol65(socketManager);
-
-            case _66:
-                return new Protocol66(socketManager);
-
-            case _67:
-                return new Protocol67(socketManager);
-
-            case _68:
-                return new Protocol68(socketManager);
-
-            case _69:
-                return new Protocol69(socketManager);
-
-            case _70:
-                return new Protocol70(socketManager);
-
-            case _71:
-                return new Protocol71(socketManager);
 
             case _72:
                 return new Protocol72(socketManager);

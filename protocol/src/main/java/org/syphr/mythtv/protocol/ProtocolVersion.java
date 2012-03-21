@@ -25,14 +25,6 @@ import java.util.regex.Pattern;
 public enum ProtocolVersion
 {
     _63,
-    _64,
-    _65,
-    _66,
-    _67,
-    _68,
-    _69,
-    _70,
-    _71,
     _72;
     
     /**
