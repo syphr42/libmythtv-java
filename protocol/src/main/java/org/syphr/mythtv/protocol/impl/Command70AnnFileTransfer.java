@@ -15,15 +15,19 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
+import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
 import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.types.FileTransferType;
 
-/* default */class Command70AnnFileTransfer extends Command66AnnFileTransfer
+/* default */class Command70AnnFileTransfer extends Command63AnnFileTransfer
 {
     public Command70AnnFileTransfer(Translator translator,
                                     Parser parser,
@@ -46,6 +50,34 @@ import org.syphr.mythtv.types.FileTransferType;
               storageGroup,
               commandSocketManager,
               unsupported);
+    }
+
+    @Override
+    public QueryFileTransfer send(SocketManager socketManager) throws IOException
+    {
+        String response = socketManager.sendAndWait(getMessage());
+        List<String> args = getParser().splitArguments(response);
+        if (args.size() != 3)
+        {
+            throw new ProtocolException(response, Direction.RECEIVE);
+        }
+
+        try
+        {
+            if (!"OK".equals(args.get(0)))
+            {
+                throw new ProtocolException(response, Direction.RECEIVE);
+            }
+
+            int socketNumber = Integer.parseInt(args.get(1));
+            long size = Long.parseLong(args.get(2));
+
+            return createQueryFileTransfer(socketNumber, size);
+        }
+        catch (NumberFormatException e)
+        {
+            throw new ProtocolException(response, Direction.RECEIVE, e);
+        }
     }
 
     @Override

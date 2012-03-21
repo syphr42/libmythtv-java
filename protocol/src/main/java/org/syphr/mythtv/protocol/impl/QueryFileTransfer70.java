@@ -21,8 +21,9 @@ import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.types.FileTransferType;
+import org.syphr.mythtv.types.SeekOrigin;
 
-public class QueryFileTransfer70 extends QueryFileTransfer66
+public class QueryFileTransfer70 extends QueryFileTransfer63
 {
     public QueryFileTransfer70(Translator translator,
                                Parser parser,
@@ -33,6 +34,17 @@ public class QueryFileTransfer70 extends QueryFileTransfer66
                                UnsupportedHandler unsupported)
     {
         super(translator, parser, socketNumber, size, transferType, socketManager, unsupported);
+    }
+
+    @Override
+    public long seek(long position, SeekOrigin origin, long curPosition) throws IOException
+    {
+        return new Command66QueryFileTransferSeek(getTranslator(),
+                                                  getParser(),
+                                                  getSocketNumber(),
+                                                  position,
+                                                  origin,
+                                                  curPosition).send(getSocketManager());
     }
 
     @Override
