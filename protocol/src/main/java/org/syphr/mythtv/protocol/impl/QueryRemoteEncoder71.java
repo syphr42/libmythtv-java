@@ -26,7 +26,7 @@ import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.InputInfo;
 import org.syphr.mythtv.data.TunedInputInfo;
 
-public class QueryRemoteEncoder71 extends QueryRemoteEncoder66
+public class QueryRemoteEncoder71 extends QueryRemoteEncoder63
 {
     public QueryRemoteEncoder71(Translator translator,
                                 Parser parser,
@@ -34,6 +34,14 @@ public class QueryRemoteEncoder71 extends QueryRemoteEncoder66
                                 SocketManager socketManager)
     {
         super(translator, parser, recorderId, socketManager);
+    }
+
+    @Override
+    public long getMaxBitrate() throws IOException, CommandException
+    {
+        return new Command66QueryRemoteEncoderGetMaxBitrate(getTranslator(),
+                                                            getParser(),
+                                                            getRecorderId()).send(getSocketManager());
     }
 
     @Override

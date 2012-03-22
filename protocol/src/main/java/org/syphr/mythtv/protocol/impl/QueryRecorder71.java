@@ -24,7 +24,7 @@ import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.data.InputInfo;
 
-public class QueryRecorder71 extends QueryRecorder66
+public class QueryRecorder71 extends QueryRecorder63
 {
     public QueryRecorder71(Translator translator,
                            Parser parser,
@@ -32,6 +32,39 @@ public class QueryRecorder71 extends QueryRecorder66
                            SocketManager socketManager)
     {
         super(translator, parser, recorderId, socketManager);
+    }
+
+    @Override
+    public long getFilePosition() throws IOException, CommandException
+    {
+        return new Command66QueryRecorderGetFilePosition(getTranslator(),
+                                                         getParser(),
+                                                         getRecorderId()).send(getSocketManager());
+    }
+
+    @Override
+    public long getFramesWritten() throws IOException, CommandException
+    {
+        return new Command66QueryRecorderGetFramesWritten(getTranslator(),
+                                                          getParser(),
+                                                          getRecorderId()).send(getSocketManager());
+    }
+
+    @Override
+    public long getKeyframePos(long desiredPosition) throws IOException, CommandException
+    {
+        return new Command66QueryRecorderGetKeyframePos(getTranslator(),
+                                                        getParser(),
+                                                        getRecorderId(),
+                                                        desiredPosition).send(getSocketManager());
+    }
+
+    @Override
+    public long getMaxBitrate() throws IOException, CommandException
+    {
+        return new Command66QueryRecorderGetMaxBitrate(getTranslator(),
+                                                       getParser(),
+                                                       getRecorderId()).send(getSocketManager());
     }
 
     @Override
