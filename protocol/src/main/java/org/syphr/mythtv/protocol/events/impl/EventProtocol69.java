@@ -66,7 +66,7 @@ public class EventProtocol69 extends AbstractEventProtocol<BackendEventListener6
                     {
                         dataMap.put(SystemEventData.CREATED, dataValue);
                     }
-                    else if ("DESTORYED".equals(dataType))
+                    else if ("DESTROYED".equals(dataType))
                     {
                         dataMap.put(SystemEventData.DESTROYED, dataValue);
                     }
