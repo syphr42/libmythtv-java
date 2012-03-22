@@ -38,7 +38,7 @@ public class EventProtocol70 extends AbstractEventProtocol<BackendEventListener6
     @Override
     protected EventProtocol createFallbackProtocol()
     {
-        return new EventProtocol69(getTranslator(), getParser());
+        return new EventProtocol68(getTranslator(), getParser());
     }
 
     @Override
@@ -62,7 +62,15 @@ public class EventProtocol70 extends AbstractEventProtocol<BackendEventListener6
                     String dataType = args.get(i);
                     String dataValue = args.get(i + 1);
 
-                    if ("RECSTATUS".equals(dataType))
+                    if ("CREATED".equals(dataType))
+                    {
+                        dataMap.put(SystemEventData.CREATED, dataValue);
+                    }
+                    else if ("DESTROYED".equals(dataType))
+                    {
+                        dataMap.put(SystemEventData.DESTROYED, dataValue);
+                    }
+                    else if ("RECSTATUS".equals(dataType))
                     {
                         dataMap.put(SystemEventData.REC_STATUS, dataValue);
                     }
