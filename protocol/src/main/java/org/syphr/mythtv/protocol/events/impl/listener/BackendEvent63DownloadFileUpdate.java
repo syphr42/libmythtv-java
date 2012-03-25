@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-import org.syphr.mythtv.data.Program;
+import java.net.URI;
+import java.net.URL;
 
-public interface BackendEvent63RecordingListChangeUpdate
+public interface BackendEvent63DownloadFileUpdate
 {
-    public void recordingListChangeUpdate(Program program);
+    public void downloadFileUpdate(URL remoteUrl,
+                                   URI localUri,
+                                   long bytesReceived,
+                                   long bytesTotal);
 }

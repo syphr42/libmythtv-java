@@ -15,12 +15,13 @@
  */
 package org.syphr.mythtv.protocol.events.impl;
 
-import java.util.Map;
+import java.util.List;
 
-import org.syphr.mythtv.protocol.events.SystemEvent;
-import org.syphr.mythtv.protocol.events.SystemEventData;
-
-public interface BackendEvent63SystemEvent
+public interface BackendMessage
 {
-    public void systemEvent(SystemEvent event, Map<SystemEventData, String> data);
+    public String getCommand();
+
+    public List<String> getArgs();
+
+    public List<String> getData();
 }

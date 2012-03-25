@@ -13,15 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-import java.net.URI;
-import java.net.URL;
-
-public interface BackendEvent63DownloadFileUpdate
+public interface BackendEvent63ScheduleChange
 {
-    public void downloadFileUpdate(URL remoteUrl,
-                                   URI localUri,
-                                   long bytesReceived,
-                                   long bytesTotal);
+    public void scheduleChange();
 }

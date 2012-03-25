@@ -15,9 +15,12 @@
  */
 package org.syphr.mythtv.protocol.events.impl;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
 
 public interface EventSender<T extends BackendEventListener>
 {
+    public void processMessage(BackendMessage message) throws ProtocolException;
+
     public void sendEvent(T l);
 }

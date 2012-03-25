@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-public interface BackendEvent63RecordingListChangeNone
+import org.syphr.mythtv.data.Program;
+
+public interface BackendEvent63RecordingListChangeUpdate
 {
-    public void recordingListChangeNone();
+    public void recordingListChangeUpdate(Program program);
 }

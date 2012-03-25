@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-import org.syphr.mythtv.data.TunerStatus;
+import java.util.Date;
 
-public interface BackendEvent63SignalTunerStatus
+import org.syphr.mythtv.data.Channel;
+
+public interface BackendEvent63CommFlagRequest
 {
-    public void signalTunerStatus(int recorder, TunerStatus tunerStatus);
+    public void commFlagRequest(Channel channel, Date startTime);
 }

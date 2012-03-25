@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-public interface BackendEvent63VideoListChange
+public interface BackendEvent63ResetIdleTime
 {
-    public void videoListChange();
+    public void resetIdleTime();
 }

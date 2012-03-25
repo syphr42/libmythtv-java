@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-import java.util.Date;
+import java.net.URI;
+import java.net.URL;
 
-import org.syphr.mythtv.data.Channel;
-
-public interface BackendEvent63GeneratedPixmap
+public interface BackendEvent63DownloadFileFinished
 {
-    public void generatedPixmap(Channel channel,
-                                Date timestamp,
-                                String comment,
-                                Date timestamp2,
-                                long num1,
-                                long num2,
-                                byte[] bytes);
+    public void downloadFileFinshed(URL remoteUrl,
+                                    URI localUri,
+                                    long bytesTotal,
+                                    String errorText,
+                                    int errorCode);
 }

@@ -61,13 +61,12 @@ public class BackendEventListener63Adapter implements BackendEventListener63
     }
 
     @Override
-    public void generatedPixmap(Channel channel,
-                                Date timestamp,
+    public void generatedPixmap(boolean success,
+                                Channel channel,
+                                Date startTime,
                                 String comment,
-                                Date timestamp2,
-                                long num1,
-                                long num2,
-                                byte[] bytes)
+                                Date timestamp,
+                                long size, long checksum, byte[] imageData)
     {
         // NOOP
     }

@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-import org.syphr.mythtv.protocol.events.impl.listener.BackendEvent68VideoListChange;
-
-public interface BackendEventListener68 extends BackendEventListener, BackendEvent68VideoListChange
+public interface BackendEvent63RecordingListChangeNone
 {
-    /*
-     * Composite interface.
-     */
+    public void recordingListChangeNone();
 }

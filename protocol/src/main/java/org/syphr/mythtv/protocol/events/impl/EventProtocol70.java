@@ -15,17 +15,14 @@
  */
 package org.syphr.mythtv.protocol.events.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
 import org.syphr.mythtv.commons.translate.Translator;
 import org.syphr.mythtv.protocol.events.BackendEventListener63;
 import org.syphr.mythtv.protocol.events.EventProtocol;
-import org.syphr.mythtv.protocol.events.SystemEvent;
-import org.syphr.mythtv.protocol.events.SystemEventData;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender70SystemEvent;
 import org.syphr.mythtv.protocol.impl.Parser;
 
 public class EventProtocol70 extends AbstractEventProtocol<BackendEventListener63>
@@ -45,48 +42,22 @@ public class EventProtocol70 extends AbstractEventProtocol<BackendEventListener6
     protected EventSender<BackendEventListener63> createSender(List<String> fragments) throws ProtocolException,
                                                                                       UnknownEventException
     {
-        BackendMessage63 message = new BackendMessage63(fragments);
+        BackendMessage message = new BackendMessage63(fragments);
 
         try
         {
             String command = message.getCommand();
+            EventSender<BackendEventListener63> sender = null;
 
             if ("SYSTEM_EVENT".equals(command))
             {
-                final List<String> args = message.getArgs();
-                final SystemEvent event = SystemEvent.valueOf(args.get(0));
-                final Map<SystemEventData, String> dataMap = new HashMap<SystemEventData, String>();
+                sender = new EventSender70SystemEvent();
+            }
 
-                for (int i = 1; i < args.size(); i += 2)
-                {
-                    String dataType = args.get(i);
-                    String dataValue = args.get(i + 1);
-
-                    if ("CREATED".equals(dataType))
-                    {
-                        dataMap.put(SystemEventData.CREATED, dataValue);
-                    }
-                    else if ("DESTROYED".equals(dataType))
-                    {
-                        dataMap.put(SystemEventData.DESTROYED, dataValue);
-                    }
-                    else if ("RECSTATUS".equals(dataType))
-                    {
-                        dataMap.put(SystemEventData.REC_STATUS, dataValue);
-                    }
-                }
-
-                if (!dataMap.isEmpty())
-                {
-                    return new EventSender<BackendEventListener63>()
-                    {
-                        @Override
-                        public void sendEvent(BackendEventListener63 l)
-                        {
-                            l.systemEvent(event, dataMap);
-                        }
-                    };
-                }
+            if (sender != null)
+            {
+                sender.processMessage(message);
+                return sender;
             }
         }
         catch (Exception e)

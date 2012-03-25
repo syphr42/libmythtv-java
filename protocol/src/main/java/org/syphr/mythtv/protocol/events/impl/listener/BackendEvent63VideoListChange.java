@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-import org.syphr.mythtv.data.VideoListChange;
-
-public interface BackendEvent68VideoListChange
+public interface BackendEvent63VideoListChange
 {
-    public void videoListChange(VideoListChange... changes);
+    public void videoListChange();
 }

@@ -13,13 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
 import java.util.Date;
 
 import org.syphr.mythtv.data.Channel;
 
-public interface BackendEvent63RecordingListChangeAdd
+public interface BackendEvent63GeneratedPixmap
 {
-    public void recordingListChangeAdd(Channel channel, Date startTime);
+    public void generatedPixmap(boolean success,
+                                Channel channel,
+                                Date startTime,
+                                String comment,
+                                Date timestamp,
+                                long size,
+                                long checksum,
+                                byte[] imageData);
 }

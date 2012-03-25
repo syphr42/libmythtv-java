@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-public interface BackendEvent63DoneRecording
+import org.syphr.mythtv.data.TunerStatus;
+
+public interface BackendEvent63SignalTunerStatus
 {
-    public void doneRecording(int recorder, long seconds, long frames);
+    public void signalTunerStatus(int recorder, TunerStatus tunerStatus);
 }

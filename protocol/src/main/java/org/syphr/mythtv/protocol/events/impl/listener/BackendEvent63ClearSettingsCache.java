@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-import java.util.Date;
-
-import org.syphr.mythtv.data.Channel;
-
-public interface BackendEvent63MasterUpdateProgInfo
+public interface BackendEvent63ClearSettingsCache
 {
-    public void masterUpdateProgInfo(Channel channel, Date startTime);
+    public void clearSettingsCache();
 }

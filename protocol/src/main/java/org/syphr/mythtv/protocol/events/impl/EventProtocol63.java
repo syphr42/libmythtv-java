@@ -15,30 +15,29 @@
  */
 package org.syphr.mythtv.protocol.events.impl;
 
-import java.net.URI;
-import java.net.URL;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
-import org.syphr.mythtv.commons.translate.DateUtils;
 import org.syphr.mythtv.commons.translate.Translator;
-import org.syphr.mythtv.data.Channel;
-import org.syphr.mythtv.data.Program;
-import org.syphr.mythtv.data.TunerStatus;
-import org.syphr.mythtv.data.TunerStatus.TunerData;
 import org.syphr.mythtv.protocol.events.BackendEventListener63;
 import org.syphr.mythtv.protocol.events.EventProtocol;
-import org.syphr.mythtv.protocol.events.SystemEvent;
-import org.syphr.mythtv.protocol.events.SystemEventData;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63ClearSettingsCache;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63CommercialFlagRequest;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63DoneRecording;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63DownloadFile;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63GeneratedPixmap;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63LiveTvChain;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63LiveTvWatch;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63MasterUpdateProgramInfo;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63RecordingListChange;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63ResetIdleTime;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63ScheduleChange;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63Signal;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63SystemEvent;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63UpdateFileSize;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender63VideoListChange;
 import org.syphr.mythtv.protocol.impl.Parser;
-import org.syphr.mythtv.types.TunerStatusCategory;
 
 public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener63>
 {
@@ -54,393 +53,81 @@ public class EventProtocol63 extends AbstractEventProtocol<BackendEventListener6
     }
 
     @Override
-    protected EventSender<BackendEventListener63> createSender(List<String> fragments) throws ProtocolException, UnknownEventException
+    protected EventSender<BackendEventListener63> createSender(List<String> fragments) throws ProtocolException,
+                                                                                      UnknownEventException
     {
-        BackendMessage63 message = new BackendMessage63(fragments);
+        BackendMessage message = new BackendMessage63(fragments);
 
         try
         {
             String command = message.getCommand();
+            EventSender<BackendEventListener63> sender = null;
 
             if ("CLEAR_SETTINGS_CACHE".equals(command))
             {
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.clearSettingsCache();
-                    }
-                };
+                sender = new EventSender63ClearSettingsCache();
             }
             else if ("COMMFLAG_REQUEST".equals(command))
             {
-                final String[] chanIdTimestamp = message.getArgs().get(0).split("_");
-                final Channel channel = new Channel(Integer.parseInt(chanIdTimestamp[0]));
-                final Date startTime = DateUtils.getIsoDateFormat().parse(chanIdTimestamp[1]);
-
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.commFlagRequest(channel, startTime);
-                    }
-                };
+                sender = new EventSender63CommercialFlagRequest();
             }
             else if ("DONE_RECORDING".equals(command))
             {
-                List<String> args = message.getArgs();
-
-                final int recorder = Integer.parseInt(args.get(0));
-                final long seconds = Long.parseLong(args.get(1));
-                final long frames = Long.parseLong(args.get(2));
-
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.doneRecording(recorder, seconds, frames);
-                    }
-                };
+                sender = new EventSender63DoneRecording();
             }
             else if ("DOWNLOAD_FILE".equals(command))
             {
-                String type = message.getArgs().get(0);
-
-                if ("UPDATE".equals(type))
-                {
-                    final URL remoteUrl = new URL(message.getData().get(0));
-                    final URI localUri = new URI(message.getData().get(1));
-                    final long bytesReceived = Long.parseLong(message.getData().get(2));
-                    final long bytesTotal = Long.parseLong(message.getData().get(3));
-
-                    return new EventSender<BackendEventListener63>()
-                    {
-                        @Override
-                        public void sendEvent(BackendEventListener63 l)
-                        {
-                            l.downloadFileUpdate(remoteUrl,
-                                                 localUri,
-                                                 bytesReceived,
-                                                 bytesTotal);
-                        }
-                    };
-                }
-                else if ("FINISHED".equals(type))
-                {
-                    final URL remoteUrl = new URL(message.getData().get(0));
-                    final URI localUri = new URI(message.getData().get(1));
-                    final long bytesTotal = Long.parseLong(message.getData().get(2));
-                    final String errorText = message.getData().get(3);
-                    final int errorCode = Integer.parseInt(message.getData().get(4));
-
-                    return new EventSender<BackendEventListener63>()
-                    {
-                        @Override
-                        public void sendEvent(BackendEventListener63 l)
-                        {
-                            l.downloadFileFinshed(remoteUrl,
-                                                  localUri,
-                                                  bytesTotal,
-                                                  errorText,
-                                                  errorCode);
-                        }
-                    };
-                }
+                sender = new EventSender63DownloadFile();
             }
             else if ("GENERATED_PIXMAP".equals(command))
             {
-                if (!"OK".equals(message.getData().get(0)))
-                {
-                    throw new ProtocolException(message.toString(), Direction.RECEIVE);
-                }
-
-                DateFormat isoFormat = DateUtils.getIsoDateFormat();
-
-                final String[] chanIdTimestamp = message.getData().get(1).split("_");
-                final Channel channel = new Channel(Integer.parseInt(chanIdTimestamp[0]));
-                final Date timestamp = isoFormat.parse(chanIdTimestamp[1]);
-
-                final String comment = message.getData().get(2);
-                final Date timestamp2 = isoFormat.parse(message.getData().get(3));
-                final long num1 = Long.parseLong(message.getData().get(4));
-                final long num2 = Long.parseLong(message.getData().get(5));
-                final byte[] bytes = message.getData().get(6).getBytes();
-
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.generatedPixmap(channel,
-                                          timestamp,
-                                          comment,
-                                          timestamp2,
-                                          num1,
-                                          num2,
-                                          bytes);
-                    }
-                };
+                sender = new EventSender63GeneratedPixmap();
             }
             else if ("LIVETV_CHAIN".equals(command))
             {
-                if ("UPDATE".equals(message.getArgs().get(0)))
-                {
-                    final String chainId = message.getArgs().get(1);
-
-                    return new EventSender<BackendEventListener63>()
-                    {
-                        @Override
-                        public void sendEvent(BackendEventListener63 l)
-                        {
-                            l.liveTvChainUpdate(chainId);
-                        }
-                    };
-                }
+                sender = new EventSender63LiveTvChain();
             }
             else if ("LIVETV_WATCH".equals(command))
             {
-                final int recorder = Integer.parseInt(message.getArgs().get(0));
-                final boolean recordingIsActive = "1".equals(message.getArgs().get(1));
-
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.liveTvWatch(recorder, recordingIsActive);
-                    }
-                };
+                sender = new EventSender63LiveTvWatch();
             }
             else if ("MASTER_UPDATE_PROG_INFO".equals(command))
             {
-                final Channel channel = new Channel(Integer.parseInt(message.getArgs().get(0)));
-                final Date startTime = DateUtils.getIsoDateFormat().parse(message.getArgs().get(1));
-
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.masterUpdateProgInfo(channel, startTime);
-                    }
-                };
+                sender = new EventSender63MasterUpdateProgramInfo();
             }
             else if ("RECORDING_LIST_CHANGE".equals(command))
             {
-                List<String> args = message.getArgs();
-
-                if (args.isEmpty())
-                {
-                    return new EventSender<BackendEventListener63>()
-                    {
-                        @Override
-                        public void sendEvent(BackendEventListener63 l)
-                        {
-                            l.recordingListChangeNone();
-                        }
-                    };
-                }
-                else if ("ADD".equals(args.get(0)))
-                {
-                    final Channel channel = new Channel(Integer.parseInt(args.get(1)));
-                    final Date startTime = DateUtils.getIsoDateFormat().parse(args.get(2));
-
-                    return new EventSender<BackendEventListener63>()
-                    {
-                        @Override
-                        public void sendEvent(BackendEventListener63 l)
-                        {
-                            l.recordingListChangeAdd(channel, startTime);
-                        }
-                    };
-                }
-                else if ("UPDATE".equals(args.get(0)))
-                {
-                    final Program program = getParser().parseProgramInfo(message.getData());
-
-                    return new EventSender<BackendEventListener63>()
-                    {
-                        @Override
-                        public void sendEvent(BackendEventListener63 l)
-                        {
-                            l.recordingListChangeUpdate(program);
-                        }
-                    };
-                }
-                else if ("DELETE".equals(args.get(0)))
-                {
-                    final Channel channel = new Channel(Integer.parseInt(args.get(1)));
-                    final Date startTime = DateUtils.getIsoDateFormat().parse(args.get(2));
-
-                    return new EventSender<BackendEventListener63>()
-                    {
-                        @Override
-                        public void sendEvent(BackendEventListener63 l)
-                        {
-                            l.recordingListChangeDelete(channel, startTime);
-                        }
-                    };
-                }
+                sender = new EventSender63RecordingListChange(getParser());
             }
             else if ("SCHEDULE_CHANGE".equals(command))
             {
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.scheduleChange();
-                    }
-                };
+                sender = new EventSender63ScheduleChange();
             }
             else if ("SIGNAL".equals(command))
             {
-                final int recorder = Integer.parseInt(message.getArgs().get(0));
-
-                List<String> data = message.getData();
-
-                if ("message".equals(data.get(0)))
-                {
-                    final String statusMessage = data.get(1);
-
-                    return new EventSender<BackendEventListener63>()
-                    {
-                        @Override
-                        public void sendEvent(BackendEventListener63 l)
-                        {
-                            l.signalMessage(recorder, statusMessage);
-                        }
-                    };
-                }
-
-                final List<Pair<TunerStatusCategory, TunerData>> dataPairs = new ArrayList<Pair<TunerStatusCategory, TunerData>>();
-
-                int i = 0;
-                while (i < data.size())
-                {
-                    String name = data.get(i++);
-
-                    String[] split = data.get(i++).split(" ");
-                    TunerStatusCategory category = getTranslator().toEnum(split[0], TunerStatusCategory.class);
-
-                    TunerData tunerData = new TunerData(name,
-                                                        Integer.parseInt(split[1]),
-                                                        Integer.parseInt(split[2]),
-                                                        Integer.parseInt(split[3]),
-                                                        Integer.parseInt(split[4]),
-                                                        Integer.parseInt(split[5]),
-                                                        Integer.parseInt(split[6]),
-                                                        Integer.parseInt(split[7]));
-
-                    dataPairs.add(Pair.of(category, tunerData));
-                }
-
-                return new EventSender<BackendEventListener63>()
-                {
-                    @SuppressWarnings("unchecked")
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.signalTunerStatus(recorder,
-                                            new TunerStatus(dataPairs.toArray(new Pair[dataPairs.size()])));
-                    }
-                };
+                sender = new EventSender63Signal(getTranslator());
             }
             else if ("SYSTEM_EVENT".equals(command))
             {
-                final List<String> args = message.getArgs();
-                final SystemEvent event = SystemEvent.valueOf(args.get(0));
-                final Map<SystemEventData, String> dataMap = new HashMap<SystemEventData, String>();
-
-                DateFormat startTimeFormat = DateUtils.getIsoDateFormat();
-
-                for (int i = 1; i < args.size(); i += 2)
-                {
-                    String dataType = args.get(i);
-                    String dataValue = args.get(i + 1);
-
-                    if ("SENDER".equals(dataType))
-                    {
-                        dataMap.put(SystemEventData.SENDER, dataValue);
-                    }
-                    else if ("HOSTNAME".equals(dataType))
-                    {
-                        dataMap.put(SystemEventData.HOSTNAME, dataValue);
-                    }
-                    else if ("CARDID".equals(dataType))
-                    {
-                        dataMap.put(SystemEventData.CARD_ID, dataValue);
-                    }
-                    else if ("CHANID".equals(dataType))
-                    {
-                        dataMap.put(SystemEventData.CHAN_ID, dataValue);
-                    }
-                    else if ("STARTTIME".equals(dataType))
-                    {
-                        dataMap.put(SystemEventData.START_TIME,
-                                    String.valueOf(startTimeFormat.parse(dataValue)
-                                                                  .getTime()));
-                    }
-                    else if ("SECS".equals(dataType))
-                    {
-                        dataMap.put(SystemEventData.SECS, dataValue);
-                    }
-                }
-
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.systemEvent(event, dataMap);
-                    }
-                };
+                sender = new EventSender63SystemEvent();
             }
             else if ("UPDATE_FILE_SIZE".equals(command))
             {
-                List<String> args = message.getArgs();
-                if (args.size() != 3)
-                {
-                    throw new ProtocolException(message.toString(), Direction.RECEIVE);
-                }
-
-                final Channel channel = new Channel(Integer.parseInt(args.get(0)));
-                final Date startTime = DateUtils.getIsoDateFormat().parse(args.get(1));
-                final long size = Long.parseLong(args.get(2));
-
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.updateFileSize(channel, startTime, size);
-                    }
-                };
+                sender = new EventSender63UpdateFileSize();
             }
             else if ("VIDEO_LIST_CHANGE".equals(command))
             {
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.videoListChange();
-                    }
-                };
+                sender = new EventSender63VideoListChange();
             }
             else if ("RESET_IDLETIME".equals(command))
             {
-                return new EventSender<BackendEventListener63>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener63 l)
-                    {
-                        l.resetIdleTime();
-                    }
-                };
+                sender = new EventSender63ResetIdleTime();
+            }
+
+            if (sender != null)
+            {
+                sender.processMessage(message);
+                return sender;
             }
         }
         catch (Exception e)

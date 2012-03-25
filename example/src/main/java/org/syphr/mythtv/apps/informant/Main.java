@@ -212,26 +212,27 @@ public class Main
         }
 
         @Override
-        public void generatedPixmap(Channel channel,
-                                    Date timestamp,
+        public void generatedPixmap(boolean success,
+                                    Channel channel,
+                                    Date startTime,
                                     String comment,
-                                    Date timestamp2,
-                                    long num1,
-                                    long num2,
-                                    byte[] bytes)
+                                    Date timestamp,
+                                    long size,
+                                    long checksum,
+                                    byte[] imageData)
         {
-            System.out.println("Generated pixmap: "
+            System.out.println("Generated pixmap: success? "
+                    + success
+                    + "; "
                     + channel
                     + ", "
-                    + timestamp
+                    + startTime
                     + ", "
                     + comment
                     + ", "
-                    + timestamp2
+                    + timestamp
                     + ", "
-                    + num1
-                    + ", "
-                    + num2);
+                    + size);
         }
 
         @Override

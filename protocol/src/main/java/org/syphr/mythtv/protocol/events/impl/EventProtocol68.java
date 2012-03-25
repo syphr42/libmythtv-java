@@ -15,17 +15,16 @@
  */
 package org.syphr.mythtv.protocol.events.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
 import org.syphr.mythtv.commons.translate.Translator;
-import org.syphr.mythtv.data.VideoListChange;
 import org.syphr.mythtv.protocol.events.BackendEventListener68;
 import org.syphr.mythtv.protocol.events.EventProtocol;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender68VideoListChange;
+import org.syphr.mythtv.protocol.events.impl.sender.EventSender68VideoListNoChange;
 import org.syphr.mythtv.protocol.impl.Parser;
-import org.syphr.mythtv.types.VideoListChangeType;
 
 public class EventProtocol68 extends AbstractEventProtocol<BackendEventListener68>
 {
@@ -41,46 +40,29 @@ public class EventProtocol68 extends AbstractEventProtocol<BackendEventListener6
     }
 
     @Override
-    protected EventSender<BackendEventListener68> createSender(List<String> fragments) throws ProtocolException, UnknownEventException
+    protected EventSender<BackendEventListener68> createSender(List<String> fragments) throws ProtocolException,
+                                                                                      UnknownEventException
     {
-        BackendMessage63 message = new BackendMessage63(fragments);
+        BackendMessage message = new BackendMessage63(fragments);
 
         try
         {
             String command = message.getCommand();
+            EventSender<BackendEventListener68> sender = null;
 
             if ("VIDEO_LIST_CHANGE".equals(command))
             {
-                Translator translator = getTranslator();
-                final List<VideoListChange> changes = new ArrayList<VideoListChange>();
-
-                for (String change : message.getData())
-                {
-                    String[] pair = change.split("::");
-                    changes.add(new VideoListChange(translator.toEnum(pair[0],
-                                                                      VideoListChangeType.class),
-                                                    Integer.parseInt(pair[1])));
-                }
-
-                return new EventSender<BackendEventListener68>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener68 l)
-                    {
-                        l.videoListChange(changes.toArray(new VideoListChange[changes.size()]));
-                    }
-                };
+                sender = new EventSender68VideoListChange(getTranslator());
             }
             else if ("VIDEO_LIST_NO_CHANGE".equals(command))
             {
-                return new EventSender<BackendEventListener68>()
-                {
-                    @Override
-                    public void sendEvent(BackendEventListener68 l)
-                    {
-                        l.videoListChange();
-                    }
-                };
+                sender = new EventSender68VideoListNoChange();
+            }
+
+            if (sender != null)
+            {
+                sender.processMessage(message);
+                return sender;
             }
         }
         catch (Exception e)

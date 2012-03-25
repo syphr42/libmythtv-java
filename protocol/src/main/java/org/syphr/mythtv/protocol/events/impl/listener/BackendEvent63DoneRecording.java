@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-public interface BackendEvent63SignalMessage
+public interface BackendEvent63DoneRecording
 {
-    public void signalMessage(int recorder, String message);
+    public void doneRecording(int recorder, long seconds, long frames);
 }

@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-import java.net.URI;
-import java.net.URL;
+import java.util.Date;
 
-public interface BackendEvent63DownloadFileFinished
+import org.syphr.mythtv.data.Channel;
+
+public interface BackendEvent63MasterUpdateProgInfo
 {
-    public void downloadFileFinshed(URL remoteUrl,
-                                    URI localUri,
-                                    long bytesTotal,
-                                    String errorText,
-                                    int errorCode);
+    public void masterUpdateProgInfo(Channel channel, Date startTime);
 }

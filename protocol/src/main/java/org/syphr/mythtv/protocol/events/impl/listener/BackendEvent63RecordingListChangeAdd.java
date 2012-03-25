@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.mythtv.protocol.events.impl;
+package org.syphr.mythtv.protocol.events.impl.listener;
 
-public interface BackendEvent63ScheduleChange
+import java.util.Date;
+
+import org.syphr.mythtv.data.Channel;
+
+public interface BackendEvent63RecordingListChangeAdd
 {
-    public void scheduleChange();
+    public void recordingListChangeAdd(Channel channel, Date startTime);
 }

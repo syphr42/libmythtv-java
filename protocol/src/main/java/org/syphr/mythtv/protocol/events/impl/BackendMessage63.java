@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BackendMessage63
+public class BackendMessage63 implements BackendMessage
 {
     private final String command;
     private final List<String> args;
@@ -39,16 +39,19 @@ public class BackendMessage63
         data = new ArrayList<String>(message.subList(1, message.size()));
     }
 
+    @Override
     public String getCommand()
     {
         return command;
     }
 
+    @Override
     public List<String> getArgs()
     {
         return Collections.unmodifiableList(args);
     }
 
+    @Override
     public List<String> getData()
     {
         return Collections.unmodifiableList(data);
