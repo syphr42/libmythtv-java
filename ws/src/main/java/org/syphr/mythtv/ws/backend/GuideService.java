@@ -17,7 +17,7 @@ package org.syphr.mythtv.ws.backend;
 
 import java.util.Calendar;
 
-import org.syphr.mythtv.ws.backend.impl._0_25.guide.Program;
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.ws.backend.impl._0_25.guide.ProgramGuide;
 
 public interface GuideService

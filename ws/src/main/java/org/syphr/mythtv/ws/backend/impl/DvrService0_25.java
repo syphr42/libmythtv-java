@@ -21,12 +21,12 @@ import java.util.List;
 
 import javax.xml.ws.BindingProvider;
 
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.ws.ServiceVersionException;
 import org.syphr.mythtv.ws.backend.DvrService;
 import org.syphr.mythtv.ws.backend.impl._0_25.dvr.Dvr;
 import org.syphr.mythtv.ws.backend.impl._0_25.dvr.DvrServices;
 import org.syphr.mythtv.ws.backend.impl._0_25.dvr.Encoder;
-import org.syphr.mythtv.ws.backend.impl._0_25.dvr.Program;
 import org.syphr.mythtv.ws.backend.impl._0_25.dvr.RecRule;
 import org.syphr.mythtv.ws.impl.AbstractService;
 import org.syphr.mythtv.ws.impl.ServiceUtils;
@@ -191,7 +191,8 @@ public class DvrService0_25 extends AbstractService implements DvrService
     @Override
     public Program getRecorded(Integer chanId, Calendar startTime)
     {
-        return service.getRecorded(chanId, startTime);
+        // TODO
+        return null;//service.getRecorded(chanId, startTime);
     }
 
     @Override

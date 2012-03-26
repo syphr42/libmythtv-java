@@ -20,11 +20,11 @@ import java.util.Calendar;
 
 import javax.xml.ws.BindingProvider;
 
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.ws.ServiceVersionException;
 import org.syphr.mythtv.ws.backend.GuideService;
 import org.syphr.mythtv.ws.backend.impl._0_25.guide.Guide;
 import org.syphr.mythtv.ws.backend.impl._0_25.guide.GuideServices;
-import org.syphr.mythtv.ws.backend.impl._0_25.guide.Program;
 import org.syphr.mythtv.ws.backend.impl._0_25.guide.ProgramGuide;
 import org.syphr.mythtv.ws.impl.AbstractService;
 
@@ -65,7 +65,8 @@ public class GuideService0_25 extends AbstractService implements GuideService
     @Override
     public Program getProgramDetails(Integer chanId, Calendar startTime)
     {
-        return service.getProgramDetails(chanId, startTime);
+        // TODO
+        return null;//service.getProgramDetails(chanId, startTime);
     }
 
     @Override

@@ -18,8 +18,8 @@ package org.syphr.mythtv.ws.backend;
 import java.util.Calendar;
 import java.util.List;
 
+import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.ws.backend.impl._0_25.dvr.Encoder;
-import org.syphr.mythtv.ws.backend.impl._0_25.dvr.Program;
 import org.syphr.mythtv.ws.backend.impl._0_25.dvr.RecRule;
 
 public interface DvrService
