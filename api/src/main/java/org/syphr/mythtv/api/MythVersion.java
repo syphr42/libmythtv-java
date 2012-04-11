@@ -80,11 +80,6 @@ public enum MythVersion
         return service;
     }
 
-    public boolean isServiceSupported()
-    {
-        return service != null;
-    }
-
     public String getDisplay()
     {
         return display;
