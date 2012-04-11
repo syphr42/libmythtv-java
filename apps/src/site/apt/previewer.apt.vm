@@ -1,0 +1,30 @@
+Previewer
+
+  Previewer is a graphical application written in Swing that 
+  allows the user to select from a list of recordings to view 
+  the associated preview image.
+  
+  Please note that this is a quick and dirty application to 
+  show a use for the preview image data and how it can be 
+  displayed in Java. This application shamelessly ignores proper 
+  Swing paradigms and should not be used as an example for 
+  writing Swing apps.
+  
+* Screenshot
+
+[images/previewer-screenshot.png]
+
+* Usage
+
++------------------------------------------------------
+usage: org.syphr.mythtv.apps.previewer.Main [OPTIONS]
+ -h,--help                show this usage text
+ -o,--host <host>         remote host
+ -p,--port <port>         remote port
+ -t,--timeout <timeout>   connection timeout
++------------------------------------------------------
+
++------------------------------------------------------
+java -cp ${project.build.finalName}.jar org.syphr.mythtv.apps.previewer.Main \
+                --host mythbox
++------------------------------------------------------

@@ -21,9 +21,14 @@
     <menu name="Project">
       <item name="Home"           		href="/index.html"/>
       <item name="Overview"          	href="/project-summary.html"/>
-      <item name="Usage"          		href="/usage.html"/>
       <item name="Downloads"           	href="/downloads.html"/>
       <item name="Dependencies"        	href="/dependencies.html"/>
+    </menu>
+    
+    <menu name="Applications">
+        <item name="Informant"          href="/informant.html"/>
+        <item name="Previewer"          href="/previewer.html"/>
+        <item name="Commander"          href="/commander.html"/>
     </menu>
     
     <menu name="Source Information">

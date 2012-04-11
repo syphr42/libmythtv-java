@@ -1,0 +1,14 @@
+Sample MythTV Applications
+
+  This module provides several small applications that may be of some 
+  use on their own, but also provide examples of how to use the 
+  ${project.parent.name} libraries in other applications.
+  
+  There are also some applications which work at an extremely low 
+  level. These may be useful for someone trying to understand how the 
+  libraries or MythTV work, but generally should not be used in 
+  applications. For example, {{{./commander.html}Commander}} sends raw 
+  commands across a socket to a MythTV frontend or backend instance. 
+  It uses only the lowest level protocol information and provides no 
+  error checking, parsing, or translating - thus missing out on the 
+  major benefits of the control and protocol modules.

@@ -1,0 +1,33 @@
+Commander
+
+  Commander allows you to send raw messages directly to a frontend or
+  backend instance. There is no error checking and no processing of the 
+  commands or the results. This may be useful for something quick or to 
+  learn about how MythTV works, but you should generally use the APIs 
+  for application code.
+
+* Usage
+
++------------------------------------------------------
+usage: org.syphr.mythtv.apps.commander.Main [OPTIONS]
+ -b,--backend               use the backend myth protocol
+ -c,--commands <commands>   one or more commands to send to the remote
+                            host
+ -f,--frontend              use the frontend network control protocol
+ -h,--help                  show this usage text
+ -o,--host <host>           remote host
+ -p,--port <port>           remote port
+ -t,--timeout <timeout>     connection timeout
++------------------------------------------------------
+
++------------------------------------------------------
+java -cp ${project.build.finalName}.jar org.syphr.mythtv.apps.commander.Main \
+                --backend \
+                --host mythbox \
+                --commands "MESSAGE[]:[]CLEAR_SETTINGS_CACHE"
+
+java -cp ${project.build.finalName}.jar org.syphr.mythtv.apps.commander.Main \
+                --frontend \
+                --host mythbox \
+                --commands "jump mainmenu"
++------------------------------------------------------

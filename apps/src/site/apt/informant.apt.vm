@@ -1,0 +1,22 @@
+Informant
+
+  Informant listens to a backend instance for events and prints 
+  them to the console.
+
+* Usage
+
++------------------------------------------------------  
+usage: org.syphr.mythtv.apps.informant.Main [OPTIONS]
+ -h,--help                show this usage text
+ -l,--level <level>       level of events report (valid values are none,
+                          all, no_system, only_system)
+ -o,--host <host>         remote host
+ -p,--port <port>         remote port
+ -t,--timeout <timeout>   connection timeout
++------------------------------------------------------
+
++------------------------------------------------------
+java -cp ${project.build.finalName}.jar org.syphr.mythtv.apps.informant.Main \
+                --host mythbox \
+                --level only_system
++------------------------------------------------------

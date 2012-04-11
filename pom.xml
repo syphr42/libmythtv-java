@@ -72,7 +72,7 @@
 		<module>ws</module>
 		<module>db</module>
 		<module>api</module>
-		<module>example</module>
+		<module>apps</module>
 		<module>assembly</module>
 	</modules>
 
