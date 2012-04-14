@@ -46,8 +46,8 @@ import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.data.VideoEditInfo;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
-import org.syphr.mythtv.protocol.ProtocolVersionException;
 import org.syphr.mythtv.protocol.Protocol;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
@@ -55,6 +55,7 @@ import org.syphr.mythtv.protocol.events.EventProtocol;
 import org.syphr.mythtv.protocol.events.impl.EventProtocol63;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.RecordingCategory;
+import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.Verbose;
 
 public class Protocol63 extends AbstractProtocol
@@ -611,5 +612,46 @@ public class Protocol63 extends AbstractProtocol
     {
         handleUnsupported("announce as media server");
         annSlaveBackend(address);
+    }
+
+    @Override
+    public void rescheduleRecordingsMatch(int recorderId,
+                                          int sourceId,
+                                          int mplexId,
+                                          Date maxStartTime,
+                                          String reason) throws IOException, CommandException
+    {
+        handleUnsupported("reschedule recordings match");
+        rescheduleRecordings(recorderId == 0 ? -1 : recorderId);
+
+    }
+
+    @Override
+    public void rescheduleRecordingsCheck(int recorderId,
+                                          int findId,
+                                          String title,
+                                          String subtitle,
+                                          String description,
+                                          String programId,
+                                          RecordingStatus recStatus,
+                                          String reason) throws IOException, CommandException
+    {
+        handleUnsupported("reschedule recordings check");
+        rescheduleRecordings(recorderId);
+    }
+
+    @Override
+    public void rescheduleRecordingsCheck(String title, RecordingStatus recStatus, String reason) throws IOException,
+                                                                                                 CommandException
+    {
+        handleUnsupported("reschedule recordings check");
+        rescheduleRecordings(-1);
+    }
+
+    @Override
+    public void rescheduleRecordingsPlace(String reason) throws IOException, CommandException
+    {
+        handleUnsupported("reschedule recordings place");
+        rescheduleRecordings(-1);
     }
 }

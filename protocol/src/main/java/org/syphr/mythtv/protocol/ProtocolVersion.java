@@ -25,7 +25,8 @@ import java.util.regex.Pattern;
 public enum ProtocolVersion
 {
     _63,
-    _72;
+    _72,
+    _73;
     
     /**
      * The pattern used to determine if a potential version string needs a

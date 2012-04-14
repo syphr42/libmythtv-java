@@ -43,6 +43,7 @@ import org.syphr.mythtv.data.VideoEditInfo;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.RecordingCategory;
+import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.Verbose;
 
 /**
@@ -1076,8 +1077,126 @@ public interface Protocol
      *             if there is a communication or protocol error
      * 
      * @since 63
+     * @deprecated 73
+     * @see #rescheduleRecordingsMatch(int, int, int, Date, String)
+     * @see #rescheduleRecordingsCheck(int, int, String, String, String, String,
+     *      RecordingStatus, String)
+     * @see #rescheduleRecordingsCheck(String, RecordingStatus, String)
+     * @see #rescheduleRecordingsPlace(String)
      */
+    @Deprecated
     public void rescheduleRecordings(int recorderId) throws IOException;
+
+    /**
+     * Request the scheduler to run for program data matching the given
+     * parameters. This is useful when guide data or recording rules change.
+     * 
+     * @param recorderId
+     *            the ID of the recorder for which the scheduler should run or
+     *            <code>0</code> to exclude this restriction
+     * @param sourceId
+     *            the ID of the source for which the scheduler should run or
+     *            <code>0</code> to exclude this restriction
+     * @param mplexId
+     *            the ID of the multiplex for which the scheduler should run or
+     *            <code>0</code> to exclude this restriction
+     * @param maxStartTime
+     *            the maximum start time of programs for which the scheduler
+     *            should consider or <code>null</code> to exclude this
+     *            restriction
+     * @param reason
+     *            the reason for this reschedule request (informational only)
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend fails to process the reschedule request
+     * 
+     * @since 73
+     */
+    public void rescheduleRecordingsMatch(int recorderId,
+                                          int sourceId,
+                                          int mplexId,
+                                          Date maxStartTime,
+                                          String reason) throws IOException, CommandException;
+
+    /**
+     * Request the scheduler to run due to the change in status of a particular
+     * recording.
+     * 
+     * @param recorderId
+     *            the ID of the recorder for which the scheduler should run or
+     *            <code>0</code> to exclude this restriction (only used if
+     *            findId is non-zero)
+     * @param findId
+     *            TODO
+     * @param title
+     *            the program title for which the scheduler should run or
+     *            <code>null</code> to exclude this restriction
+     * @param subtitle
+     *            the program subtitle for which the scheduler should run or
+     *            <code>null</code> to exclude this restriction
+     * @param description
+     *            the program description for which the scheduler should run or
+     *            <code>null</code> to exclude this restriction
+     * @param programId
+     *            the program ID for which the scheduler should run or
+     *            <code>null</code> to exclude this restriction
+     * @param recStatus
+     *            the new recording status of the changed recording
+     *            (informational only)
+     * @param reason
+     *            the reason for this reschedule request (informational only)
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend fails to process the reschedule request
+     * 
+     * @since 73
+     */
+    public void rescheduleRecordingsCheck(int recorderId,
+                                          int findId,
+                                          String title,
+                                          String subtitle,
+                                          String description,
+                                          String programId,
+                                          RecordingStatus recStatus,
+                                          String reason) throws IOException, CommandException;
+
+    /**
+     * Request the scheduler to run due to the change in status of a particular
+     * recording.
+     * 
+     * @param title
+     *            the program title for which the scheduler should run or
+     *            <code>null</code> to exclude this restriction
+     * @param recStatus
+     *            the new recording status of the changed recording
+     *            (informational only)
+     * @param reason
+     *            the reason for this reschedule request (informational only)
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend fails to process the reschedule request
+     * 
+     * @since 73
+     */
+    public void rescheduleRecordingsCheck(String title, RecordingStatus recStatus, String reason) throws IOException,
+                                                                                                 CommandException;
+
+    /**
+     * Request the scheduler to run.
+     * 
+     * @param reason
+     *            the reason for this reschedule request
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * @throws CommandException
+     *             if the backend fails to process the reschedule request
+     * 
+     * @since 73
+     */
+    public void rescheduleRecordingsPlace(String reason) throws IOException, CommandException;
 
     /**
      * Request a scan of videos. Listen for a backend event to provide notice

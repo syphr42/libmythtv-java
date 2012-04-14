@@ -45,17 +45,18 @@ import org.syphr.mythtv.data.UpcomingRecordings;
 import org.syphr.mythtv.data.VideoEditInfo;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
-import org.syphr.mythtv.protocol.ProtocolVersionException;
 import org.syphr.mythtv.protocol.Protocol;
 import org.syphr.mythtv.protocol.ProtocolFactory;
 import org.syphr.mythtv.protocol.ProtocolSocketManager;
 import org.syphr.mythtv.protocol.ProtocolVersion;
+import org.syphr.mythtv.protocol.ProtocolVersionException;
 import org.syphr.mythtv.protocol.QueryFileTransfer;
 import org.syphr.mythtv.protocol.QueryRecorder;
 import org.syphr.mythtv.protocol.QueryRemoteEncoder;
 import org.syphr.mythtv.protocol.events.BackendEventListener;
 import org.syphr.mythtv.types.FileTransferType;
 import org.syphr.mythtv.types.RecordingCategory;
+import org.syphr.mythtv.types.RecordingStatus;
 import org.syphr.mythtv.types.Verbose;
 
 /**
@@ -568,6 +569,49 @@ public class AutomaticProtocol implements Protocol
     public void rescheduleRecordings(int recorderId) throws IOException
     {
         delegate.rescheduleRecordings(recorderId);
+    }
+
+    @Override
+    public void rescheduleRecordingsMatch(int recorderId,
+                                          int sourceId,
+                                          int mplexId,
+                                          Date maxStartTime,
+                                          String reason) throws IOException, CommandException
+    {
+        delegate.rescheduleRecordingsMatch(recorderId, sourceId, mplexId, maxStartTime, reason);
+    }
+
+    @Override
+    public void rescheduleRecordingsCheck(int recorderId,
+                                          int findId,
+                                          String title,
+                                          String subtitle,
+                                          String description,
+                                          String programId,
+                                          RecordingStatus recStatus,
+                                          String reason) throws IOException, CommandException
+    {
+        delegate.rescheduleRecordingsCheck(recorderId,
+                                           findId,
+                                           title,
+                                           subtitle,
+                                           description,
+                                           programId,
+                                           recStatus,
+                                           reason);
+    }
+
+    @Override
+    public void rescheduleRecordingsCheck(String title, RecordingStatus recStatus, String reason) throws IOException,
+                                                                                                 CommandException
+    {
+        delegate.rescheduleRecordingsCheck(title, recStatus, reason);
+    }
+
+    @Override
+    public void rescheduleRecordingsPlace(String reason) throws IOException, CommandException
+    {
+        delegate.rescheduleRecordingsPlace(reason);
     }
 
     @Override

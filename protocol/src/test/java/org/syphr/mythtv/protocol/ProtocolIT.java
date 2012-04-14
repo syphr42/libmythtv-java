@@ -18,6 +18,8 @@ package org.syphr.mythtv.protocol;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -578,6 +580,62 @@ public class ProtocolIT
     }
 
     @Test
+    public void testRescheduleRecordingsRecorder() throws IOException
+    {
+        int recorderId = settings.getIntegerProperty(Settings.RECORDER);
+        proto.rescheduleRecordings(recorderId);
+    }
+
+    @Test
+    public void testRescheduleRecordingsFull() throws IOException
+    {
+        proto.rescheduleRecordings(-1);
+    }
+
+    @Test
+    public void testRescheduleRecordingsMatchFull() throws IOException, CommandException
+    {
+        proto.rescheduleRecordingsMatch(0, 0, 0, null, "test");
+    }
+
+    @Test
+    public void testRescheduleRecordingsMatchRestrictions() throws IOException, CommandException
+    {
+        int recorderId = settings.getIntegerProperty(Settings.RECORDER);
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, 1);
+        Date maxStartTime = cal.getTime();
+
+        proto.rescheduleRecordingsMatch(recorderId, 0, 0, maxStartTime, "test");
+    }
+
+    @Test
+    public void testRescheduleRecordingsCheckExtended() throws IOException, CommandException
+    {
+        proto.rescheduleRecordingsCheck(0,
+                                        0,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        RecordingStatus.DONT_RECORD,
+                                        "test");
+    }
+
+    @Test
+    public void testRescheduleRecordingsCheckShort() throws IOException, CommandException
+    {
+        proto.rescheduleRecordingsCheck(null, RecordingStatus.DONT_RECORD, "test");
+    }
+
+    @Test
+    public void testRescheduleRecordingsPlace() throws IOException, CommandException
+    {
+        proto.rescheduleRecordingsPlace("test");
+    }
+
+    @Test
     public void testSetBookmark() throws IOException, CommandException
     {
         // TODO
@@ -706,16 +764,5 @@ public class ProtocolIT
     //        Program undelete = expiring.get(0);
     //        LOGGER.debug("Undeleting \"{}\" : \"{}\"", undelete.getTitle(), undelete.getSubtitle());
     //        Assert.assertTrue(proto.undeleteRecording(undelete));
-    //    }
-    //
-    //    @Test
-    //    public void testRescheduleRecordings() throws IOException
-    //    {
-    //        int recorderId = settings.getIntegerProperty(Settings.RECORDER);
-    //        LOGGER.debug("Requesting reschedule on recorder {}", recorderId);
-    //        proto.rescheduleRecordings(recorderId);
-    //
-    //        LOGGER.debug("Requesting full reschedule");
-    //        proto.rescheduleRecordings(-1);
     //    }
 }
