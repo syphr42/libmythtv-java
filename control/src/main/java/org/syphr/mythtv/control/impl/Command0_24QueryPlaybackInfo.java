@@ -38,7 +38,9 @@ import org.syphr.mythtv.types.PlaybackType;
 {
     private static final Pattern PLAYBACK_TYPE_PATTERN = Pattern.compile("Playback\\s+(.*?)\\s+(.*)");
 
-    private static final Pattern CHANNEL_VIDEO_PATTERN = Pattern.compile("(\\d+):(\\d{2})\\s+of\\s+(\\d+):(\\d{2})\\s+(\\d+\\.?\\d*)x\\s+(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+(\\d+)\\s+(.*)\\s+(\\d+\\.?\\d*)");
+    private static final Pattern CHANNEL_VIDEO_PATTERN = Pattern.compile("(\\d+):(\\d{2})\\s+.*?\\s+(\\d+):(\\d{2})\\s+(\\d+\\.?\\d*)x\\s+(\\d+)\\s+("
+            + DateUtils.getIsoDatePattern()
+            + ")\\s+(\\d+)\\s+(.*)\\s+(\\d+\\.?\\d*)");
     private static final Pattern OTHER_VIDEO_PATTERN = Pattern.compile("(\\d+):(\\d{2})\\s+(\\d+\\.?\\d*)x\\s+(.*)\\s+(\\d+)\\s+(\\d+\\.?\\d*)");
 
     public Command0_24QueryPlaybackInfo(Translator translator)
@@ -78,8 +80,12 @@ import org.syphr.mythtv.types.PlaybackType;
                         throw new ProtocolException(response, Direction.RECEIVE);
                     }
 
-                    int currentPosition = Integer.parseInt(infoMatcher.group(1)) * 60 + Integer.parseInt(infoMatcher.group(2));
-                    int totalLength = Integer.parseInt(infoMatcher.group(3)) * 60 + Integer.parseInt(infoMatcher.group(4));
+                    int currentPosition = Integer.parseInt(infoMatcher.group(1))
+                            * 60
+                            + Integer.parseInt(infoMatcher.group(2));
+                    int totalLength = Integer.parseInt(infoMatcher.group(3))
+                            * 60
+                            + Integer.parseInt(infoMatcher.group(4));
                     float speed = Float.parseFloat(infoMatcher.group(5));
                     Channel channel = new Channel(Integer.parseInt(infoMatcher.group(6)));
                     Date start = DateUtils.getIsoDateFormat().parse(infoMatcher.group(7));
@@ -106,7 +112,9 @@ import org.syphr.mythtv.types.PlaybackType;
                         throw new ProtocolException(response, Direction.RECEIVE);
                     }
 
-                    int currentPosition = Integer.parseInt(infoMatcher.group(1)) * 60 + Integer.parseInt(infoMatcher.group(2));
+                    int currentPosition = Integer.parseInt(infoMatcher.group(1))
+                            * 60
+                            + Integer.parseInt(infoMatcher.group(2));
                     float speed = Float.parseFloat(infoMatcher.group(3));
                     URI location = UriUtils.toUri(infoMatcher.group(4));
                     long currentFrame = Long.parseLong(infoMatcher.group(5));
