@@ -38,7 +38,7 @@ import org.syphr.mythtv.types.PlaybackType;
 {
     private static final Pattern PLAYBACK_TYPE_PATTERN = Pattern.compile("Playback\\s+(.*?)\\s+(.*)");
 
-    private static final Pattern CHANNEL_VIDEO_PATTERN = Pattern.compile("(\\d+):(\\d{2})\\s+.*?\\s+(\\d+):(\\d{2})\\s+(\\d+\\.?\\d*)x\\s+(\\d+)\\s+("
+    private static final Pattern CHANNEL_VIDEO_PATTERN = Pattern.compile("(\\d+):(\\d{2})\\s+.+?\\s+(\\d+):(\\d{2})\\s+(\\d+\\.?\\d*)x\\s+(\\d+)\\s+("
             + DateUtils.getIsoDatePattern()
             + ")\\s+(\\d+)\\s+(.*)\\s+(\\d+\\.?\\d*)");
     private static final Pattern OTHER_VIDEO_PATTERN = Pattern.compile("(\\d+):(\\d{2})\\s+(\\d+\\.?\\d*)x\\s+(.*)\\s+(\\d+)\\s+(\\d+\\.?\\d*)");
