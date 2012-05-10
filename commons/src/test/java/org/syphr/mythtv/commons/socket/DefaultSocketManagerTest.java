@@ -35,8 +35,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.syphr.mythtv.commons.exception.ResponseTimeoutException;
-import org.syphr.mythtv.commons.socket.DefaultPacket;
-import org.syphr.mythtv.commons.socket.DefaultSocketManager;
 import org.syphr.mythtv.test.Settings;
 
 public class DefaultSocketManagerTest
@@ -167,6 +165,22 @@ public class DefaultSocketManagerTest
 
         String secondResponse = socketManager.sendAndWait("second message", 3, TimeUnit.SECONDS);
         Assert.assertEquals(SECOND_RESPONSE, secondResponse);
+    }
+
+    @Test
+    public void testEmptyResponse() throws IOException
+    {
+        handler = new ConnectionHandler()
+        {
+            @Override
+            public String handle(String input)
+            {
+                return "";
+            }
+        };
+
+        String response = socketManager.sendAndWait("message", 100, TimeUnit.MILLISECONDS);
+        Assert.assertEquals("", response);
     }
 
     private static interface ConnectionHandler

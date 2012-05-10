@@ -15,19 +15,17 @@
  */
 package org.syphr.mythtv.control.impl;
 
-import java.util.regex.Pattern;
-
 import org.syphr.mythtv.commons.socket.DefaultPacket;
 
 /**
- * This class represents the lowest level socket communication between the client and a
- * MythTV frontend instance.
- *
+ * This class represents the lowest level socket communication between the
+ * client and a MythTV frontend instance.
+ * 
  * @author Gregory P. Moyer
  */
 /* default */class ControlPacket extends DefaultPacket
 {
-    private static final String READ_MESSAGE_TERMINATOR = Pattern.quote("\r\n# ");
+    private static final String READ_MESSAGE_TERMINATOR = "\r\n# ";
     private static final String WRITE_MESSAGE_TERMINATOR = "\r\n";
 
     @Override
@@ -35,7 +33,7 @@ import org.syphr.mythtv.commons.socket.DefaultPacket;
     {
         return READ_MESSAGE_TERMINATOR;
     }
-    
+
     @Override
     protected String buildMessage(String data)
     {

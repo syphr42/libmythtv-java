@@ -21,9 +21,12 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class DefaultPacket implements Packet
 {
@@ -37,7 +40,7 @@ public class DefaultPacket implements Packet
 
     private int bufferSize = DEFAULT_PAYLOAD_BUFFER_SIZE;
 
-    private String messageTerminator = Pattern.quote(DEFAULT_MESSAGE_TERMINATOR_LITERAL);
+    private String messageTerminator = DEFAULT_MESSAGE_TERMINATOR_LITERAL;
 
     public void setCharset(Charset charset)
     {
@@ -60,11 +63,10 @@ public class DefaultPacket implements Packet
     }
 
     /**
-     * Set the regular expression that determines the boundary between two
-     * messages.
+     * Set the string literal boundary between two messages.
      * 
      * @param messageTerminator
-     *            the regular expression to set
+     *            the terminator to set
      */
     public void setMessageTerminator(String messageTerminator)
     {
@@ -72,10 +74,9 @@ public class DefaultPacket implements Packet
     }
 
     /**
-     * Retrieve the regular expression that determines the boundary between two
-     * messages.
+     * Retrieve the string literal boundary between two messages.
      * 
-     * @return the regular expression
+     * @return the terminator
      */
     public String getMessageTerminator()
     {
@@ -112,7 +113,22 @@ public class DefaultPacket implements Packet
             builder.append(new String(payloadBytes, 0, justRead, getCharset()));
         }
 
-        return Arrays.asList(builder.toString().split(getMessageTerminator()));
+        String received = builder.toString();
+        int messageCount = StringUtils.countMatches(received, getMessageTerminator());
+
+        List<String> messages = new ArrayList<String>(Arrays.asList(builder.toString().split(Pattern.quote(getMessageTerminator()))));
+
+        /*
+         * String.split(String) trims empty matches from the end of the array
+         * before returning. This will cause disruption for a synchronous
+         * protocol, so override this behavior and put the empty strings back.
+         */
+        for (int i = messages.size(); i < messageCount; i++)
+        {
+            messages.add("");
+        }
+
+        return messages;
     }
 
     @Override
