@@ -47,7 +47,7 @@ import org.syphr.mythtv.commons.exception.ResponseTimeoutException;
  */
 public class DefaultSocketManager implements SocketManager
 {
-    private final Logger logger = LoggerFactory.getLogger(DefaultSocketManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSocketManager.class);
 
     private final Packet packet;
 
@@ -138,7 +138,7 @@ public class DefaultSocketManager implements SocketManager
             disconnect();
         }
 
-        logger.info("Connecting to {}:{}", addr.getHostName(), addr.getPort());
+        LOGGER.info("Connecting to {}:{}", addr.getHostName(), addr.getPort());
 
         socket = SocketChannel.open();
         socket.configureBlocking(true);
@@ -156,10 +156,10 @@ public class DefaultSocketManager implements SocketManager
                         return;
                     }
 
-                    logger.trace("Starting connection timeout for {} milliseconds", timeout);
+                    LOGGER.trace("Starting connection timeout for {} milliseconds", timeout);
                     Thread.sleep(timeout);
 
-                    logger.error("Connection timed out after {} milliseconds", timeout);
+                    LOGGER.error("Connection timed out after {} milliseconds", timeout);
                     connectionThread.interrupt();
                 }
                 catch (InterruptedException e)
@@ -167,7 +167,7 @@ public class DefaultSocketManager implements SocketManager
                     /*
                      * Let this thread die when it's interrupted.
                      */
-                    logger.trace("Connection completed, stopping timeout thread");
+                    LOGGER.trace("Connection completed, stopping timeout thread");
                 }
             }
         };
@@ -182,7 +182,7 @@ public class DefaultSocketManager implements SocketManager
             timeoutThread.interrupt();
         }
 
-        logger.info("Connected");
+        LOGGER.info("Connected");
 
         socket.configureBlocking(false);
         openSelectors();
@@ -225,7 +225,7 @@ public class DefaultSocketManager implements SocketManager
             }
             catch (IOException e)
             {
-                logger.debug("Error while closing read selector", e);
+                LOGGER.debug("Error while closing read selector", e);
             }
         }
 
@@ -237,7 +237,7 @@ public class DefaultSocketManager implements SocketManager
             }
             catch (IOException e)
             {
-                logger.debug("Error while closing write selector", e);
+                LOGGER.debug("Error while closing write selector", e);
             }
         }
     }
@@ -274,7 +274,7 @@ public class DefaultSocketManager implements SocketManager
 
                         for (String value : packet.read(socket))
                         {
-                            logger.trace("Received message: {}", value);
+                            LOGGER.trace("Received message: {}", value);
 
                             if (interceptor != null && interceptor.intercept(value))
                             {
@@ -289,7 +289,7 @@ public class DefaultSocketManager implements SocketManager
                              */
                             if (skippedResponses.get() > 0)
                             {
-                                logger.trace("Discarding skipped message: {}", value);
+                                LOGGER.trace("Discarding skipped message: {}", value);
 
                                 skippedResponses.decrementAndGet();
                                 continue;
@@ -300,17 +300,17 @@ public class DefaultSocketManager implements SocketManager
                     }
                     catch (InterruptedIOException e)
                     {
-                        logger.info("Receiver interrupted");
+                        LOGGER.info("Receiver interrupted");
                         break;
                     }
                     catch (ClosedByInterruptException e)
                     {
-                        logger.info("Receiver closed by interrupt");
+                        LOGGER.info("Receiver closed by interrupt");
                         break;
                     }
                     catch (IOException e)
                     {
-                        logger.error("Connection error", e);
+                        LOGGER.error("Connection error", e);
 
                         disconnect();
                         break;
@@ -388,7 +388,7 @@ public class DefaultSocketManager implements SocketManager
             return;
         }
 
-        logger.info("Disconnecting");
+        LOGGER.info("Disconnecting");
 
         closeSelectors();
 
@@ -398,10 +398,10 @@ public class DefaultSocketManager implements SocketManager
         }
         catch (IOException e)
         {
-            logger.debug("Error while closing socket", e);
+            LOGGER.debug("Error while closing socket", e);
         }
 
-        logger.info("Disconnected");
+        LOGGER.info("Disconnected");
     }
 
     @Override
@@ -409,7 +409,7 @@ public class DefaultSocketManager implements SocketManager
     {
         confirmConnected();
 
-        logger.trace("Sending message: {}", message);
+        LOGGER.trace("Sending message: {}", message);
 
         if (writeSelector.select() != 1 || Thread.interrupted())
         {
@@ -420,7 +420,7 @@ public class DefaultSocketManager implements SocketManager
 
         packet.write(socket, message);
 
-        logger.trace("Message sent");
+        LOGGER.trace("Message sent");
     }
 
     @Override
@@ -439,7 +439,7 @@ public class DefaultSocketManager implements SocketManager
 
             try
             {
-                logger.trace("Waiting for reply");
+                LOGGER.trace("Waiting for reply");
 
                 if (timeout < 1)
                 {
@@ -464,7 +464,7 @@ public class DefaultSocketManager implements SocketManager
             }
             catch (InterruptedException e)
             {
-                logger.info("Interrupted while waiting for response", e);
+                LOGGER.info("Interrupted while waiting for response", e);
                 return "";
             }
         }
