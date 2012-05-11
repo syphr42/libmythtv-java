@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.channels.ByteChannel;
 import java.nio.channels.FileChannel;
+import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.commons.socket.SocketManager;
@@ -44,19 +45,22 @@ public class Utils
                               settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_PORT),
                               settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_TIMEOUT));
 
+        socketManager.setDefaultMessageTimeout(settings.getIntegerProperty(Settings.BACKEND_PROTOCOL_TIMEOUT),
+                                               TimeUnit.MILLISECONDS);
+
         return socketManager;
     }
 
     public static Protocol announceMonitor(PropertiesManager<Settings> settings,
                                            SocketManager socketManager,
-                                           EventLevel eventLevel) throws IOException, CommandException
+                                           EventLevel eventLevel) throws IOException,
+                                                                 CommandException
     {
         Protocol proto = ProtocolFactory.createInstance(settings.getEnumProperty(Settings.BACKEND_PROTOCOL_VERSION,
                                                                                  ProtocolVersion.class),
                                                         socketManager);
         proto.mythProtoVersion();
-        proto.ann(ConnectionType.MONITOR, InetAddress.getLocalHost()
-                                                     .getHostName(), eventLevel);
+        proto.ann(ConnectionType.MONITOR, InetAddress.getLocalHost().getHostName(), eventLevel);
 
         return proto;
     }
@@ -66,12 +70,7 @@ public class Utils
                                   File file,
                                   QueryFileTransfer fileTransfer) throws IOException
     {
-        readToFile(settings,
-                   transferProtocol,
-                   file,
-                   fileTransfer,
-                   fileTransfer.getSize(),
-                   false);
+        readToFile(settings, transferProtocol, file, fileTransfer, fileTransfer.getSize(), false);
     }
 
     public static void readToFile(PropertiesManager<Settings> settings,
@@ -97,8 +96,7 @@ public class Utils
                     int read = 0;
                     while (read < size)
                     {
-                        long sendCount = fileTransfer.requestBlock(Math.min(buffer,
-                                                                            size - read));
+                        long sendCount = fileTransfer.requestBlock(Math.min(buffer, size - read));
                         if (sendCount < 0)
                         {
                             throw new IOException();
@@ -150,8 +148,7 @@ public class Utils
                     while (written < size)
                     {
                         long sendCount = in.transferTo(written,
-                                                       Math.min(buffer,
-                                                                size - written),
+                                                       Math.min(buffer, size - written),
                                                        out);
 
                         long received = fileTransfer.writeBlock(sendCount);
