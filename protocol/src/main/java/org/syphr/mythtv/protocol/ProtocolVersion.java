@@ -26,7 +26,8 @@ public enum ProtocolVersion
 {
     _63,
     _72,
-    _73;
+    _73,
+    _74;
     
     /**
      * The pattern used to determine if a potential version string needs a
