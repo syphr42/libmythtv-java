@@ -23,12 +23,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.commons.exception.ProtocolException.Direction;
+import org.syphr.mythtv.commons.exception.ResponseTimeoutException;
 import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.translate.DateUtils;
 import org.syphr.mythtv.data.Channel;
@@ -36,9 +36,15 @@ import org.syphr.mythtv.data.Program;
 
 public class Control0_24Utils
 {
-    private static final Pattern RECORDING_PATTERN = Pattern.compile("^(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+(.+?)(\\s+-\"(.*)\")?$");
+    private static final Pattern RECORDING_PATTERN = Pattern.compile("^(\\d+)\\s+("
+            + DateUtils.getIsoDatePattern()
+            + ")\\s+(.+?)(\\s+-\"(.*)\")?$");
 
-    private static final Pattern LIVE_TV_PATTERN = Pattern.compile("^\\s*(\\d+)\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+(" + DateUtils.getIsoDatePattern() + ")\\s+(.+?)(\\s+-\"(.*)\")?$");
+    private static final Pattern LIVE_TV_PATTERN = Pattern.compile("^\\s*(\\d+)\\s+("
+            + DateUtils.getIsoDatePattern()
+            + ")\\s+("
+            + DateUtils.getIsoDatePattern()
+            + ")\\s+(.+?)(\\s+-\"(.*)\")?$");
 
     private static final Pattern CHANNEL_PATTERN = Pattern.compile("^\\d+:(\\d+)\\s+(\\d+)\\s+\"(.*)\"\\s+\"(.*)\"$");
 
@@ -112,7 +118,11 @@ public class Control0_24Utils
                 String title = matcher.group(4);
                 String subtitle = matcher.groupCount() == 6 ? matcher.group(6) : null;
 
-                programs.add(new Program(title, subtitle, new Channel(channelId), startTime, endTime));
+                programs.add(new Program(title,
+                                         subtitle,
+                                         new Channel(channelId),
+                                         startTime,
+                                         endTime));
             }
             catch (NumberFormatException e)
             {
@@ -178,11 +188,11 @@ public class Control0_24Utils
     }
 
     /**
-     * Send a message and wait for a short period for a response. If no response comes in
-     * that time, it is assumed that there will be no response from the frontend. This is
-     * useful for commands that get a response when there is data available and silence
-     * otherwise.
-     *
+     * Send a message and wait for a short period for a response. If no response
+     * comes in that time, it is assumed that there will be no response from the
+     * frontend. This is useful for commands that get a response when there is
+     * data available and silence otherwise.
+     * 
      * @param socketManager
      *            the socket manager to use for communicating with the frontend
      * @param message
@@ -193,20 +203,21 @@ public class Control0_24Utils
      */
     public static String getResponseMaybe(SocketManager socketManager, String message) throws IOException
     {
-        String response = socketManager.sendAndWait(message, 5, TimeUnit.SECONDS);
-
-        /*
-         * If there is no response (therefore the timeout was hit in the
-         * previous send-and-wait), then the socket manager will be expecting
-         * the next message that arrives to be an orphan connected to this
-         * command that didn't come back in time. To get things back in sync, a
-         * throwaway command (help) will be sent.
-         */
-        if (response.isEmpty())
+        try
         {
-            socketManager.send("help");
+            return socketManager.sendAndWait(message);
         }
-
-        return response;
+        catch (ResponseTimeoutException e)
+        {
+            /*
+             * If the timeout was hit in the previous send-and-wait, then the
+             * socket manager will be expecting the next message that arrives to
+             * be an orphan connected to this command that didn't come back in
+             * time. To get things back in sync, a throwaway command (help) will
+             * be sent.
+             */
+            socketManager.send("help");
+            return "";
+        }
     }
 }
