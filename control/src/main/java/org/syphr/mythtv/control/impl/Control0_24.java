@@ -24,6 +24,7 @@ import java.util.Set;
 import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.translate.Translator;
+import org.syphr.mythtv.control.data.UIPathElement;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
@@ -206,7 +207,13 @@ public class Control0_24 extends AbstractControl
     @Override
     public FrontendLocation queryLocation() throws IOException
     {
-        return new Command0_24QueryLocation(getTranslator()).send(getSocketManager());
+        return new Command0_24QueryLocationSimple(getTranslator()).send(getSocketManager());
+    }
+
+    @Override
+    public List<UIPathElement> queryLocation(boolean fullPath, boolean mainStackOnly) throws IOException
+    {
+        return new Command0_24QueryLocation(getTranslator(), fullPath, mainStackOnly).send(getSocketManager());
     }
 
     @Override

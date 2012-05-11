@@ -20,9 +20,11 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
+import org.syphr.mythtv.control.data.UIPathElement;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
@@ -69,7 +71,7 @@ public interface Control
      * @throws IOException
      *             if the connection could not be completed
      */
-    public void connect(String host, int port, final long timeout) throws IOException;
+    public void connect(String host, int port, long timeout) throws IOException;
 
     /**
      * Determine whether or not there is an active connection to a frontend
@@ -79,6 +81,16 @@ public interface Control
      *         <code>false</code> otherwise
      */
     public boolean isConnected();
+
+    /**
+     * Set how long to wait before giving up on a command.
+     * 
+     * @param timeout
+     *            the timeout interval
+     * @param unit
+     *            the units of the timeout interval
+     */
+    public void setMessageTimeout(long timeout, TimeUnit unit);
 
     /**
      * Request that the frontend jump to the given location in the UI.
@@ -532,6 +544,8 @@ public interface Control
     /**
      * Request the current UI location of the frontend.
      * 
+     * @see #queryLocation(boolean, boolean)
+     * 
      * @return the current location
      * @throws IOException
      *             if there is a communication or protocol error
@@ -539,6 +553,26 @@ public interface Control
      * @since 0.24
      */
     public FrontendLocation queryLocation() throws IOException;
+
+    /**
+     * Request the current UI location of the frontend.
+     * 
+     * @see #queryLocation()
+     * 
+     * @param fullPath
+     *            return the full path to the current view (this can include
+     *            {@link FrontendLocation}s as well as custom path elements
+     * @param mainStackOnly
+     *            only include references in the main stack (i.e. no popup
+     *            windows)
+     * @return a list of UI locations that form a path to the current location
+     *         (with the current being the last element in the list)
+     * @throws IOException
+     *             if there is a communication or protocol error
+     * 
+     * @since 0.24
+     */
+    public List<UIPathElement> queryLocation(boolean fullPath, boolean mainStackOnly) throws IOException;
 
     /**
      * Request information about the video that is currently playing on the

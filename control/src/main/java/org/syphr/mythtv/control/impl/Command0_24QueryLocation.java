@@ -16,35 +16,73 @@
 package org.syphr.mythtv.control.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.syphr.mythtv.commons.exception.ProtocolException;
 import org.syphr.mythtv.commons.socket.AbstractCommand;
 import org.syphr.mythtv.commons.socket.SocketManager;
 import org.syphr.mythtv.commons.translate.Translator;
+import org.syphr.mythtv.control.data.UIPathElement;
 import org.syphr.mythtv.types.FrontendLocation;
 
-/* default */class Command0_24QueryLocation extends AbstractCommand<FrontendLocation>
+/* default */class Command0_24QueryLocation extends AbstractCommand<List<UIPathElement>>
 {
-    public Command0_24QueryLocation(Translator translator)
+    private final boolean fullPath;
+    private final boolean mainStackOnly;
+
+    public Command0_24QueryLocation(Translator translator, boolean fullPath, boolean mainStackOnly)
     {
         super(translator);
+
+        this.fullPath = fullPath;
+        this.mainStackOnly = mainStackOnly;
     }
 
     @Override
     protected String getMessage()
     {
-        return "query location";
+        StringBuilder builder = new StringBuilder();
+        builder.append("query location ").append(fullPath).append(' ').append(mainStackOnly);
+
+        return builder.toString();
     }
 
     @Override
-    public FrontendLocation send(SocketManager socketManager) throws IOException
+    public List<UIPathElement> send(SocketManager socketManager) throws IOException
     {
         String response = socketManager.sendAndWait(getMessage());
 
-        if (response.startsWith("Playback"))
+        List<UIPathElement> path = new ArrayList<UIPathElement>();
+        if ("UNKNOWN".equals(response))
         {
-            return FrontendLocation.PLAYBACK;
+            path.add(new UIPathElement(FrontendLocation.UNKNOWN));
+            return path;
         }
 
-        return getTranslator().toEnum(response, FrontendLocation.class);
+        if (response.startsWith("Playback"))
+        {
+            path.add(new UIPathElement(FrontendLocation.PLAYBACK));
+            return path;
+        }
+
+        for (String element : response.split("/"))
+        {
+            try
+            {
+                FrontendLocation location = getTranslator().toEnum(response, FrontendLocation.class);
+                path.add(new UIPathElement(location));
+            }
+            catch (ProtocolException e)
+            {
+                /*
+                 * This element is not a valid jump location, so treat it as a
+                 * custom element.
+                 */
+                path.add(new UIPathElement(element));
+            }
+        }
+
+        return path;
     }
 }

@@ -26,6 +26,7 @@ import org.syphr.mythtv.api.commons.AbstractCachedConnection;
 import org.syphr.mythtv.commons.exception.CommandException;
 import org.syphr.mythtv.commons.unsupported.UnsupportedHandler;
 import org.syphr.mythtv.control.Control;
+import org.syphr.mythtv.control.data.UIPathElement;
 import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Load;
 import org.syphr.mythtv.data.MemStats;
@@ -118,6 +119,13 @@ public class CachedControl extends AbstractCachedConnection implements Control
     public synchronized boolean isConnected()
     {
         return delegate.isConnected();
+    }
+
+    @Override
+    public void setMessageTimeout(long timeout, TimeUnit unit)
+    {
+        delegate.setMessageTimeout(Math.min(getTimeout(), unit.toMillis(timeout)),
+                                   TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -321,6 +329,13 @@ public class CachedControl extends AbstractCachedConnection implements Control
     {
         connectIfNecessary();
         return delegate.queryLocation();
+    }
+
+    @Override
+    public List<UIPathElement> queryLocation(boolean fullPath, boolean mainStackOnly) throws IOException
+    {
+        connectIfNecessary();
+        return delegate.queryLocation(fullPath, mainStackOnly);
     }
 
     @Override

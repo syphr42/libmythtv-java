@@ -16,6 +16,7 @@
 package org.syphr.mythtv.control.test;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.syphr.mythtv.control.Control;
 import org.syphr.mythtv.control.ControlFactory;
@@ -33,6 +34,9 @@ public class Utils
         control.connect(settings.getProperty(Settings.FRONTEND_HOST),
                         settings.getIntegerProperty(Settings.FRONTEND_CONTROL_PORT),
                         settings.getIntegerProperty(Settings.FRONTEND_CONTROL_TIMEOUT));
+
+        control.setMessageTimeout(settings.getIntegerProperty(Settings.FRONTEND_CONTROL_TIMEOUT),
+                                  TimeUnit.MILLISECONDS);
 
         return control;
     }

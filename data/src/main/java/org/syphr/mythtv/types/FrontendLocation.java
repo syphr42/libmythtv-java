@@ -113,6 +113,17 @@ public enum FrontendLocation
      * The playback location is special in that it is not valid as a jump
      * target, but it is the declared location whenever the frontend is playing
      * back video.
+     * 
+     * @since 0.24
      */
-    PLAYBACK;
+    PLAYBACK,
+
+    /**
+     * The unknown location is special in that it is not valid as a jump target,
+     * but it is returned whenever the frontend cannot determine the current
+     * location.
+     * 
+     * @since 0.24
+     */
+    UNKNOWN;
 }

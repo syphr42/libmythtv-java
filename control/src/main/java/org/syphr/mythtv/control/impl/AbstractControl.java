@@ -107,6 +107,12 @@ public abstract class AbstractControl implements Control
         return socketManager.isConnected();
     }
 
+    @Override
+    public void setMessageTimeout(long timeout, TimeUnit unit)
+    {
+        socketManager.setDefaultMessageTimeout(timeout, unit);
+    }
+
     protected SocketManager getSocketManager()
     {
         return socketManager;
