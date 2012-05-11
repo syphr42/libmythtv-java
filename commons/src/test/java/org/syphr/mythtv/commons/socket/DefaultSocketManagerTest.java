@@ -183,6 +183,27 @@ public class DefaultSocketManagerTest
         Assert.assertEquals("", response);
     }
 
+    @Test
+    public void testMultipleMessages() throws IOException
+    {
+        final String responseMessage = "response";
+
+        handler = new ConnectionHandler()
+        {
+            @Override
+            public String handle(String input)
+            {
+                return responseMessage;
+            }
+        };
+
+        for (int i = 0; i < 3; i++)
+        {
+            String response = socketManager.sendAndWait("message", 100, TimeUnit.MILLISECONDS);
+            Assert.assertEquals(responseMessage, response);
+        }
+    }
+
     private static interface ConnectionHandler
     {
         public String handle(String input);

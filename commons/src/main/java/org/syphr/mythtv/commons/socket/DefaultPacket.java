@@ -22,6 +22,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -112,7 +113,19 @@ public class DefaultPacket implements Packet
             builder.append(new String(payloadBytes, 0, justRead, getCharset()));
         }
 
-        return Arrays.asList(builder.toString().split(getMessageTerminator(), -1));
+        /*
+         * Retain empty messages by sending a limit of -1 to the split method.
+         */
+        String[] messages = builder.toString().split(getMessageTerminator(), -1);
+
+        /*
+         * Removing the tail message since it will be the empty string after the
+         * last message terminator.
+         */
+        LinkedList<String> list = new LinkedList<String>(Arrays.asList(messages));
+        list.pollLast();
+
+        return list;
     }
 
     @Override
