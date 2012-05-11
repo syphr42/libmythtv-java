@@ -41,10 +41,11 @@ import org.syphr.mythtv.data.Program;
     @Override
     protected String getMessage()
     {
-        return "query recording "
-                + channelId
-                + " "
-                + DateUtils.getIsoDateFormat().format(recStartTs);
+        StringBuilder builder = new StringBuilder();
+        builder.append("query recording ").append(channelId);
+        builder.append(' ').append(DateUtils.getIsoDateFormat().format(recStartTs));
+
+        return builder.toString();
     }
 
     @Override
