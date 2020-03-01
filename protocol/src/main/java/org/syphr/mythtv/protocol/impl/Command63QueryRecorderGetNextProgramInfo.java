@@ -27,7 +27,8 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.types.ChannelBrowseDirection;
 
-/* default */class Command63QueryRecorderGetNextProgramInfo extends AbstractCommand63QueryRecorder<Program>
+/* default */class Command63QueryRecorderGetNextProgramInfo extends
+                                                            AbstractCommand63QueryRecorder<Program>
 {
     private final Channel channel;
     private final ChannelBrowseDirection browseDirection;
@@ -54,8 +55,7 @@ import org.syphr.mythtv.types.ChannelBrowseDirection;
                                             channel.getNumber(),
                                             String.valueOf(channel.getId()),
                                             getTranslator().toString(browseDirection),
-                                            DateUtils.getIsoDateFormat()
-                                                     .format(startTime));
+                                            DateUtils.getIsoDateFormat().format(getTranslator().toOutboundDate(startTime)));
     }
 
     @Override
@@ -86,18 +86,18 @@ import org.syphr.mythtv.types.ChannelBrowseDirection;
             String programId = args.get(i++);
 
             return new Program(title,
-                                   subtitle,
-                                   description,
-                                   category,
-                                   new Channel(channelId, channelname, callsign, iconPath),
-                                   " ".equals(nextStartTime)
-                                           ? null
-                                           : DateUtils.getIsoDateFormat().parse(nextStartTime),
-                                   " ".equals(nextEndTime)
-                                           ? null
-                                           : DateUtils.getIsoDateFormat().parse(nextEndTime),
-                                   seriesId,
-                                   programId);
+                               subtitle,
+                               description,
+                               category,
+                               new Channel(channelId, channelname, callsign, iconPath),
+                               " ".equals(nextStartTime)
+                                       ? null
+                                       : getTranslator().toInboundDate(DateUtils.getIsoDateFormat().parse(nextStartTime)),
+                               " ".equals(nextEndTime)
+                                       ? null
+                                       : getTranslator().toInboundDate(DateUtils.getIsoDateFormat().parse(nextEndTime)),
+                               seriesId,
+                               programId);
         }
         catch (NumberFormatException e)
         {

@@ -60,7 +60,7 @@ import org.syphr.mythtv.data.Program;
 
         try
         {
-            return new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(response)));
+            return getTranslator().toInboundDate(new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(response))));
         }
         catch (NumberFormatException e)
         {

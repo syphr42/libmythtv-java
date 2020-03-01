@@ -46,7 +46,7 @@ import org.syphr.mythtv.commons.translate.Translator;
 
         try
         {
-            return DateUtils.getIsoDateFormat().parse(response);
+            return getTranslator().toInboundDate(DateUtils.getIsoDateFormat().parse(response));
         }
         catch (ParseException e)
         {

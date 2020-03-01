@@ -53,7 +53,7 @@ import org.syphr.mythtv.data.FileInfo;
         {
             return new FileInfo(args.get(0),
                                 Long.parseLong(args.get(2)),
-                                new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(1)))));
+                                getTranslator().toInboundDate(new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(1))))));
         }
         catch (NumberFormatException e)
         {

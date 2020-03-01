@@ -15,10 +15,12 @@
  */
 package org.syphr.mythtv.protocol.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.syphr.mythtv.commons.translate.AbstractTranslator;
+import org.syphr.mythtv.commons.translate.DateUtils;
 import org.syphr.mythtv.protocol.ConnectionType;
 import org.syphr.mythtv.protocol.EventLevel;
 import org.syphr.mythtv.types.AudioProperty;
@@ -463,5 +465,17 @@ public class Translator63 extends AbstractTranslator
         }
 
         return (BiMap)MAPS.get(type);
+    }
+
+    @Override
+    public Date toOutboundDate(Date date)
+    {
+        return DateUtils.toLocal(date);
+    }
+
+    @Override
+    public Date toInboundDate(Date date)
+    {
+        return DateUtils.toUtc(date);
     }
 }

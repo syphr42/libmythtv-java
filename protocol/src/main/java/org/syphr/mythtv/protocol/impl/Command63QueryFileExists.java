@@ -32,7 +32,10 @@ import org.syphr.mythtv.data.FileInfo;
     private final URI filename;
     private final String storageGroup;
 
-    public Command63QueryFileExists(Translator translator, Parser parser, URI filename, String storageGroup)
+    public Command63QueryFileExists(Translator translator,
+                                    Parser parser,
+                                    URI filename,
+                                    String storageGroup)
     {
         super(translator, parser);
 
@@ -95,9 +98,9 @@ import org.syphr.mythtv.data.FileInfo;
                                     Long.parseLong(args.get(i++)),
                                     Long.parseLong(args.get(i++)),
                                     Long.parseLong(args.get(i++)),
-                                    new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))),
-                                    new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))),
-                                    new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++)))));
+                                    getTranslator().toInboundDate(new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++))))),
+                                    getTranslator().toInboundDate(new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++))))),
+                                    getTranslator().toInboundDate(new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(i++))))));
             }
             catch (NumberFormatException e)
             {

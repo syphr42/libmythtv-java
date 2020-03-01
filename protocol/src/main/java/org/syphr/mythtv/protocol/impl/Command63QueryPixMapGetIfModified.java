@@ -60,7 +60,7 @@ import org.syphr.mythtv.data.Program;
         messageList.add("QUERY_PIXMAP_GET_IF_MODIFIED");
         messageList.add(timestamp == null
                 ? "-1"
-                : String.valueOf(TimeUnit.MILLISECONDS.toSeconds(timestamp.getTime())));
+                : String.valueOf(TimeUnit.MILLISECONDS.toSeconds(getTranslator().toOutboundDate(timestamp).getTime())));
         messageList.add(String.valueOf(maxFileSize));
         messageList.addAll(getParser().extractProgramInfo(program));
 
@@ -68,8 +68,7 @@ import org.syphr.mythtv.data.Program;
     }
 
     @Override
-    public PixMap send(SocketManager socketManager) throws IOException,
-                                                   CommandException
+    public PixMap send(SocketManager socketManager) throws IOException, CommandException
     {
         String response = socketManager.sendAndWait(getMessage());
         List<String> args = getParser().splitArguments(response);
@@ -100,10 +99,10 @@ import org.syphr.mythtv.data.Program;
             switch (args.size())
             {
                 case 1:
-                    return new PixMap(new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(0)))));
+                    return new PixMap(getTranslator().toInboundDate(new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(0))))));
 
                 case 4:
-                    Date lastModified = new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(0))));
+                    Date lastModified = getTranslator().toInboundDate(new Date(TimeUnit.SECONDS.toMillis(Long.parseLong(args.get(0)))));
                     int size = Integer.parseInt(args.get(1));
                     String checksum = args.get(2);
                     byte[] data = new Base64().decode(args.get(3));

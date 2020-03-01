@@ -17,11 +17,12 @@ package org.syphr.mythtv.control;
 
 import org.syphr.mythtv.control.impl.Control0_24;
 import org.syphr.mythtv.control.impl.Control0_25;
+import org.syphr.mythtv.control.impl.Control0_26;
 
 /**
  * This class acts as a bridge to the various frontend network control
  * implementations.
- *
+ * 
  * @author Gregory P. Moyer
  */
 public class ControlFactory
@@ -29,7 +30,7 @@ public class ControlFactory
     /**
      * Create a new instance of the frontend network control for the desired
      * version.
-     *
+     * 
      * @param version
      *            the desired network control version
      * @return a new network control instance
@@ -43,6 +44,9 @@ public class ControlFactory
 
             case _0_25:
                 return new Control0_25();
+
+            case _0_26:
+                return new Control0_26();
 
             default:
                 throw new IllegalArgumentException("Unknown control version: " + version);

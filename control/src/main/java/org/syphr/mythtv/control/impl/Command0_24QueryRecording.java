@@ -43,7 +43,7 @@ import org.syphr.mythtv.data.Program;
     {
         StringBuilder builder = new StringBuilder();
         builder.append("query recording ").append(channelId);
-        builder.append(' ').append(DateUtils.getIsoDateFormat().format(recStartTs));
+        builder.append(' ').append(DateUtils.getIsoDateFormat().format(getTranslator().toOutboundDate(recStartTs)));
 
         return builder.toString();
     }

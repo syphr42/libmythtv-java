@@ -50,7 +50,7 @@ import org.syphr.mythtv.data.Channel;
         builder.append(' ');
         builder.append(channel.getId());
         builder.append(' ');
-        builder.append(TimeUnit.MILLISECONDS.toSeconds(recStartTs.getTime()));
+        builder.append(TimeUnit.MILLISECONDS.toSeconds(getTranslator().toOutboundDate(recStartTs).getTime()));
 
         return builder.toString();
     }

@@ -15,10 +15,12 @@
  */
 package org.syphr.mythtv.control.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.syphr.mythtv.commons.translate.AbstractTranslator;
+import org.syphr.mythtv.commons.translate.DateUtils;
 import org.syphr.mythtv.types.FrontendLocation;
 import org.syphr.mythtv.types.Key;
 import org.syphr.mythtv.types.PlaybackType;
@@ -232,6 +234,18 @@ public class Translator0_24 extends AbstractTranslator
             throw new IllegalArgumentException("Unknown type: " + type);
         }
 
-        return (BiMap) MAPS.get(type);
+        return (BiMap)MAPS.get(type);
+    }
+
+    @Override
+    public Date toOutboundDate(Date date)
+    {
+        return DateUtils.toLocal(date);
+    }
+
+    @Override
+    public Date toInboundDate(Date date)
+    {
+        return DateUtils.toUtc(date);
     }
 }

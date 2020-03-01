@@ -22,6 +22,7 @@ import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.ws.backend.impl._0_25.dvr.Encoder;
 import org.syphr.mythtv.ws.backend.impl._0_25.dvr.RecRule;
 
+//TODO remove versioned bean references
 public interface DvrService
 {
     public Integer addRecordSchedule(Integer chanId,

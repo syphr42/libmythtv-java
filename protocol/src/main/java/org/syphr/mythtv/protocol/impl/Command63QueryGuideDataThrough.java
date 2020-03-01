@@ -54,7 +54,7 @@ import org.syphr.mythtv.commons.translate.Translator;
 
         try
         {
-            return format.parse(response);
+            return getTranslator().toInboundDate(format.parse(response));
         }
         catch (ParseException e)
         {

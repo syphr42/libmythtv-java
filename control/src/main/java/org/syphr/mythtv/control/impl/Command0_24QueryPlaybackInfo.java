@@ -88,7 +88,7 @@ import org.syphr.mythtv.types.PlaybackType;
                             + Integer.parseInt(infoMatcher.group(4));
                     float speed = Float.parseFloat(infoMatcher.group(5));
                     Channel channel = new Channel(Integer.parseInt(infoMatcher.group(6)));
-                    Date start = DateUtils.getIsoDateFormat().parse(infoMatcher.group(7));
+                    Date start = getTranslator().toInboundDate(DateUtils.getIsoDateFormat().parse(infoMatcher.group(7)));
                     long currentFrame = Long.parseLong(infoMatcher.group(8));
                     URI location = UriUtils.toUri(infoMatcher.group(9));
                     float fps = Float.parseFloat(infoMatcher.group(10));

@@ -55,6 +55,7 @@ import org.syphr.mythtv.data.TimeInfo;
         try
         {
             TimeZone tz = TimeZone.getTimeZone(args.get(0));
+            // TODO in local?
             Date dateTime = DateUtils.getIsoDateFormat().parse(args.get(2));
 
             return new TimeInfo(dateTime, tz);

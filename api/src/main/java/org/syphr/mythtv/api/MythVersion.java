@@ -34,8 +34,8 @@ public enum MythVersion
           ServiceVersion._0_25,
           "0.25"),
 
-    _0_26(ProtocolVersion._74,
-          ControlVersion._0_25,
+    _0_26(ProtocolVersion._75,
+          ControlVersion._0_26,
           SchemaVersion._1293,
           ServiceVersion._0_25,
           "0.26");

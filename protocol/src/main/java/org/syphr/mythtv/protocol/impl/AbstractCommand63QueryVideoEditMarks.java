@@ -29,7 +29,8 @@ import org.syphr.mythtv.data.Channel;
 import org.syphr.mythtv.data.VideoEditInfo;
 import org.syphr.mythtv.types.VideoEditMark;
 
-/* default */abstract class AbstractCommand63QueryVideoEditMarks extends AbstractProtocolCommand<List<VideoEditInfo>>
+/* default */abstract class AbstractCommand63QueryVideoEditMarks extends
+                                                                 AbstractProtocolCommand<List<VideoEditInfo>>
 {
     private final Channel channel;
     private final Date recStartTs;
@@ -53,7 +54,7 @@ import org.syphr.mythtv.types.VideoEditMark;
         builder.append(' ');
         builder.append(channel.getId());
         builder.append(' ');
-        builder.append(TimeUnit.MILLISECONDS.toSeconds(recStartTs.getTime()));
+        builder.append(TimeUnit.MILLISECONDS.toSeconds(getTranslator().toOutboundDate(recStartTs).getTime()));
 
         return builder.toString();
     }
@@ -85,7 +86,8 @@ import org.syphr.mythtv.types.VideoEditMark;
 
             for (int i = 1; i < args.size();)
             {
-                edits.add(new VideoEditInfo(getTranslator().toEnum(args.get(i++), VideoEditMark.class),
+                edits.add(new VideoEditInfo(getTranslator().toEnum(args.get(i++),
+                                                                   VideoEditMark.class),
                                             ProtocolUtils.combineInts(args.get(i++), args.get(i++))));
             }
 

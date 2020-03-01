@@ -55,7 +55,7 @@ import org.syphr.mythtv.data.Channel;
         builder.append("DELETE_RECORDING ");
         builder.append(channel.getId());
         builder.append(' ');
-        builder.append(DateUtils.getMySqlDateFormat().format(recStartTs));
+        builder.append(DateUtils.getMySqlDateFormat().format(getTranslator().toOutboundDate(recStartTs)));
         builder.append(' ');
         builder.append(force ? "FORCE" : "NO_FORCE");
         builder.append(' ');

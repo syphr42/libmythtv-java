@@ -21,6 +21,7 @@ import org.syphr.mythtv.ws.backend.impl._0_25.video.BlurayInfo;
 import org.syphr.mythtv.ws.backend.impl._0_25.video.VideoLookup;
 import org.syphr.mythtv.ws.backend.impl._0_25.video.VideoMetadataInfo;
 
+//TODO remove versioned bean references
 public interface VideoService
 {
     public boolean addVideo(String fileName, String hostName);

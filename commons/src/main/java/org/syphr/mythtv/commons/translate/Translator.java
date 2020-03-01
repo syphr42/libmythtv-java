@@ -16,6 +16,7 @@
 package org.syphr.mythtv.commons.translate;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -44,4 +45,8 @@ public interface Translator
     public boolean toBooleanFromInt(String value) throws ProtocolException;
 
     public boolean toBooleanFromStr(String value) throws ProtocolException;
+
+    public Date toOutboundDate(Date date);
+
+    public Date toInboundDate(Date date);
 }

@@ -25,5 +25,6 @@ package org.syphr.mythtv.control;
 public enum ControlVersion
 {
     _0_24,
-    _0_25;
+    _0_25,
+    _0_26;
 }

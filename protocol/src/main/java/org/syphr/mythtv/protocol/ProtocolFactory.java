@@ -20,6 +20,7 @@ import org.syphr.mythtv.protocol.impl.Protocol63;
 import org.syphr.mythtv.protocol.impl.Protocol72;
 import org.syphr.mythtv.protocol.impl.Protocol73;
 import org.syphr.mythtv.protocol.impl.Protocol74;
+import org.syphr.mythtv.protocol.impl.Protocol75;
 
 /**
  * This class acts as a bridge to the various protocol implementations.
@@ -69,6 +70,9 @@ public class ProtocolFactory
 
             case _74:
                 return new Protocol74(socketManager);
+
+            case _75:
+                return new Protocol75(socketManager);
 
             default:
                 throw new IllegalArgumentException("Unknown protocol version: " + version);

@@ -20,6 +20,7 @@ import java.util.Calendar;
 import org.syphr.mythtv.data.Program;
 import org.syphr.mythtv.ws.backend.impl._0_25.guide.ProgramGuide;
 
+//TODO remove versioned bean references
 public interface GuideService
 {
     public String getChannelIcon(Integer chanId, Integer width, Integer height);

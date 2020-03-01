@@ -24,6 +24,7 @@ import org.syphr.mythtv.ws.backend.impl._0_25.myth.LogMessage;
 import org.syphr.mythtv.ws.backend.impl._0_25.myth.SettingList;
 import org.syphr.mythtv.ws.backend.impl._0_25.myth.StorageGroupDir;
 
+//TODO remove versioned bean references
 public interface MythService
 {
     public boolean addStorageGroupDir(String groupName, String dirName, String hostName);

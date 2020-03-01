@@ -51,7 +51,7 @@ import org.syphr.mythtv.data.Program;
         builder.append("QUERY_RECORDING TIMESLOT ");
         builder.append(channel.getId());
         builder.append(' ');
-        builder.append(DateUtils.getMySqlDateFormat().format(recStartTs));
+        builder.append(DateUtils.getMySqlDateFormat().format(getTranslator().toOutboundDate(recStartTs)));
 
         return builder.toString();
     }

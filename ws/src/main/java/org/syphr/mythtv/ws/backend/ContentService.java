@@ -21,6 +21,7 @@ import java.util.List;
 import org.syphr.mythtv.ws.backend.impl._0_25.content.ArtworkInfo;
 import org.syphr.mythtv.ws.backend.impl._0_25.content.LiveStreamInfo;
 
+// TODO remove versioned bean references 
 public interface ContentService
 {
     public LiveStreamInfo addLiveStream(String storageGroup,

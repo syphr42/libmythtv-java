@@ -17,6 +17,9 @@ package org.syphr.mythtv.commons.translate;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 public class DateUtils
@@ -27,7 +30,7 @@ public class DateUtils
 
     /**
      * Retrieve the common ISO date format.
-     *
+     * 
      * @return the date format
      */
     public static DateFormat getIsoDateFormat()
@@ -37,7 +40,7 @@ public class DateUtils
 
     /**
      * Retrieve MySQL's standard date format.
-     *
+     * 
      * @return the date format
      */
     public static DateFormat getMySqlDateFormat()
@@ -47,7 +50,7 @@ public class DateUtils
 
     /**
      * Retrieve the regular expression pattern for the common ISO date format.
-     *
+     * 
      * @return the date pattern
      */
     public static Pattern getIsoDatePattern()
@@ -58,12 +61,40 @@ public class DateUtils
     /**
      * Retrieve the regular expression pattern for the MySQL standard date
      * format.
-     *
+     * 
      * @return the date pattern
      */
     public static Pattern getMySqlDatePattern()
     {
         return MYSQL_DATE_PATTERN;
+    }
+
+    public static Date toUtc(Date date)
+    {
+        if (date == null)
+        {
+            return null;
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MILLISECOND, -TimeZone.getDefault().getOffset(date.getTime()));
+
+        return cal.getTime();
+    }
+
+    public static Date toLocal(Date date)
+    {
+        if (date == null)
+        {
+            return null;
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MILLISECOND, TimeZone.getDefault().getOffset(date.getTime()));
+
+        return cal.getTime();
     }
 
     private DateUtils()

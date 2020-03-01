@@ -61,7 +61,7 @@ import org.syphr.mythtv.commons.translate.Translator;
          */
         builder.append(maxStartTime == null
                 ? '-'
-                : DateUtils.getIsoDateFormat().format(maxStartTime)).append(' ');
+                : DateUtils.getIsoDateFormat().format(getTranslator().toOutboundDate(maxStartTime))).append(' ');
 
         builder.append(getReason());
 

@@ -50,7 +50,7 @@ import org.syphr.mythtv.commons.translate.Translator;
         return "play program "
                 + channelId
                 + " "
-                + DateUtils.getIsoDateFormat().format(recStartTs)
+                + DateUtils.getIsoDateFormat().format(getTranslator().toOutboundDate(recStartTs))
                 + " "
                 + getTranslator().toString(resume);
     }
